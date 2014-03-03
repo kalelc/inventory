@@ -8,26 +8,26 @@ use Security\Model\Login;
 use Security\Form\LoginForm;
 
 use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Storage\Session as SessionStorage;
+
+use Security\Traits\SecurityTrait;
 
 class SessionController extends AbstractActionController
 {
+	use SecurityTrait;
+
 	public function indexAction()
 	{
-
-		$auth = new AuthenticationService();
-		dumpx($auth->getIdentity());
+		dumpx($this->getAuthSessionAdapter()->getIdentity(),"SessionController::index");
 	}
 
 	public function loginAction()
 	{
-		/*$form = new LoginForm();
+		$form = new LoginForm();
 
 		$viewModel = new ViewModel();
 		$viewModel->setVariable("form",$form);
 
 		$request = $this->getRequest();
-		
 		if($request->isPost()) {
 
 			$login = new Login();
@@ -35,30 +35,27 @@ class SessionController extends AbstractActionController
 			$form->setInputFilter($login->getInputFilter());
 			$form->setData($request->getPost());
 
-			if ($form->isValid()){*/
+			if ($form->isValid()){
 
-				$authSessionAdapter = $this->getServiceLocator()->get("Security\Adapter\AuthSessionAdapter");
+				/*@todo pendiente obtener valores enviados*/
+
+				$authSessionAdapter = $this->getAuthSessionAdapter();
 				$authentication = $authSessionAdapter->authenticate("kalelc","123456");
 
-				/*
-				$authService = new AuthenticationService();
-				$authService->setStorage(new SessionStorage(SessionStorage::NAMESPACE_DEFAULT));
-				$authService->setAdapter($authSessionAdapter);
-				$authService->authenticate();
-				dumpx($authService->authenticate()->isValid());
-
-				dumpx($authSessionAdapter);*/
-				//dumpx($authService->getAdapter());
-
-			//}
-		//}
-
-		//return $viewModel;
+				if(is_object($authentication)) {
+					return $this->redirect()->toRoute('product');
+				}
+				else
+					dumpx($authentication,"es un mensaje");
+			}
+		}
+		return $viewModel;
 	}
 
 	public function logoutAction()
 	{
-		$auth = new AuthenticationService();
-		dumpx($auth->clearIdentity());
+		$this->getAuthSessionAdapter()->clearIdentity();
+		return $this->redirect()->toRoute('security/login');
+
 	}
 }

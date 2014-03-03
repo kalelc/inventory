@@ -1,7 +1,7 @@
 <?php
 namespace Security\Traits;
 
-Trait SecurityTablesTrait
+Trait SecurityTrait
 {
 	public function getUserTable()
 	{
@@ -18,6 +18,15 @@ Trait SecurityTablesTrait
 			$rolTable = $this->getServiceLocator()->get('Security\Model\RolTable');
 		}
 		return $rolTable;
+	}
+
+	public function getAuthSessionAdapter()
+	{
+		$authSessionAdapter = "";
+		if(!$authSessionAdapter){
+			$authSessionAdapter = $this->getServiceLocator()->get("Security\Adapter\AuthSessionAdapter");
+		}
+		return $authSessionAdapter;
 	}
 }
 ?>

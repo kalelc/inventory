@@ -5,13 +5,13 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Security\Model\Rol;
 use Security\Form\RolForm;
-use Security\Traits\SecurityTablesTrait;
+use Security\Traits\SecurityTrait;
 use Application\ConfigAwareInterface;
 
 class RolController extends AbstractActionController
 implements ConfigAwareInterface
 {
-	use SecurityTablesTrait;
+	use SecurityTrait;
 	
 	private $config;
 

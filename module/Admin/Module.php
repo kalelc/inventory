@@ -43,8 +43,11 @@ use Admin\Form\CategoryForm;
 use Admin\Form\ProductForm;
 
 use Admin\Service\FileService;
+use Zend\ModuleManager\ModuleManager;
 
 use Application\ConfigAwareInterface;
+
+use Zend\Authentication\AuthenticationService;
 
 class Module
 {
@@ -75,8 +78,26 @@ class Module
 						$instance->setConfig($config);
 					}
 				}
-			)
-		);
+				)
+			);
+	}
+
+	public function init(ModuleManager $moduleManager)
+	{
+		$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+
+		dumpx($moduleManager);
+
+		$sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
+		{
+			$controller = $e->getTarget();
+			$controller->layout('layout/layout');
+			$identity = "valor";
+
+			$authSessionAdapter = $this->getServiceLocator()->get("Security\Adapter\AuthSessionAdapter");
+			///getIdentity
+			$controller->layout()->setVariable("identity",$identity);
+		}, 100);
 	}
 
 
@@ -323,7 +344,7 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new CategorySpecification());
 					return new TableGateway('categories_specifications', $dbAdapter, null, $resultSetPrototype);
 				}
-			),
-		);
-	}
+				),
+);
+}
 }
