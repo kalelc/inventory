@@ -1,0 +1,32 @@
+<?php
+$title = $this->config['component']['rol'][0];
+$this->headTitle($title);
+?>
+<h2>
+	<?php echo $this->escapeHtml($title); ?>
+</h2>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+		'rol',
+		array(
+				'action' => 'security/edit',
+				'id'     => $this->id,
+		)
+));
+$form->prepare();?>
+<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->formHidden($form->get('id')); ?>
+<?php echo $this->formHidden($form->get('csrf'));?>
+<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
+<?php echo $this->formInput($form->get('name')); ?>
+<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
+<?php echo $this->formTextarea($form->get('description')); ?>
+<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+<br>
+<br>
+<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+&nbsp;
+<a href="<?php $this->url('security/rol'); ?>"><?php echo $this->config['action']['return'] ; ?></a>
+<?php echo $this->form()->closeTag(); ?>

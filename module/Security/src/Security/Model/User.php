@@ -1,0 +1,355 @@
+<?php
+namespace Security\Model;
+
+use Zend\ServiceManager\FactoryInterface;
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+use Casper\Model\OAuthTools;
+use Zend\Authentication\AuthenticationService;
+use Zend\Session\Container;
+
+class User implements InputFilterAwareInterface
+{
+
+    private $id;
+    private $firstName;
+    private $lastName;
+    private $username;
+    private $email;
+    private $picture;
+    private $signature;
+    private $rol;
+    private $password;
+    private $status;
+
+    protected $inputFilter;
+
+    public function exchangeArray($data)
+    {
+        if (array_key_exists('id', $data)) $this->setId($data['id']);
+        if (array_key_exists('first_name', $data)) $this->setFirstName($data['first_name']);
+        if (array_key_exists('last_name', $data)) $this->setLastName($data['last_name']);
+        if (array_key_exists('username', $data)) $this->setUsername($data['username']);
+        if (array_key_exists('email', $data)) $this->setEmail($data['email']);
+        if (array_key_exists('picture', $data)) $this->setPicture($data['picture']);
+        if (array_key_exists('signature', $data)) $this->setSignature($data['signature']);
+        if (array_key_exists('rol', $data)) $this->setRol($data['rol']);
+        if (array_key_exists('password', $data)) $this->setPassword($data['password']);
+        if (array_key_exists('status', $data)) $this->setStatus($data['status']);
+    }
+
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
+
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not used");
+    }
+
+    public function getInputFilter()
+    {
+        if (! $this->inputFilter) {
+            $inputFilter = new InputFilter();
+            $factory = new InputFactory();
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'id',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'Int'
+                        )
+                    )
+                )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'portal_id',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'Int'
+                        )
+                    )
+                )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'first_name',
+                'required' => true,
+                'filters' => array(
+                    array(
+                        'name' => 'StripTags'
+                        ),
+                    array(
+                        'name' => 'StringTrim'
+                        )
+                    ),
+                'validators' => array(
+                    array(
+                        'name' => 'regex',
+                        'options' => array(
+                            'pattern' => '/^[a-zA-ZñÑÁÉÍÓÚáéíóú ]*$/',
+                            'messages' => array(
+                                "regexInvalid" => 'No utilice caracteres especiales o numeros en este campo',
+                                "regexNotMatch" => 'No utilice caracteres especiales o numeros en este campo',
+                                "regexErrorous" => 'No utilice caracteres especiales o numeros en este campo'
+                                )
+                            )
+                        ),
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'El campo es obligatorio'
+                                )
+                            )
+                        )
+                    )
+)));
+}
+return $this->inputFilter;
+}
+
+    /**
+     * Gets the value of id.
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of firstName.
+     *
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+    
+    /**
+     * Sets the value of firstName.
+     *
+     * @param mixed $firstName the first name
+     *
+     * @return self
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of lastName.
+     *
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+    
+    /**
+     * Sets the value of lastName.
+     *
+     * @param mixed $lastName the last name
+     *
+     * @return self
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of username.
+     *
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    
+    /**
+     * Sets the value of username.
+     *
+     * @param mixed $username the username
+     *
+     * @return self
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of email.
+     *
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+    
+    /**
+     * Sets the value of email.
+     *
+     * @param mixed $email the email
+     *
+     * @return self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of picture.
+     *
+     * @return mixed
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+    
+    /**
+     * Sets the value of picture.
+     *
+     * @param mixed $picture the picture
+     *
+     * @return self
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of signature.
+     *
+     * @return mixed
+     */
+    public function getSignature()
+    {
+        return $this->signature;
+    }
+    
+    /**
+     * Sets the value of signature.
+     *
+     * @param mixed $signature the signature
+     *
+     * @return self
+     */
+    public function setSignature($signature)
+    {
+        $this->signature = $signature;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of rol.
+     *
+     * @return mixed
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
+    
+    /**
+     * Sets the value of rol.
+     *
+     * @param mixed $rol the rol
+     *
+     * @return self
+     */
+    public function setRol($rol)
+    {
+        $this->rol = $rol;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of password.
+     *
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    
+    /**
+     * Sets the value of password.
+     *
+     * @param mixed $password the password
+     *
+     * @return self
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of status.
+     *
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
+    /**
+     * Sets the value of status.
+     *
+     * @param mixed $status the status
+     *
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+}

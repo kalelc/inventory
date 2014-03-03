@@ -1,0 +1,37 @@
+<?php
+$title = $this->config['component']['specification_master'][0];
+$this->headTitle($title);
+?>
+<h2>
+	<?php echo $this->escapeHtml($title); ?>
+</h2>
+<br>
+<?php $form = $this->form; ?>
+<?php $form->setAttribute('action', $this->url('specification_master', array('action' => 'add'))); ?>
+<?php $form->prepare(); ?>
+<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->formHidden($form->get('id')); ?>
+<?php echo $this->formHidden($form->get('csrf')); ?>
+<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
+<?php echo $this->formInput($form->get('name')); ?>
+<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+<div class="clearfix"></div>
+<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'][1])); ?>
+<?php echo $this->formInput($form->get('image')); ?>
+<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
+<p class="help-block">
+Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+Tama&ntilde;o: 
+<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+	<?php echo $range." ".$size ; ?>
+<?php endforeach; ?>
+</p>
+<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
+<?php echo $this->formTextarea($form->get('description')); ?>
+<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+<br>
+<br>
+<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+&nbsp;
+<a href="/specification-master"><?php echo $this->config['action']['return'] ; ?> </a>
+<?php echo $this->form()->closeTag(); ?>

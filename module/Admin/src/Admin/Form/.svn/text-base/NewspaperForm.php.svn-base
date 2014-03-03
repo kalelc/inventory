@@ -1,0 +1,88 @@
+<?php
+namespace Admin\Form;
+
+use Zend\Di\ServiceLocator;
+
+use Zend\Captcha\AdapterInterface as CaptchaAdapter;
+use Zend\Form\Form;
+use Zend\Form\Element;
+
+use Tools\Model\PortalTable;
+
+class NewspaperForm extends Form
+{
+	protected $portalTable;	
+	
+	public function __construct(PortalTable $portalTable)
+	{		
+		$this->setPortalTable($portalTable);		
+		
+		parent::__construct('newspaper');
+		$this->setAttribute('method', 'post');
+		$this->setAttribute('class', 'form-horizontal');
+
+		$this->add(array(
+				'name' => 'id',
+				'attributes' => array(
+						'type'  => 'hidden',
+				),
+		));
+
+		$this->add(array(
+				'name' => 'name',
+				'attributes' => array(
+						'type'  => 'text',
+				),
+				'options' => array(
+						'label' => 'Name',
+				),
+		));
+		
+		$this->add(array(
+				'type' => 'Select',
+				'name' => 'portal_id',
+				'options' => array(
+						'label' => 'portal_id',
+						'empty_option' => 'Seleccione un portal',
+						'value_options' => $this->getOptionsPortal(),		
+				)
+		));
+
+		$this->add(array(
+				'name' => 'submit',
+				'attributes' => array(
+						'type'  => 'submit',
+						'value' => 'Go',
+						'id' => 'submitbutton',
+				),
+		));
+	}
+	
+	//portal
+	public function getOptionsPortal()
+	{
+	
+		$table = $this->getPortalTable();
+		$data  = $table->fetchAll();
+		$selectData = array();
+	
+		foreach ($data as $selectOption) {
+			$selectData[$selectOption->id] = $selectOption->name;
+		}
+	
+		return $selectData;
+	}
+	
+	public function setPortalTable($portalTable)
+	{
+		$this->portalTable = $portalTable;
+	
+		return $this;
+	}
+	
+	public function getPortalTable()
+	{
+		return $this->portalTable;
+	}
+	
+}

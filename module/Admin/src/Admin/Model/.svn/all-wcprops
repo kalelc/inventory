@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model
+END
+Newspaper.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model/Newspaper.php
+END
+FieldTypeTable.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model/FieldTypeTable.php
+END
+DisplayType.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model/DisplayType.php
+END
+ExtendedFieldTable.php
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model/ExtendedFieldTable.php
+END
+ExtendedField.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model/ExtendedField.php
+END
+DisplayTypeTable.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model/DisplayTypeTable.php
+END
+FieldType.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model/FieldType.php
+END
+NewspaperTable.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Model/NewspaperTable.php
+END

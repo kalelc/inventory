@@ -1,0 +1,30 @@
+<?php
+$title = $this->config['component']['measure_type'][0];
+$this->headTitle($title);
+?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'measure_type',
+    array(
+        'action' => 'edit',
+        'id'     => $this->id,
+    )
+));
+$form->prepare();?>
+<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->formHidden($form->get('id')); ?>
+<?php echo $this->formHidden($form->get('csrf'));?>
+<?php echo $this->formLabel($form->get('abbreviation')->setLabel($this->config['component']['abbreviation'])); ?>
+<?php echo $this->formInput($form->get('abbreviation')); ?>
+<?php echo $this->formElementErrors($form->get('abbreviation'), array("class" => "error")); ?>
+<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'])); ?>
+<?php echo $this->formInput($form->get('name')); ?>
+<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'])); ?>
+<?php echo $this->formTextarea($form->get('description')); ?>
+<br><br>
+<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+&nbsp;<a href="/measure-type"><?php echo $this->config['action']['return'] ; ?></a>
+<?php echo $this->form()->closeTag(); ?>

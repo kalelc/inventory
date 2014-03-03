@@ -1,0 +1,23 @@
+<?php
+$title = $this->config['component']['specification'][0];
+$this->headTitle($title);
+?>
+<h2>
+	<?php echo $this->escapeHtml($title); ?>
+</h2>
+<p>
+	Esta seguro que quiere borrar '<?php echo $this->escapeHtml($specification->getName()); ?>'?
+</p>
+<?php
+$url = $this->url('specification', array(
+		'action' => 'delete',
+		'id'=> $this->id,
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+	<div>
+		<input type="hidden" name="id"
+			value="<?php echo (int) $specification->getId(); ?>" /> <input type="submit"
+			name="del" value="Si" /> <input type="submit" name="del" value="No" />
+	</div>
+</form>

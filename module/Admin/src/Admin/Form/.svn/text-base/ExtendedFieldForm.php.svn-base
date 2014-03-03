@@ -1,0 +1,195 @@
+<?php
+namespace Admin\Form;
+
+use Zend\Di\ServiceLocator;
+
+use Zend\Captcha\AdapterInterface as CaptchaAdapter;
+use Zend\Form\Form;
+use Zend\Form\Element;
+
+use Admin\Model\FieldTypeTable;
+use Admin\Model\DisplayTypeTable;
+use Tools\Model\PortalTable;
+
+class ExtendedFieldForm extends Form
+{
+	protected $fieldTypeTable;
+	protected $displayTypeTable;
+	protected $portalTable;
+	
+	
+	public function __construct(FieldTypeTable $fieldTypeTable,DisplayTypeTable $displayTypeTable,PortalTable $portalTable)
+	{		
+		$this->setFieldTypeTable($fieldTypeTable);
+		$this->setdisplayTypeTable($displayTypeTable);
+		$this->setPortalTable($portalTable);		
+		
+		parent::__construct('extendedField');
+		$this->setAttribute('method', 'post');
+		$this->setAttribute('class', 'form-horizontal');
+
+		$this->add(array(
+				'name' => 'id',
+				'attributes' => array(
+						'type'  => 'hidden',
+				),
+		));
+
+		$this->add(array(
+				'name' => 'name',
+				'attributes' => array(
+						'type'  => 'text',
+				),
+				'options' => array(
+						'label' => 'Name',
+				),
+		));
+		
+		$this->add(array(
+				'name' => 'possibleValues',
+				'attributes' => array(
+						'type'  => 'textarea',
+				),
+				'options' => array(
+						'label' => 'Possible Values',
+				),
+		));
+		
+		$this->add(array(
+				'name' => 'regex',
+				'attributes' => array(
+						'type'  => 'textarea',
+				),
+				'options' => array(
+						'label' => 'Regex',
+				),
+		));
+		
+		$this->add(array(
+				'type' => 'Select',
+				'name' => 'fieldType_id',
+				'options' => array(
+						'label' => 'fieldType_id',
+						'empty_option' => 'Seleccione un fieldType',
+						'value_options' => $this->getOptionsFieldType(),
+		
+				)
+		));
+		
+		$this->add(array(
+				'type' => 'Select',
+				'name' => 'displayType_id',
+				'options' => array(
+						'label' => 'displayType_id',
+						'empty_option' => 'Seleccione un displayType',
+						'value_options' => $this->getOptionsDisplayType(),
+		
+				)
+		));
+		
+		$this->add(array(
+				'type' => 'Select',
+				'name' => 'portal_id',
+				'options' => array(
+						'label' => 'portal_id',
+						'empty_option' => 'Seleccione un portal',
+						'value_options' => $this->getOptionsPortal(),
+		
+				)
+		));
+		
+
+
+		$this->add(array(
+				'name' => 'submit',
+				'attributes' => array(
+						'type'  => 'submit',
+						'value' => 'Go',
+						'id' => 'submitbutton',
+				),
+		));
+	}
+	
+	
+	//fieldtype
+	public function getOptionsFieldType()
+	{
+	
+		$table = $this->getFieldTypeTable();
+		$data  = $table->fetchAll();
+		$selectData = array();
+	
+		foreach ($data as $selectOption) {
+			$selectData[$selectOption->id] = $selectOption->name;
+		}
+	
+		return $selectData;
+	}
+	
+	public function setFieldTypeTable($fieldTypeTable)
+	{
+		$this->fieldTypeTable = $fieldTypeTable;
+	
+		return $this;
+	}
+	
+	public function getFieldTypeTable()
+	{
+		return $this->fieldTypeTable;
+	}
+	
+	//displayTypeTable
+	public function getOptionsDisplayType()
+	{
+	
+		$table = $this->getdisplayTypeTable();
+		$data  = $table->fetchAll();
+		$selectData = array();
+	
+		foreach ($data as $selectOption) {
+			$selectData[$selectOption->id] = $selectOption->name;
+		}
+	
+		return $selectData;
+	}
+	
+	public function setdisplayTypeTable($displayTypeTable)
+	{
+		$this->displayTypeTable = $displayTypeTable;
+	
+		return $this;
+	}
+	
+	public function getdisplayTypeTable()
+	{
+		return $this->displayTypeTable;
+	}
+	
+	//portal
+	public function getOptionsPortal()
+	{
+	
+		$table = $this->getPortalTable();
+		$data  = $table->fetchAll();
+		$selectData = array();
+	
+		foreach ($data as $selectOption) {
+			$selectData[$selectOption->id] = $selectOption->name;
+		}
+	
+		return $selectData;
+	}
+	
+	public function setPortalTable($portalTable)
+	{
+		$this->portalTable = $portalTable;
+	
+		return $this;
+	}
+	
+	public function getPortalTable()
+	{
+		return $this->portalTable;
+	}
+	
+}

@@ -1,0 +1,261 @@
+<?php
+$this->headScript()->prependFile('/js/product.js', 'text/javascript');
+$title = $this->config['component']['product'][0];
+$this->headTitle($title);
+?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+<ul class="nav nav-tabs">
+	<li class="list-nav-tab active">
+		<a href="#" id='tabs-link-product'><?php echo $this->config['component']['product'][0]; ?></a>
+	</li>
+	<li class="list-nav-tab">
+		<a href="#" id='tabs-link-product-files'><?php echo $this->config['component']['file'][0] ?></a>
+	</li>
+	<li class="list-nav-tab">
+		<a href="#" id='tabs-link-product-specifications'><?php echo $this->config['component']['specification'][0] ?></a>
+	</li>
+</ul>
+<?php $form = $this->form; ?>
+<?php $form->setAttribute('action', $this->url('product', array('action' => 'add'))); ?>
+<?php $form->prepare(); ?>
+<?php echo $this->form()->openTag($form); ?>
+<br><br>
+<div class="clearfix"></div>
+<div id='tab-product'>
+	<?php echo $this->formHidden($form->get('id')); ?>
+	<?php echo $this->formHidden($form->get('csrf'));?>
+	<div class="form-group">
+		<div class="col-lg-8">
+			<?php echo $this->formLabel($form->get('upc_bar_code')->setLabel($this->config['component']['upc_bar_code'][1])); ?>
+			<?php echo $this->formText($form->get('upc_bar_code')); ?>
+			<?php echo $this->formElementErrors($form->get('upc_bar_code'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-6">
+			<?php echo $this->formLabel($form->get('model')->setLabel($this->config['component']['model'][1])); ?>
+			<?php echo $this->formText($form->get('model')); ?>
+			<?php echo $this->formElementErrors($form->get('model'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-6">
+			<?php echo $this->formLabel($form->get('brand')->setLabel($this->config['component']['brand'][1])); ?>
+			<?php echo $this->formSelect($form->get('brand')); ?>
+			<?php echo $this->formElementErrors($form->get('brand'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-6">
+			<?php echo $this->formLabel($form->get('category')->setLabel($this->config['component']['category'][1])); ?>
+			<?php echo $this->formSelect($form->get('category')); ?>
+			<?php echo $this->formElementErrors($form->get('category'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-6">
+			<?php echo $this->formLabel($form->get('no_part')->setLabel($this->config['component']['no_part'][1])); ?>
+			<?php echo $this->formText($form->get('no_part')); ?>
+			<?php echo $this->formElementErrors($form->get('no_part'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-3">
+			<?php echo $this->formLabel($form->get('price')->setLabel($this->config['component']['price'][1])); ?>
+			<div class="input-group">
+				<span class="input-group-addon">$</span>
+				<?php echo $this->formText($form->get('price')); ?>
+				<span class="input-group-addon">.00</span>
+			</div>
+			<?php echo $this->formElementErrors($form->get('price'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-4">
+			<?php echo $this->formLabel($form->get('iva')->setLabel($this->config['component']['iva'][1])); ?>
+			<div class="input-group">
+				<?php echo $this->formCheckbox($form->get('iva')); ?>
+			</div>
+			<?php echo $this->formElementErrors($form->get('iva'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-2">
+			<?php echo $this->formLabel($form->get('qty_low')->setLabel($this->config['component']['qty_low'][1])); ?>
+			<?php echo $this->formText($form->get('qty_low')); ?>
+			<?php echo $this->formElementErrors($form->get('qty_low'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-2">
+			<?php echo $this->formLabel($form->get('qty_buy')->setLabel($this->config['component']['qty_buy'][1])); ?>
+			<?php echo $this->formText($form->get('qty_buy')); ?>
+			<?php echo $this->formElementErrors($form->get('qty_buy'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-6">
+			<?php echo $this->formLabel($form->get('status')->setLabel($this->config['component']['status'][1])); ?>
+			<?php echo $this->formSelect($form->get('status')); ?>
+			<?php echo $this->formElementErrors($form->get('status'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-6">
+			<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
+			<?php echo $this->formTextarea($form->get('description')); ?>
+		</div>
+	</div>
+</div>
+<div id='tab-product-files'>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('specification_file')->setLabel($this->config['component']['specification_file'][1])); ?>
+			<?php echo $this->formInput($form->get('specification_file')); ?>
+			<?php echo $this->formElementErrors($form->get('specification_file'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['file']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['file']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('image1')->setLabel($this->config['component']['image'][1])); ?>
+			<?php echo $this->formInput($form->get('image1')); ?>
+			<?php echo $this->formElementErrors($form->get('image1'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('image2')->setLabel($this->config['component']['image'][1])); ?>
+			<?php echo $this->formInput($form->get('image2')); ?>
+			<?php echo $this->formElementErrors($form->get('image2'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('image3')->setLabel($this->config['component']['image'][1])); ?>
+			<?php echo $this->formInput($form->get('image3')); ?>
+			<?php echo $this->formElementErrors($form->get('image3'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('image4')->setLabel($this->config['component']['image'][1])); ?>
+			<?php echo $this->formInput($form->get('image4')); ?>
+			<?php echo $this->formElementErrors($form->get('image4'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('image5')->setLabel($this->config['component']['image'][1])); ?>
+			<?php echo $this->formInput($form->get('image5')); ?>
+			<?php echo $this->formElementErrors($form->get('image5'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('image6')->setLabel($this->config['component']['image'][1])); ?>
+			<?php echo $this->formInput($form->get('image6')); ?>
+			<?php echo $this->formElementErrors($form->get('image6'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('manual_file')->setLabel($this->config['component']['manual_file'][1])); ?>
+			<?php echo $this->formInput($form->get('manual_file')); ?>
+			<?php echo $this->formElementErrors($form->get('manual_file'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="form-group">
+		<div class="col-lg-12">
+			<?php echo $this->formLabel($form->get('video')->setLabel($this->config['component']['video'][1])); ?>
+			<?php echo $this->formInput($form->get('video')); ?>
+			<?php echo $this->formElementErrors($form->get('video'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+</div>
+
+<div id='tab-product-specifications'>
+	
+</div>
+
+<div class="row">
+	<div class="span4">
+		<div class="form-group">
+			<div class="col-lg-8">
+				<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+				&nbsp;<a href="/measure-type"><?php echo $this->config['action']['return'] ;?></a>
+				<?php echo $this->form()->closeTag(); ?>
+			</div>
+		</div>
+	</div>
+</div>

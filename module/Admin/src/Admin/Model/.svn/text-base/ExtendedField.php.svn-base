@@ -1,0 +1,141 @@
+<?php
+namespace Admin\Model;
+
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+
+class ExtendedField implements InputFilterAwareInterface
+{
+	public $id;
+	public $name;
+	public $possibleValues;
+	public $regex;
+	public $currentTimestamp;
+	public $fieldType_id;
+	public $displayType_id;
+	public $portal_id;
+	protected $inputFilter;
+
+	public function exchangeArray($data)
+	{
+		$this->id     = (isset($data['id'])) ? $data['id'] : null;
+		$this->name = (isset($data['name'])) ? $data['name'] : null;
+		$this->possibleValues  = (isset($data['possibleValues'])) ? $data['possibleValues'] : null;
+		$this->regex  = (isset($data['regex'])) ? $data['regex'] : null;
+		$this->currentTimestamp  = (isset($data['currentTimestamp'])) ? $data['currentTimestamp'] : null;
+		$this->fieldType_id  = (isset($data['fieldType_id'])) ? $data['fieldType_id'] : null;		
+		$this->displayType_id  = (isset($data['displayType_id'])) ? $data['displayType_id'] : null;
+		$this->portal_id  = (isset($data['portal_id'])) ? $data['portal_id'] : null;
+	}
+
+	public function getArrayCopy()
+	{
+		return get_object_vars($this);
+	}
+
+	public function setInputFilter(InputFilterInterface $inputFilter)
+	{
+		throw new \Exception("Not used");
+	}
+
+	public function getInputFilter()
+	{
+		if (!$this->inputFilter) {
+			$inputFilter = new InputFilter();
+			$factory     = new InputFactory();
+
+			$inputFilter->add($factory->createInput(array(
+					'name'     => 'id',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'Int'),
+					),
+			)));
+			
+			$inputFilter->add($factory->createInput(array(
+					'name'     => 'name',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+					),
+					'validators' => array(
+							array(
+									'name'    => 'StringLength',
+									'options' => array(
+											'encoding' => 'UTF-8',
+											'min'      => 3,
+											'max'      => 50,
+									),
+							),
+					),
+			)));			
+			
+			$inputFilter->add($factory->createInput(array(
+					'name'     => 'possibleValues',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+					),
+					'validators' => array(
+							array(
+									'name'    => 'StringLength',
+									'options' => array(
+											'encoding' => 'UTF-8',
+											'min'      => 3,
+											'max'      => 50,
+									),
+							),
+					),
+			)));
+			
+			$inputFilter->add($factory->createInput(array(
+					'name'     => 'regex',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+					),
+					'validators' => array(
+							array(
+									'name'    => 'StringLength',
+									'options' => array(
+											'encoding' => 'UTF-8'
+									),
+							),
+					),
+			)));
+			
+			
+			$inputFilter->add($factory->createInput(array(
+					'name'     => 'fieldType_id',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'Int'),
+					),
+			)));
+			
+			$inputFilter->add($factory->createInput(array(
+					'name'     => 'displayType_id',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'Int'),
+					),
+			)));
+			
+			$inputFilter->add($factory->createInput(array(
+					'name'     => 'portal_id',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'Int'),
+					),
+			)));
+			$this->inputFilter = $inputFilter;
+		}
+
+		return $this->inputFilter;
+	}
+}

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/nm/!svn/ver/67685/registro/trunk/module/Admin/src/Admin/Form
+END
+FieldTypeForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Form/FieldTypeForm.php
+END
+SearchForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/nm/!svn/ver/67685/registro/trunk/module/Admin/src/Admin/Form/SearchForm.php
+END
+NewspaperForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Form/NewspaperForm.php
+END
+DisplayTypeForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Form/DisplayTypeForm.php
+END
+ExtendedFieldForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/nm/!svn/ver/65001/registro/trunk/module/Admin/src/Admin/Form/ExtendedFieldForm.php
+END
