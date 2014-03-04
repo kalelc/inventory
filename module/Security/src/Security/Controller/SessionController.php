@@ -79,10 +79,12 @@ class SessionController extends AbstractActionController
 		$acl->allow($username, 'product', array('read','create'));
 		$acl->allow($username, 'bank', array('read','create'));
 
-		dumpx($acl->isAllowed($username, 'product','delete'));
+		$objetoSerializado = serialize($acl);
+		dump($objetoSerializado);
+		dump(unserialize($objetoSerializado));
+		exit();
 
-
-
+		dump($acl->isAllowed($username, 'product','delete'));
 		dump($acl,"acl");
 		dump($acl->getResources(),"getResources()");
 		dumpx($acl->getRoles(),"getRoles()");
