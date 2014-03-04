@@ -21,9 +21,6 @@ class AuthSessionAdapter
 
 	public function authenticate($username,$password)
 	{
-		$username = "kalelc";
-		$password = "123456";
-
 		$bcrypt = new Bcrypt();
 
 		$authDbAdapter = new AuthDbAdapter($this->dbAdapter,'users','username','password' ,'MD5(?)AND status = 1');
@@ -54,6 +51,12 @@ class AuthSessionAdapter
 		else {
 			return $authenticate->getMessages();
 		}
+	}
+
+	public function hasIdentity()
+	{
+		$authService = new AuthenticationService();
+		return $authService->hasIdentity();
 	}
 
 	public function getIdentity()

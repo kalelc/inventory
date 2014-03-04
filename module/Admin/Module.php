@@ -86,20 +86,20 @@ class Module
 	{
 		$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
 
-		dumpx($moduleManager);
-
 		$sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
 		{
 			$controller = $e->getTarget();
 			$controller->layout('layout/layout');
-			$identity = "valor";
-
-			$authSessionAdapter = $this->getServiceLocator()->get("Security\Adapter\AuthSessionAdapter");
-			///getIdentity
-			$controller->layout()->setVariable("identity",$identity);
+			$authSessionAdapter = $controller->getAuthSessionAdapter();
+			if($authSessionAdapter->hasIdentity()){
+				$identity = $authSessionAdapter->getIdentity();
+				$controller->layout()->setVariable("identity",$identity);
+			}
+			else {
+				$controller->plugin('redirect')->toRoute('security/login');
+			}
 		}, 100);
 	}
-
 
 	public function getServiceConfig()
 	{

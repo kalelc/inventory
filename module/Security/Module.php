@@ -8,6 +8,7 @@ use Zend\Mvc\MvcEvent;
 use Security\Adapter\AuthSessionAdapter;
 use Security\Model\RolTable;
 use Security\Model\Rol;
+use Zend\ModuleManager\ModuleManager;
 
 class Module
 {
@@ -17,6 +18,27 @@ class Module
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
+
+    /*
+    public function init(ModuleManager $moduleManager)
+    {
+        $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+
+        $sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
+        {
+            $controller = $e->getTarget();
+            $controller->layout('layout/layout');
+            $authSessionAdapter = $controller->getAuthSessionAdapter();
+            if($authSessionAdapter->hasIdentity()){
+                $identity = $authSessionAdapter->getIdentity();
+                $controller->layout()->setVariable("identity",$identity);
+            }
+            else {
+                $controller->plugin('redirect')->toRoute('security/login');
+            }
+        }, 100);
+    }
+    */
 
     public function getConfig()
     {
@@ -60,18 +82,18 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Rol());
                     return new TableGateway('roles', $dbAdapter, null, $resultSetPrototype, null);
                 },
-            ),
-        );
-    }
+                ),
+);
+}
 
-    public function getAutoloaderConfig()
-    {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+public function getAutoloaderConfig()
+{
+    return array(
+        'Zend\Loader\StandardAutoloader' => array(
+            'namespaces' => array(
+                __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
         );
-    }
+}
 }

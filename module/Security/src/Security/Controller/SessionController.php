@@ -3,13 +3,15 @@ namespace Security\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Authentication\AuthenticationService;
 
 use Security\Model\Login;
 use Security\Form\LoginForm;
-
-use Zend\Authentication\AuthenticationService;
-
 use Security\Traits\SecurityTrait;
+
+use Zend\Permissions\Acl\Acl;
+use Zend\Permissions\Acl\Role\GenericRole as Role;
+use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
 class SessionController extends AbstractActionController
 {
@@ -37,16 +39,23 @@ class SessionController extends AbstractActionController
 
 			if ($form->isValid()){
 
-				/*@todo pendiente obtener valores enviados*/
+				$username = $form->get('username')->getValue();
+				$password = $form->get('password')->getValue();
 
 				$authSessionAdapter = $this->getAuthSessionAdapter();
-				$authentication = $authSessionAdapter->authenticate("kalelc","123456");
+				$authentication = $authSessionAdapter->authenticate($username,$password);
 
 				if(is_object($authentication)) {
+
+					/*search by rol*/
+					
+					/*crear lista de control de accesos*/
 					return $this->redirect()->toRoute('product');
 				}
-				else
-					dumpx($authentication,"es un mensaje");
+				else {
+					//@todo revisar mensajes
+					$form->get("username")->setMessages(array('username' => "La dirección de correo electrónico o la contraseña que  introducido no es correcta."));
+				}
 			}
 		}
 		return $viewModel;
@@ -56,6 +65,27 @@ class SessionController extends AbstractActionController
 	{
 		$this->getAuthSessionAdapter()->clearIdentity();
 		return $this->redirect()->toRoute('security/login');
+
+	}
+
+	public function aclAction()
+	{
+
+		$acl = new Acl();
+		$username = "kalelc";
+		$acl->addRole(new Role($username));
+		$acl->addResource(new Resource('product'));
+		$acl->addResource(new Resource('bank'));
+		$acl->allow($username, 'product', array('read','create'));
+		$acl->allow($username, 'bank', array('read','create'));
+
+		dumpx($acl->isAllowed($username, 'product','delete'));
+
+
+
+		dump($acl,"acl");
+		dump($acl->getResources(),"getResources()");
+		dumpx($acl->getRoles(),"getRoles()");
 
 	}
 }

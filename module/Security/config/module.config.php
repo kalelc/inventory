@@ -52,6 +52,15 @@ return array(
                                 )
                             ),
                         ),
+                    'acl' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/acl',
+                            'defaults' => array(
+                                'action' => 'acl'
+                                )
+                            ),
+                        ),
                     ),
 ),
 ),
