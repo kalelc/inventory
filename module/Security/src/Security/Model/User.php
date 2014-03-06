@@ -20,6 +20,7 @@ class User implements InputFilterAwareInterface
     private $picture;
     private $signature;
     private $rol;
+    private $rolName;
     private $password;
     private $status;
 
@@ -35,6 +36,7 @@ class User implements InputFilterAwareInterface
         if (array_key_exists('picture', $data)) $this->setPicture($data['picture']);
         if (array_key_exists('signature', $data)) $this->setSignature($data['signature']);
         if (array_key_exists('rol', $data)) $this->setRol($data['rol']);
+        if (array_key_exists('rol_name', $data)) $this->setRolName($data['rol_name']);
         if (array_key_exists('password', $data)) $this->setPassword($data['password']);
         if (array_key_exists('status', $data)) $this->setStatus($data['status']);
     }
@@ -367,6 +369,15 @@ class User implements InputFilterAwareInterface
     public function setStatus($status)
     {
         $this->status = $status;
+        return $this;
+    }
+    public function getRolName()
+    {
+        return $this->rolName;
+    }
+    public function setRolName($rolName)
+    {
+        $this->rolName = $rolName;
         return $this;
     }
 }

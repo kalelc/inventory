@@ -10,6 +10,7 @@ use Security\Model\RolTable;
 use Security\Model\Rol;
 use Security\Model\UserTable;
 use Security\Model\User;
+use Security\Form\UserForm;
 use Zend\ModuleManager\ModuleManager;
 
 class Module
@@ -64,6 +65,18 @@ class Module
                     $table = new UserTable($tableGateway);
                     return $table;
                 },
+                'Security\Form\UserForm' => function($sm)
+                {
+                    $roles = $sm->get("Security\Model\RolTable")->fetchAll();
+                    $rolesList = array();
+
+                    foreach($roles as $rol) {
+                        $rolesList[$rol->getId()] = $rol->getName();
+                    }
+
+                    $form = new UserForm($rolesList);
+                    return $form;
+                },
                 'UserTableGateway' => function ($sm)
                 {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
@@ -84,9 +97,9 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Rol());
                     return new TableGateway('roles', $dbAdapter, null, $resultSetPrototype, null);
                 },
-                ),
-);
-}
+            ),
+        );
+    }
 
 public function getAutoloaderConfig()
 {

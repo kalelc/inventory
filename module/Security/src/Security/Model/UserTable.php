@@ -12,9 +12,7 @@ use Zend\Db\Sql\Predicate\Predicate;
 
 class UserTable
 {
-
     protected $tableGateway;
-
     protected $featureSet;
 
     public function __construct(TableGateway $tableGateway)
@@ -25,7 +23,12 @@ class UserTable
 
     public function fetchAll()
     {
-        $resultSet = $this->tableGateway->select();
+        $select = new Select();
+        $select->from($this->tableGateway->getTable());
+        $select->columns(array('*'));
+        $select->join('roles', "roles.id = users.rol", array('rol_name' => 'name'), 'inner');
+
+        $resultSet = $this->tableGateway->selectWith($select);
         return $resultSet;
     }
 
@@ -33,11 +36,9 @@ class UserTable
     {
 
         $select = new Select();
-        $select->from('users');
+        $select->from($this->tableGateway->getTable());
         $select->columns(array('*'));
-        $select->where($status === null ? array(
-            'users.username' => $username
-            ) : array(
+        $select->where($status === null ? array('users.username' => $username) : array(
             'users.username' => $username,
             'users.status' => $status
             ));
@@ -47,13 +48,4 @@ class UserTable
 
         return ! $row ? false : $row;
     }
-
-
-
-
-    public function getTable()
-    {
-        return $this->tableGateway->getTable();
-    }
-
 }

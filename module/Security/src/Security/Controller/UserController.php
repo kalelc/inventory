@@ -25,7 +25,8 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		$form = new UserForm();
+		//$form = new UserForm();
+		$form = $this->getServiceLocator()->get("Security\Form\UserForm");
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
