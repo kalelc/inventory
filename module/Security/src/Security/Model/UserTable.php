@@ -23,6 +23,12 @@ class UserTable
         $this->featureSet = $this->tableGateway->getFeatureSet()->getFeatureByClassName('Zend\Db\TableGateway\Feature\EventFeature');
     }
 
+    public function fetchAll()
+    {
+        $resultSet = $this->tableGateway->select();
+        return $resultSet;
+    }
+
     public function get($username, $status = null)
     {
 
@@ -31,10 +37,10 @@ class UserTable
         $select->columns(array('*'));
         $select->where($status === null ? array(
             'users.username' => $username
-        ) : array(
+            ) : array(
             'users.username' => $username,
             'users.status' => $status
-        ));
+            ));
 
         $resultSet = $this->tableGateway->selectWith($select);
         $row = $resultSet->current();

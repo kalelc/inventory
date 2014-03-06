@@ -15,7 +15,6 @@ class RolTable
 	{
 		$resultSet = $this->tableGateway->select();
 		return $resultSet;
-
 	}
 
 	public function get($id)

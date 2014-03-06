@@ -8,6 +8,8 @@ use Zend\Mvc\MvcEvent;
 use Security\Adapter\AuthSessionAdapter;
 use Security\Model\RolTable;
 use Security\Model\Rol;
+use Security\Model\UserTable;
+use Security\Model\User;
 use Zend\ModuleManager\ModuleManager;
 
 class Module
@@ -19,7 +21,7 @@ class Module
         $moduleRouteListener->attach($eventManager);
     }
 
-    /*
+    /* validate identity
     public function init(ModuleManager $moduleManager)
     {
         $sharedEvents = $moduleManager->getEventManager()->getSharedManager();

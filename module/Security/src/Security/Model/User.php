@@ -12,7 +12,6 @@ use Zend\Session\Container;
 
 class User implements InputFilterAwareInterface
 {
-
     private $id;
     private $firstName;
     private $lastName;

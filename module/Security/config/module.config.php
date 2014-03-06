@@ -4,6 +4,7 @@ return array(
         'invokables' => array(
             'Security\Controller\Session' => 'Security\Controller\SessionController',
             'Security\Controller\Rol' => 'Security\Controller\RolController',
+            'Security\Controller\User' => 'Security\Controller\UserController',
             )
         ),
     'router' => array(
@@ -19,6 +20,20 @@ return array(
                     ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'user' => array(
+                        'type'    => 'segment',
+                        'options' => array(
+                            'route'    => '/user[/:action][/:id]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                                ),
+                            'defaults' => array(
+                                'controller' => 'Security\Controller\User',
+                                'action'     => 'index',
+                                ),
+                            ),
+                        ),
                     'rol' => array(
                         'type'    => 'segment',
                         'options' => array(
@@ -33,7 +48,6 @@ return array(
                                 ),
                             ),
                         ),
-
                     'login' => array(
                         'type' => 'literal',
                         'options' => array(
