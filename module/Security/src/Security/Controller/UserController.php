@@ -25,12 +25,15 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		//$form = new UserForm();
 		$form = $this->getServiceLocator()->get("Security\Form\UserForm");
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
+
+			$adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 			$user = new User();
+			$user->setAdapter($adapter);
+
 			$form->setInputFilter($user->getInputFilter());
 			$form->setData($request->getPost());
 
@@ -49,35 +52,7 @@ implements ConfigAwareInterface
 
 
 	public function editAction()
-	{
-		$id = (int) $this->params()->fromRoute('id', 0);
-		if (!$id) {
-			return $this->redirect()->toRoute('admin/user', array(
-					'action' => 'add'
-			));
-		}
-		$user = $this->getUserTable()->get($id);
-
-		$form  = new UserForm();
-		$form->bind($user);
-		
-		$request = $this->getRequest();
-		if ($request->isPost()) {
-			$form->setInputFilter($user->getInputFilter());
-			$form->setData($request->getPost());
-
-			if ($form->isValid()) {
-				$this->getUserTable()->save($form->getData());
-
-				return $this->redirect()->toRoute('admin/user');
-			}
-		}
-		return array(
-				'id' => $id,
-				'form' => $form,
-				'config' => $this->config,
-		);
-	}
+	{}
 
 	public function deleteAction()
 	{

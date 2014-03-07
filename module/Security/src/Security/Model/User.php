@@ -24,6 +24,7 @@ class User implements InputFilterAwareInterface
     private $password;
     private $status;
 
+    private $adapter;
     protected $inputFilter;
 
     public function exchangeArray($data)
@@ -57,7 +58,6 @@ class User implements InputFilterAwareInterface
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
 
-
             $inputFilter->add($factory->createInput(array(
                 'name' => 'first_name',
                 'required' => true,
@@ -86,16 +86,15 @@ class User implements InputFilterAwareInterface
                             )
                         )
                     )
-                )
-            ));
+                )));
 
-    $inputFilter->add($factory->createInput(array(
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'last_name',
                 'required' => true,
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim')
-                ),
+                    ),
                 'validators' => array(
                     array(
                         'name' => 'regex',
@@ -105,26 +104,27 @@ class User implements InputFilterAwareInterface
                                 "regexInvalid" => 'No utilice caracteres especiales o numeros en este campo',
                                 "regexNotMatch" => 'No utilice caracteres especiales o numeros en este campo',
                                 "regexErrorous" => 'No utilice caracteres especiales o numeros en este campo'
+                                )
                             )
-                        )
-                    ),
+                        ),
                     array(
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
                                 \Zend\Validator\NotEmpty::IS_EMPTY => 'El campo es obligatorio'
+                                )
                             )
                         )
                     )
-                )
-            )));
+                )));
+
             $inputFilter->add($factory->createInput(array(
                 'name' => 'username',
                 'required' => true,
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim')
-                ),
+                    ),
                 'validators' => array(
                     array(
                         'name' => 'StringLength',
@@ -135,9 +135,9 @@ class User implements InputFilterAwareInterface
                             'messages' => array(
                                 \Zend\Validator\StringLength::TOO_SHORT => 'El usuario debe ser superior a %min% caracteres',
                                 \Zend\Validator\StringLength::TOO_LONG => 'El usuario debe ser inferior a %max% caracteres'
+                                )
                             )
-                        )
-                    ),
+                        ),
                     array(
                         'name' => 'regex',
                         'options' => array(
@@ -146,104 +146,17 @@ class User implements InputFilterAwareInterface
                                 "regexInvalid" => 'No utilice caracteres especiales en este campo',
                                 "regexNotMatch" => 'No utilice caracteres especiales en este campo',
                                 "regexErrorous" => 'No utilice caracteres especiales en este campo'
+                                )
                             )
-                        )
-                    ),
+                        ),
                     array(
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
                                 \Zend\Validator\NotEmpty::IS_EMPTY => 'Este no es un nombre para comentar válido.'
-                            )
-                        )
-                    ),
-                    array(
-                        'name' => 'Db\NoRecordExists',
-                        'options' => array(
-                            'table' => 'users',
-                            'field' => 'username',
-                            'adapter' => \Zend\Db\TableGateway\Feature\GlobalAdapterFeature::getStaticAdapter(),
-                            'messages' => array(
-                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El nombre para comentar que intentaste ingresar ya está asociado a otra cuenta de usuario, ingresa uno nuevo."
-                            )
-                        )
-                    )
-                )
-            )));
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'password',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim')
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min' => 8,
-                            'max' => 100,
-                            'messages' => array(
-                                \Zend\Validator\StringLength::TOO_SHORT => 'La contraseña que ingresaste no es válida. Recuerda que esta debe tener mínimo 8 caracteres.'
-                            )
-                        )
-                    ),
-                    array(
-                        'name' => 'NotEmpty',
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => ''
-                            )
-                        )
-                    )
-                )
-            )
-            ));
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'email',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim')
-                ),
-                'validators' => array(
-                    array('name' => 'EmailAddress'),
-                    array('name' => 'NotEmpty'),
-                    array(
-                        'name' => 'Db\NoRecordExists',
-                        'options' => array(
-                            'table' => 'users',
-                            'field' => 'email',
-                            'exclude' => $this->getExcludeEmail(),
-                            'adapter' => \Zend\Db\TableGateway\Feature\GlobalAdapterFeature::getStaticAdapter(),
-                            'messages' => array(
-                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El correo electrónico que ingresaste ya está asociado a otra cuenta de un usuario, ingresa uno nuevo."
-                            )
-                        )
-                    )
-                )
-            )));
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'picture',
-                'required' => false,
-            )));
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'signature',
-                'required' => false,
-            )));
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'rol',
-                'required' => true,
-                'validators' => array(
-                    array(
-                        'name' => 'NotEmpty',
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario que selecciones un tipo de documento.'
                                 )
                             )
-                        )
+                        ),
                     )
                 )));
 
@@ -275,10 +188,115 @@ class User implements InputFilterAwareInterface
                             )
                         )
                     )
+                )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'email',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim')
+                    ),
+                'validators' => array(
+                    array('name' => 'EmailAddress'),
+                    array('name' => 'NotEmpty'),
+                    )
+                )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'picture',
+                'required' => false,
+                )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'signature',
+                'required' => false,
+                )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'rol',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario que selecciones un tipo de documento.'
+                                )
+                            )
+                        )
+                    )
+                )));
+
+            $inputFilter->add($factory->createInput(array(
+            'name' => 'password',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim')
+                ),
+            'validators' => array(
+                array(
+                    'name' => 'StringLength',
+                    'options' => array(
+                        'encoding' => 'UTF-8',
+                        'min' => 8,
+                        'max' => 100,
+                        'messages' => array(
+                            \Zend\Validator\StringLength::TOO_SHORT => 'La contraseña que ingresaste no es válida. Recuerda que esta debe tener mínimo 8 caracteres.'
+                            )
+                        )
+                    ),
+                array(
+                    'name' => 'NotEmpty',
+                    'options' => array(
+                        'messages' => array(
+                            \Zend\Validator\NotEmpty::IS_EMPTY => ''
+                            )
+                        )
+                    ),
                 )
-            ));
-        }
-    return $this->inputFilter;
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'password_repeat',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim')
+                    ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min' => 8,
+                            'max' => 100,
+                            'messages' => array(
+                                \Zend\Validator\StringLength::TOO_SHORT => 'La contraseña que ingresaste no es válida. Recuerda que esta debe tener mínimo 8 caracteres.'
+                                )
+                            )
+                        ),
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => ''
+                                )
+                            )
+                        ),
+                    array(
+                        'name' => 'Identical',
+                        'options' => array(
+                            'token' => 'password',
+                            ),
+                        ),
+                    )
+                )));
+            }
+
+        $this->inputFilter = $inputFilter;
+        return $this->inputFilter;
     }
 
     public function getId()
@@ -379,5 +397,10 @@ class User implements InputFilterAwareInterface
     {
         $this->rolName = $rolName;
         return $this;
+    }
+
+    public function setAdapter($adapter)
+    {
+        $this->adapter = $adapter;
     }
 }

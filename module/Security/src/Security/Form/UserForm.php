@@ -9,6 +9,8 @@ use Tools\Model\DocumentTypeTable;
 class UserForm extends Form
 {
 
+    private $adapter;
+
     public function __construct($roles)
     {
         parent::__construct('user');
@@ -60,7 +62,20 @@ class UserForm extends Form
             'attributes' => array(
                 'type' => 'password',
                 'id' => 'password',
-                'maxlength' => 64,
+                'maxlength' => 20,
+                'class' => 'form-control',
+                ),
+            'options' => array(
+                'label' => 'Contraseña:'
+                )
+            ));
+
+         $this->add(array(
+            'name' => 'password_repeat',
+            'attributes' => array(
+                'type' => 'password',
+                'id' => 'password_repeat',
+                'maxlength' => 20,
                 'class' => 'form-control',
                 ),
             'options' => array(
@@ -126,8 +141,10 @@ class UserForm extends Form
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Go',
-                'id' => 'submitbutton'
+                'id' => 'submitbutton',
+                'class' => 'btn btn-primary btn-sm btn-sm'
                 )
             ));
     }
+
 }
