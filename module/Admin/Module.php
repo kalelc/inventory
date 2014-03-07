@@ -90,14 +90,15 @@ class Module
 		{
 			$controller = $e->getTarget();
 			$controller->layout('layout/layout');
-			$authSessionAdapter = $controller->getAuthSessionAdapter();
+			/*$authSessionAdapter = $controller->getAuthSessionAdapter();
+
 			if($authSessionAdapter->hasIdentity()){
 				$identity = $authSessionAdapter->getIdentity();
 				$controller->layout()->setVariable("identity",$identity);
 			}
 			else {
 				$controller->plugin('redirect')->toRoute('security/login');
-			}
+			}*/
 		}, 100);
 	}
 

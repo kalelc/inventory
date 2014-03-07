@@ -47,7 +47,6 @@ class UserForm extends Form
             'name' => 'username',
             'attributes' => array(
                 'type' => 'text',
-                'placeholder' => 'Nombre para comentar',
                 'id' => 'username',
                 'maxlength' => 60,
                 'class' => 'form-control',
