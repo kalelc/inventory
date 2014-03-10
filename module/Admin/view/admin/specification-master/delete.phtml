@@ -9,7 +9,7 @@ $this->headTitle($title);
 	Esta seguro que quiere borrar '<?php echo $this->escapeHtml($specificationMaster->getName()); ?>'?
 </p>
 <?php
-$url = $this->url('specification_master', array(
+$url = $this->url('admin/specification_master', array(
 		'action' => 'delete',
 		'id'=> $this->id,
 ));

@@ -8,8 +8,7 @@ $this->headTitle($title);
 <br>
 <?php $form = $this->form; ?>
 <?php
-$form->setAttribute('action', $this->url(
-    'list_price',
+$form->setAttribute('action', $this->url('admin/list_price',
     array(
         'action' => 'edit',
         'id'     => $this->id,
@@ -33,5 +32,5 @@ $form->setAttribute('action', $this->url(
 <br>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
 &nbsp;
-<a href="/list-price"><?php echo $this->config['action']['return'] ; ?> </a>
+<a href="<?php echo $this->url('admin/list-price');?>"><?php echo $this->config['action']['return'] ; ?> </a>
 <?php echo $this->form()->closeTag(); ?>

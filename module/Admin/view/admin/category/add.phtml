@@ -13,7 +13,7 @@ $this->headTitle($title);
 	</li>
 </ul>
 <?php $form = $this->form; ?>
-<?php $form->setAttribute('action', $this->url('category', array('action' => 'add'))); ?>
+<?php $form->setAttribute('action', $this->url('admin/category', array('action' => 'add'))); ?>
 <?php $form->prepare(); ?>
 <?php echo $this->form()->openTag($form); ?>
 <br><br>
@@ -112,5 +112,5 @@ $this->headTitle($title);
 </div>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 &nbsp;
-<a href="/category"><?php echo $this->config['action']['return'] ; ?> </a>
+<a href="<?php echo $this->url('admin/category'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
 <?php echo $this->form()->closeTag(); ?>

@@ -9,7 +9,7 @@ $this->headTitle($title);
 <p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($product->getUpcBarCode()." - ".$product->getModel()); ?>'?</p>
 </div>
 <?php
-$url = $this->url('product', array(
+$url = $this->url('admin/product', array(
 		'action' => 'delete',
 		'id'=> $this->id,
 ));

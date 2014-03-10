@@ -19,6 +19,7 @@ class SessionController extends AbstractActionController
 
 	public function indexAction()
 	{
+		dump("management security login");
 		dumpx($this->getAuthSessionAdapter()->getIdentity(),"SessionController::index");
 	}
 

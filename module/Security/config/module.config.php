@@ -2,9 +2,9 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Security\Controller\Session' => 'Security\Controller\SessionController',
-            'Security\Controller\Rol' => 'Security\Controller\RolController',
-            'Security\Controller\User' => 'Security\Controller\UserController',
+            'Security\Controller\Session'   => 'Security\Controller\SessionController',
+            'Security\Controller\Rol'       => 'Security\Controller\RolController',
+            'Security\Controller\User'      => 'Security\Controller\UserController',
             )
         ),
     'router' => array(
@@ -76,9 +76,9 @@ return array(
                             ),
                         ),
                     ),
-),
-),
-),
+                ),
+            ),
+        ),
 'translator' => array(
     'locale' => 'es_CO',
     'translation_file_patterns' => array(

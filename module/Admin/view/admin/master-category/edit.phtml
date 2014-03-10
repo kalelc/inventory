@@ -6,7 +6,7 @@ $this->headTitle($title);
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(
-    'master_category',
+    'admin/master_category',
     array(
         'action' => 'edit',
         'id'     => $this->id,
@@ -35,5 +35,5 @@ Tama&ntilde;o:
 <?php echo $this->formTextarea($form->get('description')); ?>
 <br><br>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-&nbsp;<a href="/master-category"><?php echo $this->config['action']['return'] ; ?></a>
+&nbsp;<a href="<?php echo $this->url('admin/master-category');?>"><?php echo $this->config['action']['return'] ; ?></a>
 <?php echo $this->form()->closeTag(); ?>
