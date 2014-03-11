@@ -39,5 +39,5 @@ Tama&ntilde;o:
 <br>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 &nbsp;
-<a href="/specification"><?php echo $this->config['action']['return'] ; ?> </a>
+<a href="<?php echo $this->url('admin/specification'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
 <?php echo $this->form()->closeTag(); ?>

@@ -6,7 +6,7 @@ $this->headTitle($title);
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(
-    'measure_type',
+    'admin/measure_type',
     array(
         'action' => 'edit',
         'id'     => $this->id,
@@ -26,5 +26,5 @@ $form->prepare();?>
 <?php echo $this->formTextarea($form->get('description')); ?>
 <br><br>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-&nbsp;<a href="/measure-type"><?php echo $this->config['action']['return'] ; ?></a>
+&nbsp;<a href="<?php echo $this->url('admin/measure-type');?>"><?php echo $this->config['action']['return'] ; ?></a>
 <?php echo $this->form()->closeTag(); ?>

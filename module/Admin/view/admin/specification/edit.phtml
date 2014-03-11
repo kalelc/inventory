@@ -6,7 +6,7 @@ $this->headTitle($title);
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(
-    'specification',
+    'admin/specification',
     array(
         'action' => 'edit',
         'id'     => $this->id,
@@ -44,5 +44,5 @@ Tama&ntilde;o:
 <br>
 <br>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-&nbsp;<a href="/specification"><?php echo $this->config['action']['return'] ; ?></a>
+&nbsp;<a href="<?php echo $this->url('admin/specification'); ?>"><?php echo $this->config['action']['return'] ; ?></a>
 <?php echo $this->form()->closeTag(); ?>

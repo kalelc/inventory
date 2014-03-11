@@ -20,5 +20,5 @@ $this->headTitle($title);
 <?php echo $this->formTextarea($form->get('description')); ?>
 <br><br>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
-&nbsp;<a href="/measure-type"><?php echo $this->config['action']['return'] ;?></a>
+&nbsp;<a href="<?php echo $this->url('admin/measure_type'); ?>"><?php echo $this->config['action']['return'] ;?></a>
 <?php echo $this->form()->closeTag(); ?>

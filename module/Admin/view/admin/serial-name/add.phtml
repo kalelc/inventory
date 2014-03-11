@@ -18,5 +18,5 @@ $this->headTitle($title);
 <?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
 <br><br>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
-&nbsp;<a href="/serial-name"><?php echo $this->config['action']['return'] ;?></a>
+&nbsp;<a href="<?php echo $this->ulr('admin/serial_name');?>"><?php echo $this->config['action']['return'] ;?></a>
 <?php echo $this->form()->closeTag(); ?>

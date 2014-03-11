@@ -29,5 +29,5 @@ $form->prepare();?>
 <?php echo $this->formTextarea($form->get('description')); ?>
 <br><br>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-&nbsp;<a href="/payment-method"><?php echo $this->config['action']['return'] ; ?></a>
+&nbsp;<a href="<?php echo $this->url('admin/payment-method');?>"><?php echo $this->config['action']['return'] ; ?></a>
 <?php echo $this->form()->closeTag(); ?>
