@@ -50,28 +50,28 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="/bank">Bancos</a></li>
-						<li><a href="/payment-method">Metodos de Pago</a></li>
+						<li><a href="<?php echo $this->url('admin/bank'); ?>">Bancos</a></li>
+						<li><a href="<?php echo $this->url('admin/payment_method'); ?>">Metodos de Pago</a></li>
 						<li class="dropdown-header">Especificaciones</li>
-						<li><a href="/specification-master">Maestras</a></li>
-						<li><a href="/specification">Especificaciones</a></li>
+						<li><a href="<?php echo $this->url('admin/specification_master'); ?>">Maestras</a></li>
+						<li><a href="<?php echo $this->url('admin/specification'); ?>">Especificaciones</a></li>
 						<li class="dropdown-header">Categorias</li>
-						<li><a href="/master-category">Maestra</a></li>
-						<li><a href="/category">Categorias</a></li>
+						<li><a href="<?php echo $this->url('admin/master_category'); ?>">Maestra</a></li>
+						<li><a href="<?php echo $this->url('admin/category'); ?>/">Categorias</a></li>
 						<li class="dropdown-header">Medidas</li>
-						<li><a href="/measure-type">Tipos de Medidas</a></li>
-						<li><a href="/measure">Medidas</a></li>
-						<li><a href="/serial-name">Nombre de seriales</a></li>
-						<li><a href="/list-price">lista de precios</a></li>
-						<li><a href="/brand">Marcas</a></li>
-						<li><a href="/product">Productos</a></li>
+						<li><a href="<?php echo $this->url('admin/measure_type'); ?>">Tipos de Medidas</a></li>
+						<li><a href="<?php echo $this->url('admin/measure'); ?>">Medidas</a></li>
+						<li><a href="<?php echo $this->url('admin/serial_name'); ?>">Nombre de seriales</a></li>
+						<li><a href="<?php echo $this->url('admin/list_price'); ?>">lista de precios</a></li>
+						<li><a href="<?php echo $this->url('admin/brand'); ?>">Marcas</a></li>
+						<li><a href="<?php echo $this->url('admin/product'); ?>">Productos</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguridad <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="/security/rol">Roles</a></li>
-						<li><a href="/security/user">Usuarios</a></li>
+						<li><a href="<?php echo $this->url('security/rol'); ?>">Roles</a></li>
+						<li><a href="<?php echo $this->url('security/user'); ?>">Usuarios</a></li>
 					</ul>
 				</li>
 			</ul>
