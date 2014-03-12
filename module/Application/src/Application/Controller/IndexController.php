@@ -14,5 +14,10 @@ class IndexController extends AbstractActionController
     {
         $this->config = $config;
     }
+
+    public function indexAction()
+    {
+    	return $this->redirect()->toRoute('security/login');
+    }
 }
 ?>
