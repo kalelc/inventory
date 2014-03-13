@@ -17,7 +17,7 @@ $this->headTitle($title);
 	</div>
 </div>
 <div class="form-group">
-	<div class="col-lg-4">
+	<div class="col-lg-6">
 		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
 		<?php echo $this->formTextarea($form->get('description')); ?>
 		<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
