@@ -2,7 +2,7 @@
 $title = $this->config['component']['measure'][0];
 $this->headTitle($title);
 ?>
-<h2><?php echo $this->escapeHtml($title); ?></h2>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <?php $form = $this->form; ?>
 <?php $form->setAttribute('action', $this->url('admin/measure', 
 array('action' => 'edit', 'id' => $this->id))); ?>
@@ -10,36 +10,54 @@ array('action' => 'edit', 'id' => $this->id))); ?>
 <?php echo $this->form()->openTag($form); ?>
 <?php echo $this->formHidden($form->get('id')); ?>
 <?php echo $this->formHidden($form->get('csrf'));?>
-<?php echo $this->formLabel($form->get('specification')->setLabel($this->config['component']['specification'][1])); ?>
-<?php echo $this->formSelect($form->get('specification')); ?>
-<?php echo $this->formElementErrors($form->get('specification'), array("class" => "error")); ?>
+<div class="form-group">
+	<div class="col-lg-4">
+		<?php echo $this->formLabel($form->get('specification')->setLabel($this->config['component']['specification'][1])); ?>
+		<?php echo $this->formSelect($form->get('specification')); ?>
+		<?php echo $this->formElementErrors($form->get('specification'), array("class" => "error")); ?>
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<?php echo $this->formLabel($form->get('measure_type')->setLabel($this->config['component']['measure_type'][1])); ?>
+		<?php echo $this->formSelect($form->get('measure_type')); ?>
+		<?php echo $this->formElementErrors($form->get('measure_type'), array("class" => "error")); ?>
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<?php echo $this->formLabel($form->get('measure_value')->setLabel($this->config['component']['measure_value'][1])); ?>
+		<?php echo $this->formInput($form->get('measure_value')); ?>
+		<?php echo $this->formElementErrors($form->get('measure_value'), array("class" => "error")); ?>
+	</div>
+</div>
 
-<?php echo $this->formLabel($form->get('measure_type')->setLabel($this->config['component']['measure_type'][1])); ?>
-<?php echo $this->formSelect($form->get('measure_type')); ?>
-<?php echo $this->formElementErrors($form->get('measure_type'), array("class" => "error")); ?>
-
-<?php echo $this->formLabel($form->get('measure_value')->setLabel($this->config['component']['measure_value'][1])); ?>
-<?php echo $this->formInput($form->get('measure_value')); ?>
-<?php echo $this->formElementErrors($form->get('measure_value'), array("class" => "error")); ?>
-
-<div class="clearfix"></div>
-<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'][1])); ?>
-<?php echo $this->formInput($form->get('image')); ?>
-<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
-<p class="help-block">
-Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-Tama&ntilde;o: 
-<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-	<?php echo $range." ".$size ; ?>
-<?php endforeach; ?>
-</p>
-
-<?php echo $this->formLabel($form->get('meaning')->setLabel($this->config['component']['meaning'][1])); ?>
-<?php echo $this->formTextarea($form->get('meaning')); ?>
-
-<?php echo $this->formLabel($form->get('general_information')->setLabel($this->config['component']['general_information'][1])); ?>
-<?php echo $this->formTextarea($form->get('general_information')); ?>
-<br><br>
+<div class="form-group">
+	<div class="col-lg-4">
+		<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'][1])); ?>
+		<?php echo $this->formInput($form->get('image')); ?>
+		<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
+		<p class="help-block">
+			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+			Tama&ntilde;o: 
+			<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+				<?php echo $range." ".$size ; ?>
+			<?php endforeach; ?>
+		</p>
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-lg-6">
+		<?php echo $this->formLabel($form->get('meaning')->setLabel($this->config['component']['meaning'][1])); ?>
+		<?php echo $this->formTextarea($form->get('meaning')); ?>
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-lg-6">
+		<?php echo $this->formLabel($form->get('general_information')->setLabel($this->config['component']['general_information'][1])); ?>
+		<?php echo $this->formTextarea($form->get('general_information')); ?>
+	</div>
+</div>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
 &nbsp;<a href="<?php echo $this->url('admin/measure'); ?>"><?php echo $this->config['action']['return'] ;?></a>
 <?php echo $this->form()->closeTag(); ?>
