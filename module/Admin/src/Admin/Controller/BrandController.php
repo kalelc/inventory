@@ -79,7 +79,7 @@ implements ConfigAwareInterface
 				$brand->exchangeArray($data);
 				$this->getBrandTable()->save($brand);
 
-				return $this->redirect()->toRoute('brand');
+				return $this->redirect()->toRoute('admin/brand');
 			}
 		}	
 		return array(
@@ -93,7 +93,7 @@ implements ConfigAwareInterface
 		$id = (int) $this->params()->fromRoute('id', 0);
 		
 		if (!$id)
-			return $this->redirect()->toRoute('brand', array('action' => 'add'));
+			return $this->redirect()->toRoute('admin/brand', array('action' => 'add'));
 		
 		$brand = $this->getBrandTable()->get($id);
 		$previousImage = $brand->getImage();
@@ -161,7 +161,7 @@ implements ConfigAwareInterface
 				}
 
 				$this->getBrandTable()->save($brand);
-				return $this->redirect()->toRoute('brand');
+				return $this->redirect()->toRoute('admin/brand');
 			}
 		}
 
@@ -178,7 +178,7 @@ implements ConfigAwareInterface
 		{
 			$id = (int) $this->params()->fromRoute('id', 0);
 			if (!$id) {
-				return $this->redirect()->toRoute('brand');
+				return $this->redirect()->toRoute('admin/brand');
 			}
 			$request = $this->getRequest();
 			if ($request->isPost()) {
@@ -194,7 +194,7 @@ implements ConfigAwareInterface
 					$this->getBrandTable()->delete($id);
 				}
 
-				return $this->redirect()->toRoute('brand');
+				return $this->redirect()->toRoute('admin/brand');
 			}
 			return array(
 					'id'=> $id,

@@ -40,7 +40,7 @@ implements ConfigAwareInterface
 				$paymentMethod->exchangeArray($form->getData());
 				$this->getPaymentMethodTable()->save($paymentMethod);
 
-				return $this->redirect()->toRoute('payment_method');
+				return $this->redirect()->toRoute('admin/payment_method');
 			}
 		}
 		return array(
@@ -54,7 +54,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('payment_method', array(
+			return $this->redirect()->toRoute('admin/payment_method', array(
 					'action' => 'add'
 			));
 		}
@@ -72,7 +72,7 @@ implements ConfigAwareInterface
 					
 				$this->getPaymentMethodTable()->save($form->getData());
 
-				return $this->redirect()->toRoute('payment_method');
+				return $this->redirect()->toRoute('admin/payment_method');
 			}
 		}
 
@@ -87,7 +87,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('payment_method');
+			return $this->redirect()->toRoute('admin/payment_method');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -98,7 +98,7 @@ implements ConfigAwareInterface
 				$this->getPaymentMethodTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('payment_method');
+			return $this->redirect()->toRoute('admin/payment_method');
 		}
 		return array(
 				'id'=> $id,

@@ -31,6 +31,8 @@
 			$("#modalBody img").attr('src', image);
 			$("#modalImageLabel").html(title);
 			$("#modalImage").modal('show');
+			$('#element').popover('show');
+
 		}
 	</script>
 </head>
@@ -94,6 +96,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
+				<div  id="element" class="popover left">
+					<div class="arrow"></div>
+					<h3 class="popover-title">Popover left</h3>
+					<div class="popover-content">
+						<p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+					</div>
+				</div>
 				<br>
 				<div class="list-group">
 					<a href="#" class="list-group-item active">Accesos Directos</a>
@@ -101,8 +110,8 @@
 					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Documentos</a>
 					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;Compras</a>
 					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;Calendario</a>
-
 				</div>
+
 			</div>
 			<div class="col-md-9"><?php echo $this->content; ?></div>
 		</div>

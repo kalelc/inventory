@@ -79,7 +79,7 @@ implements ConfigAwareInterface
 					 			$specificationMaster->setImage($fileName);
 					 			$this->getSpecificationMasterTable()->save($specificationMaster);
 
-					 			return $this->redirect()->toRoute('specification_master');
+					 			return $this->redirect()->toRoute('admin/specification_master');
 					 		}
 					 	}
 					}
@@ -92,7 +92,7 @@ implements ConfigAwareInterface
 					$specificationMaster->setDescription($specificationMasterData["description"]);
 					$this->getSpecificationMasterTable()->save($specificationMaster);
 
-					return $this->redirect()->toRoute('specification_master');
+					return $this->redirect()->toRoute('admin/specification_master');
 				}
 			}
 
@@ -107,7 +107,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('specification_master', array(
+			return $this->redirect()->toRoute('admin/specification_master', array(
 					'action' => 'add'
 			));
 		}
@@ -192,7 +192,7 @@ implements ConfigAwareInterface
  					$this->getSpecificationMasterTable()->save($specificationMaster);
  				}
 				
- 				return $this->redirect()->toRoute('specification_master');
+ 				return $this->redirect()->toRoute('admin/specification_master');
 			}
 		}
 
@@ -207,7 +207,7 @@ implements ConfigAwareInterface
 		{
 			$id = (int) $this->params()->fromRoute('id', 0);
 			if (!$id) {
-				return $this->redirect()->toRoute('specification_master');
+				return $this->redirect()->toRoute('admin/specification_master');
 			}
 			$request = $this->getRequest();
 			if ($request->isPost()) {
@@ -218,7 +218,7 @@ implements ConfigAwareInterface
 					$this->getSpecificationMasterTable()->delete($id);
 				}
 
-				return $this->redirect()->toRoute('specification_master');
+				return $this->redirect()->toRoute('admin/specification_master');
 			}
 			return array(
 					'id'=> $id,

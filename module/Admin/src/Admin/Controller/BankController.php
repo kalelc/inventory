@@ -37,7 +37,7 @@ implements ConfigAwareInterface
 				$bank->exchangeArray($form->getData());
 				$this->getBankTable()->save($bank);
 
-				return $this->redirect()->toRoute('bank');
+				return $this->redirect()->toRoute('admin/bank');
 			}
 		}
 		return array(
@@ -50,7 +50,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('bank', array(
+			return $this->redirect()->toRoute('admin/bank', array(
 					'action' => 'add'
 			));
 		}
@@ -67,7 +67,7 @@ implements ConfigAwareInterface
 			if ($form->isValid()) {
 				$this->getBankTable()->save($form->getData());
 
-				return $this->redirect()->toRoute('bank');
+				return $this->redirect()->toRoute('admin/bank');
 			}
 		}
 		return array(
@@ -81,7 +81,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('bank');
+			return $this->redirect()->toRoute('admin/bank');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -92,7 +92,7 @@ implements ConfigAwareInterface
 				$this->getBankTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('bank');
+			return $this->redirect()->toRoute('admin/bank');
 		}
 		return array(
 				'id'=> $id,

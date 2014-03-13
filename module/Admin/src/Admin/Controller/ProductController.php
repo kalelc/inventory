@@ -90,7 +90,7 @@ implements ConfigAwareInterface
 				$product->exchangeArray($data);
 				$this->getProductTable()->save($product);
 
-				return $this->redirect()->toRoute('product');
+				return $this->redirect()->toRoute('admin/product');
 			}
 		}	
 		return array(
@@ -157,7 +157,7 @@ implements ConfigAwareInterface
 		exit();
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('product', array(
+			return $this->redirect()->toRoute('admin/product', array(
 				'action' => 'add'
 				));
 		}
@@ -174,7 +174,7 @@ implements ConfigAwareInterface
 			if ($form->isValid()) {
 				$this->getProductTable()->save($form->getData());
 
-				return $this->redirect()->toRoute('product');
+				return $this->redirect()->toRoute('admin/product');
 			}
 		}
 		return array(
@@ -188,7 +188,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('product');
+			return $this->redirect()->toRoute('admin/product');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -220,7 +220,7 @@ implements ConfigAwareInterface
 				$this->getProductTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('product');
+			return $this->redirect()->toRoute('admin/product');
 		}
 		return array(
 			'id'=> $id,

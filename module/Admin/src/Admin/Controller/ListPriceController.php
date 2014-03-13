@@ -37,7 +37,7 @@ implements ConfigAwareInterface
 				$listPrice->exchangeArray($form->getData());
 				$this->getListPriceTable()->save($listPrice);
 
-				return $this->redirect()->toRoute('list_price');
+				return $this->redirect()->toRoute('admin/list_price');
 			}
 		}
 		return array(
@@ -50,7 +50,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('listPrice', array(
+			return $this->redirect()->toRoute('admin/listPrice', array(
 					'action' => 'add'
 			));
 		}
@@ -67,7 +67,7 @@ implements ConfigAwareInterface
 			if ($form->isValid()) {
 				$this->getListPriceTable()->save($form->getData());
 
-				return $this->redirect()->toRoute('list_price');
+				return $this->redirect()->toRoute('admin/list_price');
 			}
 		}
 		return array(
@@ -81,7 +81,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('list_price');
+			return $this->redirect()->toRoute('admin/list_price');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -92,7 +92,7 @@ implements ConfigAwareInterface
 				$this->getListPriceTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('list_price');
+			return $this->redirect()->toRoute('admin/list_price');
 		}
 		return array(
 				'id'=> $id,

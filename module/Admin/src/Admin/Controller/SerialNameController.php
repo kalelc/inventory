@@ -37,7 +37,7 @@ implements ConfigAwareInterface
 				$serialName->exchangeArray($form->getData());
 				$this->getSerialNameTable()->save($serialName);
 
-				return $this->redirect()->toRoute('serial_name');
+				return $this->redirect()->toRoute('admin/serial_name');
 			}
 		}
 		return array(
@@ -51,7 +51,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('serial_name', array(
+			return $this->redirect()->toRoute('admin/serial_name', array(
 					'action' => 'add'
 			));
 		}
@@ -68,7 +68,7 @@ implements ConfigAwareInterface
 			if ($form->isValid()) {
 				$this->getSerialNameTable()->save($form->getData());
 
-				return $this->redirect()->toRoute('serial_name');
+				return $this->redirect()->toRoute('admin/serial_name');
 			}
 		}
 		return array(
@@ -82,7 +82,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('serial_name');
+			return $this->redirect()->toRoute('admin/serial_name');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -93,7 +93,7 @@ implements ConfigAwareInterface
 				$this->getSerialNameTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('serial_name');
+			return $this->redirect()->toRoute('admin/serial_name');
 		}
 		return array(
 				'id'=> $id,

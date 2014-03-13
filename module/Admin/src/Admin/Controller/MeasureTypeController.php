@@ -38,7 +38,7 @@ implements ConfigAwareInterface
 				$MeasureType->exchangeArray($form->getData());
 				$this->getMeasureTypeTable()->save($MeasureType);
 
-				return $this->redirect()->toRoute('measure_type');
+				return $this->redirect()->toRoute('admin/measure_type');
 			}
 		}
 		return array('form' => $form,
@@ -51,7 +51,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('measure_type', array(
+			return $this->redirect()->toRoute('admin/measure_type', array(
 				'action' => 'add'
 				));
 		}
@@ -69,7 +69,7 @@ implements ConfigAwareInterface
 			if ($form->isValid()) {
 				$this->getMeasureTypeTable()->save($form->getData());
 
-				return $this->redirect()->toRoute('measure_type');
+				return $this->redirect()->toRoute('admin/measure_type');
 			}
 		}
 
@@ -84,7 +84,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('measure_type');
+			return $this->redirect()->toRoute('admin/measure_type');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -95,7 +95,7 @@ implements ConfigAwareInterface
 				$this->getMeasureTypeTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('measure_type');
+			return $this->redirect()->toRoute('admin/measure_type');
 		}
 		return array(
 			'id'=> $id,

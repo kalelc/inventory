@@ -90,7 +90,7 @@ implements ConfigAwareInterface
 					$measure->exchangeArray($form->getData());
 					$this->getMeasureTable()->save($measure);
 				}
-			return $this->redirect()->toRoute('measure');
+			return $this->redirect()->toRoute('admin/measure');
 			}
 		}
 		return array(
@@ -103,7 +103,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('measure', array(
+			return $this->redirect()->toRoute('admin/measure', array(
 					'action' => 'add'
 			));
 		}
@@ -193,7 +193,7 @@ implements ConfigAwareInterface
 					$this->getMeasureTable()->save($measure);
 				}
 
-				return $this->redirect()->toRoute('measure');
+				return $this->redirect()->toRoute('admin/measure');
 			}
 		}
 
@@ -208,7 +208,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('measure');
+			return $this->redirect()->toRoute('admin/measure');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -220,7 +220,7 @@ implements ConfigAwareInterface
 				$this->getMeasureTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('measure');
+			return $this->redirect()->toRoute('admin/measure');
 		}
 		return array(
 				'id'=> $id,

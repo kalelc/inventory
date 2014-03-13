@@ -89,7 +89,7 @@ implements ConfigAwareInterface
 								$this->getCategorySpecificationTable()->save($categoryId,$categoryData['specification']);
 
 
-								return $this->redirect()->toRoute('category');
+								return $this->redirect()->toRoute('admin/category');
 							}
 						}
 					}
@@ -103,7 +103,7 @@ implements ConfigAwareInterface
 					$this->getCategorySerialNameTable()->save($categoryId,$categoryData['serial_name']);
 					$this->getCategorySpecificationTable()->save($categoryId,$categoryData['specification']);
 
-					return $this->redirect()->toRoute('category');
+					return $this->redirect()->toRoute('admin/category');
 				}
 			}
 		}
@@ -117,7 +117,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('category', array(
+			return $this->redirect()->toRoute('admin/category', array(
 				'action' => 'add'
 				));
 		}
@@ -243,7 +243,7 @@ implements ConfigAwareInterface
 					$this->getCategorySpecificationTable()->save($category->getId(),$categoryData['specification']);
 				}
 
-				return $this->redirect()->toRoute('category');
+				return $this->redirect()->toRoute('admin/category');
 			}
 		}
 
@@ -258,7 +258,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('category');
+			return $this->redirect()->toRoute('admin/category');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -273,7 +273,7 @@ implements ConfigAwareInterface
 				$this->getCategoryTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('category');
+			return $this->redirect()->toRoute('admin/category');
 		}
 		return array(
 			'id'=> $id,
