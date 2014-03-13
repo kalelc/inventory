@@ -2,17 +2,17 @@
 	<br><br>
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
-		<?php if(!empty($this->formElementErrors($form->get('username'))) || !empty($this->formElementErrors($form->get('password'))) || !empty($this->formElementErrors($form->get('captcha')))): ?>
-			<div class="alert alert-danger fade in">
+		<?php //if(!empty($this->formElementErrors($form->get('username'))) || !empty($this->formElementErrors($form->get('password'))) || !empty($this->formElementErrors($form->get('captcha')))): ?>
+			<!--<div class="alert alert-danger fade in">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<h4 class="center-block">Ups! un error ha ocurrido al ingresar</h4>
-				<p>
+				<h5 class="center-block">Ups! un error ha ocurrido al ingresar</h4>
+				<p>-->
 					<?php echo $this->formElementErrors($form->get('username')); ?>
 					<?php echo $this->formElementErrors($form->get('password')); ?>
 					<?php echo $this->formElementErrors($form->get('captcha')); ?>
-				</p>
-			</div>
-		<?php endif; ?>
+			<!--	</p>
+			</div> -->
+		<?php //endif; ?>
 	</div>
 	<div class="col-md-3"></div>
 </div>
