@@ -27,8 +27,10 @@ class SessionController extends AbstractActionController
 	{
 		$form = new LoginForm();
 
+		$this->layout("layout/security");
 		$viewModel = new ViewModel();
 		$viewModel->setVariable("form",$form);
+
 
 		$request = $this->getRequest();
 		if($request->isPost()) {
