@@ -2,7 +2,7 @@
 $title = $this->config['component']['category'][0];
 $this->headTitle($title);
 ?>
-<h2><?php echo $this->escapeHtml($title); ?></h2>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <?php echo $this->formElementErrors($form->get('specification'), array("class" => "error")); ?>
 <ul class="nav nav-tabs">
 	<li class="list-nav-tab active">

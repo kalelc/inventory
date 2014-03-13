@@ -3,7 +3,6 @@ $title = $this->config['component']['measure'][0];
 $this->headTitle($title);
 ?>
 <h2><?php echo $this->escapeHtml($title); ?></h2>
-<br>
 <?php $form = $this->form; ?>
 <?php $form->setAttribute('action', $this->url('admin/measure', 
 array('action' => 'edit', 'id' => $this->id))); ?>

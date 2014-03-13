@@ -3,7 +3,7 @@ $this->headScript()->prependFile('/js/product.js', 'text/javascript');
 $title = $this->config['component']['product'][0];
 $this->headTitle($title);
 ?>
-<h2><?php echo $this->escapeHtml($title); ?></h2>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <ul class="nav nav-tabs">
 	<li class="list-nav-tab active">
 		<a href="#" id='tabs-link-product'><?php echo $this->config['component']['product'][0]; ?></a>

@@ -2,8 +2,7 @@
 $title = $this->config['component']['measure_type'][0];
 $this->headTitle($title);
 ?>
-<h2><?php echo $this->escapeHtml($title); ?></h2>
-<br>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <?php $form = $this->form; ?>
 <?php $form->setAttribute('action', $this->url('admin/measure_type', array('action' => 'add'))); ?>
 <?php $form->prepare(); ?>

@@ -2,7 +2,7 @@
 $title = $this->config['component']['payment_method'][0];
 $this->headTitle($title);
 ?>
-<h2><?php echo $this->escapeHtml($title); ?></h2>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url(

@@ -2,23 +2,21 @@
 $title = $this->config['component']['rol'][0];
 $this->headTitle($title);
 ?>
-<h2>
-	<?php echo $this->escapeHtml($title); ?>
-</h2>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <div class="alert alert-danger">
-<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($rol->getName()); ?>'?</p>
+	<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($rol->getName()); ?>'?</p>
 </div>
 <?php
 $url = $this->url('security/rol', array(
-		'action' => 'delete',
-		'id'=> $this->id,
-));
-?>
-<form action="<?php echo $url; ?>" method="post">
-	<div>
-		<input type="hidden" name="id"
-			value="<?php echo (int) $rol->getId(); ?>" /> <input type="submit"
-			name="del" value="Si" class="btn btn-danger"/> <input type="submit" name="del" value="No"  class="btn btn-default"/>
-	</div>
-</form>
+	'action' => 'delete',
+	'id'=> $this->id,
+	));
+	?>
+	<form action="<?php echo $url; ?>" method="post">
+		<div>
+			<input type="hidden" name="id" value="<?php echo (int) $rol->getId(); ?>" />
+			<?php echo $this->config['action']['delete_yes']; ?>
+			<?php echo $this->config['action']['delete_no']; ?>
+		</div>
+	</form>
 

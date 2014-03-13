@@ -2,9 +2,7 @@
 $title = $this->config['component']['specification_master'][0];
 $this->headTitle($title);
 ?>
-<h2>
-	<?php echo $this->escapeHtml($title); ?>
-</h2>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <br>
 <?php $form = $this->form; ?>
 <?php $form->setAttribute('action', $this->url('admin/specification_master', array('action' => 'add'))); ?>

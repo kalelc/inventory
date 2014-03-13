@@ -2,22 +2,20 @@
 $title = $this->config['component']['measure_type'][0];
 $this->headTitle($title);
 ?>
-<h2>
-	<?php echo $this->escapeHtml($title); ?>
-</h2>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <div class="alert alert-danger">
-<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($measureType->getName()); ?>'?</p>
+	<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($measureType->getName()); ?>'?</p>
 </div>
 <?php
 $url = $this->url('admin/measure_type', array(
-		'action' => 'delete',
-		'id'=> $this->id,
-));
-?>
-<form action="<?php echo $url; ?>" method="post">
-	<div>
-		<input type="hidden" name="id"
-			value="<?php echo (int) $measureType->getId(); ?>" /> <input type="submit"
-			name="del" value="Si" /> <input type="submit" name="del" value="No" />
-	</div>
-</form>
+	'action' => 'delete',
+	'id'=> $this->id,
+	));
+	?>
+	<form action="<?php echo $url; ?>" method="post">
+		<div>
+			<input type="hidden" name="id" value="<?php echo (int) $measureType->getId(); ?>" />
+			<?php echo $this->config['action']['delete_yes']; ?>
+			<?php echo $this->config['action']['delete_no']; ?>
+		</div>
+	</form>
