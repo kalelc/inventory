@@ -90,7 +90,7 @@ implements ConfigAwareInterface
 					$specification->exchangeArray($form->getData());
 		 			$this->getSpecificationTable()->save($specification);
 				}
-			return $this->redirect()->toRoute('specification');
+			return $this->redirect()->toRoute('admin/specification');
 			}
 		}
 		return array(
@@ -103,7 +103,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('specification', array(
+			return $this->redirect()->toRoute('admin/specification', array(
 					'action' => 'add'
 			));
 		}
@@ -190,7 +190,7 @@ implements ConfigAwareInterface
 					$this->getSpecificationTable()->save($specification);
 				}
 
-				return $this->redirect()->toRoute('specification');
+				return $this->redirect()->toRoute('admin/specification');
 			}
 		}
 
@@ -205,7 +205,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('specification');
+			return $this->redirect()->toRoute('admin/specification');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -216,7 +216,7 @@ implements ConfigAwareInterface
 				$this->getSpecificationTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('specification');
+			return $this->redirect()->toRoute('admin/specification');
 		}
 		return array(
 				'id'=> $id,

@@ -92,9 +92,20 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12"><?php echo $this->content; ?></div>
+			<div class="col-md-3">
+				<br>
+				<div class="list-group">
+					<a href="#" class="list-group-item active">Accesos Directos</a>
+					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Emails</a>
+					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Documentos</a>
+					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;Compras</a>
+					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;Calendario</a>
+
+				</div>
+			</div>
+			<div class="col-md-9"><?php echo $this->content; ?></div>
 		</div>
 		<br><br>
 		<div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
@@ -106,15 +117,8 @@
 					<span class="icon-bar"></span>
 				</button>
 			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="#">No Entrada <span class="badge">42</span></a></li>
-					<li class="active"><a href="#">No Salida <span class="badge">34</span></a></li>
-				</ul>
-			</div>
 		</div>
 	</div>
-	<!-- /container -->
 	<?php echo $this->inlineScript() ?>
 </body>
 </html>

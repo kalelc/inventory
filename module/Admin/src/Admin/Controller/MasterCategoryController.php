@@ -81,7 +81,7 @@ implements ConfigAwareInterface
 					 			$masterCategory->setImage($fileName);
 					 			$this->getMasterCategoryTable()->save($masterCategory);
 
-					 			return $this->redirect()->toRoute('master_category');
+					 			return $this->redirect()->toRoute('admin/master_category');
 					 		}
 					 	}
 					}
@@ -91,7 +91,7 @@ implements ConfigAwareInterface
 					$masterCategory->exchangeArray($form->getData());
 					$this->getMasterCategoryTable()->save($masterCategory);
 
-					return $this->redirect()->toRoute('master_category');
+					return $this->redirect()->toRoute('admin/master_category');
 				}
 			}
 
@@ -106,7 +106,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('master_category', array(
+			return $this->redirect()->toRoute('admin/master_category', array(
 					'action' => 'add'
 			));
 		}
@@ -191,7 +191,7 @@ implements ConfigAwareInterface
  					$this->getMasterCategoryTable()->save($masterCategory);
  				}
 				
- 				return $this->redirect()->toRoute('master_category');
+ 				return $this->redirect()->toRoute('admin/master_category');
 			}
 		}
 
@@ -206,7 +206,7 @@ implements ConfigAwareInterface
 		{
 			$id = (int) $this->params()->fromRoute('id', 0);
 			if (!$id) {
-				return $this->redirect()->toRoute('master_category');
+				return $this->redirect()->toRoute('admin/master_category');
 			}
 			$request = $this->getRequest();
 			if ($request->isPost()) {
@@ -217,7 +217,7 @@ implements ConfigAwareInterface
 					$this->getMasterCategoryTable()->delete($id);
 				}
 
-				return $this->redirect()->toRoute('master_category');
+				return $this->redirect()->toRoute('admin/master_category');
 			}
 			return array(
 					'id'=> $id,
