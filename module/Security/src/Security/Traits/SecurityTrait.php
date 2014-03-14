@@ -19,7 +19,6 @@ Trait SecurityTrait
 		}
 		return $rolTable;
 	}
-
 	public function getAuthSessionAdapter()
 	{
 		$authSessionAdapter = "";

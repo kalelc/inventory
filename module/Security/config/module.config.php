@@ -5,7 +5,6 @@ return array(
             'Security\Controller\Session'   => 'Security\Controller\SessionController',
             'Security\Controller\Rol'       => 'Security\Controller\RolController',
             'Security\Controller\User'      => 'Security\Controller\UserController',
-            'Security\Controller\Module'    => 'Security\Controller\ModuleController',
             )
         ),
     'router' => array(
@@ -45,20 +44,6 @@ return array(
                                 ),
                             'defaults' => array(
                                 'controller' => 'Security\Controller\Rol',
-                                'action'     => 'index',
-                                ),
-                            ),
-                        ),
-                    'rol' => array(
-                        'type'    => 'segment',
-                        'options' => array(
-                            'route'    => '/module[/:action][/:id]',
-                            'constraints' => array(
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'     => '[0-9]+',
-                                ),
-                            'defaults' => array(
-                                'controller' => 'Security\Controller\Module',
                                 'action'     => 'index',
                                 ),
                             ),
