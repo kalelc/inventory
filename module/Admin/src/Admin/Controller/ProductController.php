@@ -39,13 +39,11 @@ implements ConfigAwareInterface
 
 		if ($request->isPost()) {
 
-			
 			$product = new Product();
 			$form->setInputFilter($product->getInputFilter());
 
 			$data 		= $request->getPost()->toArray();
 
-			
 			$form->setData($data);
 
 			if ($form->isValid()) {
@@ -56,7 +54,7 @@ implements ConfigAwareInterface
 				$fileService->setDestination($this->config['component']['product']['image_path']);
 				$fileService->setSize($this->config['file_characteristics']['image']['size']);
 				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
-				
+
 				$image1 = $fileService->copy($this->params()->fromFiles('image1'));
 				$image2 = $fileService->copy($this->params()->fromFiles('image2'));
 				$image3 = $fileService->copy($this->params()->fromFiles('image3'));

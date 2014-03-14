@@ -26,6 +26,7 @@ return array(
 		'measure_type' 			=> array('tipos de medidas','tipo de medida'),
 		'meaning' 				=> array('significados','significado'),
 		'model' 				=> array('modelos','modelo'),
+		'module' 				=> array('modulos','modulo'),
 		'name' 					=> array('nombres','nombre'),
 		'no_part' 				=> array('no partes','no parte'),
 		'password' 				=> array('contraseñas','contraseña'),
