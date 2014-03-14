@@ -1,0 +1,28 @@
+<?php
+$title = $this->config['component']['module'][0];
+$this->headTitle($title);
+?>
+<h2 class="page-header"><?php echo $title ; ?></h2>
+<p>
+    <a href="<?php echo $this->url('admin/module', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
+</p>
+
+<table class="table table-striped table-bordered table-hover">
+<tr>
+    <th><?php echo $this->config['component']['name'][1] ;?></th>
+    <th><?php echo $this->config['component']['description'][1] ;?></th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach ($modules as $module) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($module->getName());?></td>
+    <td><?php echo $this->escapeHtml($module->getDescription());?></td>
+    <td class='column-button'>
+        <a href="<?php echo $this->url('admin/module',
+            array('action'=>'edit', 'id' => $module->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+        <a href="<?php echo $this->url('admin/module',
+            array('action'=>'delete', 'id' => $module->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>

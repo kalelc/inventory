@@ -1,0 +1,36 @@
+<?php
+$title = $this->config['component']['module'][0];
+$this->headTitle($title);
+?>
+<h2 class="page-header"><?php echo $title ; ?></h2>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+	'admin/module',
+	array(
+		'action' => 'edit',
+		'id'     => $this->id,
+		)
+	));
+	$form->prepare();?>
+	<?php echo $this->form()->openTag($form); ?>
+	<?php echo $this->formHidden($form->get('id')); ?>
+	<?php echo $this->formHidden($form->get('csrf'));?>
+	<div class="form-group">
+		<div class="col-lg-4">
+			<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
+			<?php echo $this->formInput($form->get('name')); ?>
+			<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-6">
+			<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
+			<?php echo $this->formTextarea($form->get('description')); ?>
+			<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+	&nbsp;
+	<a href="<?php echo $this->url('admin/module'); ?>"><?php echo $this->config['action']['return'] ; ?></a>
+	<?php echo $this->form()->closeTag(); ?>
