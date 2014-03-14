@@ -4,7 +4,8 @@ return array(
     'modules' => array(
         'Application',
     	'Admin',
-    	'Security',
+        'Security',
+    	'Settings',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

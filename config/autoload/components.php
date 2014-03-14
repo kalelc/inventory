@@ -6,7 +6,7 @@ return array(
 		'background_image' 		=> array('imagenes de fondo','imagen de fondo'),
 		'bank' 					=> array('bancos','banco'),
 		'bank_info' 			=> array('informaciones de banco','información de banco'),
-		'brand' 				=> array('marcas','marca','image_path'=> 'public/images/brand'),		
+		'brand' 				=> array('marcas','marca','image_path'=> 'public/images/brand'),
 		'category' 				=> array('categorias','categoria','image_path'=> 'public/images/category'),
 		'description' 			=> array('descripciones','descripción'),
 		'document' 				=> array('documentos','documento'),
@@ -51,6 +51,7 @@ return array(
 		'video' 				=> array('videos','video'),
 		'user'					=> array('usuarios','usuario'),
 		'username'				=> array('nombres de usuario','nombre de usuario'),
+		'user_shortcut'			=> array('accesos directos usuario','acceso diercto usuario'),
 		'upc_bar_code'			=> array('codigos UPC', 'codigo UPC')
 		)
 );
