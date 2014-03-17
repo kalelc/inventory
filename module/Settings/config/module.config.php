@@ -7,12 +7,12 @@ return array(
         ),
     'router' => array(
         'routes' => array(
-            'security' => array(
+            'settings' => array(
                 'type' => 'literal',
                 'options' => array(
                     'route' => '/settings',
                     'defaults' => array(
-                        'controller' => 'Settings\Controller\Session',
+                        'controller' => 'Settings\Controller\UserShortCut',
                         'action' => 'index'
                         )
                     ),
@@ -48,7 +48,7 @@ return array(
     ),
 'view_manager' => array(
     'template_path_stack' => array(
-        'security' => __DIR__ . '/../view'
+        'settings' => __DIR__ . '/../view'
         )
     ),
 );

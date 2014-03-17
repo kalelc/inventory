@@ -27,7 +27,7 @@ class UserShortCutTable
         $select->from($this->tableGateway->getTable());
         $select->columns(array('*'));
         $select->join('modules', "user_shortcuts.module = modules.id", array('module_name' => 'name'), 'inner');
-        $select->join('user', "user_shortcuts.user = user.id", array('user_first_name' => 'first_name','user_last_name' => 'last_name'), 'inner');
+        $select->join('users', "user_shortcuts.user = users.id", array('user_first_name' => 'first_name','user_last_name' => 'last_name'), 'inner');
         $resultSet = $this->tableGateway->selectWith($select);
         return $resultSet;
     }

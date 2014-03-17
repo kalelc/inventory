@@ -8,7 +8,9 @@ use Zend\Mvc\MvcEvent;
 use Settings\Adapter\AuthSessionAdapter;
 use Settings\Model\UserShortCutTable;
 use Settings\Model\UserShortCut;
+use Settings\Model\Module as SettingsModule;
 use Zend\ModuleManager\ModuleManager;
+
 
 class Module
 {
