@@ -21,10 +21,11 @@ return array(
                     'user_shortcut' => array(
                         'type'    => 'segment',
                         'options' => array(
-                            'route'    => '/user-shortcut[/:action][/:id]',
+                            'route'    => '/user-shortcut[/:action][/:user][/:module]',
                             'constraints' => array(
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'     => '[0-9]+',
+                                'user'     => '[a-zA-Z0-9]+',
+                                'module'     => '[0-9]+',
                                 ),
                             'defaults' => array(
                                 'controller' => 'Settings\Controller\UserShortCut',

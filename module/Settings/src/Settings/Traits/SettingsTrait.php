@@ -3,6 +3,15 @@ namespace Settings\Traits;
 
 Trait SettingsTrait
 {
+	public function getModuleTable()
+	{
+		$moduleTable = "";
+		if (!$moduleTable) {
+			$moduleTable = $this->getServiceLocator()->get('Settings\Model\ModuleTable');
+		}
+		return $moduleTable;
+	}
+
 	public function getUserShortCutTable()
 	{
 		$userShortCutTable = "";

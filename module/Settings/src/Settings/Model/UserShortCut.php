@@ -9,14 +9,14 @@ use Zend\InputFilter\InputFilterInterface;
 
 class UserShortCut implements InputFilterAwareInterface
 {
-    private $module;
+    private $modules;
     private $user;
 
     protected $inputFilter;
 
     public function exchangeArray($data)
     {
-        if (array_key_exists('module', $data)) $this->setModule($data['module']);
+        if (array_key_exists('modules', $data)) $this->setModules($data['modules']);
         if (array_key_exists('user', $data)) $this->setUser($data['user']);
     }
 
@@ -37,7 +37,7 @@ class UserShortCut implements InputFilterAwareInterface
             $factory = new InputFactory();
 
             $inputFilter->add($factory->createInput(array(
-                'name' => 'module',
+                'name' => 'modules',
                 'required' => true,
                 'validators' => array(
                     array(
@@ -70,19 +70,22 @@ class UserShortCut implements InputFilterAwareInterface
         return $this->inputFilter;
     }
 
-    public function getModule()
+    public function getModules()
     {
-        return $this->module;
+        return $this->modules;
     }
-    public function setModule($module)
+
+    public function setModules($modules)
     {
-        $this->module = $module;
+        $this->modules = $modules;
         return $this;
     }
+
     public function getUser()
     {
         return $this->user;
     }
+
     public function setUser($user)
     {
         $this->user = $user;

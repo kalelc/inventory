@@ -8,13 +8,20 @@ $this->headTitle($title);
 <?php $form->prepare(); ?>
 <?php echo $this->form()->openTag($form); ?>
 <?php echo $this->formHidden($form->get('csrf'));?>
-<?php echo $this->formLabel($form->get('modules')->setLabel($this->config['component']['module'][1])); ?>
-<?php echo $this->formCheckbox($form->get('modules')); ?>
-<?php echo $this->formElementErrors($form->get('modules'), array("class" => "error")); ?>
-<?php echo $this->formLabel($form->get('users')->setLabel($this->config['component']['user'][1])); ?>
-<?php echo $this->formSelect($form->get('users')); ?>
-<?php echo $this->formElementErrors($form->get('users'), array("class" => "error")); ?>
-<br><br>
+<div class="form-group">
+	<div class="col-lg-4">
+		<?php echo $this->formLabel($form->get('user')->setLabel($this->config['component']['user'][1])); ?>
+		<?php echo $this->formSelect($form->get('user')); ?>
+		<?php echo $this->formElementErrors($form->get('user'), array("class" => "error")); ?>
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<?php echo $this->formLabel($form->get('modules')->setLabel($this->config['component']['module'][1])); ?>
+		<?php echo $this->formSelect($form->get('modules')); ?>
+		<?php echo $this->formElementErrors($form->get('modules'), array("class" => "error")); ?>
+	</div>
+</div>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 &nbsp;<a href="<?php echo $this->url('settings/user_shortcut');?>"><?php echo $this->config['action']['return'] ; ?></a>
 <?php echo $this->form()->closeTag(); ?>

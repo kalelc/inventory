@@ -31,4 +31,15 @@ class UserShortCutTable
         $resultSet = $this->tableGateway->selectWith($select);
         return $resultSet;
     }
+
+    public function save(UserShortCut $userShortCut)
+    {
+        $data = array(
+            'user' => $userShortCut->getUser(),
+            'module' => $userShortCut->getModules(),
+            );
+
+        $this->tableGateway->insert($data);
+        dumpx("test");
+    }
 }

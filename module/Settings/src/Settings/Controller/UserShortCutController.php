@@ -26,6 +26,7 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
+		dumpx($this->getModuleTable()->save(),"importar modulos");
 		$viewModel = new ViewModel();
 		$viewModel->setTemplate("settings/user-shortcut/add");
 		
@@ -40,6 +41,8 @@ implements ConfigAwareInterface
 			if ($form->isValid()) {
 
 				$userShortCut->exchangeArray($form->getData());
+
+				$categoryData = $form->getData();
 				$this->getUserShortCutTable()->save($userShortCut);
 
 				return $this->redirect()->toRoute('settings/user-shortcut');
@@ -54,13 +57,14 @@ implements ConfigAwareInterface
 
 	public function editAction()
 	{
-		$id = (int) $this->params()->fromRoute('id', 0);
-		if (!$id) {
+		$user = (int) $this->params()->fromRoute('user');
+		$module = (int) $this->params()->fromRoute('module', 0);
+		if (!$user && !$module) {
 			return $this->redirect()->toRoute('settings/user-shortcut', array(
-					'action' => 'add'
-			));
+				'action' => 'add'
+				));
 		}
-		$userShortCut = $this->getUserShortCutTable()->get($id);
+		$userShortCut = $this->getUserShortCutTable()->get($user,$module);
 
 		$form  = new UserShortCutForm();
 		$form->bind($userShortCut);
@@ -77,10 +81,10 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'id' => $id,
-				'form' => $form,
-				'config' => $this->config,
-		);
+			'id' => $id,
+			'form' => $form,
+			'config' => $this->config,
+			);
 	}
 
 	public function deleteAction()
@@ -101,10 +105,10 @@ implements ConfigAwareInterface
 			return $this->redirect()->toRoute('settings/user-shortcut');
 		}
 		return array(
-				'id'=> $id,
-				'rol' => $this->getUserShortCutTable()->get($id),
-				'config' => $this->config,
-		);
+			'id'=> $id,
+			'rol' => $this->getUserShortCutTable()->get($id),
+			'config' => $this->config,
+			);
 	}
 
 	public function setConfig($config)
