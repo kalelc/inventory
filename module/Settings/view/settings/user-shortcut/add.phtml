@@ -1,0 +1,20 @@
+<?php
+$title = $this->config['component']['user_shortcut'][0];
+$this->headTitle($title);
+?>
+<h2 class="page-header"><?php echo $title ; ?></h2>
+<?php $form = $this->form; ?>
+<?php $form->setAttribute('action', $this->url('settings/user_shortcut', array('action' => 'add'))); ?>
+<?php $form->prepare(); ?>
+<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->formHidden($form->get('csrf'));?>
+<?php echo $this->formLabel($form->get('modules')->setLabel($this->config['component']['module'][1])); ?>
+<?php echo $this->formCheckbox($form->get('modules')); ?>
+<?php echo $this->formElementErrors($form->get('modules'), array("class" => "error")); ?>
+<?php echo $this->formLabel($form->get('users')->setLabel($this->config['component']['user'][1])); ?>
+<?php echo $this->formSelect($form->get('users')); ?>
+<?php echo $this->formElementErrors($form->get('users'), array("class" => "error")); ?>
+<br><br>
+<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+&nbsp;<a href="<?php echo $this->url('settings/user_shortcut');?>"><?php echo $this->config['action']['return'] ; ?></a>
+<?php echo $this->form()->closeTag(); ?>
