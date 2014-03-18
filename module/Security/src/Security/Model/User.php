@@ -17,8 +17,6 @@ class User implements InputFilterAwareInterface
     private $lastName;
     private $username;
     private $email;
-    private $picture;
-    private $signature;
     private $rol;
     private $rolName;
     private $password;
@@ -34,8 +32,6 @@ class User implements InputFilterAwareInterface
         if (array_key_exists('last_name', $data)) $this->setLastName($data['last_name']);
         if (array_key_exists('username', $data)) $this->setUsername($data['username']);
         if (array_key_exists('email', $data)) $this->setEmail($data['email']);
-        if (array_key_exists('picture', $data)) $this->setPicture($data['picture']);
-        if (array_key_exists('signature', $data)) $this->setSignature($data['signature']);
         if (array_key_exists('rol', $data)) $this->setRol($data['rol']);
         if (array_key_exists('rol_name', $data)) $this->setRolName($data['rol_name']);
         if (array_key_exists('password', $data)) $this->setPassword($data['password']);
@@ -86,7 +82,7 @@ class User implements InputFilterAwareInterface
                             )
                         )
                     )
-                )));
+            )));
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'last_name',
@@ -158,6 +154,40 @@ class User implements InputFilterAwareInterface
                             )
                         ),
                     )
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'email',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim')
+                    ),
+                'validators' => array(
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Debes aceptar los términos y condiciones para poder continuar.'
+                                )
+                            )
+                        )
+                    )
+                )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'rol',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario que selecciones rol.'
+                                )
+                            )
+                        )
+                    )
                 )));
 
             $inputFilter->add($factory->createInput(array(
@@ -186,77 +216,9 @@ class User implements InputFilterAwareInterface
                                 \Zend\Validator\NotEmpty::IS_EMPTY => ''
                                 )
                             )
-                        )
+                        ),
                     )
                 )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'email',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim')
-                    ),
-                'validators' => array(
-                    array('name' => 'EmailAddress'),
-                    array('name' => 'NotEmpty'),
-                    )
-                )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'picture',
-                'required' => false,
-                )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'signature',
-                'required' => false,
-                )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'rol',
-                'required' => true,
-                'validators' => array(
-                    array(
-                        'name' => 'NotEmpty',
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario que selecciones un tipo de documento.'
-                                )
-                            )
-                        )
-                    )
-                )));
-
-            $inputFilter->add($factory->createInput(array(
-            'name' => 'password',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim')
-                ),
-            'validators' => array(
-                array(
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                        'min' => 8,
-                        'max' => 100,
-                        'messages' => array(
-                            \Zend\Validator\StringLength::TOO_SHORT => 'La contraseña que ingresaste no es válida. Recuerda que esta debe tener mínimo 8 caracteres.'
-                            )
-                        )
-                    ),
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
-                            \Zend\Validator\NotEmpty::IS_EMPTY => ''
-                            )
-                        )
-                    ),
-                )
-            )));
 
             $inputFilter->add($factory->createInput(array(
                 'name' => 'password_repeat',
@@ -293,10 +255,27 @@ class User implements InputFilterAwareInterface
                         ),
                     )
                 )));
-            }
 
-        $this->inputFilter = $inputFilter;
-        return $this->inputFilter;
+
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'status',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'NotEmpty',
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario seleccionar el estado.'
+                                )
+                            )
+                        )
+                    )
+                )));
+
+
+    $this->inputFilter = $inputFilter;
+    }
+    return $this->inputFilter;
     }
 
     public function getId()

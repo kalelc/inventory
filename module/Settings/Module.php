@@ -74,14 +74,16 @@ class Module
                 'Settings\Form\UserShortCutForm' => function($sm)
                 {
                     $modules = $sm->get("Settings\Model\ModuleTable")->fetchAll();
-                    $listModules;
+                    $listModules = array();
 
                     foreach($modules as $module) {
                             $listModules[$module->getId()] = $module->getName();
                     }
 
                     $users = $sm->get("Security\Model\UserTable")->fetchAll();
-                    $listUsers;
+                    $listUsers = array();
+
+                    dumpx($users,"users");
 
                     foreach($users as $user) {
                             $listUsers[$user->getId()] = $user->getFirstName()." ".$user->getLastName();

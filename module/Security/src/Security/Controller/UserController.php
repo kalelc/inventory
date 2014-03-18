@@ -33,16 +33,22 @@ implements ConfigAwareInterface
 			$adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 			$user = new User();
 			$user->setAdapter($adapter);
-
+			
 			$form->setInputFilter($user->getInputFilter());
 			$form->setData($request->getPost());
 
 			if ($form->isValid()) {
+				dumpx("es valido");
 
 				$user->exchangeArray($form->getData());
+
+				dumpx($this->getUserTable());
 				$this->getUserTable()->save($user);
 
 				return $this->redirect()->toRoute('admin/user');
+			}
+			else {
+				dumpx($form->getMessages(),"message errors");
 			}
 		}
 		return array(

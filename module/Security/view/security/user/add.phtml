@@ -8,9 +8,9 @@ $this->headTitle($title);
 <?php $form->prepare(); ?>
 <?php echo $this->form()->openTag($form); ?>
 <div class="clearfix"></div>
-<?php echo $this->formHidden($form->get('csrf'));?>
 <div class="form-group">
 	<div class="col-lg-4">
+		<?php echo $this->formHidden($form->get('csrf'));?>
 		<?php echo $this->formLabel($form->get('first_name')->setLabel($this->config['component']['first_name'][0])); ?>
 		<?php echo $this->formText($form->get('first_name')); ?>
 		<?php echo $this->formElementErrors($form->get('first_name'), array("class" => "error")); ?>
@@ -31,7 +31,7 @@ $this->headTitle($title);
 	</div>
 </div>
 <div class="form-group">
-	<div class="col-lg-3">
+	<div class="col-lg-4">
 		<?php echo $this->formLabel($form->get('email')->setLabel($this->config['component']['email'][1])); ?>
 		<?php echo $this->formText($form->get('email')); ?>
 		<?php echo $this->formElementErrors($form->get('email'), array("class" => "error")); ?>
@@ -39,9 +39,9 @@ $this->headTitle($title);
 </div>
 <div class="form-group">
 	<div class="col-lg-3">
-		<?php echo $this->formLabel($form->get('roles')->setLabel($this->config['component']['rol'][1])); ?>
-		<?php echo $this->formSelect($form->get('roles')); ?>
-		<?php echo $this->formElementErrors($form->get('roles'), array("class" => "error")); ?>
+		<?php echo $this->formLabel($form->get('rol')->setLabel($this->config['component']['rol'][1])); ?>
+		<?php echo $this->formSelect($form->get('rol')); ?>
+		<?php echo $this->formElementErrors($form->get('rol'), array("class" => "error")); ?>
 	</div>
 </div>
 <div class="form-group">
@@ -49,9 +49,7 @@ $this->headTitle($title);
 		<?php echo $this->formLabel($form->get('password')->setLabel($this->config['component']['password'][1])); ?>
 		<div class="input-group">
 			<?php echo $this->formPassword($form->get('password')); ?>
-			<span class="input-group-addon">
-				<input type="checkbox">Mostrar
-			</span>
+			<span class="input-group-addon"><input type="checkbox">Mostrar</span>
 		</div>
 		<?php echo $this->formElementErrors($form->get('password'), array("class" => "error")); ?>
 	</div>

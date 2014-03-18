@@ -38,7 +38,7 @@ implements ConfigAwareInterface
 				$rol->exchangeArray($form->getData());
 				$this->getRolTable()->save($rol);
 
-				return $this->redirect()->toRoute('admin/rol');
+				return $this->redirect()->toRoute('security/rol');
 			}
 		}
 		return array(
@@ -51,7 +51,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('admin/rol', array(
+			return $this->redirect()->toRoute('security/rol', array(
 					'action' => 'add'
 			));
 		}
@@ -68,7 +68,7 @@ implements ConfigAwareInterface
 			if ($form->isValid()) {
 				$this->getRolTable()->save($form->getData());
 
-				return $this->redirect()->toRoute('admin/rol');
+				return $this->redirect()->toRoute('security/rol');
 			}
 		}
 		return array(
@@ -82,7 +82,7 @@ implements ConfigAwareInterface
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('admin/rol');
+			return $this->redirect()->toRoute('security/rol');
 		}
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -93,7 +93,7 @@ implements ConfigAwareInterface
 				$this->getRolTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('admin/rol');
+			return $this->redirect()->toRoute('security/rol');
 		}
 		return array(
 				'id'=> $id,

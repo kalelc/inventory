@@ -26,7 +26,7 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		dumpx($this->getModuleTable()->save(),"importar modulos");
+		//dumpx($this->getModuleTable()->save(),"importar modulos");
 		$viewModel = new ViewModel();
 		$viewModel->setTemplate("settings/user-shortcut/add");
 		

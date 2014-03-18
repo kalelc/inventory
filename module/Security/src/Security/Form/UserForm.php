@@ -8,7 +8,6 @@ use Tools\Model\DocumentTypeTable;
 
 class UserForm extends Form
 {
-
     private $adapter;
 
     public function __construct($roles)
@@ -27,7 +26,7 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'Nombres:'
+                'label' => 'first_name'
                 )
             ));
 
@@ -40,7 +39,7 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'Apellidos:'
+                'label' => 'last_name'
                 )
             ));
         $this->add(array(
@@ -52,7 +51,7 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'Usuario:'
+                'label' => 'username'
                 )
             ));
 
@@ -65,7 +64,7 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'Contraseña:'
+                'label' => 'password'
                 )
             ));
 
@@ -78,7 +77,7 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'Contraseña:'
+                'label' => 'password'
                 )
             ));
 
@@ -91,21 +90,21 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'Correo electrónico:'
+                'label' => 'email'
                 )
             ));
 
         $this->add(array(
             'type' => 'Select',
-            'name' => 'roles',
+            'name' => 'rol',
             'options' => array(
-                'label' => 'Roles:',
+                'label' => 'rol',
                 'value_options' => $roles,
                 'empty_option' => "Seleccione",
                 'disable_inarray_validator' => true
                 ),
             'attributes' => array(
-                'id' => 'roles',
+                'id' => 'rol',
                 'class' => 'form-control',
                 )
 
@@ -115,7 +114,7 @@ class UserForm extends Form
             'type' => 'Select',
             'name' => 'status',
             'options' => array(
-                'label' => 'Parametros reservados:',
+                'label' => 'status',
                 'value_options' => array(1 => "activo",0 => "inactivo"),
                 'disable_inarray_validator' => true
                 ),

@@ -34,9 +34,8 @@ class ModuleTable
 	{
 
 		$insert = new Insert($this->tableGateway->getTable());
+		$insert->columns(array("name","url"));
 
-		$values = array("name" => "Bancos","url" => "admin/bank");
-		//$values = array("Metodos de Pago","admin/payment_method");
 		$name = array(
 			"Bancos",
 			"Metodos de Pago",
@@ -70,11 +69,12 @@ class ModuleTable
 			"security/user"
 			);
 
-		$insert->values($values);
-
-		dumpx($insert->getSqlString(),"sql");
-
-		$this->tableGateway->insert($data);
+		for($i= 0; $i<count($name);$i++) {
+			//$insert->values(array("name" => $name[$i], "url" => $url[$i]));
+			//$this->tableGateway->insertWith($insert);
+			//$this->tableGateway->insert($data);
+			//dump($insert->getSqlString(),"sql");
+		}
 		dumpx("fin");
 	}
 }
