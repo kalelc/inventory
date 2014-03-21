@@ -38,7 +38,6 @@ implements ConfigAwareInterface
 			$form->setData($request->getPost());
 
 			if ($form->isValid()) {
-				dumpx("es valido");
 
 				$user->exchangeArray($form->getData());
 

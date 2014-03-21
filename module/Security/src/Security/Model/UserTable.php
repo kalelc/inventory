@@ -48,4 +48,34 @@ class UserTable
 
         return ! $row ? false : $row;
     }
+
+    public function save(User $user)
+    {
+        $data = array(
+            'first_name' => $user->getName(),
+            'last_name' => $user->getName(),
+            'username' => $user->getName(),
+            'email' => $user->getName(),
+            'picture' => $user->getName(),
+            'signature' => $user->getName(),
+            'rol' => $user->getName(),
+            'password' => $user->getName(),
+            'hash' => $user->getName(),
+            'rol' => $user->getName(),
+            
+            //'picture' => $user->getName(),
+            //'signature' => $user->getDescription(),
+            );
+
+        $id = (int)$user->getId();
+        if ($id == 0) {
+            $this->tableGateway->insert($data);
+        } else {
+            if ($this->get($id)) {
+                $this->tableGateway->update($data, array('id' => $id));
+            } else {
+                throw new \Exception('Form id does not exist');
+            }
+        }
+    }
 }
