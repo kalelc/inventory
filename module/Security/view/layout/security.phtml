@@ -12,9 +12,9 @@
 	->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
 	->prependStylesheet($this->basePath() . 'http://fonts.googleapis.com/css?family=Average+Sans')
 	->prependStylesheet($this->basePath() . '/css/fonts.css')
-	//->prependStylesheet($this->basePath() . '/css/style.css')
-	//->prependStylesheet($this->basePath() . 'http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css')
-	//->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+	->prependStylesheet($this->basePath() . '/css/style.css')
+	->prependStylesheet($this->basePath() . 'http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css')
+	->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
 	<!-- Scripts -->
 	<?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
 	->prependFile($this->basePath() . '/js/jquery.ui.sortable.js')
