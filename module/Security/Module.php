@@ -65,6 +65,7 @@ class Module
                 {
                     $tableGateway = $sm->get('UserTableGateway');
                     $table = new UserTable($tableGateway);
+                    $table->setMemcached($sm->get("memcached"));
                     return $table;
                 },
                 'Security\Form\UserForm' => function($sm)

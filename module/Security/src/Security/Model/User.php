@@ -17,6 +17,8 @@ class User implements InputFilterAwareInterface
     private $lastName;
     private $username;
     private $email;
+    private $picture;
+    private $signature;
     private $rol;
     private $rolName;
     private $password;
@@ -32,6 +34,8 @@ class User implements InputFilterAwareInterface
         if (array_key_exists('last_name', $data)) $this->setLastName($data['last_name']);
         if (array_key_exists('username', $data)) $this->setUsername($data['username']);
         if (array_key_exists('email', $data)) $this->setEmail($data['email']);
+        if (array_key_exists('picture', $data)) $this->setPicture($data['picture']);
+        if (array_key_exists('signature', $data)) $this->setSignature($data['signature']);
         if (array_key_exists('rol', $data)) $this->setRol($data['rol']);
         if (array_key_exists('rol_name', $data)) $this->setRolName($data['rol_name']);
         if (array_key_exists('password', $data)) $this->setPassword($data['password']);
@@ -168,7 +172,21 @@ class User implements InputFilterAwareInterface
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Debes aceptar los términos y condiciones para poder continuar.'
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario ingresar un email.'
+                                )
+                            )
+                        ),
+                    array(
+                        'name' => 'EmailAddress'
+                        ),
+                    array(
+                        'name' => 'Db\NoRecordExists',
+                        'options' => array(
+                            'table' => 'users',
+                            'field' => 'email',
+                            'adapter' => $this->getAdapter(),
+                            'messages' => array(
+                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El correo electrónico que ingresaste ya está asociado a otra cuenta de un usuario, ingresa uno nuevo."
                                 )
                             )
                         )
@@ -251,6 +269,9 @@ class User implements InputFilterAwareInterface
                         'name' => 'Identical',
                         'options' => array(
                             'token' => 'password',
+                            'messages' => array(
+                                \Zend\Validator\Identical::NOT_SAME => 'las contraseñas ingresadas no coninciden'
+                                )
                             ),
                         ),
                     )
@@ -377,9 +398,13 @@ class User implements InputFilterAwareInterface
         $this->rolName = $rolName;
         return $this;
     }
-
     public function setAdapter($adapter)
     {
         $this->adapter = $adapter;
+        return $this;
+    }
+    public function getAdapter()
+    {
+        return $this->adapter;
     }
 }

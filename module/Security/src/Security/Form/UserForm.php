@@ -68,7 +68,7 @@ class UserForm extends Form
                 )
             ));
 
-         $this->add(array(
+        $this->add(array(
             'name' => 'password_repeat',
             'attributes' => array(
                 'type' => 'password',
@@ -93,6 +93,26 @@ class UserForm extends Form
                 'label' => 'email'
                 )
             ));
+
+        $this->add(array(
+            'name' => 'picture',
+            'attributes' => array(
+                'type'  => 'file',
+                ),
+            'options' => array(
+                'label' => 'picture',
+                ),
+            )); 
+
+        $this->add(array(
+            'name' => 'signature',
+            'attributes' => array(
+                'type'  => 'file',
+                ),
+            'options' => array(
+                'label' => 'signature',
+                ),
+            )); 
 
         $this->add(array(
             'type' => 'Select',

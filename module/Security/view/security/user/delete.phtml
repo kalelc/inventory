@@ -1,0 +1,22 @@
+<?php
+$title = $this->config['component']['user'][0];
+$this->headTitle($title);
+?>
+<h2 class="page-header"><?php echo $title ; ?></h2>
+<div class="alert alert-danger">
+	<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($user->getFirstName()." ".$user->getLastName()); ?>'?</p>
+</div>
+<?php
+$url = $this->url('security/user', array(
+	'action' => 'delete',
+	'id'=> $this->id,
+	));
+	?>
+	<form action="<?php echo $url; ?>" method="post">
+		<div>
+			<input type="hidden" name="id" value="<?php echo (int) $user->getId(); ?>" />
+			<?php echo $this->config['action']['delete_yes']; ?>
+			<?php echo $this->config['action']['delete_no']; ?>
+		</div>
+	</form>
+

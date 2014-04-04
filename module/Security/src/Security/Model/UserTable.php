@@ -9,10 +9,12 @@ use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Predicate\Predicate;
+use Zend\Crypt\Password\Bcrypt;
 
 class UserTable
 {
     protected $tableGateway;
+    protected $memcached;
     protected $featureSet;
 
     public function __construct(TableGateway $tableGateway)
@@ -29,17 +31,21 @@ class UserTable
         $select->join('roles', "roles.id = users.rol", array('rol_name' => 'name'), 'inner');
 
         $resultSet = $this->tableGateway->selectWith($select);
+        /*$this->memcached->setItem("listUsers",$resultSet);
+        $this->memcached->flush();
+        dump($resultSet,"object resultset");
+        dumpx($this->memcached->getItem('listUsers'),"item");*/
         return $resultSet;
     }
 
-    public function get($username, $status = null)
+    public function get($id, $status = null)
     {
 
         $select = new Select();
         $select->from($this->tableGateway->getTable());
         $select->columns(array('*'));
-        $select->where($status === null ? array('users.username' => $username) : array(
-            'users.username' => $username,
+        $select->where($status === null ? array('users.id' => $id) : array(
+            'users.id' => $id,
             'users.status' => $status
             ));
 
@@ -51,20 +57,20 @@ class UserTable
 
     public function save(User $user)
     {
+        $bcrypt = new Bcrypt();
+        $hash = $bcrypt->create($user->getPassword());
+
         $data = array(
-            'first_name' => $user->getName(),
-            'last_name' => $user->getName(),
-            'username' => $user->getName(),
-            'email' => $user->getName(),
-            'picture' => $user->getName(),
-            'signature' => $user->getName(),
-            'rol' => $user->getName(),
-            'password' => $user->getName(),
-            'hash' => $user->getName(),
-            'rol' => $user->getName(),
-            
-            //'picture' => $user->getName(),
-            //'signature' => $user->getDescription(),
+            'first_name' => $user->getFirstName(),
+            'last_name' => $user->getLastName(),
+            'username' => $user->getUsername(),
+            'email' => $user->getEmail(),
+            'picture' => $user->getPicture(),
+            'signature' => $user->getSignature(),
+            'rol' => $user->getRol(),
+            'password' => $user->getPassword(),
+            'hash' => $hash,
+            'status' => $user->getStatus(),
             );
 
         $id = (int)$user->getId();
@@ -78,4 +84,16 @@ class UserTable
             }
         }
     }
+
+    public function delete($id)
+    {
+        $this->tableGateway->delete(array('id' => $id));
+    }
+
+    public function setMemcached($memcached)
+    {
+        $this->memcached = $memcached;
+        return $this;
+    }
+
 }

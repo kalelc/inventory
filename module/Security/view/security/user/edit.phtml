@@ -38,6 +38,34 @@ $this->headTitle($title);
 	</div>
 </div>
 <div class="form-group">
+	<div class="col-lg-4">
+		<?php echo $this->formLabel($form->get('picture')->setLabel($this->config['component']['picture'][1])); ?>
+		<?php echo $this->formInput($form->get('picture')); ?>
+		<?php echo $this->formElementErrors($form->get('picture'), array("class" => "error")); ?>
+		<p class="help-block">
+			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+			Tama&ntilde;o: 
+			<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+				<?php echo $range." ".$size ; ?>
+			<?php endforeach; ?>
+		</p>
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<?php echo $this->formLabel($form->get('signature')->setLabel($this->config['component']['signature'][1])); ?>
+		<?php echo $this->formInput($form->get('signature')); ?>
+		<?php echo $this->formElementErrors($form->get('signature'), array("class" => "error")); ?>
+		<p class="help-block">
+			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+			Tama&ntilde;o: 
+			<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+				<?php echo $range." ".$size ; ?>
+			<?php endforeach; ?>
+		</p>
+	</div>
+</div>
+<div class="form-group">
 	<div class="col-lg-2">
 		<?php echo $this->formLabel($form->get('rol')->setLabel($this->config['component']['rol'][1])); ?>
 		<?php echo $this->formSelect($form->get('rol')); ?>
@@ -51,21 +79,6 @@ $this->headTitle($title);
 		<?php echo $this->formElementErrors($form->get('status'), array("class" => "error")); ?>
 	</div>
 </div>
-<div class="form-group">
-	<div class="col-lg-2">
-		<?php echo $this->formLabel($form->get('password')->setLabel($this->config['component']['password'][1])); ?>
-		<?php echo $this->formPassword($form->get('password')); ?>
-		<?php echo $this->formElementErrors($form->get('password'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-2">
-		<?php echo $this->formLabel($form->get('password_repeat')->setLabel($this->config['component']['password'][1])); ?>
-		<?php echo $this->formPassword($form->get('password_repeat')); ?>
-		<?php echo $this->formElementErrors($form->get('password_repeat'), array("class" => "error")); ?>
-	</div>
-</div>
-
 <div class="row">
 	<div class="span4">
 		<div class="form-group">
