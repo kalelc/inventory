@@ -17,7 +17,14 @@ class Module
     {
         return include __DIR__ . '/config/module.config.php';
     }
-
+    public function getViewHelperConfig()
+    {
+        return array(
+        'invokables' => array(
+            'formElementErrors' => 'Application\Form\View\Helper\FormElementErrors'
+            ),
+        );
+    }
     public function getAutoloaderConfig()
     {
         return array(
