@@ -106,14 +106,13 @@ implements ConfigAwareInterface
 					$image = $fileService->copy($image);
 					$brand->setImage($image);
 					if(isset($previousImage) && !empty($previousImage))
-					   unlink($this->config['component']['brand']['image_path']."/".$previousImage);
+						unlink($this->config['component']['brand']['image_path']."/".$previousImage);
 				}
 				if(isset($backgroundImage['name']) && !empty($backgroundImage['name'])) {
 					$backgroundImage = $fileService->copy($backgroundImage);
 					$brand->setBackgroundImage($backgroundImage);
-
 					if(isset($previousBackgroundImage) && !empty($previousBackgroundImage))
-					   unlink($this->config['component']['brand']['image_path']."/".$previousBackgroundImage);
+						unlink($this->config['component']['brand']['image_path']."/".$previousBackgroundImage);
 				}
 
 				$this->getBrandTable()->save($brand);
