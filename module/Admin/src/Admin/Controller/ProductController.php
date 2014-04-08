@@ -115,36 +115,7 @@ implements ConfigAwareInterface
 	/*prueba de metodo para definir los permisos en todos los archivos*/
 	public function editAction()
 	{
-		foreach($this->config['component'] as $component)
-		{
-			if(@$component['image_path'] || @$component['video_path'] || @$component['file_path']) {
-				if(isset($component['image_path']) && !empty($component['image_path'])) {
-					if(!file_exists($component['image_path'])) {
-						$oldmask = umask(0);
-						mkdir($component['image_path'], 0777);
-						umask($oldmask);
-						echo $component['image_path']."<br>" ;
-					}
-				}
-				if(isset($component['video_path']) && !empty($component['video_path'])) {
-					if(!file_exists($component['video_path'])) {
-						$oldmask = umask(0);
-						mkdir($component['video_path'], 0777);
-						umask($oldmask);
-						echo $component['video_path']."<br>" ;
-						
-					}
-				}
-				if(isset($component['file_path']) && !empty($component['file_path'])) {
-					if(!file_exists($component['file_path'])) {
-						$oldmask = umask(0);
-						mkdir($component['file_path'], 0777);
-						umask($oldmask);
-						echo $component['file_path']."<br>" ;
-					}
-				}
-			}
-		}
+
 
 		exit();
 		$id = (int) $this->params()->fromRoute('id', 0);

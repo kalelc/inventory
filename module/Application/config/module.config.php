@@ -20,10 +20,6 @@ return array(
                     ),
                 ),
             ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
@@ -36,7 +32,18 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'default' => array(
+                    'folder_permissions' => array(
+                        'type'    => 'literal',
+                        'options' => array(
+                            'route'    => '/config/folder-permissions',
+                            'defaults' => array(
+                                'controller' => 'Config',
+                                'action'     => 'folderPermissions',
+                                ),
+                            ),
+                        ),
+
+                   /* 'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'    => '/[:controller[/:action]]',
@@ -47,10 +54,12 @@ return array(
                             'defaults' => array(
                             ),
                         ),
-                    ),
+                    ),*/
                 ),
             ),
-        ),
+
+               
+            ),
     ),
     'service_manager' => array(
         'abstract_factories' => array(
@@ -73,7 +82,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Config' => 'Application\Controller\ConfigController'
         ),
     ),
     'view_manager' => array(
@@ -92,4 +102,8 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+
+    'strategies' => array(
+            'ViewJsonStrategy',
+        ),
 );

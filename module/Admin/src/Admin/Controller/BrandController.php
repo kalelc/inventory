@@ -108,7 +108,6 @@ implements ConfigAwareInterface
 					if(isset($previousImage) && !empty($previousImage))
 					   unlink($this->config['component']['brand']['image_path']."/".$previousImage);
 				}
-
 				if(isset($backgroundImage['name']) && !empty($backgroundImage['name'])) {
 					$backgroundImage = $fileService->copy($backgroundImage);
 					$brand->setBackgroundImage($backgroundImage);
