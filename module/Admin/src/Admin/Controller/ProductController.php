@@ -30,8 +30,6 @@ implements ConfigAwareInterface
 			));
 	}
 
-//pendiente edicion de productos
-
 	public function addAction()
 	{
 		$form = $this->getServiceLocator()->get('Admin\Form\ProductForm');
@@ -114,11 +112,10 @@ implements ConfigAwareInterface
 		return $jsonModel;
 	}
 
+	/*mover a script o algo asi*/
 	/*prueba de metodo para definir los permisos en todos los archivos*/
 	public function editAction()
 	{
-		dump("get config");
-		dumpx($this->config);
 		foreach($this->config['component'] as $component)
 		{
 			if(@$component['image_path'] || @$component['video_path'] || @$component['file_path']) {
@@ -147,8 +144,6 @@ implements ConfigAwareInterface
 						echo $component['file_path']."<br>" ;
 					}
 				}
-				//echo @$component['video_path']."<br>";
-				//echo @$component['file_path']."<br>";
 			}
 		}
 
