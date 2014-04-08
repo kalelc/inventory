@@ -19,10 +19,10 @@ class CategoryForm extends Form
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('class', 'form-horizontal');
 		$this->setAttribute('enctype','multipart/form-data');
-		
-		$this->masterCategoryList = $masterCategoryList;
-		$this->serialNameList = $serialNameList;
-		$this->specificationList = $specificationList;
+
+		$this->setMasterCategoryList($masterCategoryList);
+		$this->setSerialNameList($serialNameList);
+		$this->setSpecificationList($specificationList);
 		
 		$this->add(array(
 			'name' => 'id',
@@ -36,7 +36,7 @@ class CategoryForm extends Form
 			'name' => 'master_category',
 			'options' => array(
 				'label' => 'master_category',
-				'value_options' => $this->masterCategoryList,
+				'value_options' => $this->getMasterCategoryList(),
 				'empty_option' => 'seleccione una opción',
 				'disable_inarray_validator' => true,
 				),
@@ -135,7 +135,7 @@ class CategoryForm extends Form
 				),
 			'options' => array(
 				'label' => 'serial_name',
-				'value_options' => $this->serialNameList,
+				'value_options' => $this->getSerialNameList(),
 				'empty_option' => 'seleccione una opción',
 				),
 			));
@@ -145,7 +145,7 @@ class CategoryForm extends Form
 			'name' => 'specification',
 			'options' => array(
 				'label' => 'Especificaciones',
-				'value_options' => $this->specificationList,
+				'value_options' => $this->getSpecificationList(),
 				),
 			));
 
@@ -157,4 +157,32 @@ class CategoryForm extends Form
 				),
 			));
 	}
+
+    public function getMasterCategoryList()
+    {
+        return $this->masterCategoryList;
+    }
+    public function setMasterCategoryList($masterCategoryList)
+    {
+        $this->masterCategoryList = $masterCategoryList;
+        return $this;
+    }
+    public function getSerialNameList()
+    {
+        return $this->serialNameList;
+    }
+    public function setSerialNameList($serialNameList)
+    {
+        $this->serialNameList = $serialNameList;
+        return $this;
+    }
+    public function getSpecificationList()
+    {
+        return $this->specificationList;
+    }
+    public function setSpecificationList($specificationList)
+    {
+        $this->specificationList = $specificationList;
+        return $this;
+    }
 }

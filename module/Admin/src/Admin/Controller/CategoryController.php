@@ -29,6 +29,14 @@ implements ConfigAwareInterface
 	public function addAction()
 	{
 		$form = $this->getServiceLocator()->get("Admin\Form\CategoryForm");
+
+		if(count($form->getMasterCategoryList())==0)
+			return $this->redirect()->toRoute('admin/master_category');
+		if(count($form->getSerialNameList())==0)
+			return $this->redirect()->toRoute('admin/serial_name');
+		if(count($form->getSpecificationList())==0)
+			return $this->redirect()->toRoute('admin/specification');
+
 		$request = $this->getRequest();
 
 		if ($request->isPost()) {
@@ -45,7 +53,7 @@ implements ConfigAwareInterface
 				);
 
 			$form->setData($data);
-			
+
 			if ($form->isValid()) {
 
 				if(!file_exists($this->config['component']['category']['image_path']))
