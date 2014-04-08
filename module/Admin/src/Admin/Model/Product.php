@@ -94,7 +94,7 @@ class Product implements InputFilterAwareInterface
 						'name'    => 'NotEmpty',
 						'options' => array(
 							'messages' => array(
-								\Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
+								\Zend\Validator\NotEmpty::IS_EMPTY => ''
 								),
 							),
 						),
@@ -182,7 +182,7 @@ class Product implements InputFilterAwareInterface
 						'name'    => 'NotEmpty',
 						'options' => array(
 							'messages' => array(
-								\Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
+								\Zend\Validator\NotEmpty::IS_EMPTY => ''
 								),
 							),
 						),
@@ -196,33 +196,12 @@ class Product implements InputFilterAwareInterface
 							),
 						),
 					),
-				
 				)));
 
-			$inputFilter->add($factory->createInput(array(
-				'name'     => 'iva',
-				'required' => true,
-				'validators' => array(
-					array(
-						'name'    => 'NotEmpty',
-						'options' => array(
-							'messages' => array(
-								\Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
-								),
-							),
-						),
-					array(
-						'name'    => 'Digits',
-						'options' => array(
-							'messages' => array(
-								\Zend\Validator\Digits::NOT_DIGITS=> 'Debe ingresar un valor numerico',
-								\Zend\Validator\Digits::STRING_EMPTY=> 'Debe ingresar un valor numerico'
-								),
-							),
-						),
-					),
-				
-				)));
+            $inputFilter->add($factory->createInput(array(
+                'name' => 'iva',
+                'required' => false,
+            )));
 
 			$inputFilter->add($factory->createInput(array(
 				'name'     => 'qty_low',
@@ -232,7 +211,7 @@ class Product implements InputFilterAwareInterface
 						'name'    => 'NotEmpty',
 						'options' => array(
 							'messages' => array(
-								\Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
+								\Zend\Validator\NotEmpty::IS_EMPTY => ''
 								),
 							),
 						),
@@ -246,7 +225,6 @@ class Product implements InputFilterAwareInterface
 							),
 						)
 					),
-				
 				)));
 
 			$inputFilter->add($factory->createInput(array(
@@ -257,7 +235,7 @@ class Product implements InputFilterAwareInterface
 						'name'    => 'NotEmpty',
 						'options' => array(
 							'messages' => array(
-								\Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
+								\Zend\Validator\NotEmpty::IS_EMPTY => ''
 								),
 							),
 						),
