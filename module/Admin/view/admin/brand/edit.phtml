@@ -16,18 +16,22 @@ $this->headTitle($title);
 		<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
 		<?php echo $this->formInput($form->get('name')); ?>
 		<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
-
 	</div>
 </div>
 
 <div class="form-group">
 	<div class="col-lg-4">
 		<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'][1])); ?>
+		<?php if($image): ?>
+			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/brand/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+				<span class="glyphicon glyphicon-search"></span>
+			</a>
+		<?php endif; ?>
 		<?php echo $this->formInput($form->get('image')); ?>
 		<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
 		<p class="help-block">
 			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-			Tama&ntilde;o: 
+			Tama&ntilde;o:
 			<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
 				<?php echo $range." ".$size ; ?>
 			<?php endforeach; ?>
@@ -38,6 +42,11 @@ $this->headTitle($title);
 <div class="form-group">
 	<div class="col-lg-4">
 		<?php echo $this->formLabel($form->get('background_image')->setLabel($this->config['component']['background_image'][1])); ?>
+		<?php if($backgroundImage): ?>
+			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/brand/<?php echo $backgroundImage; ?>','<?php echo $this->config['component']['background_image'][1] ; ?>')">
+				<span class="glyphicon glyphicon-search"></span>
+			</a>
+		<?php endif; ?>
 		<?php echo $this->formInput($form->get('background_image')); ?>
 		<?php echo $this->formElementErrors($form->get('background_image'), array("class" => "error")); ?>
 		<p class="help-block">
@@ -61,3 +70,4 @@ $this->headTitle($title);
 &nbsp;
 <a href="<?php echo $this->url('admin/brand'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
 <?php echo $this->form()->closeTag(); ?>
+<?php echo $this->modalHelper(); ?>

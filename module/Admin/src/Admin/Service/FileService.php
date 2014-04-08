@@ -92,13 +92,11 @@ class FileService
 			$extension = substr($file['name'], strrpos($file['name'], '.')+1) ;
 
 			if(array_search(strtolower($extension),$this->extension)===false){
-				echo "es invalido el archivo<br>";
 				$this->setMessage(self::INVALID_EXTENSION);
 			}
 
 			if(!range($file['size'],$this->size))
 				$this->setMessage(self::INVALID_SIZE);
-			
 
 			if(!$this->getMessage())
 			{
@@ -108,8 +106,10 @@ class FileService
 				if(!file_exists($this->destination))
 					mkdir($this->destination);
 
-				move_uploaded_file($file['tmp_name'],$this->destination."/".$name) ;
-				return $name;
+				if(move_uploaded_file($file['tmp_name'],$this->destination."/".$name))
+				   return $name;
+				else
+					return false;
 			}
 			else
 				return false;

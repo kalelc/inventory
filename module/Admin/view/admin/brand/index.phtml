@@ -21,12 +21,16 @@ $this->headTitle($title);
     <td><?php echo $this->escapeHtml($brand->getDescription());?></td>
     <td class='column-button'>
         <?php if($brand->getImage()): ?>
-            <a href="javascript:void(0)" class="btn btn-default" onclick="showModal('images/brand/<?php echo $brand->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/brand/<?php echo $brand->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+            <span class="glyphicon glyphicon-search"></span>
+            </a>
         <?php endif; ?>
     </td>
     <td class='column-button'>
         <?php if($brand->getBackgroundImage()): ?>
-            <a href="javascript:void(0)" class="btn btn-default" onclick="showModal('images/brand/<?php echo $brand->getBackgroundImage() ?>','<?php echo $this->config['component']['background_image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/brand/<?php echo $brand->getBackgroundImage() ?>','<?php echo $this->config['component']['background_image'][1] ; ?>')">
+            <span class="glyphicon glyphicon-search"></span>
+            </a>
         <?php endif; ?>
     </td>
     <td class='column-button'>
