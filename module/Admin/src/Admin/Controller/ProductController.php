@@ -46,7 +46,6 @@ implements ConfigAwareInterface
 
 			if ($form->isValid()) {
 
-
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 
 				$fileService->setDestination($this->config['component']['product']['image_path']);
