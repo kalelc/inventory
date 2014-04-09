@@ -20,9 +20,9 @@ implements ConfigAwareInterface
 	public function indexAction()
 	{
 		return new ViewModel(array(
-				'masterCategories' => $this->getMasterCategoryTable()->fetchAll(),
-				'config' => $this->config
-		));
+			'masterCategories' => $this->getMasterCategoryTable()->fetchAll(),
+			'config' => $this->config
+			));
 	}
 
 	public function addAction()
@@ -33,198 +33,112 @@ implements ConfigAwareInterface
 		if ($request->isPost()) {
 
 			$masterCategory = new MasterCategory();
+
 			$form->setInputFilter($masterCategory->getInputFilter());
-
-			$nonFile = $request->getPost()->toArray();
-			$file    = $this->params()->fromFiles('image');
-			$data = array_merge(
-					$nonFile, //POST
-					array('image'=> $file['name'])
-			);
-
+			$data = $request->getPost()->toArray();
 			$form->setData($data);
 
 			if ($form->isValid()) {
-				if(!file_exists($this->config['component']['master_category']['image_path'])){
-					mkdir($this->config['component']['master_category']['image_path']);
-				}
 
-			if(!empty($file['name'])) {
-			
-				 $size = new Size($this->config['file_characteristics']['image']['size']);
-				 $extension= new Extension($this->config['file_characteristics']['image']['extension']);
-				 
-				 $adapter = new HttpTransfer();
-				 $adapter->setValidators(array($size,$extension), $file['name']);
+				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 
-				 if (!$adapter->isValid()) {
-				 	$dataError = $adapter->getMessages();
+				$fileService->setDestination($this->config['component']['master_category']['image_path']);
+				$fileService->setSize($this->config['file_characteristics']['image']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
 
-				 	$error = array();
-				 	foreach($dataError as $key=>$row)
-				 		$error[] = $row;
-				 	$form->setMessages(array('image'=>$error));
-				 }
-				 else {
-				 		$adapter->setDestination($this->config['component']['master_category']['image_path']);
+				$image = $fileService->copy($this->params()->fromFiles('image'));
 
-					 	foreach ($adapter->getFileInfo() as $info) {
-					 		$fileName = time().'.'.pathinfo($info['name'], PATHINFO_EXTENSION) ;
-					 		
-					 		$adapter->addFilter('File\Rename',
-					 				array('target' => $adapter->getDestination().'/'.$fileName.'',
-					 						'overwrite' => true));
-					 		 
-					 		if ($adapter->receive($info['name'])) {
-					 			
-					 			$masterCategory->exchangeArray($form->getData());
-					 			$masterCategory->setImage($fileName);
-					 			$this->getMasterCategoryTable()->save($masterCategory);
+				$data['image'] = $image ? $image : "" ;
 
-					 			return $this->redirect()->toRoute('admin/master_category');
-					 		}
-					 	}
-					}
+				$masterCategory->exchangeArray($data);
+				$this->getMasterCategoryTable()->save($masterCategory);
 
-				}
-				else {
-					$masterCategory->exchangeArray($form->getData());
-					$this->getMasterCategoryTable()->save($masterCategory);
-
-					return $this->redirect()->toRoute('admin/master_category');
-				}
+				return $this->redirect()->toRoute('admin/master_category');
 			}
-
-		}	
+		}
 		return array(
-				'form' => $form,
-				'config' => $this->config
-		);
+			'form' => $form,
+			'config' => $this->config
+			);
 	}
 
 	public function editAction()
 	{
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
-			return $this->redirect()->toRoute('admin/master_category', array(
-					'action' => 'add'
-			));
+			return $this->redirect()->toRoute('admin/master_category', array('action' => 'add'));
 		}
 		$masterCategory = $this->getMasterCategoryTable()->get($id);
 		$previousImage = $masterCategory->getImage();
-			
+
 		$form  = new masterCategoryForm();
-		
+
 		$form->get("name")->setValue($masterCategory->getName());
 		$form->get("description")->setValue($masterCategory->getDescription());
-			
+
 		$request = $this->getRequest();
 		if ($request->isPost()) {
-			
-			$masterCategory->getInputFilter()->get('image')->setRequired(false);
+
 			$form->setInputFilter($masterCategory->getInputFilter());
-				
-			
-			$nonFile = $request->getPost()->toArray();
-			$file    = $this->params()->fromFiles('image');
-			$data = array_merge(
-					$nonFile, 
-					array('image'=> $file['name'])
-			);
-			
+			$data = $request->getPost()->toArray();
 			$form->setData($data);
-			
+
 			if ($form->isValid()) {
-				
-				$masterCategoryData = $form->getData();
-				
-				$size = new Size($this->config['file_characteristics']['image']['size']);
-				$extension= new Extension($this->config['file_characteristics']['image']['extension']);
-				$image = $form->get('image')->getValue() ;
-				
-				if(!file_exists($this->config['component']['master_category']['image_path'])){
-					mkdir($this->config['component']['master_category']['image_path']);
+
+				$masterCategory->setName($request->getPost('name'));
+				$masterCategory->setDescription($request->getPost('description'));
+
+				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
+				$fileService->setDestination($this->config['component']['master_category']['image_path']);
+				$fileService->setSize($this->config['file_characteristics']['image']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
+
+				$image = $this->params()->fromFiles('image');
+				$backgroundImage = $this->params()->fromFiles('background_image');
+
+				if(isset($image['name']) && !empty($image['name'])) {
+					$image = $fileService->copy($image);
+					$masterCategory->setImage($image);
+					if(isset($previousImage) && !empty($previousImage))
+						unlink($this->config['component']['master_category']['image_path']."/".$previousImage);
 				}
-				
-				$newImage = empty($data['image']) ? $previousImage : $data['image'] ;
-				
-				$masterCategory->setName($masterCategoryData["name"]);
-				$masterCategory->setImage($newImage);
-				$masterCategory->setDescription($masterCategoryData["description"]);
-				
-				
-				if(!empty($image)){
- 					unlink($this->config['component']['master_category']['image_path']."/".$previousImage);
-  				
- 					$adapter = new HttpTransfer();
- 					$adapter->setValidators(array($size,$extension), $file['name']);
- 					
- 					if (!$adapter->isValid()) {
- 						$dataError = $adapter->getMessages();
- 					
- 						$error = array();
- 						foreach($dataError as $key=>$row)
- 							$error[] = $row;
- 					
- 						$form->setMessages(array('image'=>$error));
- 					}
- 					else {
- 						
- 						$adapter->setDestination($this->config['component']['master_category']['image_path']);
- 					
- 						foreach ($adapter->getFileInfo() as $info) {
- 							$fileName = time().'.'.pathinfo($info['name'], PATHINFO_EXTENSION) ;
- 								
- 							$adapter->addFilter('File\Rename',
- 									array('target' => $adapter->getDestination().'/'.$fileName.'',
- 											'overwrite' => true));
- 					
- 							if ($adapter->receive($info['name'])) {
- 								$masterCategory->setImage($fileName);
- 								$this->getMasterCategoryTable()->save($masterCategory);
- 							}
- 						}
- 					}
- 				}
- 				else {
- 					$masterCategory->setImage($previousImage);
- 					$this->getMasterCategoryTable()->save($masterCategory);
- 				}
-				
- 				return $this->redirect()->toRoute('admin/master_category');
+
+				$this->getMasterCategoryTable()->save($masterCategory);
+				return $this->redirect()->toRoute('admin/masterCategory');
 			}
 		}
 
 		return array(
-				'id' => $id,
-				'form' => $form,
-				'config' => $this->config,
-		);
+			'id' => $id,
+			'image' => $previousImage,
+			'form' => $form,
+			'config' => $this->config,
+			);
 	}
 
-		public function deleteAction()
-		{
-			$id = (int) $this->params()->fromRoute('id', 0);
-			if (!$id) {
-				return $this->redirect()->toRoute('admin/master_category');
-			}
-			$request = $this->getRequest();
-			if ($request->isPost()) {
-				$del = $request->getPost('del', 'No');
-				if ($del == 'Si') {
-					$id = (int) $request->getPost('id');
-					unlink($this->config['component']['master_category']['image_path']."/".$this->getMasterCategoryTable()->get($id)->getImage());
-					$this->getMasterCategoryTable()->delete($id);
-				}
-
-				return $this->redirect()->toRoute('admin/master_category');
-			}
-			return array(
-					'id'=> $id,
-					'config' => $this->config,
-					'masterCategory' => $this->getMasterCategoryTable()->get($id)
-			);
+	public function deleteAction()
+	{
+		$id = (int) $this->params()->fromRoute('id', 0);
+		if (!$id) {
+			return $this->redirect()->toRoute('admin/master_category');
 		}
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$del = $request->getPost('del', 'No');
+			if ($del == 'Si') {
+				$id = (int) $request->getPost('id');
+				unlink($this->config['component']['master_category']['image_path']."/".$this->getMasterCategoryTable()->get($id)->getImage());
+				$this->getMasterCategoryTable()->delete($id);
+			}
+
+			return $this->redirect()->toRoute('admin/master_category');
+		}
+		return array(
+			'id'=> $id,
+			'config' => $this->config,
+			'masterCategory' => $this->getMasterCategoryTable()->get($id)
+			);
+	}
 
 	public function setConfig($config){
 		$this->config = $config;

@@ -91,13 +91,13 @@ implements ConfigAwareInterface
 			$form->setData($data);
 
 			if ($form->isValid()) {
-				
+
 				$measure->setSpecification($request->getPost('specification'));
 				$measure->setMeasureType($request->getPost('measure_type'));
 				$measure->setMeasureValue($request->getPost('measure_value'));
 				$measure->setMeaning($request->getPost('meaning'));
 				$measure->setGeneralInformation($request->getPost('general_information'));
-				
+
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 				$fileService->setDestination($this->config['component']['measure']['image_path']);
 				$fileService->setSize($this->config['file_characteristics']['image']['size']);

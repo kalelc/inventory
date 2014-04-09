@@ -92,7 +92,6 @@ implements ConfigAwareInterface
 		foreach($specificationsUncheck as $specificationUncheck) {
 			$specificationValueOptions[$specificationUncheck->getSpecification()] = $specificationUncheck->getSpecificationName();
 		}
-		
 
 		$category = $this->getCategoryTable()->get($id);
 		$previousImage = $category->getImage();
@@ -157,6 +156,7 @@ implements ConfigAwareInterface
 
 		return array(
 			'id' => $id,
+			'image' => $previousImage,
 			'form' => $form,
 			'config' => $this->config
 			);
