@@ -35,6 +35,9 @@ array('action' => 'edit', 'id' => $this->id))); ?>
 <div class="form-group">
 	<div class="col-lg-4">
 		<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'][1])); ?>
+		<?php if($image): ?>
+			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/measure/<?php echo $image ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+		<?php endif; ?>
 		<?php echo $this->formInput($form->get('image')); ?>
 		<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
 		<p class="help-block">
@@ -61,3 +64,4 @@ array('action' => 'edit', 'id' => $this->id))); ?>
 <?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
 &nbsp;<a href="<?php echo $this->url('admin/measure'); ?>"><?php echo $this->config['action']['return'] ;?></a>
 <?php echo $this->form()->closeTag(); ?>
+<?php echo $this->modalHelper(); ?>

@@ -19,7 +19,7 @@ $this->headTitle($title);
     <td><?php echo $this->escapeHtml($masterCategory->getDescription());?></td>
     <td>
         <?php if($masterCategory->getImage()): ?>
-            <a href="javascript:void(0)" class="btn btn-default" onclick="showModal('images/master_category/<?php echo $masterCategory->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('images/master_category/<?php echo $masterCategory->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
         <?php endif; ?>
     </td>
     <td class='column-button'>

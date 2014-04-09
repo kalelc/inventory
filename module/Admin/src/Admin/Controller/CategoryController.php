@@ -41,7 +41,6 @@ implements ConfigAwareInterface
 
 		if ($request->isPost()) {
 
-
 			$category = new Category();
 			$form->setInputFilter($category->getInputFilter());
 
