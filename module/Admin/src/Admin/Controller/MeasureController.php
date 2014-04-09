@@ -52,7 +52,7 @@ implements ConfigAwareInterface
 				$data['image'] = $image ? $image : "" ;
 
 				$measure->exchangeArray($data);
-				$this->getBrandTable()->save($measure);
+				$this->getMeasureTable()->save($measure);
 
 				return $this->redirect()->toRoute('admin/measure');
 			}
@@ -112,7 +112,7 @@ implements ConfigAwareInterface
 						unlink($this->config['component']['measure']['image_path']."/".$previousImage);
 				}
 
-				$this->getBrandTable()->save($measure);
+				$this->getMeasureTable()->save($measure);
 				return $this->redirect()->toRoute('admin/measure');
 
 			}

@@ -33,10 +33,9 @@ implements ConfigAwareInterface
 		if ($request->isPost()) {
 
 			$brand = new Brand();
-			$form->setInputFilter($brand->getInputFilter());
 
+			$form->setInputFilter($brand->getInputFilter());
 			$data = $request->getPost()->toArray();
-			
 			$form->setData($data);
 
 			if ($form->isValid()) {

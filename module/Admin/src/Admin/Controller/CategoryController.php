@@ -42,76 +42,27 @@ implements ConfigAwareInterface
 		if ($request->isPost()) {
 
 			$category = new Category();
+
 			$form->setInputFilter($category->getInputFilter());
-
-			$nonFile = $request->getPost()->toArray();
-			$file    = $this->params()->fromFiles('image');
-			$data = array_merge(
-				$nonFile,
-				array('image'=> $file['name'])
-				);
-
+			$data = $request->getPost()->toArray();
 			$form->setData($data);
 
 			if ($form->isValid()) {
 
-				if(!file_exists($this->config['component']['category']['image_path']))
-					mkdir($this->config['component']['category']['image_path']);
+				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 
-				if(!empty($file['name'])) {
-					$size = new Size($this->config['file_characteristics']['image']['size']);
-					$extension= new Extension($this->config['file_characteristics']['image']['extension']);
+				$fileService->setDestination($this->config['component']['category']['image_path']);
+				$fileService->setSize($this->config['file_characteristics']['image']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
 
-					$adapter = new HttpTransfer();
-					$adapter->setValidators(array($size,$extension), $file['name']);
+				$image = $fileService->copy($this->params()->fromFiles('image'));
 
-					if (!$adapter->isValid()) {
-						$dataError = $adapter->getMessages();
+				$data['image'] = $image ? $image : "" ;
 
-						$error = array();
-						foreach($dataError as $key=>$row)
-							$error[] = $row;
+				$category->exchangeArray($data);
+				$this->getCategoryTable()->save($category);
 
-						$form->setMessages(array('image'=>$error));
-					}
-					else {
-						$adapter->setDestination($this->config['component']['category']['image_path']);
-
-						foreach ($adapter->getFileInfo() as $info) {
-							$fileName = time().'.'.pathinfo($info['name'], PATHINFO_EXTENSION) ;
-
-							$adapter->addFilter('File\Rename',
-								array('target' => $adapter->getDestination().'/'.$fileName.'',
-									'overwrite' => true));
-
-							if ($adapter->receive($info['name'])) {
-
-								$category->exchangeArray($form->getData());
-								$category->setImage($fileName);
-
-								$categoryId = $this->getCategoryTable()->save($category);
-
-								$categoryData = $form->getData();
-								$this->getCategorySerialNameTable()->save($categoryId,$categoryData['serial_name']);
-								$this->getCategorySpecificationTable()->save($categoryId,$categoryData['specification']);
-
-
-								return $this->redirect()->toRoute('admin/category');
-							}
-						}
-					}
-				}
-				else {
-
-					$category->exchangeArray($form->getData());
-					$categoryId = $this->getCategoryTable()->save($category);
-
-					$categoryData = $form->getData();
-					$this->getCategorySerialNameTable()->save($categoryId,$categoryData['serial_name']);
-					$this->getCategorySpecificationTable()->save($categoryId,$categoryData['specification']);
-
-					return $this->redirect()->toRoute('admin/category');
-				}
+				return $this->redirect()->toRoute('admin/category');
 			}
 		}
 		return array(
@@ -136,7 +87,7 @@ implements ConfigAwareInterface
 		
 		foreach($specificationsCheck as $specificationCheck) {
 			$specificationValueOptions[$specificationCheck->getSpecification()] = $specificationCheck->getSpecificationName();
-		}	
+		}
 
 		foreach($specificationsUncheck as $specificationUncheck) {
 			$specificationValueOptions[$specificationUncheck->getSpecification()] = $specificationUncheck->getSpecificationName();
@@ -171,28 +122,12 @@ implements ConfigAwareInterface
 
 			$nonFile = $request->getPost()->toArray();
 			$file    = $this->params()->fromFiles('image');
-			$data = array_merge(
-				$nonFile,
-				array('image'=> $file['name'])
-				);
+			$data = array_merge($nonFile,array('image'=> $file['name']));
 
 			$form->setData($data);
 
 			if ($form->isValid()) {
 
-				$categoryData = $form->getData();
-				
-				$size = new Size($this->config['file_characteristics']['image']['size']);
-				$extension= new Extension($this->config['file_characteristics']['image']['extension']);
-
-				$image = $form->get('image')->getValue() ;
-
-				if(!file_exists($this->config['component']['category']['image_path'])){
-					mkdir($this->config['component']['category']['image_path']);
-				}
-				
-				$newImage = empty($data['image']) ? $previousImage : $data['image'] ;
-				
 				$category->setMasterCategory($categoryData["master_category"]);
 				$category->setSingularName($categoryData["singular_name"]);
 				$category->setPluralName($categoryData["plural_name"]);
@@ -201,55 +136,21 @@ implements ConfigAwareInterface
 				$category->setAdditionalShipping($categoryData["additional_shipping"]);
 				$category->setDescription($categoryData["description"]);
 
-				if(!empty($image)){
-					unlink($this->config['component']['category']['image_path']."/".$previousImage);
+				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
+				$fileService->setDestination($this->config['component']['category']['image_path']);
+				$fileService->setSize($this->config['file_characteristics']['image']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
 
-					$adapter = new HttpTransfer();
-					$adapter->setValidators(array($size,$extension), $file['name']);
+				$image = $this->params()->fromFiles('image');
 
-					if (!$adapter->isValid()) {
-
-						$dataError = $adapter->getMessages();
-
-						$error = array();
-						foreach($dataError as $key=>$row)
-							$error[] = $row;
-
-						$form->setMessages(array('image'=>$error));
-					}
-					else {
-						$adapter->setDestination($this->config['component']['category']['image_path']);
-
-						foreach ($adapter->getFileInfo() as $info) {
-							$fileName = time().'.'.pathinfo($info['name'], PATHINFO_EXTENSION) ;
-
-							$adapter->addFilter('File\Rename',
-								array('target' => $adapter->getDestination().'/'.$fileName.'',
-									'overwrite' => true));
-
-							if ($adapter->receive($info['name'])) {
-								$category->setImage($fileName);
-								$this->getCategoryTable()->save($category);
-
-								$categoryData = $form->getData();
-								$this->getCategorySerialNameTable()->delete($category->getId());
-								$this->getCategorySpecificationTable()->delete($category->getId());
-							}
-						}
-					}
-				}
-				else {
-					$category->setImage($previousImage);
-					$this->getCategoryTable()->save($category);
-
-					$categoryData = $form->getData();
-					$this->getCategorySerialNameTable()->delete($category->getId());
-					$this->getCategorySpecificationTable()->delete($category->getId());
-					
-					$this->getCategorySerialNameTable()->save($category->getId(),$categoryData['serial_name']);
-					$this->getCategorySpecificationTable()->save($category->getId(),$categoryData['specification']);
+				if(isset($image['name']) && !empty($image['name'])) {
+					$image = $fileService->copy($image);
+					$category->setImage($image);
+					if(isset($previousImage) && !empty($previousImage))
+						unlink($this->config['component']['category']['image_path']."/".$previousImage);
 				}
 
+				$this->getCategoryTable()->save($category);
 				return $this->redirect()->toRoute('admin/category');
 			}
 		}
