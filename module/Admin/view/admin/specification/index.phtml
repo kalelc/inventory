@@ -22,7 +22,7 @@ $this->headTitle($title);
     <td><?php echo $this->escapeHtml($specification->getSpecificationMasterName());?></td>
     <td>
         <?php if($specification->getImage()): ?>
-            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('images/specification/<?php echo $specification->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/specification/<?php echo $specification->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
         <?php endif; ?>
     </td>
     <td><?php echo $this->escapeHtml($specification->getMeaning());?></td>

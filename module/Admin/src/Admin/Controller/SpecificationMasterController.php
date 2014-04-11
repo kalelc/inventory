@@ -53,7 +53,7 @@ implements ConfigAwareInterface
 				$data['background_image'] = $backgroundImage ? $backgroundImage : ""  ;
 
 				$specificationMaster->exchangeArray($data);
-				$this->getBrandTable()->save($specificationMaster);
+				$this->getSpecificationMasterTable()->save($specificationMaster);
 
 				return $this->redirect()->toRoute('admin/specification_master');
 			}

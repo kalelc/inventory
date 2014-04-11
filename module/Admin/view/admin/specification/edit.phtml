@@ -33,6 +33,9 @@ $form->setAttribute('action', $this->url(
 	<div class="form-group">
 		<div class="col-lg-4">
 			<?php echo $this->formLabel($form->get('image')); ?>
+			<?php if($image): ?>
+				<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/specification/<?php echo $image ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+			<?php endif; ?>
 			<?php echo $this->formInput($form->get('image')); ?>
 			<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
 			<p class="help-block">
