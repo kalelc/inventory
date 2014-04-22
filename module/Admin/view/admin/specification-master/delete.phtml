@@ -3,19 +3,27 @@ $title = $this->config['component']['specification_master'][0];
 $this->headTitle($title);
 ?>
 <h2 class="page-header"><?php echo $title ; ?></h2>
-<p>
-	Esta seguro que quiere borrar '<?php echo $this->escapeHtml($specificationMaster->getName()); ?>'?
-</p>
-<?php
-$url = $this->url('admin/specification_master', array(
-	'action' => 'delete',
-	'id'=> $this->id,
-	));
-	?>
-	<form action="<?php echo $url; ?>" method="post">
-		<div>
-			<input type="hidden" name="id" value="<?php echo (int) $specificationMaster->getId(); ?>" />
-			<?php echo $this->config['action']['delete_yes']; ?>
-			<?php echo $this->config['action']['delete_no']; ?>
-		</div>
-	</form>
+<?php if(isset($error) && $error): ?>
+	<div class="alert alert-danger fade in">
+		<h4>¡Vaya! Se ha producido un error.</h4>
+		<p>No se puede borrar el registro de <?php echo $title; ?> ya que este se encuentra vinculado a otro registro.</p>
+		<p>
+			<a href="<?php echo $this->url('admin/specification_master');?>"><?php echo $this->config['action']['return'] ; ?> </a>
+		</p>
+	</div>
+<?php else: ?>
+	<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($specificationMaster->getName()); ?>'?</p>
+	<?php
+	$url = $this->url('admin/specification_master', array(
+		'action' => 'delete',
+		'id'=> $this->id,
+		));
+		?>
+		<form action="<?php echo $url; ?>" method="post">
+			<div>
+				<input type="hidden" name="id" value="<?php echo (int) $specificationMaster->getId(); ?>" />
+				<?php echo $this->config['action']['delete_yes']; ?>
+				<?php echo $this->config['action']['delete_no']; ?>
+			</div>
+		</form>
+	<?php endif; ?>

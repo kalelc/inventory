@@ -33,9 +33,9 @@ class BankTable
 	public function save(Bank $bank)
 	{
 		$data = array(
-				'name' => $bank->getName(),
-				'description' => $bank->getDescription(),
-		);
+			'name' => $bank->getName(),
+			'description' => $bank->getDescription(),
+			);
 
 		$id = (int)$bank->getId();
 		if ($id == 0) {
@@ -50,7 +50,13 @@ class BankTable
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

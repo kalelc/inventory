@@ -17,9 +17,9 @@ implements ConfigAwareInterface
 	public function indexAction()
 	{
 		return new ViewModel(array(
-				'banks' => $this->getBankTable()->fetchAll(),
-				'config' => $this->config,
-		));
+			'banks' => $this->getBankTable()->fetchAll(),
+			'config' => $this->config,
+			));
 	}
 
 	public function addAction()
@@ -41,8 +41,8 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'form' => $form,
-				'config' => $this->config);
+			'form' => $form,
+			'config' => $this->config);
 	}
 
 
@@ -51,8 +51,8 @@ implements ConfigAwareInterface
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/bank', array(
-					'action' => 'add'
-			));
+				'action' => 'add'
+				));
 		}
 		$bank = $this->getBankTable()->get($id);
 
@@ -71,14 +71,16 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'id' => $id,
-				'form' => $form,
-				'config' => $this->config,
-		);
+			'id' => $id,
+			'form' => $form,
+			'config' => $this->config,
+			);
 	}
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
+
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/bank');
@@ -89,16 +91,25 @@ implements ConfigAwareInterface
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 
-				$this->getBankTable()->delete($id);
+				$result = $this->getBankTable()->delete($id);
+			}
+
+			if(isset($result) && $result) {
+				return $this->redirect()->toRoute('admin/specification_master');
+			}
+			else {
+				$viewModel->setVariable("error",true);
 			}
 
 			return $this->redirect()->toRoute('admin/bank');
 		}
-		return array(
-				'id'=> $id,
-				'bank' => $this->getBankTable()->get($id),
-				'config' => $this->config,
-		);
+		$viewModel->setVariables(array(
+			'id'=> $id,
+			'bank' => $this->getBankTable()->get($id),
+			'config' => $this->config,
+			));
+
+		return $viewModel;
 	}
 
 	public function setConfig($config)

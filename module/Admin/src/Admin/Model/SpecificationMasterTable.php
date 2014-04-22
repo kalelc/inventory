@@ -34,10 +34,10 @@ class SpecificationMasterTable
 	public function save(SpecificationMaster $specificationMaster)
 	{
 		$data = array(
-				'name' => $specificationMaster->getName(),
-				'image' => $specificationMaster->getImage(),
-				'description' => $specificationMaster->getDescription(),
-		);
+			'name' => $specificationMaster->getName(),
+			'image' => $specificationMaster->getImage(),
+			'description' => $specificationMaster->getDescription(),
+			);
 
 		$id = (int)$specificationMaster->getId();
 		if ($id == 0) {
@@ -52,7 +52,13 @@ class SpecificationMasterTable
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

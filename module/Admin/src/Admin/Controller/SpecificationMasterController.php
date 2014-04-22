@@ -107,7 +107,7 @@ implements ConfigAwareInterface
 						unlink($this->config['component']['specification_master']['image_path']."/".$previousImage);
 				}
 
-				$this->getBrandTable()->save($specificationMaster);
+				$this->getSpecificationMasterTable()->save($specificationMaster);
 				return $this->redirect()->toRoute('admin/specification_master');
 			}
 		}
@@ -122,6 +122,8 @@ implements ConfigAwareInterface
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
+
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/specification_master');
@@ -131,17 +133,26 @@ implements ConfigAwareInterface
 			$del = $request->getPost('del', 'No');
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
-				unlink($this->config['component']['specification_master']['image_path']."/".$this->getSpecificationMasterTable()->get($id)->getImage());
-				$this->getSpecificationMasterTable()->delete($id);
+
+				@unlink($this->config['component']['specification_master']['image_path']."/".$this->getSpecificationMasterTable()->get($id)->getImage());
+				$result = $this->getSpecificationMasterTable()->delete($id);
 			}
 
-			return $this->redirect()->toRoute('admin/specification_master');
+			if(isset($result) && $result) {
+			   return $this->redirect()->toRoute('admin/specification_master');
+			}
+			else {
+				$viewModel->setVariable("error",true);
+			}
 		}
-		return array(
+
+		$viewModel->setVariables(array(
 			'id'=> $id,
 			'config' => $this->config,
 			'specificationMaster' => $this->getSpecificationMasterTable()->get($id)
-			);
+			));
+
+		return $viewModel;
 	}
 
 	public function setConfig($config){

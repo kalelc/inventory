@@ -53,6 +53,7 @@ class MasterCategoryTable
 
 	public function delete($id)
 	{
-		$this->tableGateway->delete(array('id' => $id));
+		$result = $this->tableGateway->delete(array('id' => $id));
+		dumpx($result,"result delete value");
 	}
 }
