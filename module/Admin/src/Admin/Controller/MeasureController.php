@@ -109,7 +109,7 @@ implements ConfigAwareInterface
 					$image = $fileService->copy($image);
 					$measure->setImage($image);
 					if(isset($previousImage) && !empty($previousImage))
-						unlink($this->config['component']['measure']['image_path']."/".$previousImage);
+						@unlink($this->config['component']['measure']['image_path']."/".$previousImage);
 				}
 
 				$this->getMeasureTable()->save($measure);
@@ -127,6 +127,8 @@ implements ConfigAwareInterface
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
+
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/measure');
@@ -137,17 +139,25 @@ implements ConfigAwareInterface
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 
-				unlink($this->config['component']['measure']['image_path']."/".$this->getMeasureTable()->get($id)->getImage());
-				$this->getMeasureTable()->delete($id);
-			}
+				@unlink($this->config['component']['measure']['image_path']."/".$this->getMeasureTable()->get($id)->getImage());
+				$result = $this->getMeasureTable()->delete($id);
 
-			return $this->redirect()->toRoute('admin/measure');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/bank');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else
+				return $this->redirect()->toRoute('admin/measure');
 		}
-		return array(
+		$viewModel->setVariables(array(
 			'id'=> $id,
 			'config' => $this->config,
 			'measure' => $this->getMeasureTable()->get($id)
-			);
+			));
+		return $viewModel;
 	}
 
 	public function setConfig($config)

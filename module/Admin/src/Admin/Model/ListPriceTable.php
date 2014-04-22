@@ -33,10 +33,10 @@ class ListPriceTable
 	public function save(ListPrice $listPrice)
 	{
 		$data = array(
-				'name' => $listPrice->getName(),
-				'description' => $listPrice->getDescription(),
-				'principal' => $listPrice->getPrincipal(),
-		);
+			'name' => $listPrice->getName(),
+			'description' => $listPrice->getDescription(),
+			'principal' => $listPrice->getPrincipal(),
+			);
 
 		$id = (int)$listPrice->getId();
 		if ($id == 0) {
@@ -51,7 +51,13 @@ class ListPriceTable
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

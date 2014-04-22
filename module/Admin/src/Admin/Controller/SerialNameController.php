@@ -19,7 +19,7 @@ implements ConfigAwareInterface
 		return new ViewModel(array(
 			'serialsName' => $this->getSerialNameTable()->fetchAll(),
 			'config' => $this->config,
-		));
+			));
 	}
 
 	public function addAction()
@@ -41,9 +41,9 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'form' => $form,
-				'config' => $this->config,
-				);
+			'form' => $form,
+			'config' => $this->config,
+			);
 	}
 
 
@@ -52,8 +52,8 @@ implements ConfigAwareInterface
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/serial_name', array(
-					'action' => 'add'
-			));
+				'action' => 'add'
+				));
 		}
 		$serialName = $this->getSerialNameTable()->get($id);
 
@@ -72,14 +72,15 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'id' => $id,
-				'form' => $form,
-				'config' => $this->config,
-		);
+			'id' => $id,
+			'form' => $form,
+			'config' => $this->config,
+			);
 	}
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/serial_name');
@@ -90,16 +91,26 @@ implements ConfigAwareInterface
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 
-				$this->getSerialNameTable()->delete($id);
-			}
+				$result = $this->getSerialNameTable()->delete($id);
 
-			return $this->redirect()->toRoute('admin/serial_name');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/serial_name');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else
+				return $this->redirect()->toRoute('admin/serial_name');
+
 		}
-		return array(
-				'id'=> $id,
-				'serialName' => $this->getSerialNameTable()->get($id),
-				'config' => $this->config,
-		);
+		$viewModel->setVariables(array(
+			'id'=> $id,
+			'serialName' => $this->getSerialNameTable()->get($id),
+			'config' => $this->config,
+			));
+
+		return $viewModel;
 	}
 
 	public function setConfig($config)

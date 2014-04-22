@@ -3,6 +3,15 @@ $title = $this->config['component']['payment_method'][0];
 $this->headTitle($title);
 ?>
 <h2 class="page-header"><?php echo $title ; ?></h2>
+<?php if(isset($error) && $error): ?>
+	<div class="alert alert-danger fade in">
+		<h4>¡Vaya! Se ha producido un error.</h4>
+		<p>No se puede borrar el registro de <?php echo $title; ?> ya que este se encuentra vinculado a otro registro.</p>
+		<p>
+			<a href="<?php echo $this->url('admin/payment_method');?>"><?php echo $this->config['action']['return'] ; ?> </a>
+		</p>
+	</div>
+<?php else: ?>
 <div class="alert alert-danger">
 	<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($paymentMethod->getName()); ?>'?</p>
 </div>
@@ -19,3 +28,4 @@ $url = $this->url('admin/payment_method', array(
 			<?php echo $this->config['action']['delete_no']; ?>
 		</div>
 	</form>
+<?php endif; ?>

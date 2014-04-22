@@ -129,6 +129,8 @@ implements ConfigAwareInterface
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
+
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/brand');
@@ -144,16 +146,23 @@ implements ConfigAwareInterface
 				unlink($this->config['component']['brand']['image_path']."/".$brandTable->getImage());
 				unlink($this->config['component']['brand']['image_path']."/".$brandTable->getBackgroundImage());
 
-				$this->getBrandTable()->delete($id);
-			}
+				$result = $this->getBrandTable()->delete($id);
 
-			return $this->redirect()->toRoute('admin/brand');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/brand');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else
+				return $this->redirect()->toRoute('admin/brand');
 		}
-		return array(
+		$viewModel->setVariables(array(
 			'id'=> $id,
 			'config' => $this->config,
 			'brand' => $this->getBrandTable()->get($id)
-			);
+			));
 	}
 
 	public function setConfig($config){

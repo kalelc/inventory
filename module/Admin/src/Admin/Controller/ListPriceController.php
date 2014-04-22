@@ -17,9 +17,9 @@ implements ConfigAwareInterface
 	public function indexAction()
 	{
 		return new ViewModel(array(
-				'listPrices' => $this->getListPriceTable()->fetchAll(),
-				'config' => $this->config,
-		));
+			'listPrices' => $this->getListPriceTable()->fetchAll(),
+			'config' => $this->config,
+			));
 	}
 
 	public function addAction()
@@ -41,8 +41,8 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'form' => $form,
-				'config' => $this->config);
+			'form' => $form,
+			'config' => $this->config);
 	}
 
 
@@ -51,8 +51,8 @@ implements ConfigAwareInterface
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/listPrice', array(
-					'action' => 'add'
-			));
+				'action' => 'add'
+				));
 		}
 		$listPrice = $this->getListPriceTable()->get($id);
 
@@ -71,14 +71,15 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'id' => $id,
-				'form' => $form,
-				'config' => $this->config,
-		);
+			'id' => $id,
+			'form' => $form,
+			'config' => $this->config,
+			);
 	}
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/list_price');
@@ -89,16 +90,25 @@ implements ConfigAwareInterface
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 
-				$this->getListPriceTable()->delete($id);
-			}
+				$result = $this->getListPriceTable()->delete($id);
 
-			return $this->redirect()->toRoute('admin/list_price');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/list_price');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else
+				return $this->redirect()->toRoute('admin/list_price');
 		}
-		return array(
-				'id'=> $id,
-				'listPrice' => $this->getListPriceTable()->get($id),
-				'config' => $this->config,
-		);
+		$viewModel->setVariable(array(
+			'id'=> $id,
+			'listPrice' => $this->getListPriceTable()->get($id),
+			'config' => $this->config,
+			));
+
+		return $viewModel;
 	}
 
 	public function setConfig($config)

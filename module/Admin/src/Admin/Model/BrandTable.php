@@ -35,11 +35,11 @@ class BrandTable
 	{
 
 		$data = array(
-				'name' => $brand->getName(),
-				'image' => $brand->getImage(),
-				'background_image' => $brand->getBackgroundImage(),
-				'description' => $brand->getDescription(),
-		);
+			'name' => $brand->getName(),
+			'image' => $brand->getImage(),
+			'background_image' => $brand->getBackgroundImage(),
+			'description' => $brand->getDescription(),
+			);
 
 		$id = (int)$brand->getId();
 		if ($id == 0) {
@@ -54,7 +54,13 @@ class BrandTable
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

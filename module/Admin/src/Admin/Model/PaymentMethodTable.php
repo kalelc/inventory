@@ -34,10 +34,10 @@ class PaymentMethodTable
 	public function save(PaymentMethod $paymentMethod)
 	{
 		$data = array(
-				'name' => $paymentMethod->getName(),
-				'bank_info' => $paymentMethod->getBankInfo(),
-				'description' => $paymentMethod->getDescription(),
-		);
+			'name' => $paymentMethod->getName(),
+			'bank_info' => $paymentMethod->getBankInfo(),
+			'description' => $paymentMethod->getDescription(),
+			);
 
 		$id = (int)$paymentMethod->getId();
 		if ($id == 0) {
@@ -52,7 +52,13 @@ class PaymentMethodTable
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

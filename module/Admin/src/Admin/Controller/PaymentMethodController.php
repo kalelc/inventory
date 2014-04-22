@@ -17,9 +17,9 @@ implements ConfigAwareInterface
 	public function indexAction()
 	{
 		return new ViewModel(array(
-				'paymentsMethods' => $this->getPaymentMethodTable()->fetchAll(),
-				'config' => $this->config
-		));
+			'paymentsMethods' => $this->getPaymentMethodTable()->fetchAll(),
+			'config' => $this->config
+			));
 	}
 
 	public function addAction()
@@ -44,9 +44,9 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'form' => $form,
-				'config' => $this->config
-		);
+			'form' => $form,
+			'config' => $this->config
+			);
 	}
 
 
@@ -55,8 +55,8 @@ implements ConfigAwareInterface
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/payment_method', array(
-					'action' => 'add'
-			));
+				'action' => 'add'
+				));
 		}
 		$paymentMethod = $this->getPaymentMethodTable()->get($id);
 
@@ -69,7 +69,7 @@ implements ConfigAwareInterface
 			$form->setData($request->getPost());
 			
 			if ($form->isValid()) {
-					
+
 				$this->getPaymentMethodTable()->save($form->getData());
 
 				return $this->redirect()->toRoute('admin/payment_method');
@@ -77,14 +77,15 @@ implements ConfigAwareInterface
 		}
 
 		return array(
-				'id' => $id,
-				'form' => $form,
-				'config' => $this->config
-		);
+			'id' => $id,
+			'form' => $form,
+			'config' => $this->config
+			);
 	}
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/payment_method');
@@ -95,16 +96,25 @@ implements ConfigAwareInterface
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 
-				$this->getPaymentMethodTable()->delete($id);
-			}
+				$result = $this->getPaymentMethodTable()->delete($id);
 
-			return $this->redirect()->toRoute('admin/payment_method');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/payment_method');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else {
+				return $this->redirect()->toRoute('admin/payment_method');
+			}
 		}
-		return array(
-				'id'=> $id,
-				'paymentMethod' => $this->getPaymentMethodTable()->get($id),
-				'config' => $this->config
-		);
+		$viewModel->setVariables(array(
+			'id'=> $id,
+			'paymentMethod' => $this->getPaymentMethodTable()->get($id),
+			'config' => $this->config
+			));
+		return $viewModel; 
 	}
 
 	public function setConfig($config)

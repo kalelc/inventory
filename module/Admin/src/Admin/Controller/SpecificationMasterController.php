@@ -104,7 +104,7 @@ implements ConfigAwareInterface
 					$image = $fileService->copy($image);
 					$specificationMaster->setImage($image);
 					if(isset($previousImage) && !empty($previousImage))
-						unlink($this->config['component']['specification_master']['image_path']."/".$previousImage);
+						@unlink($this->config['component']['specification_master']['image_path']."/".$previousImage);
 				}
 
 				$this->getSpecificationMasterTable()->save($specificationMaster);
@@ -136,14 +136,16 @@ implements ConfigAwareInterface
 
 				@unlink($this->config['component']['specification_master']['image_path']."/".$this->getSpecificationMasterTable()->get($id)->getImage());
 				$result = $this->getSpecificationMasterTable()->delete($id);
-			}
 
-			if(isset($result) && $result) {
-			   return $this->redirect()->toRoute('admin/specification_master');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/specification_master');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
 			}
-			else {
-				$viewModel->setVariable("error",true);
-			}
+			else
+				return $this->redirect()->toRoute('admin/specification_master');
 		}
 
 		$viewModel->setVariables(array(

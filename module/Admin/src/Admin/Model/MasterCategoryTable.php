@@ -34,10 +34,10 @@ class MasterCategoryTable
 	public function save(MasterCategory $masterCategory)
 	{
 		$data = array(
-				'name' => $masterCategory->getName(),
-				'image' => $masterCategory->getImage(),
-				'description' => $masterCategory->getDescription(),
-		);
+			'name' => $masterCategory->getName(),
+			'image' => $masterCategory->getImage(),
+			'description' => $masterCategory->getDescription(),
+			);
 
 		$id = (int)$masterCategory->getId();
 		if ($id == 0) {
@@ -52,8 +52,13 @@ class MasterCategoryTable
 	}
 
 	public function delete($id)
-	{
-		$result = $this->tableGateway->delete(array('id' => $id));
-		dumpx($result,"result delete value");
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

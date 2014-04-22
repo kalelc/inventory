@@ -38,12 +38,12 @@ class SpecificationTable
 	public function save(Specification $specification)
 	{
 		$data = array(
-				'name' => $specification->getName(),
-				'specification_master' => $specification->getSpecificationMaster(),
-				'image' => $specification->getImage(),
-				'meaning' => $specification->getMeaning(),
-				'general_information' => $specification->getGeneralInformation(),
-		);
+			'name' => $specification->getName(),
+			'specification_master' => $specification->getSpecificationMaster(),
+			'image' => $specification->getImage(),
+			'meaning' => $specification->getMeaning(),
+			'general_information' => $specification->getGeneralInformation(),
+			);
 		
 		$id = (int)$specification->getId();
 		if ($id == 0) {
@@ -58,8 +58,13 @@ class SpecificationTable
 	}
 
 	public function delete($id)
-	{
-		$result = $this->tableGateway->delete(array('id' => $id));
-		dumpx($result,"result delete specification tables");
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

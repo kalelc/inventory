@@ -100,7 +100,7 @@ implements ConfigAwareInterface
 					$image = $fileService->copy($image);
 					$masterCategory->setImage($image);
 					if(isset($previousImage) && !empty($previousImage))
-						unlink($this->config['component']['master_category']['image_path']."/".$previousImage);
+						@unlink($this->config['component']['master_category']['image_path']."/".$previousImage);
 				}
 
 				$this->getMasterCategoryTable()->save($masterCategory);
@@ -118,6 +118,7 @@ implements ConfigAwareInterface
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/master_category');
@@ -127,17 +128,26 @@ implements ConfigAwareInterface
 			$del = $request->getPost('del', 'No');
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
-				unlink($this->config['component']['master_category']['image_path']."/".$this->getMasterCategoryTable()->get($id)->getImage());
-				$this->getMasterCategoryTable()->delete($id);
-			}
+				@unlink($this->config['component']['master_category']['image_path']."/".$this->getMasterCategoryTable()->get($id)->getImage());
+				$result = $this->getMasterCategoryTable()->delete($id);
 
-			return $this->redirect()->toRoute('admin/master_category');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/master_category');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else
+				return $this->redirect()->toRoute('admin/master_category');
 		}
-		return array(
+		$viewModel->setVariables(array(
 			'id'=> $id,
 			'config' => $this->config,
 			'masterCategory' => $this->getMasterCategoryTable()->get($id)
-			);
+			));
+
+		return $viewModel;
 	}
 
 	public function setConfig($config){

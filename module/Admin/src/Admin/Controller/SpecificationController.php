@@ -109,7 +109,7 @@ implements ConfigAwareInterface
 					$image = $fileService->copy($image);
 					$specification->setImage($image);
 					if(isset($previousImage) && !empty($previousImage))
-						unlink($this->config['component']['specification']['image_path']."/".$previousImage);
+						@unlink($this->config['component']['specification']['image_path']."/".$previousImage);
 				}
 
 				$this->getSpecificationTable()->save($specification);
@@ -127,6 +127,8 @@ implements ConfigAwareInterface
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
+
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/specification');
@@ -136,17 +138,26 @@ implements ConfigAwareInterface
 			$del = $request->getPost('del', 'No');
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
-				unlink($this->config['component']['specification']['image_path']."/".$this->getSpecificationTable()->get($id)->getImage());
-				$this->getSpecificationTable()->delete($id);
+				@unlink($this->config['component']['specification']['image_path']."/".$this->getSpecificationTable()->get($id)->getImage());
+				
+				$result = $this->getSpecificationTable()->delete($id);
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/specification');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
 			}
-
-			return $this->redirect()->toRoute('admin/specification');
+			else
+				return $this->redirect()->toRoute('admin/specification');
 		}
-		return array(
+		$viewModel->setVariables(array(
 			'id'=> $id,
 			'config' => $this->config,
 			'specification' => $this->getSpecificationTable()->get($id)
-			);
+			));
+
+		return $viewModel;
 	}
 
 	public function setConfig($config)

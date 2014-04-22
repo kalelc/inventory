@@ -32,10 +32,10 @@ class MeasureTypeTable
 	public function save(MeasureType $measureType)
 	{
 		$data = array(
-				'name' => $measureType->getName(),
-				'abbreviation' => $measureType->getAbbreviation(),
-				'description' => $measureType->getDescription(),
-		);
+			'name' => $measureType->getName(),
+			'abbreviation' => $measureType->getAbbreviation(),
+			'description' => $measureType->getDescription(),
+			);
 
 		$id = (int)$measureType->getId();
 		if ($id == 0) {
@@ -50,7 +50,13 @@ class MeasureTypeTable
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

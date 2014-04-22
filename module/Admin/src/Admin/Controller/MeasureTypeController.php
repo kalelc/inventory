@@ -82,6 +82,7 @@ implements ConfigAwareInterface
 
 	public function deleteAction()
 	{
+		$viewModel = new ViewModel();
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/measure_type');
@@ -92,16 +93,25 @@ implements ConfigAwareInterface
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 
-				$this->getMeasureTypeTable()->delete($id);
-			}
+				$result = $this->getMeasureTypeTable()->delete($id);
 
-			return $this->redirect()->toRoute('admin/measure_type');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/measure_type');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else
+				return $this->redirect()->toRoute('admin/measure_type');
 		}
-		return array(
+		$viewModel->setViariables(array(
 			'id'=> $id,
 			'measureType' => $this->getMeasureTypeTable()->get($id),
 			'config' => $this->config,
-			);
+			));
+
+		return $viewModel;
 	}
 
 	public function setConfig($config)

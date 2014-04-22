@@ -90,18 +90,17 @@ implements ConfigAwareInterface
 			$del = $request->getPost('del', 'No');
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
-
 				$result = $this->getBankTable()->delete($id);
-			}
 
-			if(isset($result) && $result) {
-				return $this->redirect()->toRoute('admin/specification_master');
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('admin/bank');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
 			}
-			else {
-				$viewModel->setVariable("error",true);
-			}
-
-			return $this->redirect()->toRoute('admin/bank');
+			else
+				return $this->redirect()->toRoute('admin/bank');
 		}
 		$viewModel->setVariables(array(
 			'id'=> $id,

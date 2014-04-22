@@ -39,13 +39,13 @@ class MeasureTable
 	public function save(measure $measure)
 	{
 		$data = array(
-				'specification' => $measure->getSpecification(),
-				'measure_type' => $measure->getMeasureType(),
-				'measure_value' => $measure->getMeasureValue(),
-				'image' => $measure->getImage(),
-				'meaning' => $measure->getMeaning(),
-				'general_information' => $measure->getGeneralInformation(),
-		);
+			'specification' => $measure->getSpecification(),
+			'measure_type' => $measure->getMeasureType(),
+			'measure_value' => $measure->getMeasureValue(),
+			'image' => $measure->getImage(),
+			'meaning' => $measure->getMeaning(),
+			'general_information' => $measure->getGeneralInformation(),
+			);
 
 		$id = (int)$measure->getId();
 		if ($id == 0) {
@@ -60,7 +60,13 @@ class MeasureTable
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }
