@@ -63,7 +63,13 @@ class CategoryTable
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		try {
+			$result = $this->tableGateway->delete(array('id' => $id));
+		}
+		catch(\Exception $e) {
+			$result = false;
+		}
+		return $result;
 	}
 }

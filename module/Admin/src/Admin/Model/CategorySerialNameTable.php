@@ -34,6 +34,8 @@ class CategorySerialNameTable
 
 	public function save($category,$serialsName)
 	{
+		$this->delete($category);
+		
 		foreach($serialsName as $serialName)
 			$this->tableGateway->insert(array('category'=>$category,'serial_name' =>$serialName));
 	}

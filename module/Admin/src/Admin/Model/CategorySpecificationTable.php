@@ -76,6 +76,7 @@ class CategorySpecificationTable
 	public function save($category,$specifications)
 	{
 		$i = 1 ;
+		$this->delete($category);
 		foreach($specifications as $specification){
 			$this->tableGateway->insert(array('category'=>$category,'specification' =>$specification, 'order' => $i));
 			$i++;

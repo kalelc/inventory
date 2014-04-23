@@ -85,18 +85,15 @@ implements ConfigAwareInterface
 		if ($request->isPost()) {
 
 			$form->setInputFilter($specification->getInputFilter());
-			$data = $request->getPost()->toArray();
-			$form->setData($data);
+			$specificationData = $request->getPost()->toArray();
+			$form->setData($specificationData);
 
 			if ($form->isValid()) {
 
 				$specification->setName($specificationData["name"]);
-				$specification->setImage($newImage);
 				$specification->setSpecificationMaster($specificationData["specification_master"]);
 				$specification->setMeaning($specificationData["meaning"]);
 				$specification->setGeneralInformation($specificationData["general_information"]);
-				$specification->setName($request->getPost('name'));
-				$specification->setDescription($request->getPost('description'));
 
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 				$fileService->setDestination($this->config['component']['specification']['image_path']);
@@ -111,6 +108,7 @@ implements ConfigAwareInterface
 					if(isset($previousImage) && !empty($previousImage))
 						@unlink($this->config['component']['specification']['image_path']."/".$previousImage);
 				}
+
 
 				$this->getSpecificationTable()->save($specification);
 				return $this->redirect()->toRoute('admin/specification');

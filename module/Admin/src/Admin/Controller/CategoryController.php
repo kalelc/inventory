@@ -60,7 +60,13 @@ implements ConfigAwareInterface
 				$data['image'] = $image ? $image : "" ;
 
 				$category->exchangeArray($data);
-				$this->getCategoryTable()->save($category);
+				$categoryId = $this->getCategoryTable()->save($category);
+
+				$serialName = $data['serial_name'];
+				$specification = $data['specification'];
+
+				$this->getCategorySerialNameTable()->save($categoryId,$serialName);
+				$this->getCategorySpecificationTable()->save($categoryId,$specification);
 
 				return $this->redirect()->toRoute('admin/category');
 			}
@@ -121,16 +127,15 @@ implements ConfigAwareInterface
 
 			$nonFile = $request->getPost()->toArray();
 			$file    = $this->params()->fromFiles('image');
-			$data = array_merge($nonFile,array('image'=> $file['name']));
+			$categoryData = array_merge($nonFile,array('image'=> $file['name']));
 
-			$form->setData($data);
+			$form->setData($categoryData);
 
 			if ($form->isValid()) {
 
 				$category->setMasterCategory($categoryData["master_category"]);
 				$category->setSingularName($categoryData["singular_name"]);
 				$category->setPluralName($categoryData["plural_name"]);
-				$category->setImage($newImage);
 				$category->setShippingCost($categoryData["shipping_cost"]);
 				$category->setAdditionalShipping($categoryData["additional_shipping"]);
 				$category->setDescription($categoryData["description"]);
@@ -149,7 +154,14 @@ implements ConfigAwareInterface
 						@unlink($this->config['component']['category']['image_path']."/".$previousImage);
 				}
 
-				$this->getCategoryTable()->save($category);
+				$categoryId = $this->getCategoryTable()->save($category);
+
+				$serialName = $categoryData['serial_name'];
+				$specification = $categoryData['specification'];
+
+				$this->getCategorySerialNameTable()->save($categoryId,$serialName);
+				$this->getCategorySpecificationTable()->save($categoryId,$specification);
+
 				return $this->redirect()->toRoute('admin/category');
 			}
 		}
@@ -179,7 +191,7 @@ implements ConfigAwareInterface
 
 				$this->getCategorySerialNameTable()->delete($id);
 				$this->getCategorySpecificationTable()->delete($id);
-				$result =  $this->getCategoryTable()->delete($id);
+				$result = $this->getCategoryTable()->delete($id);
 
 				if(isset($result) && $result) {
 					return $this->redirect()->toRoute('admin/category');
