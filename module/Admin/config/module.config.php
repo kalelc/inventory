@@ -233,5 +233,4 @@ return array(
 		'admin' => __DIR__ . '/../view',
 		),
 	),
-
 );

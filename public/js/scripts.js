@@ -32,30 +32,23 @@ $( "#sortable" ).disableSelection();
 	/*product*/
 	$('#tab-product').show();
 	$('#tab-product-files').hide();
-	$('#tab-product-specifications').hide();
 
 	$('#tabs-link-product').click(function(){
 		$('#tab-product').show();
 		$('#tab-product-files').hide();
-		$('#tab-product-specifications').hide();
 		$("ul.nav-tabs li").eq(0).addClass("active");
 		$("ul.nav-tabs li").eq(1).removeClass("active");
-		$("ul.nav-tabs li").eq(2).removeClass("active");
 	});
 	$("#tabs-link-product-files").click(function(){
 		$('#tab-product-files').show();
 		$('#tab-product').hide();
-		$('#tab-product-specifications').hide();
 		$("ul.nav-tabs li").eq(0).removeClass("active");
 		$("ul.nav-tabs li").eq(1).addClass("active");
-		$("ul.nav-tabs li").eq(2).removeClass("active");
 	});
 		$("#tabs-link-product-specifications").click(function(){
 		$('#tab-product-files').hide();
 		$('#tab-product').hide();
-		$('#tab-product-specifications').show();
 		$("ul.nav-tabs li").eq(0).removeClass("active");
 		$("ul.nav-tabs li").eq(1).removeClass("active");
-		$("ul.nav-tabs li").eq(2).addClass("active");
 	});
 });

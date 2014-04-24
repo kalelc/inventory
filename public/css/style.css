@@ -41,3 +41,8 @@ list-style: none;
 }
 
 .span2 {background-color: #ddd;}
+
+ul.list-group li { clear:both;}
+
+img.thumb_24 { height: 24px; width: 24px;}
+img.thumb_32 { height: 32px; width: 32px;}

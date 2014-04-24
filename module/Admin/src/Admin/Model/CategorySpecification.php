@@ -11,6 +11,7 @@ class CategorySpecification implements InputFilterAwareInterface
 	private $category;
 	private $specification;
 	private $specificationName;
+	private $specificationImage;
 
 	protected $inputFilter;
 
@@ -19,6 +20,7 @@ class CategorySpecification implements InputFilterAwareInterface
 		if (array_key_exists('category', $data)) $this->setCategory($data['category']);
 		if (array_key_exists('specification', $data)) $this->setSpecification($data['specification']);
 		if (array_key_exists('specification_name', $data)) $this->setSpecificationName($data['specification_name']);
+		if (array_key_exists('specification_image', $data)) $this->setSpecificationImage($data['specification_image']);
 	}
 
 
@@ -82,27 +84,25 @@ class CategorySpecification implements InputFilterAwareInterface
 		return $this;
 	}
 
-    /**
-     * Gets the value of specificationName.
-     *
-     * @return mixed
-     */
     public function getSpecificationName()
     {
         return $this->specificationName;
     }
-    
-    /**
-     * Sets the value of specificationName.
-     *
-     * @param mixed $specificationName the specification name
-     *
-     * @return self
-     */
+
     public function setSpecificationName($specificationName)
     {
         $this->specificationName = $specificationName;
+        return $this;
+    }
 
+    public function getSpecificationImage()
+    {
+        return $this->specificationImage;
+    }
+
+    public function setSpecificationImage($specificationImage)
+    {
+        $this->specificationImage = $specificationImage;
         return $this;
     }
 }

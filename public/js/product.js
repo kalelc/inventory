@@ -1,9 +1,9 @@
-$(document).ready(function() {
-	$('#category').change(function() {
-		var category = $("#category").val();
-		$.fn.searchSpecifications(category);
+	$(document).ready(function() {
+		$('#category').change(function() {
+			var category = $("#category").val();
+			$.fn.searchSpecifications(category);
+		});
 	});
-});
 
 	$.fn.searchSpecifications = function(category) {
 		if (category>0) {
@@ -16,23 +16,20 @@ $(document).ready(function() {
 			})
 			.done(
 				function(result) {
-					console.log(result);
-					if (result.response > 0) {
-						$("#button_alert_delete").removeAttr('style');
+					if (typeof result === 'object') {
+						$("#tab-product-specifications").html("<ul class='list-group'>");
+						$.each( result.specification, function( name, image ) {
 
-						$('input[name=csrf]').val(result.csrf);
-						$("#list_alerts").append("<li><input type='checkbox' name='tags[]' value='"+result.alertId+"'><label>"+result.tag+"</label></li>");
-						$("#alert_search").val("");
-						$("#alert_result").html("");
+							var image = !image || 0 === image.length ? "/img/icons/picture.png" : "/images/specification/"+image ;
+							console.log(image)
 
+							$("#tab-product-specifications ul").append("<li class='list-group-item'><img src='"+image+"' class='thumb_24'>&nbsp;"+name+"</li>");
+						});
 					} else {
-						$("#num_alerts").html(result.total_tags);
+						console.log("debe seleccionar una categoria");
 					}
-					$("#message_alert").html(result.message);
-
-					$("input[type=checkbox]").click(function() {
-						$.fn.checkTagSelect();
-					});
 				});
 		}
+		else
+			$("#tab-product-specifications ul").html("");
 	}

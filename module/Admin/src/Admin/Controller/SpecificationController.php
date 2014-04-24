@@ -46,7 +46,6 @@ implements ConfigAwareInterface
 				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
 
 				$image = $fileService->copy($this->params()->fromFiles('image'));
-				$backgroundImage = $fileService->copy($this->params()->fromFiles('background_image'));
 
 				$data['image'] = $image ? $image : "" ;
 

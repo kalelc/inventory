@@ -8,6 +8,7 @@ use Zend\File\Transfer\Adapter\Http  as HttpTransfer;
 use Zend\Validator\File\Size;
 use Zend\Validator\File\Extension;
 use Zend\Escaper\Escaper;
+use Zend\Json\Json;
 
 use Admin\Model\Product;
 use Admin\Form\ProductForm;
@@ -96,18 +97,18 @@ implements ConfigAwareInterface
 
 	public function getSpecificationToCategoryAction()
 	{
+        $category            = $this->params()->fromPost('category');
 		$jsonModel = new JsonModel();
-
-        //$category            = $this->params()->fromPost('category');
-		$category = 4;
 		$result =  $this->getCategorySpecificationTable()->getCategorySpecificationCheckValue($category);
 
-		dump($jsonModel);
-		dumpx($result);
+
+		$specification = array();
+		foreach($result as $row) {
+			$specification[$row->getSpecificationName()] = $row->getSpecificationImage();
+		}
 
 
 		$jsonModel->setVariable("specification",$specification);
-
 		return $jsonModel;
 	}
 

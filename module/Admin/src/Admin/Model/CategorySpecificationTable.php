@@ -28,7 +28,7 @@ class CategorySpecificationTable
 		$select = new Select($this->tableGateway->getTable());
 		$select->columns(array('specification'));
 		$select->order($this->tableGateway->getTable().'.order');
-		$select->join('specifications', "specifications.id = ".$this->tableGateway->getTable().".specification", array('specification_name' => 'name'), 'inner');
+		$select->join('specifications', "specifications.id = ".$this->tableGateway->getTable().".specification", array('specification_name' => 'name', 'specification_image' => 'image'), 'inner');
 		$select->where(array($this->tableGateway->getTable().'.category' => $category));
 
 		$resulset = $this->tableGateway->selectWith($select);

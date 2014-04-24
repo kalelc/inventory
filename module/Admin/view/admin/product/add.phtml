@@ -11,9 +11,6 @@ $this->headTitle($title);
 	<li class="list-nav-tab">
 		<a href="#" id='tabs-link-product-files'><?php echo $this->config['component']['file'][0] ?></a>
 	</li>
-	<li class="list-nav-tab">
-		<a href="#" id='tabs-link-product-specifications'><?php echo $this->config['component']['specification'][0] ?></a>
-	</li>
 </ul>
 <?php $form = $this->form; ?>
 <?php $form->setAttribute('action', $this->url('admin/product', array('action' => 'add'))); ?>
@@ -50,6 +47,12 @@ $this->headTitle($title);
 			<?php echo $this->formLabel($form->get('category')->setLabel($this->config['component']['category'][1])); ?>
 			<?php echo $this->formSelect($form->get('category')); ?>
 			<?php echo $this->formElementErrors($form->get('category'), array("class" => "error")); ?>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-lg-8">
+		<div id='tab-product-specifications'></div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -243,10 +246,6 @@ $this->headTitle($title);
 		</div>
 	</div>
 </div>
-
-<div id='tab-product-specifications'>
-</div>
-
 <div class="row">
 	<div class="span4">
 		<div class="form-group">
