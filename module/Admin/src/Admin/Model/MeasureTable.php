@@ -36,6 +36,18 @@ class MeasureTable
 		return $row;
 	}
 
+	public function getBySpecification($specification)
+	{
+		$select = new select();
+		$select->from('measures');
+		$select->join('measures_types','measures_types.id = measures.measure_type', array('mt_name' => 'name'));
+		$select->join('specifications','specifications.id = measures.specification', array('s_name' => 'name'));
+		$select->where(array($this->tableGateway->getTable().'.specification' => $specification));
+		
+		$resultSet = $this->tableGateway->selectWith($select);
+		return $resultSet ? $resultSet : false ;
+	}
+
 	public function save(measure $measure)
 	{
 		$data = array(

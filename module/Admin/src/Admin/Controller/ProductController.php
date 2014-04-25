@@ -97,18 +97,36 @@ implements ConfigAwareInterface
 
 	public function getSpecificationToCategoryAction()
 	{
-        $category            = $this->params()->fromPost('category');
+		$category            = $this->params()->fromPost('category');
+		$category = 1 ;
 		$jsonModel = new JsonModel();
-		$result =  $this->getCategorySpecificationTable()->getCategorySpecificationCheckValue($category);
+		$listSpecifications = $this->getCategorySpecificationTable()->getCategorySpecificationCheckValue($category);
 
 
 		$specification = array();
-		foreach($result as $row) {
-			$specification[$row->getSpecificationName()] = $row->getSpecificationImage();
+		$measure = array();
+
+		foreach($listSpecifications as $listSpecification) {
+
+			$listMeasures = $this->getMeasureTable()->getBySpecification($listSpecification->getSpecification());
+
+			foreach($listMeasures as $listMeasure) {
+
+				$measure[$listMeasure->getId()] = $listMeasure->getMeasureValue()." ".$listMeasure->getMeasureTypeName();
+			} 
+
+			$specification[] = array(
+				"name"  =>$listSpecification->getSpecificationName(),
+				"image" => $listSpecification->getSpecificationImage(),
+				"measure" => $measure
+				);
+
+			$measure = array();
 		}
 
 
 		$jsonModel->setVariable("specification",$specification);
+		//$jsonModel->setVariable("measure",$measure);
 		return $jsonModel;
 	}
 
