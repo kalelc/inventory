@@ -51,7 +51,7 @@ class MeasureForm extends Form
 				'options' => array(
 						'label' => 'measure_type',
 						'value_options' => $this->measureTypeList,
-						'empty_option' => 'seleccione una opción',
+						'empty_option' => 'sin medida',
 						'disable_inarray_validator' => true,
 				),
 				'attributes' => array(

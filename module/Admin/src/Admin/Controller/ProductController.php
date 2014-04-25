@@ -73,22 +73,28 @@ implements ConfigAwareInterface
 
 				$video				= $fileService->copy($this->params()->fromFiles('video'));
 
-				$data['specification_file'] = $specificationFile ;
-				$data['manual_file'] 		= $manualFile ;
-				$data['video'] 				= $video ;
-				$data['image1'] 			= $image1 ;
-				$data['image2'] 			= $image2 ;
-				$data['image3'] 			= $image3 ;
-				$data['image4'] 			= $image4 ;
-				$data['image5'] 			= $image5 ;
-				$data['image6'] 			= $image6 ;
+				$data['specification_file'] = $specificationFile ? $specificationFile : "" ;
+				$data['manual_file'] 		= $manualFile ? $manualFile : "" ;
+				$data['video'] 				= $video ? $video : "" ;
+				$data['image1'] 			= $image1 ? $image1 : "" ;
+				$data['image2'] 			= $image2 ? $image2 : "" ;
+				$data['image3'] 			= $image3 ? $image3 : "" ;
+				$data['image4'] 			= $image4 ? $image4 : "" ;
+				$data['image5'] 			= $image5 ? $image5 : "" ;
+				$data['image6'] 			= $image6 ? $image6 : "" ;
+				
+				$measures = $data['measures'];
 
 				$product->exchangeArray($data);
-				$this->getProductTable()->save($product);
+				$productId = $this->getProductTable()->save($product);
+
+				$productSpecificationTable = $this->getProductMeasureTable();
+				$productSpecificationTable->save($productId,$measures);
 
 				return $this->redirect()->toRoute('admin/product');
 			}
-		}	
+		}
+
 		return array(
 			'form' => $form,
 			'config' => $this->config
@@ -97,8 +103,7 @@ implements ConfigAwareInterface
 
 	public function getSpecificationToCategoryAction()
 	{
-		$category            = $this->params()->fromPost('category');
-		$category = 1 ;
+		$category = $this->params()->fromPost('category');
 		$jsonModel = new JsonModel();
 		$listSpecifications = $this->getCategorySpecificationTable()->getCategorySpecificationCheckValue($category);
 

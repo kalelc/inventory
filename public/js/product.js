@@ -1,7 +1,22 @@
 $(document).ready(function() {
+	$("#category").val($("#target option:first").val());
 	$('#category').change(function() {
 		var category = $("#category").val();
 		$.fn.searchSpecifications(category);
+	});
+
+	$( "#product" ).submit(function() {
+		var select = $('select[name="measures[]"] option:selected');
+		result = true;
+		$(select).each(function(){
+			if(!this.hasAttribute('value')) {
+				result = false;
+				$("#specification-error").html("<ul class='error'><li>debe seleccionar las especificaciones del producto<li></ul>");
+			}
+		});
+
+
+		return result;
 	});
 });
 
@@ -20,11 +35,9 @@ $.fn.searchSpecifications = function(category) {
 					$("#tab-product-specifications").html("<ul class='list-group'>");
 
 					$.each(result.specification, function( id, specification ) {
-
 						var select = "<select name='measures[]'>" ;
-						select += "<option name=''>---------</option>" ;
+						select += "<option></option>" ;
 						$.each(specification.measure, function( id, measure ) {
-							console.log(id);
 							select += "<option value='"+id+"'>"+measure+"</option>" ;
 						});
 						select += "<select>" ;

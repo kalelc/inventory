@@ -143,7 +143,7 @@ implements ConfigAwareInterface
 				$result = $this->getMeasureTable()->delete($id);
 
 				if(isset($result) && $result) {
-					return $this->redirect()->toRoute('admin/bank');
+					return $this->redirect()->toRoute('admin/measure');
 				}
 				else {
 					$viewModel->setVariable("error",true);

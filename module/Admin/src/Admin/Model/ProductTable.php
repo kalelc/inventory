@@ -37,7 +37,7 @@ class ProductTable
 			'model' 				=> $product->getModel(),
 			'brand' 				=> $product->getBrand(),
 			'category' 				=> $product->getCategory(),
-			'no_part' 				=> $product->getNoPart(),
+			'part_no' 				=> $product->getNoPart(),
 			'price' 				=> $product->getPrice(),
 			'iva' 					=> $product->getIva(),
 			'qty_low' 				=> $product->getQtyLow(),
@@ -53,20 +53,25 @@ class ProductTable
 			'manual_file'			=> $product->getManualFile(),
 			'video' 				=> $product->getVideo(),
 			'status' 				=> $product->getStatus(),
-			'register_date'			=> '',
-			'update_date' 			=> '',
+			'register_date'			=> date("Y-m-d H:i:s", time()),
+			'update_date' 			=> date("Y-m-d H:i:s", time()),
 			);
+
+		//dumpx($data,"data product table");
 
 		$id = (int)$product->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
+			$id = $this->tableGateway->getLastInsertValue();
 		} else {
 			if ($this->get($id)) {
+				unset($data['register_date']);
 				$this->tableGateway->update($data, array('id' => $id));
 			} else {
-				throw new \Exception('Form id does not exist');
+				$id = false;
 			}
 		}
+		return $id;
 	}
 
 	public function delete($id)

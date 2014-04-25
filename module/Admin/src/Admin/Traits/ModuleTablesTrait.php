@@ -130,5 +130,14 @@ Trait ModuleTablesTrait
 		}
 		return $specificationMasterTable;
 	}
+
+	public function getProductMeasureTable()
+	{
+		$productMeasureTable = "";
+		if(!$productMeasureTable) {
+			$productMeasureTable = $this->getServiceLocator()->get('Admin\model\ProductMeasureTable');
+		}
+		return $productMeasureTable;
+	}
 }
 ?>

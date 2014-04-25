@@ -75,7 +75,7 @@ class Measure implements InputFilterAwareInterface
 
 			$inputFilter->add($factory->createInput(array(
 				'name'     => 'measure_type',
-				'required' => true,
+				'required' => false,
 				'validators' => array(
 					array(
 						'name'    => 'NotEmpty',
