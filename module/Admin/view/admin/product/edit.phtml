@@ -13,7 +13,12 @@ $this->headTitle($title);
 	</li>
 </ul>
 <?php $form = $this->form; ?>
-<?php $form->setAttribute('action', $this->url('admin/product', array('action' => 'add'))); ?>
+<?php 
+$form->setAttribute('action', $this->url('admin/product', array(
+	'action' => 'edit',
+	'id'     => $this->id
+	))); 
+?>
 <?php $form->prepare(); ?>
 <?php echo $this->form()->openTag($form); ?>
 
@@ -257,7 +262,7 @@ $this->headTitle($title);
 	<div class="span4">
 		<div class="form-group">
 			<div class="col-lg-8">
-				<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+				<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
 				&nbsp;<a href="<?php echo $this->url('admin/product'); ?>"><?php echo $this->config['action']['return'] ;?></a>
 				<?php echo $this->form()->closeTag(); ?>
 			</div>

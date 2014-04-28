@@ -137,6 +137,7 @@ class CategoryForm extends Form
 				'label' => 'serial_name',
 				'value_options' => $this->getSerialNameList(),
 				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true
 				),
 			));
 
@@ -146,6 +147,7 @@ class CategoryForm extends Form
 			'options' => array(
 				'label' => 'Especificaciones',
 				'value_options' => $this->getSpecificationList(),
+				'disable_inarray_validator' => true
 				),
 			));
 

@@ -13,7 +13,7 @@ class Product implements InputFilterAwareInterface
 	protected $model;
 	protected $brand;
 	protected $category;
-	protected $noPart;
+	protected $partNo;
 	protected $price;
 	protected $iva;
 	protected $qtyLow;
@@ -29,6 +29,10 @@ class Product implements InputFilterAwareInterface
 	protected $manualFile;
 	protected $video;
 	protected $status;
+
+    protected $categoryName;
+    protected $brandName;
+
 	protected $inputFilter;
 
 	public function exchangeArray($data)
@@ -38,7 +42,7 @@ class Product implements InputFilterAwareInterface
 		if (array_key_exists('model', $data)) $this->setModel($data['model']);
 		if (array_key_exists('brand', $data)) $this->setBrand($data['brand']);
 		if (array_key_exists('category', $data)) $this->setCategory($data['category']);
-		if (array_key_exists('no_part', $data)) $this->setNoPart($data['no_part']);
+		if (array_key_exists('part_no', $data)) $this->setPartNo($data['part_no']);
 		if (array_key_exists('price', $data)) $this->setPrice($data['price']);
 		if (array_key_exists('iva', $data)) $this->setIva($data['iva']);
 		if (array_key_exists('qty_low', $data)) $this->setQtyLow($data['qty_low']);
@@ -53,7 +57,9 @@ class Product implements InputFilterAwareInterface
 		if (array_key_exists('image6', $data)) $this->setImage6($data['image6']);
 		if (array_key_exists('manual_file', $data)) $this->setManualFile($data['manual_file']);
 		if (array_key_exists('video', $data)) $this->setVideo($data['video']);
-		if (array_key_exists('status', $data)) $this->setStatus($data['status']);
+        if (array_key_exists('status', $data)) $this->setStatus($data['status']);
+        if (array_key_exists('category_name', $data)) $this->setCategoryName($data['category_name']);
+		if (array_key_exists('brand_name', $data)) $this->setBrandName($data['brand_name']);
 	}
 
 	public function getArrayCopy()
@@ -107,8 +113,38 @@ class Product implements InputFilterAwareInterface
                                 ),
                             ),
                         ),
+                    /*
+                    array(
+                        'name'    => 'Barcode',
+                        'options' => array(
+                            'adapter' => 'EAN13',
+                            'checksum' => false,
+                            'messages' => array(
+                                \Zend\Validator\Barcode::INVALID=> 'el codigo ingresado es invalido',
+                                \Zend\Validator\Barcode::INVALID_CHARS=> 'Los caracteres ingresados son invalidos',
+                                \Zend\Validator\Barcode::INVALID_LENGTH=> 'el tamaño de caracteres es invalido',
+                                ),
+                            ),
+                        ),
+                        */
                     ),
+
 				)));
+
+            $inputFilter->add($factory->createInput(array(
+                    'name'     => 'measures',
+                    'required' => true,
+                    'validators' => array(
+                            array(
+                                    'name'    => 'NotEmpty',
+                                    'options' => array(
+                                            'messages' => array(
+                                                    \Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
+                                            ),
+                                    ),
+                            ),
+                    ),
+            )));
 
 			$inputFilter->add($factory->createInput(array(
 				'name'     => 'model',
@@ -267,317 +303,136 @@ class Product implements InputFilterAwareInterface
 		return $this->inputFilter;
 	}
 
-
-
-    /**
-     * Gets the value of id.
-     *
-     * @return mixed
-     */
     public function getId()
     {
     	return $this->id;
     }
-    
-    /**
-     * Sets the value of id.
-     *
-     * @param mixed $id the id
-     *
-     * @return self
-     */
+
     public function setId($id)
     {
     	$this->id = $id;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of upcBarCode.
-     *
-     * @return mixed
-     */
     public function getUpcBarCode()
     {
     	return $this->upcBarCode;
     }
-    
-    /**
-     * Sets the value of upcBarCode.
-     *
-     * @param mixed $upcBarCode the upc bar code
-     *
-     * @return self
-     */
+
     public function setUpcBarCode($upcBarCode)
     {
     	$this->upcBarCode = $upcBarCode;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of model.
-     *
-     * @return mixed
-     */
     public function getModel()
     {
     	return $this->model;
     }
-    
-    /**
-     * Sets the value of model.
-     *
-     * @param mixed $model the model
-     *
-     * @return self
-     */
+
     public function setModel($model)
     {
     	$this->model = $model;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of brand.
-     *
-     * @return mixed
-     */
     public function getBrand()
     {
     	return $this->brand;
     }
-    
-    /**
-     * Sets the value of brand.
-     *
-     * @param mixed $brand the brand
-     *
-     * @return self
-     */
+
     public function setBrand($brand)
     {
     	$this->brand = $brand;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of category.
-     *
-     * @return mixed
-     */
     public function getCategory()
     {
     	return $this->category;
     }
-    
-    /**
-     * Sets the value of category.
-     *
-     * @param mixed $category the category
-     *
-     * @return self
-     */
+
     public function setCategory($category)
     {
     	$this->category = $category;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of noPart.
-     *
-     * @return mixed
-     */
-    public function getNoPart()
-    {
-    	return $this->noPart;
-    }
-    
-    /**
-     * Sets the value of noPart.
-     *
-     * @param mixed $noPart the no part
-     *
-     * @return self
-     */
-    public function setNoPart($noPart)
-    {
-    	$this->noPart = $noPart;
 
-    	return $this;
-    }
-
-    /**
-     * Gets the value of price.
-     *
-     * @return mixed
-     */
     public function getPrice()
     {
     	return $this->price;
     }
-    
-    /**
-     * Sets the value of price.
-     *
-     * @param mixed $price the price
-     *
-     * @return self
-     */
+
     public function setPrice($price)
     {
     	$this->price = $price;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of iva.
-     *
-     * @return mixed
-     */
     public function getIva()
     {
     	return $this->iva;
     }
-    
-    /**
-     * Sets the value of iva.
-     *
-     * @param mixed $iva the iva
-     *
-     * @return self
-     */
+
     public function setIva($iva)
     {
     	$this->iva = $iva;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of qtyLow.
-     *
-     * @return mixed
-     */
     public function getQtyLow()
     {
     	return $this->qtyLow;
     }
-    
-    /**
-     * Sets the value of qtyLow.
-     *
-     * @param mixed $qtyLow the qty low
-     *
-     * @return self
-     */
+
     public function setQtyLow($qtyLow)
     {
     	$this->qtyLow = $qtyLow;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of qtyBuy.
-     *
-     * @return mixed
-     */
     public function getQtyBuy()
     {
     	return $this->qtyBuy;
     }
-    
-    /**
-     * Sets the value of qtyBuy.
-     *
-     * @param mixed $qtyBuy the qty buy
-     *
-     * @return self
-     */
+
     public function setQtyBuy($qtyBuy)
     {
     	$this->qtyBuy = $qtyBuy;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of description.
-     *
-     * @return mixed
-     */
     public function getDescription()
     {
     	return $this->description;
     }
-    
-    /**
-     * Sets the value of description.
-     *
-     * @param mixed $description the description
-     *
-     * @return self
-     */
+
     public function setDescription($description)
     {
     	$this->description = $description;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of specificationFile.
-     *
-     * @return mixed
-     */
     public function getSpecificationFile()
     {
     	return $this->specificationFile;
     }
-    
-    /**
-     * Sets the value of specificationFile.
-     *
-     * @param mixed $specificationFile the specification file
-     *
-     * @return self
-     */
+
     public function setSpecificationFile($specificationFile)
     {
     	$this->specificationFile = $specificationFile;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of image1.
-     *
-     * @return mixed
-     */
     public function getImage1()
     {
     	return $this->image1;
     }
-    
-    /**
-     * Sets the value of image1.
-     *
-     * @param mixed $image1 the image1
-     *
-     * @return self
-     */
+
     public function setImage1($image1)
     {
     	$this->image1 = $image1;
-
     	return $this;
     }
 
@@ -590,186 +445,121 @@ class Product implements InputFilterAwareInterface
     {
     	return $this->image2;
     }
-    
-    /**
-     * Sets the value of image2.
-     *
-     * @param mixed $image2 the image2
-     *
-     * @return self
-     */
+
     public function setImage2($image2)
     {
     	$this->image2 = $image2;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of image3.
-     *
-     * @return mixed
-     */
     public function getImage3()
     {
     	return $this->image3;
     }
-    
-    /**
-     * Sets the value of image3.
-     *
-     * @param mixed $image3 the image3
-     *
-     * @return self
-     */
+
     public function setImage3($image3)
     {
     	$this->image3 = $image3;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of image4.
-     *
-     * @return mixed
-     */
     public function getImage4()
     {
     	return $this->image4;
     }
-    
-    /**
-     * Sets the value of image4.
-     *
-     * @param mixed $image4 the image4
-     *
-     * @return self
-     */
+
     public function setImage4($image4)
     {
     	$this->image4 = $image4;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of image5.
-     *
-     * @return mixed
-     */
     public function getImage5()
     {
     	return $this->image5;
     }
-    
-    /**
-     * Sets the value of image5.
-     *
-     * @param mixed $image5 the image5
-     *
-     * @return self
-     */
+
     public function setImage5($image5)
     {
     	$this->image5 = $image5;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of image6.
-     *
-     * @return mixed
-     */
+
     public function getImage6()
     {
     	return $this->image6;
     }
-    
-    /**
-     * Sets the value of image6.
-     *
-     * @param mixed $image6 the image6
-     *
-     * @return self
-     */
+
     public function setImage6($image6)
     {
     	$this->image6 = $image6;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of manualFile.
-     *
-     * @return mixed
-     */
     public function getManualFile()
     {
     	return $this->manualFile;
     }
-    
-    /**
-     * Sets the value of manualFile.
-     *
-     * @param mixed $manualFile the manual file
-     *
-     * @return self
-     */
+
     public function setManualFile($manualFile)
     {
     	$this->manualFile = $manualFile;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of video.
-     *
-     * @return mixed
-     */
     public function getVideo()
     {
     	return $this->video;
     }
-    
-    /**
-     * Sets the value of video.
-     *
-     * @param mixed $video the video
-     *
-     * @return self
-     */
+
     public function setVideo($video)
     {
     	$this->video = $video;
-
     	return $this;
     }
 
-    /**
-     * Gets the value of status.
-     *
-     * @return mixed
-     */
     public function getStatus()
     {
     	return $this->status;
     }
-    
-    /**
-     * Sets the value of status.
-     *
-     * @param mixed $status the status
-     *
-     * @return self
-     */
+
     public function setStatus($status)
     {
     	$this->status = $status;
-
     	return $this;
+    }
+
+    public function getCategoryName()
+    {
+        return $this->categoryName;
+    }
+  
+    public function setCategoryName($categoryName)
+    {
+        $this->categoryName = $categoryName;
+        return $this;
+    }
+
+    public function getBrandName()
+    {
+        return $this->brandName;
+    }
+
+    public function setBrandName($brandName)
+    {
+        $this->brandName = $brandName;
+        return $this;
+    }
+
+    public function getPartNo()
+    {
+        return $this->partNo;
+    }
+
+    public function setPartNo($partNo)
+    {
+        $this->partNo = $partNo;
+        return $this;
     }
 }

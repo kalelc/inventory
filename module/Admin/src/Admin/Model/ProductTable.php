@@ -2,7 +2,7 @@
 namespace Admin\Model;
 
 use Zend\Db\TableGateway\TableGateway;
-
+use Zend\Db\Sql\Select;
 
 class ProductTable
 {
@@ -14,8 +14,12 @@ class ProductTable
 
 	public function fetchAll()
 	{
-		$resultSet = $this->tableGateway->select();
-		return $resultSet;
+
+		$select = new Select($this->tableGateway->getTable());
+		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'), 'inner');
+		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'), 'inner');
+		$rows = $this->tableGateway->selectWith($select);
+		return $rows;
 
 	}
 

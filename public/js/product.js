@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#category").val($("#target option:first").val());
+	//$("#category").val($("#target option:first").val());
 	$('#category').change(function() {
 		var category = $("#category").val();
 		$.fn.searchSpecifications(category);

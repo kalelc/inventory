@@ -14,17 +14,15 @@ $this->headTitle($title);
     <th><?php echo $this->config['component']['brand'][1] ;?></th>
     <th><?php echo $this->config['component']['category'][1] ;?></th>
     <th><?php echo $this->config['component']['price'][1] ;?></th>
-    <th><?php echo $this->config['component']['iva'][1] ;?></th>
     <th>&nbsp;</th>
 </tr>
 <?php foreach ($products as $product) : ?>
 <tr>
     <td><?php echo $this->escapeHtml($product->getUpcBarCode());?></td>
     <td><?php echo $this->escapeHtml($product->getModel());?></td>
-    <td><?php echo $this->escapeHtml($product->getModel());?></td>
-    <td><?php echo $this->escapeHtml($product->getModel());?></td>
-    <td><?php echo $this->escapeHtml($product->getModel());?></td>
-    <td><?php echo $this->escapeHtml($product->getModel());?></td>
+    <td><?php echo $this->escapeHtml($product->getBrandName());?></td>
+    <td><?php echo $this->escapeHtml($product->getCategoryName());?></td>
+    <td><?php echo $this->escapeHtml($product->getPrice());?></td>
     <td class='column-button'>
         <a href="<?php echo $this->url('admin/product',
             array('action'=>'edit', 'id' => $product->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>

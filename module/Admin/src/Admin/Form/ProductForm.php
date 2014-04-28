@@ -27,7 +27,14 @@ class ProductForm extends Form
 				'class' => 'form-control',
 				),
 			'options' => array(
-				'label' => 'upc_bar_code',						
+				'label' => 'upc_bar_code',
+				),
+			));
+
+		$this->add(array(
+			'name' => 'measures',
+			'attributes' => array(
+				'type'  => 'select',
 				),
 			));
 
@@ -38,7 +45,7 @@ class ProductForm extends Form
 				'class' => 'form-control',
 				),
 			'options' => array(
-				'label' => 'model',						
+				'label' => 'model',
 				),
 			));
 
@@ -78,7 +85,7 @@ class ProductForm extends Form
 				'class' => 'form-control',
 				),
 			'options' => array(
-				'label' => 'name',						
+				'label' => 'name',
 				),
 			));
 
@@ -89,7 +96,7 @@ class ProductForm extends Form
 				'class' => 'form-control number-format',
 				),
 			'options' => array(
-				'label' => 'price',						
+				'label' => 'price',
 				),
 			));
 		$this->add(array(

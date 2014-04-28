@@ -226,6 +226,7 @@ return array(
 		),
 	'invokables' => array(
 		'modalHelper' => 'Admin\View\Helper\ModalHelper',
+		'barCodeHelper' => 'Admin\View\Helper\BarCodeHelper',
 		),
 	),
 'view_manager' => array(
