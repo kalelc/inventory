@@ -280,7 +280,8 @@ implements ConfigAwareInterface
 			$del = $request->getPost('del', 'No');
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
-				
+
+				$this->getProductMeasureTable()->delete($id);
 				$productTable = $this->getProductTable()->get($id);
 
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
