@@ -44,7 +44,7 @@ return array(
 		'status'		 		=> array('estados','estado'),
 		'shipping_cost' 		=> array('costos de envio','costo de envio'),
 		'singular_name' 		=> array('nombres singular','nombre singular'),
-		'specification' 		=> array('especificaciones','espeficación','image_path'=> 'public/images/specification'),
+		'specification' 		=> array('especificaciones','especificación','image_path'=> 'public/images/specification'),
 		'specification_file'	=> array('archivos de especificaciones','archivo especificación'),
 		'specification_master' 	=> array('especificaciones maestras','espeficación maestra','image_path'=> 'public/images/specification_master'),
 		'status' 				=> array('estados','estado'),
