@@ -41,7 +41,7 @@ class ProductTable
 			'model' 				=> $product->getModel(),
 			'brand' 				=> $product->getBrand(),
 			'category' 				=> $product->getCategory(),
-			'part_no' 				=> $product->getNoPart(),
+			'part_no' 				=> $product->getPartNo(),
 			'price' 				=> $product->getPrice(),
 			'iva' 					=> $product->getIva(),
 			'qty_low' 				=> $product->getQtyLow(),
@@ -60,8 +60,6 @@ class ProductTable
 			'register_date'			=> date("Y-m-d H:i:s", time()),
 			'update_date' 			=> date("Y-m-d H:i:s", time()),
 			);
-
-		//dumpx($data,"data product table");
 
 		$id = (int)$product->getId();
 		if ($id == 0) {

@@ -35,12 +35,8 @@ class ProductMeasureTable
 	{
 		$this->delete($product);
 		foreach($measures as $measure){
-			dump($product);
-			dump($measure);
 			$this->tableGateway->insert(array('product'=>$product,'measure' =>$measure));
 		}
-
-		dumpx("exit");
 	}
 
 	public function delete($product)
