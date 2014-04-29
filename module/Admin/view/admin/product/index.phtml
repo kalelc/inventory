@@ -14,6 +14,8 @@ $this->headTitle($title);
     <th><?php echo $this->config['component']['brand'][1] ;?></th>
     <th><?php echo $this->config['component']['category'][1] ;?></th>
     <th><?php echo $this->config['component']['price'][1] ;?></th>
+    <th><?php echo $this->config['component']['specification'][1] ;?></th>
+    <th><?php echo $this->config['component']['manual_file'][1] ;?></th>
     <th>&nbsp;</th>
 </tr>
 <?php foreach ($products as $product) : ?>
@@ -23,6 +25,8 @@ $this->headTitle($title);
     <td><?php echo $this->escapeHtml($product->getBrandName());?></td>
     <td><?php echo $this->escapeHtml($product->getCategoryName());?></td>
     <td><?php echo $this->escapeHtml($product->getPrice());?></td>
+    <td><?php echo $this->escapeHtml($product->getSpecificationFile());?></td>
+    <td><?php echo $this->escapeHtml($product->getManualFile());?></td>
     <td class='column-button'>
         <a href="<?php echo $this->url('admin/product',
             array('action'=>'edit', 'id' => $product->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
