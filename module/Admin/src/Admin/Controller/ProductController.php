@@ -142,7 +142,6 @@ implements ConfigAwareInterface
 
 	public function editAction()
 	{
-
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/product', array(
@@ -253,20 +252,19 @@ implements ConfigAwareInterface
 
 			}
 		}
+
 		return array(
-			'id' => $id,
-			'image1' => $previousImage1,
-			'image2' => $previousImage2,
-			'image3' => $previousImage3,
-			'image4' => $previousImage4,
-			'image5' => $previousImage5,
-			'image6' => $previousImage6,
-			'form' => $form,
-			'config' => $this->config
+			'id' 	   => $id,
+			'image1'   => $previousImage1,
+			'image2'   => $previousImage2,
+			'image3'   => $previousImage3,
+			'image4'   => $previousImage4,
+			'image5'   => $previousImage5,
+			'image6'   => $previousImage6,
+			'measures' => $this->getMeasureTable()->getByCategory($product->getCategory()),
+			'form' 	   => $form,
+			'config'   => $this->config
 			);
-
-
-
 	}
 
 	public function deleteAction()

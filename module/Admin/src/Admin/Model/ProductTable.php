@@ -60,6 +60,8 @@ class ProductTable
 			'register_date'			=> date("Y-m-d H:i:s", time()),
 			'update_date' 			=> date("Y-m-d H:i:s", time()),
 			);
+		
+		//dumpx($data);
 
 		$id = (int)$product->getId();
 		if ($id == 0) {

@@ -25,6 +25,20 @@ class MeasureTable
 		return $resultSet ? $resultSet : false ;
 	}
 
+	public function getByCategory($category)
+	{
+		$select = new Select($this->tableGateway->getTable());
+		$select->columns(array('id' => 'id','measure_value'=> 'measure_value','image'=> 'image'));
+		$select->join('specifications', $this->tableGateway->getTable().".specification = specifications.id", array(), 'inner');
+		$select->join('categories_specifications', "categories_specifications.specification = specifications.id", array(), 'inner');
+		$select->order('categories_specifications.order');
+		$select->where(array('categories_specifications.category' => $category));
+
+		$result = $this->tableGateway->selectWith($select);
+
+		return $result ? $result : false;
+	}
+
 	public function get($id)
 	{
 		$id  = (int) $id;
