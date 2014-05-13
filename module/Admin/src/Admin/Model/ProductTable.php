@@ -60,8 +60,6 @@ class ProductTable
 			'register_date'			=> date("Y-m-d H:i:s", time()),
 			'update_date' 			=> date("Y-m-d H:i:s", time()),
 			);
-		
-		//dumpx($data);
 
 		$id = (int)$product->getId();
 		if ($id == 0) {
@@ -69,6 +67,7 @@ class ProductTable
 			$id = $this->tableGateway->getLastInsertValue();
 		} else {
 			if ($this->get($id)) {
+				unset($data['category']);
 				unset($data['register_date']);
 				$this->tableGateway->update($data, array('id' => $id));
 			} else {

@@ -121,6 +121,11 @@ $form->setAttribute('action', $this->url('admin/product', array(
 		<div class="form-group">
 			<div class="col-lg-12">
 				<?php echo $this->formLabel($form->get('image1')->setLabel($this->config['component']['image'][1])); ?>
+				<?php if($image1): ?>
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image1; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+						<span class="glyphicon glyphicon-search"></span>
+					</a>
+				<?php endif; ?>
 				<?php echo $this->formInput($form->get('image1')); ?>
 				<?php echo $this->formElementErrors($form->get('image1'), array("class" => "error")); ?>
 				<p class="help-block">
@@ -136,6 +141,11 @@ $form->setAttribute('action', $this->url('admin/product', array(
 		<div class="form-group">
 			<div class="col-lg-12">
 				<?php echo $this->formLabel($form->get('image2')->setLabel($this->config['component']['image'][1])); ?>
+				<?php if($image2): ?>
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image2; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+						<span class="glyphicon glyphicon-search"></span>
+					</a>
+				<?php endif; ?>
 				<?php echo $this->formInput($form->get('image2')); ?>
 				<?php echo $this->formElementErrors($form->get('image2'), array("class" => "error")); ?>
 				<p class="help-block">
@@ -151,6 +161,11 @@ $form->setAttribute('action', $this->url('admin/product', array(
 		<div class="form-group">
 			<div class="col-lg-12">
 				<?php echo $this->formLabel($form->get('image3')->setLabel($this->config['component']['image'][1])); ?>
+				<?php if($image3): ?>
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image3; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+						<span class="glyphicon glyphicon-search"></span>
+					</a>
+				<?php endif; ?>
 				<?php echo $this->formInput($form->get('image3')); ?>
 				<?php echo $this->formElementErrors($form->get('image3'), array("class" => "error")); ?>
 				<p class="help-block">
@@ -166,6 +181,11 @@ $form->setAttribute('action', $this->url('admin/product', array(
 		<div class="form-group">
 			<div class="col-lg-12">
 				<?php echo $this->formLabel($form->get('image4')->setLabel($this->config['component']['image'][1])); ?>
+								<?php if($image4): ?>
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image4; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+						<span class="glyphicon glyphicon-search"></span>
+					</a>
+				<?php endif; ?>
 				<?php echo $this->formInput($form->get('image4')); ?>
 				<?php echo $this->formElementErrors($form->get('image4'), array("class" => "error")); ?>
 				<p class="help-block">
@@ -249,3 +269,4 @@ $form->setAttribute('action', $this->url('admin/product', array(
 			</div>
 		</div>
 	</div>
+	<?php echo $this->modalHelper(); ?>

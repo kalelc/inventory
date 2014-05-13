@@ -181,12 +181,16 @@ implements ConfigAwareInterface
 
 		$product = $this->getProductTable()->get($id);
 		
-		$previousImage1 = $product->getImage1();
-		$previousImage2 = $product->getImage2();
-		$previousImage3 = $product->getImage3();
-		$previousImage4 = $product->getImage4();
-		$previousImage5 = $product->getImage5();
-		$previousImage6 = $product->getImage6();
+		$previousManualFile  		= $product->getManualFile();
+		$previousSpecificationFile  = $product->getSpecificationFile();
+		$previousVideo  			= $product->getVideo();
+		$previousImage1 			= $product->getImage1();
+		$previousImage2 			= $product->getImage2();
+		$previousImage3 			= $product->getImage3();
+		$previousImage4 			= $product->getImage4();
+		$previousImage5 			= $product->getImage5();
+		$previousImage6 			= $product->getImage6();
+
 		$category = $product->getCategory();
 
 		$form = $this->getServiceLocator()->get("Admin\Form\ProductForm");
@@ -206,8 +210,8 @@ implements ConfigAwareInterface
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 
-            $product->getInputFilter()->get('category')->setRequired(false);
-            $product->getInputFilter()->get('measures')->setRequired(false);
+			$product->getInputFilter()->get('category')->setRequired(false);
+			$product->getInputFilter()->get('measures')->setRequired(false);
 
 			$form->setInputFilter($product->getInputFilter());
 
@@ -228,6 +232,39 @@ implements ConfigAwareInterface
 				$product->setDescription($request->getPost('description'));
 				$product->setStatus($request->getPost('status'));
 
+				/*files*/
+				
+				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
+				$fileService->setDestination($this->config['component']['product']['file_path']);
+				$fileService->setSize($this->config['file_characteristics']['file']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['file']['extension']);
+
+				$specificationFile = $this->params()->fromFiles('specification_file');
+				$manualFile = $this->params()->fromFiles('manual_file');
+
+				if(isset($specificationFile['name']) && !empty($specificationFile['name'])) {
+					$specificationFile = $fileService->copy($specificationFile);
+					$product->setSpecificationFile($specificationFile);
+					if(isset($previousSpecificationFile) && !empty($previousSpecificationFile))
+						@unlink($this->config['component']['product']['file_path']."/".$previousSpecificationFile);
+				}
+
+				if(isset($manualFile['name']) && !empty($manualFile['name'])) {
+					$manualFile = $fileService->copy($manualFile);
+					$product->setManualFile($manualFile);
+					if(isset($previousManualFile) && !empty($previousManualFile))
+						@unlink($this->config['component']['product']['file_path']."/".$previousManualFile);
+				}
+
+				/*video*/
+				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
+				$fileService->setDestination($this->config['component']['product']['video_path']);
+				$fileService->setSize($this->config['file_characteristics']['video']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['video']['extension']);
+
+				$video = $this->params()->fromFiles('video');
+
+				/*images*/
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 				$fileService->setDestination($this->config['component']['product']['image_path']);
 				$fileService->setSize($this->config['file_characteristics']['image']['size']);
@@ -240,44 +277,53 @@ implements ConfigAwareInterface
 				$image5 = $this->params()->fromFiles('image5');
 				$image6 = $this->params()->fromFiles('image6');
 
+
+
+				if(isset($video['name']) && !empty($video['name'])) {
+					$video = $fileService->copy($video);
+					$product->setVideo($video);
+					if(isset($previousVideo) && !empty($previousVideo))
+						@unlink($this->config['component']['product']['image_path']."/".$previousVideo);
+				}
+
 				if(isset($image1['name']) && !empty($image1['name'])) {
 					$image1 = $fileService->copy($image1);
-					$product->setImage($image1);
+					$product->setImage1($image1);
 					if(isset($previousImage1) && !empty($previousImage1))
 						@unlink($this->config['component']['product']['image_path']."/".$previousImage1);
 				}
 
 				if(isset($image2['name']) && !empty($image2['name'])) {
 					$image2 = $fileService->copy($image2);
-					$product->setImage($image2);
+					$product->setImage2($image2);
 					if(isset($previousImage1) && !empty($previousImage2))
 						@unlink($this->config['component']['product']['image_path']."/".$previousImage2);
 				}
 
 				if(isset($image3['name']) && !empty($image3['name'])) {
 					$image3 = $fileService->copy($image3);
-					$product->setImage($image3);
+					$product->setImage3($image3);
 					if(isset($previousImage3) && !empty($previousImage3))
 						@unlink($this->config['component']['product']['image_path']."/".$previousImage3);
 				}
 
 				if(isset($image4['name']) && !empty($image4['name'])) {
 					$image4 = $fileService->copy($image4);
-					$product->setImage($image4);
+					$product->setImage4($image4);
 					if(isset($previousImage4) && !empty($previousImage4))
 						@unlink($this->config['component']['product']['image_path']."/".$previousImage4);
 				}
 
 				if(isset($image5['name']) && !empty($image5['name'])) {
 					$image5 = $fileService->copy($image5);
-					$product->setImage($image5);
+					$product->setImage5($image5);
 					if(isset($previousImage5) && !empty($previousImage5))
 						@unlink($this->config['component']['product']['image_path']."/".$previousImage5);
 				}
 
 				if(isset($image6['name']) && !empty($image6['name'])) {
 					$image6 = $fileService->copy($image6);
-					$product->setImage($image6);
+					$product->setImage6($image6);
 					if(isset($previousImage6) && !empty($previousImage6))
 						@unlink($this->config['component']['product']['image_path']."/".$previousImage6);
 				}
