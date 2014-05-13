@@ -195,7 +195,7 @@ class Product implements InputFilterAwareInterface
 				)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name'     => 'no_part',
+				'name'     => 'part_no',
 				'required' => true,
 				'validators' => array(
 					array(

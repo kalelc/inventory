@@ -79,7 +79,7 @@ class ProductForm extends Form
 			));
 
 		$this->add(array(
-			'name' => 'no_part',
+			'name' => 'part_no',
 			'attributes' => array(
 				'type'  => 'text',
 				'class' => 'form-control',

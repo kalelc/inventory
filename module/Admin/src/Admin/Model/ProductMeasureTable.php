@@ -31,6 +31,15 @@ class ProductMeasureTable
 		return $row;
 	}
 
+	public function getByProduct($product)
+	{
+		$select = new Select($this->tableGateway->getTable());
+		$select->where(array("product" => $product));
+		$rows = $this->tableGateway->selectWith($select);
+
+		return $rows ? $rows : false ;
+	}
+
 	public function save($product,$measures)
 	{
 		$this->delete($product);

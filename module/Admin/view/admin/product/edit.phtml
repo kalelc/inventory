@@ -21,7 +21,6 @@ $form->setAttribute('action', $this->url('admin/product', array(
 	?>
 	<?php $form->prepare(); ?>
 	<?php echo $this->form()->openTag($form); ?>
-	<?php echo $this->formElementErrors($form->get('measures'), array("class" => "error")); ?>
 	<div class="clearfix"></div>
 	<br>
 	<div id='tab-product'>
@@ -50,35 +49,9 @@ $form->setAttribute('action', $this->url('admin/product', array(
 		</div>
 		<div class="form-group">
 			<div class="col-lg-4">
-				<?php echo $this->formLabel($form->get('category')->setLabel($this->config['component']['category'][1])); ?>
-				<?php echo $this->formSelect($form->get('category')); ?>
-				<?php echo $this->formElementErrors($form->get('category'), array("class" => "error")); ?>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<div class="col-lg-10">
-				<div id='specification-error'></div>
-				<div id='tab-product-specifications'>
-					<ul class='list-group'>
-						<?php foreach($measures as $measure): ?>
-							<?php $image = !$measure->getImage() ? "/img/icons/picture.png" : "/images/specification/".$measure->getImage() ; ?>
-							<li class='list-group-item'>
-								<img src='<?php echo $image ?>' class='thumb_24'>&nbsp;
-								<select name='measures[]'>
-									<option value='<?php echo $measure->getId() ?>'><?php echo $measure->getMeasureValue(); ?></option>
-								</select>
-							</li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-lg-4">
-				<?php echo $this->formLabel($form->get('no_part')->setLabel($this->config['component']['no_part'][1])); ?>
-				<?php echo $this->formText($form->get('no_part')); ?>
-				<?php echo $this->formElementErrors($form->get('no_part'), array("class" => "error")); ?>
+				<?php echo $this->formLabel($form->get('part_no')->setLabel($this->config['component']['part_no'][1])); ?>
+				<?php echo $this->formText($form->get('part_no')); ?>
+				<?php echo $this->formElementErrors($form->get('part_no'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">

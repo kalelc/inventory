@@ -28,7 +28,7 @@ return array(
 		'model' 				=> array('modelos','modelo'),
 		'module' 				=> array('modulos','modulo'),
 		'name' 					=> array('nombres','nombre'),
-		'no_part' 				=> array('no partes','no parte'),
+		'part_no' 				=> array('no partes','no parte'),
 		'password' 				=> array('contraseñas','contraseña'),
 		'payment_method' 		=> array('metodos de pago','metodo de pago'),
 		'picture' 				=> array('imagenes','imagen'),
