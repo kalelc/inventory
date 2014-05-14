@@ -75,7 +75,6 @@ implements ConfigAwareInterface
 
 				$data['specification_file'] = $specificationFile ? $specificationFile : "" ;
 				$data['manual_file'] 		= $manualFile ? $manualFile : "" ;
-				$data['video'] 				= $video ? $video : "" ;
 				$data['image1'] 			= $image1 ? $image1 : "" ;
 				$data['image2'] 			= $image2 ? $image2 : "" ;
 				$data['image3'] 			= $image3 ? $image3 : "" ;
@@ -94,7 +93,6 @@ implements ConfigAwareInterface
 				return $this->redirect()->toRoute('admin/product');
 			}
 			else {
-				/*test fill select*/
 				$select = $form->get("measures")->setValue($data['measures']);
 			}
 		}
@@ -185,7 +183,6 @@ implements ConfigAwareInterface
 
 		$previousManualFile  		= $product->getManualFile();
 		$previousSpecificationFile  = $product->getSpecificationFile();
-		$previousVideo  			= $product->getVideo();
 		$previousImage1 			= $product->getImage1();
 		$previousImage2 			= $product->getImage2();
 		$previousImage3 			= $product->getImage3();
@@ -235,6 +232,7 @@ implements ConfigAwareInterface
 				$product->setQtyBuy($request->getPost('qty_buy'));
 				$product->setDescription($request->getPost('description'));
 				$product->setStatus($request->getPost('status'));
+				$product->setVideo($request->getPost('video'));
 
 				/*files*/
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
@@ -258,14 +256,6 @@ implements ConfigAwareInterface
 					if(isset($previousManualFile) && !empty($previousManualFile))
 						@unlink($this->config['component']['product']['file_path']."/".$previousManualFile);
 				}
-
-				/*video*/
-				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
-				$fileService->setDestination($this->config['component']['product']['video_path']);
-				$fileService->setSize($this->config['file_characteristics']['video']['size']);
-				$fileService->setExtension($this->config['file_characteristics']['video']['extension']);
-
-				$video = $this->params()->fromFiles('video');
 
 				/*images*/
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
@@ -338,7 +328,6 @@ implements ConfigAwareInterface
 			'id' 	   			=> $id,
 			'specificationFile' => $previousSpecificationFile,
 			'manualFile'   		=> $previousManualFile,
-			'video'   			=> $previousVideo,
 			'image1'   			=> $previousImage1,
 			'image2'   			=> $previousImage2,
 			'image3'   			=> $previousImage3,

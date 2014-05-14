@@ -217,7 +217,8 @@ class ProductForm extends Form
 		$this->add(array(
 			'name' => 'video',
 			'attributes' => array(
-				'type'  => 'file',
+				'type'  => 'text',
+				'class' => 'form-control',
 				),
 			'options' => array(
 				'label' => 'video',
