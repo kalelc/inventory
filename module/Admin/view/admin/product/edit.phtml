@@ -61,7 +61,7 @@ $form->setAttribute('action', $this->url('admin/product', array(
 					<ul class="list-group">
 						<?php foreach ($productMeasures as $productMeasure): ?>
 							<li class='list-group-item'>
-								<?php $image = $productMeasure->getImage() ? $productMeasure->getImage() : "/img/icons/picture.png" ;?>
+								<?php $image = $productMeasure->getImage() ? "/images/specification/".$productMeasure->getImage() : "/img/icons/picture.png" ;?>
 								<img src='<?php echo $image; ?>' class='thumb_24'>&nbsp;
 								<span class="btn btn-primary badge pull-right"><?php echo $productMeasure->getSpecificationName(); ?></span>
 								<?php echo $productMeasure->getMeasureValue(); ?>
