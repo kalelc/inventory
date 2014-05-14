@@ -35,7 +35,7 @@ return array(
 		'plural_name' 			=> array('nombres plural','nombre plural'),
 		'price' 				=> array('precios','precio'),
 		'principal' 			=> array('principales','principal'),
-		'product' 				=> array('productos','producto','image_path'=> 'public/images/product','file_path'=> 'public/files/product','video_path'=> 'public/videos/product'),
+		'product' 				=> array('productos','producto','image_path'=> 'public/images/product','file_path'=> 'public/files/product'),
 		'qty_buy' 				=> array('cantidades comprar','cantidad comprar'),
 		'qty_low' 				=> array('cantidades minimas','cantidad minima'),
 		'rol' 					=> array('roles','rol'),
