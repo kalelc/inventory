@@ -19,6 +19,7 @@ $(document).ready(function() {
 });
 
 $.fn.searchSpecifications = function(category) {
+	console.log("category "+category)
 	if (category>0) {
 		$.ajax({
 			type : "POST",
