@@ -29,23 +29,23 @@ $this->headTitle($title);
             <td>
                 <?php if($product->getImage1()): ?>
                     <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $product->getImage1() ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-                    <span class="glyphicon glyphicon-search"></span></a>
-                <?php endif; ?>
-            </td>
-            <td>
-                <?php if($product->getSpecificationFile()): ?>
-                    <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $product->getSpecificationFile() ?>','<?php echo $this->config['component']['specification_file'][1] ; ?>')"><span class="glyphicon glyphicon-floppy-disk"></span></a>
-                <?php endif; ?>
-            </td>
-            <td>
-                <?php if($product->getManualFile()): ?>
-                    <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $product->getManualFile() ?>','<?php echo $this->config['component']['manual_file'][1] ; ?>')">
-                    <span class="glyphicon glyphicon-floppy-disk"></span></a>
-                <?php endif; ?>
-            </td>
-            <td class='column-button'>
-                <a href="<?php echo $this->url('admin/product',
-                    array('action'=>'edit', 'id' => $product->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+                        <span class="glyphicon glyphicon-search"></span></a>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if($product->getSpecificationFile()): ?>
+                        <a href="/files/product/<?php echo $product->getSpecificationFile() ?>" target='_blank' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span></a>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if($product->getManualFile()): ?>
+                        <a href="/files/product/<?php echo $product->getManualFile()?>" class="btn btn-primary btn-xs" target='_blank'>
+                            <span class="glyphicon glyphicon-floppy-disk"></span></a>
+                        <?php endif; ?>
+                    </td>
+                    <td class='column-button'>
+                        <a href="<?php echo $this->url('admin/product',
+                            array('action'=>'edit', 'id' => $product->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
 <a href="<?php echo $this->url('admin/product',
     array('action'=>'delete', 'id' => $product->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
 </td>

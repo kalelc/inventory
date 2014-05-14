@@ -14,8 +14,6 @@ $(document).ready(function() {
 				$("#specification-error").html("<ul class='error'><li>debe seleccionar las especificaciones del producto<li></ul>");
 			}
 		});
-
-
 		return result;
 	});
 });

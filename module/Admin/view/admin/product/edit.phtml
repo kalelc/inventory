@@ -49,6 +49,31 @@ $form->setAttribute('action', $this->url('admin/product', array(
 		</div>
 		<div class="form-group">
 			<div class="col-lg-4">
+				<?php echo $this->formLabel($form->get('category')->setLabel($this->config['component']['category'][1])); ?>
+				<?php echo $this->formSelect($form->get('category')); ?>
+				<?php echo $this->formElementErrors($form->get('category'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-10">
+				<div id='specification-error'></div>
+				<div id='tab-product-specifications'>
+					<ul class="list-group">
+						<?php foreach ($productMeasures as $productMeasure): ?>
+							<li class='list-group-item'>
+								<?php $image = $productMeasure->getImage() ? $productMeasure->getImage() : "/img/icons/picture.png" ;?>
+								<img src='<?php echo $image; ?>' class='thumb_24'>&nbsp;
+								<span class="btn btn-primary badge pull-right"><?php echo $productMeasure->getSpecificationName(); ?></span>
+								<?php echo $productMeasure->getMeasureValue(); ?>
+								<?php echo $productMeasure->getMeasureTypeName();?>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-lg-4">
 				<?php echo $this->formLabel($form->get('part_no')->setLabel($this->config['component']['part_no'][1])); ?>
 				<?php echo $this->formText($form->get('part_no')); ?>
 				<?php echo $this->formElementErrors($form->get('part_no'), array("class" => "error")); ?>
@@ -117,6 +142,7 @@ $form->setAttribute('action', $this->url('admin/product', array(
 				</p>
 			</div>
 		</div>
+
 		<div class="clearfix"></div>
 		<div class="form-group">
 			<div class="col-lg-12">
@@ -181,7 +207,7 @@ $form->setAttribute('action', $this->url('admin/product', array(
 		<div class="form-group">
 			<div class="col-lg-12">
 				<?php echo $this->formLabel($form->get('image4')->setLabel($this->config['component']['image'][1])); ?>
-								<?php if($image4): ?>
+				<?php if($image4): ?>
 					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image4; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 						<span class="glyphicon glyphicon-search"></span>
 					</a>

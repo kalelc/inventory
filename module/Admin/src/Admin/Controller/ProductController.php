@@ -141,6 +141,8 @@ implements ConfigAwareInterface
 
 	public function getSpecificationCategory($category)
 	{
+		error_log("category");
+		error_log($category);
 		$jsonModel = new JsonModel();
 		$listSpecifications = $this->getCategorySpecificationTable()->getCategorySpecificationCheckValue($category);
 
@@ -180,7 +182,7 @@ implements ConfigAwareInterface
 		}
 
 		$product = $this->getProductTable()->get($id);
-		
+
 		$previousManualFile  		= $product->getManualFile();
 		$previousSpecificationFile  = $product->getSpecificationFile();
 		$previousVideo  			= $product->getVideo();
@@ -206,6 +208,8 @@ implements ConfigAwareInterface
 		$form->get("qty_buy")->setValue($product->getQtyBuy());
 		$form->get("description")->setValue($product->getDescription());
 		$form->get("status")->setValue($product->getStatus());
+
+		$productMeasures = $this->getMeasureTable()->getByProduct($id);
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -233,7 +237,6 @@ implements ConfigAwareInterface
 				$product->setStatus($request->getPost('status'));
 
 				/*files*/
-				
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 				$fileService->setDestination($this->config['component']['product']['file_path']);
 				$fileService->setSize($this->config['file_characteristics']['file']['size']);
@@ -276,8 +279,6 @@ implements ConfigAwareInterface
 				$image4 = $this->params()->fromFiles('image4');
 				$image5 = $this->params()->fromFiles('image5');
 				$image6 = $this->params()->fromFiles('image6');
-
-
 
 				if(isset($video['name']) && !empty($video['name'])) {
 					$video = $fileService->copy($video);
@@ -334,15 +335,19 @@ implements ConfigAwareInterface
 		}
 
 		return array(
-			'id' 	   => $id,
-			'image1'   => $previousImage1,
-			'image2'   => $previousImage2,
-			'image3'   => $previousImage3,
-			'image4'   => $previousImage4,
-			'image5'   => $previousImage5,
-			'image6'   => $previousImage6,
-			'form' 	   => $form,
-			'config'   => $this->config
+			'id' 	   			=> $id,
+			'specificationFile' => $previousSpecificationFile,
+			'manualFile'   		=> $previousManualFile,
+			'video'   			=> $previousVideo,
+			'image1'   			=> $previousImage1,
+			'image2'   			=> $previousImage2,
+			'image3'   			=> $previousImage3,
+			'image4'   			=> $previousImage4,
+			'image5'   			=> $previousImage5,
+			'image6'   			=> $previousImage6,
+			'form' 	   			=> $form,
+			'config'   			=> $this->config,
+			'productMeasures'	=> $productMeasures
 			);
 	}
 

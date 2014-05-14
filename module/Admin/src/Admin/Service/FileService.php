@@ -81,7 +81,7 @@ class FileService
 		}
 	}
 
-	public function getMessage() 
+	public function getMessage()
 	{
 		return $this->message;
 	}
