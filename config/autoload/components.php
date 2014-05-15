@@ -3,6 +3,7 @@ return array(
 	'component' => array(
 		'abbreviation' 			=> array('abreviaciones', 'abreviación'),
 		'additional_shipping' 	=> array('envios adicionales','envio adicional'),
+		'app' 					=> array('aplicación','aplicaciones','image_path'=> 'public/images/app'),
 		'background_image' 		=> array('imagenes de fondo','imagen de fondo'),
 		'bank' 					=> array('bancos','banco'),
 		'bank_info' 			=> array('informaciones de banco','información de banco'),

@@ -38,6 +38,8 @@ use Admin\Model\CategorySpecification;
 use Admin\Model\CategorySpecificationTable;
 use Admin\Model\ProductMeasure;
 use Admin\Model\ProductMeasureTable;
+use Admin\Model\App;
+use Admin\Model\AppTable;
 
 use Admin\Form\SpecificationForm;
 use Admin\Form\MeasureForm;
@@ -348,6 +350,19 @@ public function getServiceConfig()
 				$form = new ProductForm($brandList,$categoryList);
 				return $form;
 			},
+
+			'Admin\Model\AppTable' =>  function($sm) {
+				$tableGateway = $sm->get('AppTableGateway');
+				$table = new AppTable($tableGateway);
+				return $table;
+			},
+			'AppTableGateway' => function ($sm) {
+				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				$resultSetPrototype = new ResultSet();
+				$resultSetPrototype->setArrayObjectPrototype(new App());
+				return new TableGateway('apps', $dbAdapter, null, $resultSetPrototype);
+			},
+
 			'Admin\Model\CategorySpecificationTable' => function($sm) {
 				$categorySpecificationTableGateway = $sm->get("CategorySpecificationTableGateway");
 				$table = new CategorySpecificationTable($categorySpecificationTableGateway);
