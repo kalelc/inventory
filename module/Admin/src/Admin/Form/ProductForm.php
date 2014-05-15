@@ -6,12 +6,15 @@ use Zend\Form\Element;
 
 class ProductForm extends Form
 {
-	public function __construct($brand,$category)
+	private $appsList;
+	public function __construct($brand,$category,$appsList)
 	{
 		parent::__construct('product');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('class', 'form-horizontal');
 		$this->setAttribute('enctype','multipart/form-data');
+
+		$this->setAppsList($appsList);
 
 		$this->add(array(
 			'name' => 'id',
@@ -248,6 +251,21 @@ class ProductForm extends Form
 				'label' => 'descripción',
 				),
 			));
+
+		$this->add(array(
+			'type' => 'select',
+			'name' => 'apps',
+			'attributes' => array(
+				'multiple' => 'multiple',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'apps',
+				'value_options' => $this->getAppsList(),
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true
+				),
+			));
 		
 
 		
@@ -269,4 +287,16 @@ class ProductForm extends Form
 				),
 			));
 	}
+
+
+    public function getAppsList()
+    {
+        return $this->appsList;
+    }
+
+    public function setAppsList($appsList)
+    {
+        $this->appsList = $appsList;
+        return $this;
+    }
 }

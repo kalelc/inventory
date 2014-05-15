@@ -40,6 +40,8 @@ use Admin\Model\ProductMeasure;
 use Admin\Model\ProductMeasureTable;
 use Admin\Model\App;
 use Admin\Model\AppTable;
+use Admin\Model\ProductApp;
+use Admin\Model\ProductAppTable;
 
 use Admin\Form\SpecificationForm;
 use Admin\Form\MeasureForm;
@@ -286,6 +288,17 @@ public function getServiceConfig()
 				$resultSetPrototype->setArrayObjectPrototype(new CategorySerialName());
 				return new TableGateway('categories_serials_name', $dbAdapter, null, $resultSetPrototype);
 			},
+			'Admin\Model\ProductAppTable' =>  function($sm) {
+				$tableGateway = $sm->get('ProductAppTableGateway');
+				$table = new ProductAppTable($tableGateway);
+				return $table;
+			},
+			'ProductAppTableGateway' => function ($sm) {
+				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				$resultSetPrototype = new ResultSet();
+				$resultSetPrototype->setArrayObjectPrototype(new ProductApp());
+				return new TableGateway('products_app', $dbAdapter, null, $resultSetPrototype);
+			},
 			'Admin\Model\ListPriceTable' =>  function($sm) {
 				$tableGateway = $sm->get('ListPriceTableGateway');
 				$table = new ListPriceTable($tableGateway);
@@ -347,7 +360,15 @@ public function getServiceConfig()
 					$categoryList[$category->getId()] = $category->getSingularName();
 				}
 
-				$form = new ProductForm($brandList,$categoryList);
+				$appTable = $sm->get("Admin/Model/AppTable");
+				$apps = $appTable->fetchAll();
+				$appsList = array();
+
+				foreach($apps as $app){
+					$appsList[$app->getId()] = $app->getName();
+				}
+
+				$form = new ProductForm($brandList,$categoryList,$appsList);
 				return $form;
 			},
 

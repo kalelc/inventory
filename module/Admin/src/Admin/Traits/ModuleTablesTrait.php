@@ -148,5 +148,14 @@ Trait ModuleTablesTrait
 		}
 		return $appTable;
 	}
+
+	public function getProductAppTable()
+	{
+		$productAppTable = "";
+		if(!$productAppTable) {
+			$productAppTable = $this->getServiceLocator()->get('Admin\model\ProductAppTable');
+		}
+		return $productAppTable;
+	}
 }
 ?>
