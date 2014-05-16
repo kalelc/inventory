@@ -88,11 +88,11 @@ class Module
 			);
 	}
 
-	//public function init(ModuleManager $moduleManager)
-	//{
-		//$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+	public function init(ModuleManager $moduleManager)
+	{
+		$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
 
-		/*$sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
+		$sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
 		{
 			$controller = $e->getTarget();
 			$controller->layout('layout/layout');
@@ -106,8 +106,8 @@ class Module
 				$controller->plugin('redirect')->toRoute('security/login');
 			}
 		}, 100);
-		*/
-	//}
+		
+	}
 
 public function getServiceConfig()
 {
