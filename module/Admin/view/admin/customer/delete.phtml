@@ -1,11 +1,8 @@
 <?php
 $title = $this->config['component']['app'][0];
-$action = $this->config['action']['new'];
-echo $this->layoutHelper()->header(array(
-	'module' => array('url' => $this->url('admin/app'),'value' => $title),
-	'action' => array('url' => $this->url('admin/app'),'value' => $action)
-	));
-	?>
+$this->headTitle($title);
+?>
+<h2 class="page-header"><?php echo $title ; ?></h2>
 <?php if(isset($error) && $error): ?>
 	<div class="alert alert-danger fade in">
 		<h4>¡Vaya! Se ha producido un error.</h4>

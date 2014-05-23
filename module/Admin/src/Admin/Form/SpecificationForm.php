@@ -24,88 +24,94 @@ class SpecificationForm extends Form
 		
 		
 		$this->add(array(
-				'name' => 'id',
-				'attributes' => array(
-						'type'  => 'hidden',
+			'name' => 'id',
+			'attributes' => array(
+				'type'  => 'hidden',
 				),
-		));
+			));
 
 		$this->add(array(
-				'name' => 'name',
-				'attributes' => array(
-						'type'  => 'text',
-						'class' => 'form-control',
+			'name' => 'name',
+			'attributes' => array(
+				'type'  => 'text',
+				'class' => 'form-control',
 				),
-				'options' => array(
-						'label' => 'nombre',
+			'options' => array(
+				'label' => 'nombre',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 
 				),
-		));
+			));
 
 		$this->add(array(
-				'type' => 'select',
-				'name' => 'specification_master',
-				'attributes' => array(
-					'class' => 'form-control',
+			'type' => 'select',
+			'name' => 'specification_master',
+			'attributes' => array(
+				'class' => 'form-control',
 				),
-				'options' => array(
-						'label' => 'specification_master',
-						'value_options' => $this->specificationMasterList,
-						'empty_option' => 'seleccione una opción',
-						'disable_inarray_validator' => true,
+			'options' => array(
+				'label' => 'specification_master',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' => $this->specificationMasterList,
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
 				)
-		));
+			));
 
 
 		$this->add(array(
-				'name' => 'image',
-				'attributes' => array(
-						'type'  => 'file',
+			'name' => 'image',
+			'attributes' => array(
+				'type'  => 'file',
 				),
-				'options' => array(
-						'label' => 'image',
+			'options' => array(
+				'label' => 'image',
 				),
-		));
+			));
 
 		$this->add(array(
-				'name' => 'meaning',
-				'attributes' => array(
-						'type'  => 'textarea',
-						'class' => 'form-control',
+			'name' => 'meaning',
+			'attributes' => array(
+				'type'  => 'textarea',
+				'class' => 'form-control',
 				),
-				'options' => array(
-						'label' => 'meaning',
+			'options' => array(
+				'label' => 'meaning',
 				),
-		));
+			));
 
 		$this->add(array(
-				'name' => 'general_information',
-				'attributes' => array(
-						'type'  => 'textarea',
-						'class' => 'form-control',
+			'name' => 'general_information',
+			'attributes' => array(
+				'type'  => 'textarea',
+				'class' => 'form-control',
 				),
-				'options' => array(
-						'label' => 'general_information',
+			'options' => array(
+				'label' => 'general_information',
 				),
-		));
+			));
 
 
 		$this->add(array(
-				'type' => 'Zend\Form\Element\Csrf',
-				'name' => 'csrf',
-				'options' => array(
-						'csrf_options' => array(
-								'timeout' => 600
-						)
+			'type' => 'Zend\Form\Element\Csrf',
+			'name' => 'csrf',
+			'options' => array(
+				'csrf_options' => array(
+					'timeout' => 600
+					)
 				)
-		));
+			));
 
 		$this->add(array(
-				'name' => 'submit',
-				'attributes' => array(
-						'type'  => 'submit',
-						'class' => 'btn btn-primary btn-sm'
+			'name' => 'submit',
+			'attributes' => array(
+				'type'  => 'submit',
+				'class' => 'btn btn-primary btn-sm'
 				),
-		));
+			));
 	}
 }

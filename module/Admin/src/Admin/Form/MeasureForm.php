@@ -25,103 +25,121 @@ class MeasureForm extends Form
 		$this->measureTypeList = $measureTypeList;
 
 		$this->add(array(
-				'name' => 'id',
-				'attributes' => array(
-						'type'  => 'hidden',
+			'name' => 'id',
+			'attributes' => array(
+				'type'  => 'hidden',
 				),
-		));
+			));
 
 		$this->add(array(
-				'type' => 'select',
-				'name' => 'specification',
-				'options' => array(
-						'label' => 'specification',
-						'value_options' => $this->specificationlist,
-						'empty_option' => 'seleccione una opción',
-						'disable_inarray_validator' => true,
+			'type' => 'select',
+			'name' => 'specification',
+			'options' => array(
+				'label' => 'specification',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' => $this->specificationlist,
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
 				),
-				'attributes' => array(
-					'class' => 'form-control',
+			'attributes' => array(
+				'class' => 'form-control',
 				)
-		));
+			));
 
 		$this->add(array(
-				'type' => 'select',
-				'name' => 'measure_type',
-				'options' => array(
-						'label' => 'measure_type',
-						'value_options' => $this->measureTypeList,
-						'empty_option' => 'sin medida',
-						'disable_inarray_validator' => true,
+			'type' => 'select',
+			'name' => 'measure_type',
+			'options' => array(
+				'label' => 'measure_type',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' => $this->measureTypeList,
+				'empty_option' => 'sin medida',
+				'disable_inarray_validator' => true,
 				),
-				'attributes' => array(
-					'class' => 'form-control',
+			'attributes' => array(
+				'class' => 'form-control',
 				)
-		));
+			));
 
 
 		$this->add(array(
-				'name' => 'measure_value',
-				'attributes' => array(
-						'type'  => 'text',
-						'class' => 'form-control',
+			'name' => 'measure_value',
+			'attributes' => array(
+				'type'  => 'text',
+				'class' => 'form-control',
 				),
-				'options' => array(
-						'label' => 'name',
+			'options' => array(
+				'label' => 'name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 
 				),
-		));
-
-		$this->add(array(
-				'name' => 'image',
-				'attributes' => array(
-						'type'  => 'file',
-				),
-				'options' => array(
-						'label' => 'image',
-				),
-		));
+			));
 
 		$this->add(array(
-				'name' => 'meaning',
-				'attributes' => array(
-						'type'  => 'textarea',
-						'class' => 'form-control',
+			'name' => 'image',
+			'attributes' => array(
+				'type'  => 'file',
 				),
-				'options' => array(
-						'label' => 'meaning',
+			'options' => array(
+				'label' => 'image',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
-		));
+			));
 
 		$this->add(array(
-				'name' => 'general_information',
-				'attributes' => array(
-						'type'  => 'textarea',
-						'class' => 'form-control',
+			'name' => 'meaning',
+			'attributes' => array(
+				'type'  => 'textarea',
+				'class' => 'form-control',
 				),
-				'options' => array(
-						'label' => 'general_information',
+			'options' => array(
+				'label' => 'meaning',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
-		));
+			));
+
+		$this->add(array(
+			'name' => 'general_information',
+			'attributes' => array(
+				'type'  => 'textarea',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'general_information',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				),
+			));
 
 
 		$this->add(array(
-				'type' => 'Zend\Form\Element\Csrf',
-				'name' => 'csrf',
-				'options' => array(
-						'csrf_options' => array(
-								'timeout' => 600
-						)
+			'type' => 'Zend\Form\Element\Csrf',
+			'name' => 'csrf',
+			'options' => array(
+				'csrf_options' => array(
+					'timeout' => 600
+					)
 				)
-		));
+			));
 
 		$this->add(array(
-				'name' => 'submit',
-				'attributes' => array(
-						'type'  => 'submit',
-						'class' => 'btn btn-primary btn-sm'
+			'name' => 'submit',
+			'attributes' => array(
+				'type'  => 'submit',
+				'class' => 'btn btn-primary btn-sm'
 				),
-		));
+			));
 	}
 
 }

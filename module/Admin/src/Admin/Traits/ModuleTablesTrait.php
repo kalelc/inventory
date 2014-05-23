@@ -109,7 +109,6 @@ Trait ModuleTablesTrait
 		if (!$specificationTable) {
 			$specificationTable = $this->getServiceLocator()->get('Admin\Model\SpecificationTable');
 		}
-		
 		return $specificationTable;
 	}
 
@@ -156,6 +155,15 @@ Trait ModuleTablesTrait
 			$productAppTable = $this->getServiceLocator()->get('Admin\model\ProductAppTable');
 		}
 		return $productAppTable;
+	}
+
+		public function getCustomerTable()
+	{
+		$customerTable = "";
+		if(!$customerTable) {
+			$customerTable = $this->getServiceLocator()->get('Admin\model\CustomerTable');
+		}
+		return $customerTable;
 	}
 }
 ?>

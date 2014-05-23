@@ -42,6 +42,8 @@ use Admin\Model\App;
 use Admin\Model\AppTable;
 use Admin\Model\ProductApp;
 use Admin\Model\ProductAppTable;
+use Admin\Model\Customer;
+use Admin\Model\CustomerTable;
 
 use Admin\Form\SpecificationForm;
 use Admin\Form\MeasureForm;
@@ -90,7 +92,7 @@ class Module
 
 	public function init(ModuleManager $moduleManager)
 	{
-		$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+		/*$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
 
 		$sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
 		{
@@ -105,9 +107,9 @@ class Module
 			else {
 				$controller->plugin('redirect')->toRoute('security/login');
 			}
-		}, 100);
-		
-	}
+		}, 100);*/
+
+}
 
 public function getServiceConfig()
 {
@@ -394,8 +396,19 @@ public function getServiceConfig()
 				$resultSetPrototype = new ResultSet();
 				$resultSetPrototype->setArrayObjectPrototype(new CategorySpecification());
 				return new TableGateway('categories_specifications', $dbAdapter, null, $resultSetPrototype);
+			},
+			'Admin\Model\CustomerTable' => function($sm) {
+				$categorySpecificationTableGateway = $sm->get("CustomerTableGateway");
+				$table = new CustomerTable($categorySpecificationTableGateway);
+				return $table;
+			},
+			'CustomerTableGateway' => function($sm) {
+				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				$resultSetPrototype = new ResultSet();
+				$resultSetPrototype->setArrayObjectPrototype(new Customer());
+				return new TableGateway('customers', $dbAdapter, null, $resultSetPrototype);
 			}
 			),
-);
-}
+		);
+	}
 }

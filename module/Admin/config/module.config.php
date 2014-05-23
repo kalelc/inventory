@@ -15,6 +15,7 @@ return array(
 			'Admin\Controller\Brand' 				=> 'Admin\Controller\BrandController',
 			'Admin\Controller\Product' 				=> 'Admin\Controller\ProductController',
 			'Admin\Controller\App' 					=> 'Admin\Controller\AppController',
+			'Admin\Controller\Customer' 			=> 'Admin\Controller\CustomerController',
 			),
 ),
 'router' => array(
@@ -212,6 +213,20 @@ return array(
 							),
 						),
 					),
+				'customer' => array(
+					'type'    => 'segment',
+					'options' => array(
+						'route'    => '/customer[/:action][/:id]',
+						'constraints' => array(
+							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+							'id'     => '[0-9]+',
+							),
+						'defaults' => array(
+							'controller' => 'Admin\Controller\Customer',
+							'action'     => 'index',
+							),
+						),
+					),
 				'productSearchSpecifications' => array(
 					'type'    => 'segment',
 					'options' => array(
@@ -242,6 +257,7 @@ return array(
 	'invokables' => array(
 		'modalHelper' => 'Admin\View\Helper\ModalHelper',
 		'barCodeHelper' => 'Admin\View\Helper\BarCodeHelper',
+		'layoutHelper' => 'Admin\View\Helper\LayoutHelper',
 		),
 	),
 'view_manager' => array(

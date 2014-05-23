@@ -36,7 +36,7 @@
 	</script>
 </head>
 <body>
-	<div class="navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+	<div class="navbar-default navbar-fixed-top" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="sr-only">Cambiar Navegación</span>
@@ -67,6 +67,7 @@
 						<li><a href="<?php echo $this->url('admin/brand'); ?>">Marcas</a></li>
 						<li><a href="<?php echo $this->url('admin/product'); ?>">Productos</a></li>
 						<li><a href="<?php echo $this->url('admin/app'); ?>">Aplicaciones</a></li>
+						<li><a href="<?php echo $this->url('admin/customer'); ?>">Clientes</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">
@@ -95,6 +96,7 @@
 	</div>
 	<div class="container">
 		<div class="row">
+		<!---
 			<div class="col-md-3">   
 				<br>
 				<div class="list-group">
@@ -104,9 +106,9 @@
 					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;Compras</a>
 					<a href="#" class="list-group-item"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;Calendario</a>
 				</div>
-
 			</div>
-			<div class="col-md-9"><?php echo $this->content; ?></div>
+		-->
+			<div class="col-md-12"><?php echo $this->content; ?></div>
 		</div>
 	</div>
 	<?php echo $this->inlineScript() ?>

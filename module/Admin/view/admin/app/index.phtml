@@ -1,33 +1,35 @@
 <?php
 $title = $this->config['component']['app'][0];
-$this->headTitle($title);
-?>
-<h2 class="page-header"><?php echo $title ; ?></h2>
-<p>
-    <a href="<?php echo $this->url('admin/app', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
-</p>
-<table class="table table-striped table-bordered">
-<tr>
-    <th><?php echo $this->config['component']['name'][1] ?></th>
-    <th><?php echo $this->config['component']['description'][1] ?></th>
-    <th><?php echo $this->config['component']['image'][1] ?></th>
-    <th>&nbsp;</th>
-</tr>
-<?php foreach ($apps as $app) : ?>
-<tr>
-    <td><?php echo $this->escapeHtml($app->getName());?></td>
-    <td><?php echo $this->escapeHtml($app->getDescription());?></td>
-    <td>
-        <?php if($app->getImage()): ?>
-            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/app/<?php echo $app->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
-        <?php endif; ?>
-    </td>
-    <td class='column-button'>
-        <a href="<?php echo $this->url('admin/app',
-            array('action'=>'edit', 'id' => $app->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
-        <a href="<?php echo $this->url('admin/app',
-            array('action'=>'delete', 'id' => $app->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
-    </td>
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+    'module' => array('url' => $this->url('admin/app'),'value' => $title),
+    ));
+    ?>
+    <p>
+        <a href="<?php echo $this->url('admin/app', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
+    </p>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th><?php echo $this->config['component']['name'][1] ?></th>
+            <th><?php echo $this->config['component']['description'][1] ?></th>
+            <th><?php echo $this->config['component']['image'][1] ?></th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach ($apps as $app) : ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($app->getName());?></td>
+                <td><?php echo $this->escapeHtml($app->getDescription());?></td>
+                <td>
+                    <?php if($app->getImage()): ?>
+                        <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/app/<?php echo $app->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+                    <?php endif; ?>
+                </td>
+                <td class='column-button'>
+                    <a href="<?php echo $this->url('admin/app',
+                        array('action'=>'edit', 'id' => $app->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+<a href="<?php echo $this->url('admin/app',
+    array('action'=>'delete', 'id' => $app->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
+</td>
 </tr>
 <?php endforeach; ?>
 </table>

@@ -31,6 +31,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'upc_bar_code',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -49,6 +52,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'model',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -57,6 +63,9 @@ class ProductForm extends Form
 			'name' => 'brand',
 			'options' => array(
 				'label' => 'brand',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				'value_options' => $brand,
 				'empty_option' => 'seleccione una opción',
 				'disable_inarray_validator' => true,
@@ -71,6 +80,9 @@ class ProductForm extends Form
 			'name' => 'category',
 			'options' => array(
 				'label' => 'category',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				'value_options' => $category,
 				'empty_option' => 'seleccione una opción',
 				'disable_inarray_validator' => true,
@@ -89,6 +101,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -100,6 +115,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'price',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 		$this->add(array(
@@ -109,7 +127,10 @@ class ProductForm extends Form
 				'use_hidden_element' => true,
 				'checked_value' => 1,
 				'unchecked_value' => '',
-				'label' => 'Iva'
+				'label' => 'Iva',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			'attributes' => array(
 				'id' => 'iva'
@@ -122,7 +143,10 @@ class ProductForm extends Form
 				'class' => 'form-control',
 				),
 			'options' => array(
-				'label' => 'qty_low',						
+				'label' => 'qty_low',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),						
 				),
 			));
 
@@ -133,7 +157,10 @@ class ProductForm extends Form
 				'class' => 'form-control',
 				),
 			'options' => array(
-				'label' => 'qty_buy',						
+				'label' => 'qty_buy',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),						
 				),
 			));
 
@@ -144,6 +171,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'specification_file',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			)); 
 
@@ -154,6 +184,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'image1',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			)); 
 
@@ -164,6 +197,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'image2',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			)); 
 
@@ -174,6 +210,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'image3',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			)); 
 
@@ -184,6 +223,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'image4',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			)); 
 
@@ -194,6 +236,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'image5',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			)); 
 
@@ -204,6 +249,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'image6',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			)); 
 
@@ -214,6 +262,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'manual_file',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -225,6 +276,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'video',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -233,6 +287,9 @@ class ProductForm extends Form
 			'name' => 'status',
 			'options' => array(
 				'label' => 'status',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				'value_options' => array(1 => "Activo",2 => "Inactivo"),
 				),
 			'attributes' => array(
@@ -249,6 +306,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'descripción',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -261,6 +321,9 @@ class ProductForm extends Form
 				),
 			'options' => array(
 				'label' => 'apps',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				'value_options' => $this->getAppsList(),
 				'empty_option' => 'seleccione una opción',
 				'disable_inarray_validator' => true
@@ -289,14 +352,14 @@ class ProductForm extends Form
 	}
 
 
-    public function getAppsList()
-    {
-        return $this->appsList;
-    }
+	public function getAppsList()
+	{
+		return $this->appsList;
+	}
 
-    public function setAppsList($appsList)
-    {
-        $this->appsList = $appsList;
-        return $this;
-    }
+	public function setAppsList($appsList)
+	{
+		$this->appsList = $appsList;
+		return $this;
+	}
 }

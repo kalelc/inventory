@@ -18,31 +18,17 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Average Sans', sans-serif; }
 }
 
 h2 { text-transform: capitalize;}
-
 td.column-button { vertical-align: middle; text-align: center;}
-
-
-.btn-success:active, .btn-success.active {
-  background-color: #57a900;
-}
-
-form label { font-weight: bold;}
-
-.error{
-color: #B23634;
-font-size: 0.9em;
--webkit-font-smoothing: antialiased;
-clear: both;
-float: left;
-width: 100%;
-margin: 0 0 10px -40px;
-text-align: left;
-list-style: none;
-}
-
+.btn-success:active, .btn-success.active {  background-color: #57a900; }
+form label { font-weight: bold; text-transform: capitalize;}
+.error { color: #B23634; font-size: 0.9em; -webkit-font-smoothing: antialiased; clear: both; float: left; width: 100%; margin: 0 0 10px -40px; text-align: left; list-style: none;}
 .span2 {background-color: #ddd;}
-
 ul.list-group li { clear:both;}
-
 img.thumb_24 { height: 24px; width: 24px;}
 img.thumb_32 { height: 32px; width: 32px;}
+
+
+/*bostrap changes*/
+.control-label { text-align: left !important; }
+.breadcrumb { text-transform: capitalize !important;}
+/*.form-control { height: 35px !important; }*/

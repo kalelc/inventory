@@ -1,0 +1,7 @@
+<?php $this->headTitle($values['module']['value']); ?>
+<h2 class="page-header"><?php echo $values['module']['value']; ?></h2>
+<ul class="breadcrumb">
+	<li class="#>">dashboard</li>
+	<?php if(!empty($values['module']['value'])): ?><li class=""><a href="<?php echo $values['module']['url']; ?>"><?php echo $values['module']['value']; ?></a></li><?php endif; ?>
+	<?php if(!empty($values['action']['value'])): ?><li class="active"><a href="<?php echo $values['action']['url']; ?>"><?php echo $values['action']['value']; ?></a></li><?php endif; ?>
+</ul>

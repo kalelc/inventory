@@ -1,8 +1,10 @@
 <?php
-$title = $this->config['component']['serial_name'][0];
-$this->headTitle($title);
-?>
-<h2><?php echo $this->escapeHtml($title); ?></h2>
+$title = $this->config['component']['specification'][0];
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+    'module' => array('url' => $this->url('admin/specification'),'value' => $title),
+    ));
+    ?>
 <p>
     <a href="<?php echo $this->url('admin/serial_name', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
 </p>

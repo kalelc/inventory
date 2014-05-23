@@ -1,7 +1,10 @@
 <?php
 $title = $this->config['component']['payment_method'][0];
-$this->headTitle($title);
-?>
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+    'module' => array('url' => $this->url('admin/payment_method'),'value' => $title),
+    ));
+    ?>
 <h2 class="page-header"><?php echo $title ; ?></h2>
 <p>
     <a href="<?php echo $this->url('admin/payment_method', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
