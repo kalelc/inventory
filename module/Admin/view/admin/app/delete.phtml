@@ -1,9 +1,9 @@
 <?php
 $title = $this->config['component']['app'][0];
-$action = $this->config['action']['new'];
+$action = $this->config['action']['delete'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/app'),'value' => $title),
-	'action' => array('url' => $this->url('admin/app'),'value' => $action)
+	'action' => array('url' => '','value' => $action)
 	));
 	?>
 <?php if(isset($error) && $error): ?>
@@ -25,7 +25,7 @@ echo $this->layoutHelper()->header(array(
 		));
 		?>
 		<form action="<?php echo $url; ?>" method="post">
-			<div>
+			<div class='well'>
 				<input type="hidden" name="id" value="<?php echo (int) $app->getId(); ?>" />
 				<?php echo $this->config['action']['delete_yes']; ?>
 				<?php echo $this->config['action']['delete_no']; ?>

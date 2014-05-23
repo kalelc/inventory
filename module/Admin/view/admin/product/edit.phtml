@@ -18,35 +18,35 @@
 		<?php echo $this->formHidden($form->get('id')); ?>
 		<?php echo $this->formHidden($form->get('csrf'));?>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('upc_bar_code')->setLabel($this->config['component']['upc_bar_code'][1])); ?>
 				<?php echo $this->formText($form->get('upc_bar_code')); ?>
 				<?php echo $this->formElementErrors($form->get('upc_bar_code'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('model')->setLabel($this->config['component']['model'][1])); ?>
 				<?php echo $this->formText($form->get('model')); ?>
 				<?php echo $this->formElementErrors($form->get('model'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('brand')->setLabel($this->config['component']['brand'][1])); ?>
 				<?php echo $this->formSelect($form->get('brand')); ?>
 				<?php echo $this->formElementErrors($form->get('brand'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('category')->setLabel($this->config['component']['category'][1])); ?>
 				<?php echo $this->formSelect($form->get('category')); ?>
 				<?php echo $this->formElementErrors($form->get('category'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-10">
+			<div class="col-sm-10">
 				<div id='specification-error'></div>
 				<div id='tab-product-specifications'>
 					<ul class="list-group">
@@ -64,14 +64,14 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('part_no')->setLabel($this->config['component']['part_no'][1])); ?>
 				<?php echo $this->formText($form->get('part_no')); ?>
 				<?php echo $this->formElementErrors($form->get('part_no'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('price')->setLabel($this->config['component']['price'][1])); ?>
 				<div class="input-group">
 					<span class="input-group-addon">$</span>
@@ -82,7 +82,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('iva')->setLabel($this->config['component']['iva'][1])); ?>
 				<div class="input-group">
 					<?php echo $this->formCheckbox($form->get('iva')); ?>
@@ -91,41 +91,41 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('qty_low')->setLabel($this->config['component']['qty_low'][1])); ?>
 				<?php echo $this->formText($form->get('qty_low')); ?>
 				<?php echo $this->formElementErrors($form->get('qty_low'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<?php echo $this->formLabel($form->get('qty_buy')->setLabel($this->config['component']['qty_buy'][1])); ?>
 				<?php echo $this->formText($form->get('qty_buy')); ?>
 				<?php echo $this->formElementErrors($form->get('qty_buy'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('status')->setLabel($this->config['component']['status'][1])); ?>
 				<?php echo $this->formSelect($form->get('status')); ?>
 				<?php echo $this->formElementErrors($form->get('status'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('video')->setLabel($this->config['component']['video'][1])); ?>
 				<?php echo $this->formInput($form->get('video')); ?>
 				<?php echo $this->formElementErrors($form->get('video'), array("class" => "error")); ?>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
 				<?php echo $this->formTextarea($form->get('description')); ?>
 			</div>
 		</div>
 		<h4 class="page-header">Archivos</h2>
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('specification_file')->setLabel($this->config['component']['specification_file'][1])); ?>
 				<?php if($specificationFile): ?>
 					<a href='/files/product/<?php echo $specificationFile; ?>' class="btn btn-primary btn-xs" target='_blank'>
@@ -142,7 +142,7 @@
 					<?php endforeach; ?>
 				</p>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('manual_file')->setLabel($this->config['component']['manual_file'][1])); ?>
 				<?php if($manualFile): ?>
 					<a href="/files/product/<?php echo $manualFile; ?>" class="btn btn-primary btn-xs">
@@ -162,7 +162,7 @@
 			</div>
 
 
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('image1')->setLabel($this->config['component']['image'][1])); ?>
 				<?php if($image1): ?>
 					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image1; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
@@ -179,7 +179,7 @@
 					<?php endforeach; ?>
 				</p>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('image2')->setLabel($this->config['component']['image'][1])); ?>
 				<?php if($image2): ?>
 					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image2; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
@@ -198,7 +198,7 @@
 			</div>
 
 
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('image3')->setLabel($this->config['component']['image'][1])); ?>
 				<?php if($image3): ?>
 					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image3; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
@@ -215,7 +215,7 @@
 					<?php endforeach; ?>
 				</p>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('image4')->setLabel($this->config['component']['image'][1])); ?>
 				<?php if($image4): ?>
 					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image4; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
@@ -234,7 +234,7 @@
 			</div>
 
 
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('image5')->setLabel($this->config['component']['image'][1])); ?>
 				<?php echo $this->formInput($form->get('image5')); ?>
 				<?php echo $this->formElementErrors($form->get('image5'), array("class" => "error")); ?>
@@ -246,7 +246,7 @@
 					<?php endforeach; ?>
 				</p>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-sm-6">
 				<?php echo $this->formLabel($form->get('image6')->setLabel($this->config['component']['image'][1])); ?>
 				<?php echo $this->formInput($form->get('image6')); ?>
 				<?php echo $this->formElementErrors($form->get('image6'), array("class" => "error")); ?>
@@ -260,7 +260,7 @@
 			</div>
 			<h4 class="page-header">Aplicaciones</h2>
 				<div class="form-group">
-					<div class="col-lg-6">
+					<div class="col-sm-6">
 						<?php echo $this->formLabel($form->get('apps')->setLabel($this->config['component']['app'][1])); ?>
 						<?php echo $this->formSelect($form->get('apps')); ?>
 						<?php echo $this->formElementErrors($form->get('apps'), array("class" => "error")); ?>
@@ -269,7 +269,7 @@
 				<div class="row">
 					<div class="span4">
 						<div class="form-group">
-							<div class="col-lg-8">
+							<div class="col-sm-8">
 								<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
 								&nbsp;<a href="<?php echo $this->url('admin/product'); ?>"><?php echo $this->config['action']['return'] ;?></a>
 								<?php echo $this->form()->closeTag(); ?>

@@ -5,6 +5,7 @@ return array(
 		'new' 			=> 'nuevo',
 		'list' 			=> 'listado',
 		'edit' 			=> 'editar',
+		'remove' 		=> 'borrar',
 		'add' 			=> '<label class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Agregar</label>',
 		'update' 		=> '<label class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Editar</label>',
 		'delete' 		=> '<label class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span> Borrar</label>',

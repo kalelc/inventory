@@ -3,7 +3,7 @@ $title = $this->config['component']['app'][0];
 $action = $this->config['action']['new'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/app'),'value' => $title),
-	'action' => array('url' => $this->url('admin/app'),'value' => $action)
+	'action' => array('url' => '','value' => $action)
 	));
 	?>
 	<?php $form = $this->form; ?>
@@ -40,7 +40,9 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
 		</div>
 	</div>
-	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
-	&nbsp;
-	<a href="<?php echo $this->url('admin/app'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
+	<div class="well">
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+		&nbsp;
+		<a href="<?php echo $this->url('admin/app'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
+	</div>
 	<?php echo $this->form()->closeTag(); ?>

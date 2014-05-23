@@ -11,21 +11,21 @@ array('action' => 'edit', 'id' => $this->id))); ?>
 <?php echo $this->formHidden($form->get('id')); ?>
 <?php echo $this->formHidden($form->get('csrf'));?>
 <div class="form-group">
-	<div class="col-lg-4">
+	<div class="col-sm-4">
 		<?php echo $this->formLabel($form->get('specification')->setLabel($this->config['component']['specification'][1])); ?>
 		<?php echo $this->formSelect($form->get('specification')); ?>
 		<?php echo $this->formElementErrors($form->get('specification'), array("class" => "error")); ?>
 	</div>
 </div>
 <div class="form-group">
-	<div class="col-lg-4">
+	<div class="col-sm-4">
 		<?php echo $this->formLabel($form->get('measure_type')->setLabel($this->config['component']['measure_type'][1])); ?>
 		<?php echo $this->formSelect($form->get('measure_type')); ?>
 		<?php echo $this->formElementErrors($form->get('measure_type'), array("class" => "error")); ?>
 	</div>
 </div>
 <div class="form-group">
-	<div class="col-lg-4">
+	<div class="col-sm-4">
 		<?php echo $this->formLabel($form->get('measure_value')->setLabel($this->config['component']['measure_value'][1])); ?>
 		<?php echo $this->formInput($form->get('measure_value')); ?>
 		<?php echo $this->formElementErrors($form->get('measure_value'), array("class" => "error")); ?>
@@ -33,7 +33,7 @@ array('action' => 'edit', 'id' => $this->id))); ?>
 </div>
 
 <div class="form-group">
-	<div class="col-lg-4">
+	<div class="col-sm-4">
 		<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'][1])); ?>
 		<?php if($image): ?>
 			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/measure/<?php echo $image ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
@@ -50,13 +50,13 @@ array('action' => 'edit', 'id' => $this->id))); ?>
 	</div>
 </div>
 <div class="form-group">
-	<div class="col-lg-6">
+	<div class="col-sm-6">
 		<?php echo $this->formLabel($form->get('meaning')->setLabel($this->config['component']['meaning'][1])); ?>
 		<?php echo $this->formTextarea($form->get('meaning')); ?>
 	</div>
 </div>
 <div class="form-group">
-	<div class="col-lg-6">
+	<div class="col-sm-6">
 		<?php echo $this->formLabel($form->get('general_information')->setLabel($this->config['component']['general_information'][1])); ?>
 		<?php echo $this->formTextarea($form->get('general_information')); ?>
 	</div>
