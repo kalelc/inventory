@@ -1,8 +1,11 @@
 <?php
 $title = $this->config['component']['specification_master'][0];
-$this->headTitle($title);
-?>
-<h2 class="page-header"><?php echo $title ; ?></h2>
+$action = $this->config['action']['remove'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('admin/specification_master'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));
+	?>
 <?php if(isset($error) && $error): ?>
 	<div class="alert alert-danger fade in">
 		<h4>¡Vaya! Se ha producido un error.</h4>

@@ -1,42 +1,47 @@
 <?php
 $title = $this->config['component']['payment_method'][0];
-$this->headTitle($title);
-?>
-<h2 class="page-header"><?php echo $title ; ?></h2>
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url(
-	'payment_method',
-	array(
-		'action' => 'edit',
-		'id'     => $this->id,
-		)
+$action = $this->config['action']['edit'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('admin/payment_method'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
 	));
-	$form->prepare();?>
-	<?php echo $this->form()->openTag($form); ?>
-	<?php echo $this->formHidden($form->get('id')); ?>
-	<?php echo $this->formHidden($form->get('csrf'));?>
-	<div class="form-group">
-		<div class="col-sm-4">
+	?>
+	<?php
+	$form = $this->form;
+	$form->setAttribute('action', $this->url(
+		'payment_method',
+		array(
+			'action' => 'edit',
+			'id'     => $this->id,
+			)
+		));
+		$form->prepare();?>
+		<?php echo $this->form()->openTag($form); ?>
+		<?php echo $this->formHidden($form->get('id')); ?>
+		<?php echo $this->formHidden($form->get('csrf'));?>
+		<div class="form-group">
 			<?php echo $this->formLabel($form->get('name')->setValue($this->config['component']['name'][1])); ?>
-			<?php echo $this->formInput($form->get('name')); ?>
-			<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('name')); ?>
+				<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-4">
-			<label>
-				<?php echo $this->formCheckbox($form->get('bank_info')); ?> 
-				<?php echo $this->formLabel($form->get('bank_info')->setLabel($this->config['component']['bank_info'][1])); ?>
-			</label>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('bank_info')->setLabel($this->config['component']['bank_info'][1])); ?>
+			<div class="col-sm-4">
+				<label>
+					<?php echo $this->formCheckbox($form->get('bank_info')); ?> 
+				</label>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-6">
+		<div class="form-group">
 			<?php echo $this->formLabel($form->get('description')->setValue($this->config['component']['description'][1])); ?>
-			<?php echo $this->formTextarea($form->get('description')); ?>
+			<div class="col-sm-6">
+				<?php echo $this->formTextarea($form->get('description')); ?>
+			</div>
 		</div>
+		<div class='well'
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+		&nbsp;<a href="<?php echo $this->url('admin/payment-method');?>"><?php echo $this->config['action']['return'] ; ?></a>
 	</div>
-	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-	&nbsp;<a href="<?php echo $this->url('admin/payment-method');?>"><?php echo $this->config['action']['return'] ; ?></a>
 	<?php echo $this->form()->closeTag(); ?>
