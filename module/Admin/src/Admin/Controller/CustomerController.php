@@ -25,6 +25,7 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
+		$viewModel = new ViewModel();
 		$form = $this->getServiceLocator()->get('Admin\Form\CustomerForm');
 
 		$request = $this->getRequest();
@@ -72,10 +73,18 @@ implements ConfigAwareInterface
 
 				return $this->redirect()->toRoute('admin/customer');
 			}
+			else {
+				$viewModel->setVariable('emails',json_decode($data['emails']));
+				$viewModel->setVariable('addresses',json_decode($data['addresses']));
+				$viewModel->setVariable('phones',json_decode($data['phones']));
+			}
 		}
-		return array(
+		$viewModel->setVariables(array(
 			'form' => $form,
-			'config' => $this->config);
+			'config' => $this->config
+			));
+
+		return $viewModel;
 	}
 
 

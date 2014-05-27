@@ -43,11 +43,14 @@ echo $this->layoutHelper()->header(array(
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label"><?php echo $this->config['component']['email'][1]; ?></label>
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<a href="javascript:void(0);" id='addEmailField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['email'][1] ; ?></label></a>
 			<div class="clearfix"></div><br>
-			<ul class="list-group" id='list-emails'>
-			</ul>
+			<div class="list-group" id='list-emails'>
+				<?php foreach($emails as $email): ?>
+					<a class='list-group-item'><input type='text' name='emails[]' class='form-control' placeholder='<?php echo $this->config['component']['email'][1]; ?>' value='<?php echo $email; ?>'></a>
+				<?php endforeach; ?>
+			</div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -55,8 +58,11 @@ echo $this->layoutHelper()->header(array(
 		<div class="col-sm-4">
 			<a href="javascript:void(0);" id='addAddressField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['address'][1] ; ?></label></a>
 			<div class="clearfix"></div><br>
-			<ul class="list-group" id='list-addresses'>
-			</ul>
+			<div class="list-group" id='list-addresses'>
+				<?php foreach($addresses as $address): ?>
+					<a class='list-group-item'><input type='text' name='addresses[]' class='form-control' placeholder='<?php echo $this->config['component']['address'][1]; ?>' value='<?php echo $address; ?>'></a>
+				<?php endforeach; ?>
+			</div>
 		</div>
 	</div>
 	<div class="form-group">
@@ -64,8 +70,11 @@ echo $this->layoutHelper()->header(array(
 		<div class="col-sm-3">
 			<a href="javascript:void(0);" id='addPhoneField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['phone'][1] ; ?></label></a>
 			<div class="clearfix"></div><br>
-			<ul class="list-group" id='list-phones'>
-			</ul>
+			<div class="list-group" id='list-phones'>
+				<?php foreach($phones as $phone): ?>
+					<a class='list-group-item'><input type='text' name='phones[]' class='form-control' placeholder='<?php echo $this->config['component']['phone'][1]; ?>' value='<?php echo $phone; ?>'></a>
+				<?php endforeach; ?>
+			</div>
 		</div>
 	</div>
 	<div class="form-group">

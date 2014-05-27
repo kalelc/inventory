@@ -5,16 +5,13 @@ $(document).ready(function() {
 
 		if(emailIndex>=0) {
 			if(emailIndex===0)
-				$( "#list-emails" ).append( "<li class='list-group-item'><input type='text' name='emails[]' class='form-control' placeholder='email'></li>" );
+				$( "#list-emails" ).append( "<a class='list-group-item'><input type='text' name='emails[]' class='form-control' placeholder='email'></a>" );
 
 			var email = $('input[name="emails[]"]:eq('+(emailIndex-1)+')').val();
 
 			if (regEmail.test(email)){
-				console.log("email es valido");
-				$( "#list-emails" ).append( "<li class='list-group-item'><input type='text' name='emails[]' class='form-control' placeholder='email'></li>" );
+				$( "#list-emails" ).append( "<a class='list-group-item'><input type='text' name='emails[]' class='form-control' placeholder='email'></a>" );
 			}
-			else
-				console.log("email no es valido !!");
 		}
 	});
 	$('#addAddressField').click(function() {
@@ -23,10 +20,10 @@ $(document).ready(function() {
 		if(addressIndex>=0) {
 			var address = $('input[name="addresses[]"]:eq('+(addressIndex-1)+')').val();
 			if(addressIndex===0)
-				$( "#list-addresses" ).append( "<li class='list-group-item'><input type='text' name='addresses[]' class='form-control' placeholder='dirección'></li>" );
+				$( "#list-addresses" ).append( "<a class='list-group-item'><input type='text' name='addresses[]' class='form-control' placeholder='dirección'></a>" );
 			else {
 				if(address!=="") {
-					$( "#list-addresses" ).append( "<li class='list-group-item'><input type='text' name='addresses[]' class='form-control' placeholder='dirección'></li>" );
+					$( "#list-addresses" ).append( "<a class='list-group-item'><input type='text' name='addresses[]' class='form-control' placeholder='dirección'></a>" );
 				}
 			}
 		}
@@ -37,10 +34,10 @@ $(document).ready(function() {
 		if(addressIndex>=0) {
 			var address = $('input[name="phones[]"]:eq('+(addressIndex-1)+')').val();
 			if(addressIndex===0)
-				$( "#list-phones" ).append( "<li class='list-group-item'><input type='text' name='phones[]' class='form-control' placeholder='telefono'></li>" );
+				$( "#list-phones" ).append( "<a class='list-group-item'><input type='text' name='phones[]' class='form-control' placeholder='telefono'></a>" );
 			else {
 				if(address!=="") {
-					$( "#list-phones" ).append( "<li class='list-group-item'><input type='text' name='phones[]' class='form-control' placeholder='telefono'></li>" );
+					$( "#list-phones" ).append( "<a class='list-group-item'><input type='text' name='phones[]' class='form-control' placeholder='telefono'></a>" );
 				}
 			}
 		}
