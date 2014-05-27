@@ -15,6 +15,7 @@ return array(
 		'category' 				=> array('categorias','categoria','image_path'=> 'public/images/category'),
 		'company' 				=> array('compañias','compañia'),
 		'customer' 				=> array('clientes','cliente'),
+		'city' 					=> array('ciudades','ciudad'),
 		'description' 			=> array('descripciones','descripción'),
 		'document' 				=> array('documentos','documento'),
 		'email' 				=> array('emails','email'),

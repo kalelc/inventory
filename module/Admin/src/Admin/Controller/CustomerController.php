@@ -24,7 +24,7 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		$form = new CustomerForm();
+		$form = $this->getServiceLocator()->get('Admin\Form\CustomerForm');
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -32,6 +32,13 @@ implements ConfigAwareInterface
 			$form->setInputFilter($customer->getInputFilter());
 			$form->setData($request->getPost());
 
+			$data = $request->getPost()->toArray();
+
+			$data['emails'] = array_filter($data['emails']);
+			$data['addresses'] = array_filter($data['addresses']);
+			$data['phones'] = array_filter($data['phones']);
+			dump($data,"data");
+			exit();
 			if ($form->isValid()) {
 
 				$customer->exchangeArray($form->getData());

@@ -1,4 +1,5 @@
 <?php
+$this->headScript()->prependFile('/js/customer.js', 'text/javascript');
 $title = $this->config['component']['customer'][0];
 $action = $this->config['action']['new'];
 echo $this->layoutHelper()->header(array(
@@ -42,20 +43,29 @@ echo $this->layoutHelper()->header(array(
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label"><?php echo $this->config['component']['email'][1]; ?></label>
-		<div class="col-sm-4">
-			<a href="#"><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['email'][1] ; ?></label></a>
+		<div class="col-sm-3">
+			<a href="javascript:void(0);" id='addEmailField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['email'][1] ; ?></label></a>
+			<div class="clearfix"></div><br>
+			<ul class="list-group" id='list-emails'>
+			</ul>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label"><?php echo $this->config['component']['address'][1]; ?></label>
 		<div class="col-sm-4">
-			<a href="#"><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['address'][1] ; ?></label></a>
+			<a href="javascript:void(0);" id='addAddressField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['address'][1] ; ?></label></a>
+			<div class="clearfix"></div><br>
+			<ul class="list-group" id='list-addresses'>
+			</ul>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label"><?php echo $this->config['component']['phone'][1]; ?></label>
 		<div class="col-sm-3">
-			<a href="#"><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['phone'][1] ; ?></label></a>
+			<a href="javascript:void(0);" id='addPhoneField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['phone'][1] ; ?></label></a>
+			<div class="clearfix"></div><br>
+			<ul class="list-group" id='list-phones'>
+			</ul>
 		</div>
 	</div>
 	<div class="form-group">
@@ -91,6 +101,13 @@ echo $this->layoutHelper()->header(array(
 		<div class="col-sm-4">
 			<?php echo $this->formInput($form->get('alias')); ?>
 			<?php echo $this->formElementErrors($form->get('alias'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('city')->setLabel($this->config['component']['city'][1])); ?>
+		<div class="col-sm-3">
+			<?php echo $this->formSelect($form->get('city')); ?>
+			<?php echo $this->formElementErrors($form->get('city'), array("class" => "error")); ?>
 		</div>
 	</div>
 	<div class="form-group">

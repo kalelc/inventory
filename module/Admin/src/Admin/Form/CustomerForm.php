@@ -6,11 +6,15 @@ use Zend\Form\Element;
 
 class CustomerForm extends Form
 {
-	public function __construct($name = null)
+	protected $citiesList;
+
+	public function __construct($citiesList)
 	{
 		parent::__construct('customer');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('class', 'form-horizontal');
+
+		$this->citiesList = $citiesList;
 
 		$this->add(array(
 			'name' => 'id',
@@ -163,6 +167,23 @@ class CustomerForm extends Form
 			));
 
 		$this->add(array(
+			'type' => 'select',
+			'name' => 'city',
+			'options' => array(
+				'label' => 'city',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' => $this->getCitiesList(),
+				'empty_option' => '',
+				'disable_inarray_validator' => true,
+				),
+			'attributes' => array(
+				'class' => 'form-control',
+				)
+			));
+
+		$this->add(array(
 			'name' => 'description',
 			'attributes' => array(
 				'type'  => 'textarea',
@@ -177,7 +198,6 @@ class CustomerForm extends Form
 				),
 			));
 
-		
 		$this->add(array(
 			'type' => 'Zend\Form\Element\Csrf',
 			'name' => 'csrf',
@@ -195,5 +215,16 @@ class CustomerForm extends Form
 				'class' => 'btn btn-primary btn-sm btn-sm'
 				),
 			));
+	}
+
+	public function getCitiesList()
+	{
+		return $this->citiesList;
+	}
+
+	public function setCitiesList($citiesList)
+	{
+		$this->citiesList = $citiesList;
+		return $this;
 	}
 }

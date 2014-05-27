@@ -42,6 +42,8 @@ use Admin\Model\App;
 use Admin\Model\AppTable;
 use Admin\Model\ProductApp;
 use Admin\Model\ProductAppTable;
+use Admin\Model\City;
+use Admin\Model\CityTable;
 use Admin\Model\Customer;
 use Admin\Model\CustomerTable;
 
@@ -49,6 +51,7 @@ use Admin\Form\SpecificationForm;
 use Admin\Form\MeasureForm;
 use Admin\Form\CategoryForm;
 use Admin\Form\ProductForm;
+use Admin\Form\CustomerForm;
 
 use Admin\Service\FileService;
 use Zend\ModuleManager\ModuleManager;
@@ -407,7 +410,30 @@ public function getServiceConfig()
 				$resultSetPrototype = new ResultSet();
 				$resultSetPrototype->setArrayObjectPrototype(new Customer());
 				return new TableGateway('customers', $dbAdapter, null, $resultSetPrototype);
-			}
+			},
+			'Admin\Model\CityTable' => function($sm) {
+				$cityTableGateway = $sm->get("CityTableGateway");
+				$table = new CityTable($cityTableGateway);
+				return $table;
+			},
+			'CityTableGateway' => function($sm) {
+				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				$resultSetPrototype = new ResultSet();
+				$resultSetPrototype->setArrayObjectPrototype(new City());
+				return new TableGateway('cities', $dbAdapter, null, $resultSetPrototype);
+			},
+			'Admin\Form\CustomerForm' =>  function($sm) {
+				$cityTable = $sm->get("Admin/Model/CityTable");
+				$cities = $cityTable->fetchAll();
+				$citiesList = array();
+
+				foreach($cities as $city){
+					$citiesList[$city->getId()] = $city->getName();
+				}
+				$form = new CustomerForm($citiesList);
+				return $form;
+			},
+
 			),
 		);
 	}
