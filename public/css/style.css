@@ -31,4 +31,5 @@ img.thumb_32 { height: 32px; width: 32px;}
 /*bostrap changes*/
 .control-label { text-align: left !important; }
 .breadcrumb { text-transform: capitalize !important;}
+.list-inputs { margin-top:5px;}
 /*.form-control { height: 35px !important; }*/

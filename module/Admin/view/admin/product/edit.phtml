@@ -268,7 +268,7 @@ echo $this->layoutHelper()->header(array(
 						<?php echo $this->formElementErrors($form->get('apps'), array("class" => "error")); ?>
 					</div>
 				</div>
-				<div class="well">
+				<div class="well well-sm">
 
 					<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
 					&nbsp;<a href="<?php echo $this->url('admin/product'); ?>"><?php echo $this->config['action']['return'] ;?></a>

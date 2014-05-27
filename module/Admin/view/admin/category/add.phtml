@@ -113,7 +113,7 @@ echo $this->layoutHelper()->header(array(
 			</div>
 		</div>
 	</div>
-	<div class="well">
+	<div class="well well-sm">
 		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 		&nbsp;
 		<a href="<?php echo $this->url('admin/category'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
