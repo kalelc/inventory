@@ -29,7 +29,7 @@ $form->setAttribute('action', $this->url(
 		<div class="col-sm-4">
 			<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'])); ?>
 			<?php if($image): ?>
-				<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/app/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+				<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/app/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 					<span class="glyphicon glyphicon-search"></span>
 				</a>
 			<?php endif; ?>
@@ -53,4 +53,4 @@ $form->setAttribute('action', $this->url(
 	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
 	&nbsp;<a href="<?php echo $this->url('admin/app');?>"><?php echo $this->config['action']['return'] ; ?></a>
 	<?php echo $this->form()->closeTag(); ?>
-	<?php echo $this->modalHelper(); ?>
+	<?php echo $this->modalHelper()->image(); ?>

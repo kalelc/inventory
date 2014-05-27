@@ -25,6 +25,8 @@ class Customer implements InputFilterAwareInterface
 	private $description;
 	private $city;
 
+	private $cityName;
+
 	protected $inputFilter;
 
 	public function exchangeArray($data)
@@ -45,6 +47,7 @@ class Customer implements InputFilterAwareInterface
 		if (array_key_exists('alias', $data)) $this->setAlias($data['alias']);
 		if (array_key_exists('description', $data)) $this->setDescription($data['description']);
 		if (array_key_exists('city', $data)) $this->setCity($data['city']);
+		if (array_key_exists('city_name', $data)) $this->setCityName($data['city_name']);
 	}
 
 	public function getArrayCopy()
@@ -458,6 +461,30 @@ class Customer implements InputFilterAwareInterface
     public function setCity($city)
     {
         $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * Gets the value of cityName.
+     *
+     * @return mixed
+     */
+    public function getCityName()
+    {
+        return $this->cityName;
+    }
+    
+    /**
+     * Sets the value of cityName.
+     *
+     * @param mixed $cityName the city name
+     *
+     * @return self
+     */
+    public function setCityName($cityName)
+    {
+        $this->cityName = $cityName;
+
         return $this;
     }
 }

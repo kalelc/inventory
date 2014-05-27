@@ -23,7 +23,7 @@ echo $this->layoutHelper()->header(array(
     <td><?php echo $this->escapeHtml($specificationMaster->getDescription());?></td>
     <td>
        <?php if($specificationMaster->getImage()): ?>
-            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/specification_master/<?php echo $specificationMaster->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/specification_master/<?php echo $specificationMaster->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
         <?php endif; ?>
     </td>
     <td class='column-button'>
@@ -35,4 +35,4 @@ echo $this->layoutHelper()->header(array(
 </tr>
 <?php endforeach; ?>
 </table>
-<?php echo $this->modalHelper(); ?>
+<?php echo $this->modalHelper()->image(); ?>

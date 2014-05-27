@@ -50,7 +50,7 @@ $this->headTitle($title);
 				<div class="col-sm-5">
 					<?php echo $this->formLabel($form->get('image')); ?>
 					<?php if($image): ?>
-						<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/category/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+						<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/category/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					<?php endif; ?>
@@ -119,4 +119,4 @@ $this->headTitle($title);
 &nbsp;
 <a href="<?php echo $this->url('admin/category'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
 <?php echo $this->form()->closeTag(); ?>
-<?php echo $this->modalHelper(); ?>
+<?php echo $this->modalHelper()->image(); ?>

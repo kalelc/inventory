@@ -167,7 +167,7 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formLabel($form->get('image1')->setLabel($this->config['component']['image'][1])); ?>
 			<div class="col-sm-6">
 				<?php if($image1): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image1; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image1; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 						<span class="glyphicon glyphicon-search"></span>
 					</a>
 				<?php endif; ?>
@@ -184,7 +184,7 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formLabel($form->get('image2')->setLabel($this->config['component']['image'][1])); ?>
 			<div class="col-sm-6">
 				<?php if($image2): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image2; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image2; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 						<span class="glyphicon glyphicon-search"></span>
 					</a>
 				<?php endif; ?>
@@ -203,7 +203,7 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formLabel($form->get('image3')->setLabel($this->config['component']['image'][1])); ?>
 			<div class="col-sm-6">
 				<?php if($image3): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image3; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image3; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 						<span class="glyphicon glyphicon-search"></span>
 					</a>
 				<?php endif; ?>
@@ -220,7 +220,7 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formLabel($form->get('image4')->setLabel($this->config['component']['image'][1])); ?>
 			<div class="col-sm-6">
 				<?php if($image4): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/product/<?php echo $image4; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image4; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 						<span class="glyphicon glyphicon-search"></span>
 					</a>
 				<?php endif; ?>
@@ -274,4 +274,4 @@ echo $this->layoutHelper()->header(array(
 					&nbsp;<a href="<?php echo $this->url('admin/product'); ?>"><?php echo $this->config['action']['return'] ;?></a>
 				</div>
 				<?php echo $this->form()->closeTag(); ?>
-				<?php echo $this->modalHelper(); ?>
+				<?php echo $this->modalHelper()->image(); ?>

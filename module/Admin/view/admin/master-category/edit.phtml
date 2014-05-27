@@ -32,7 +32,7 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'])); ?>
 			<div class="col-sm-4">
 				<?php if($image): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModal('/images/master-category/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/master-category/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 						<span class="glyphicon glyphicon-search"></span>
 					</a>
 				<?php endif; ?>
@@ -58,4 +58,4 @@ echo $this->layoutHelper()->header(array(
 			&nbsp;<a href="<?php echo $this->url('admin/master_category');?>"><?php echo $this->config['action']['return'] ; ?></a>
 			<?php echo $this->form()->closeTag(); ?>
 		</div>
-		<?php echo $this->modalHelper(); ?>
+		<?php echo $this->modalHelper()->image(); ?>
