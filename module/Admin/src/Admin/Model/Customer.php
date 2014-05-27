@@ -23,6 +23,7 @@ class Customer implements InputFilterAwareInterface
 	private $birthday;
 	private $alias;
 	private $description;
+	private $city;
 
 	protected $inputFilter;
 
@@ -34,7 +35,7 @@ class Customer implements InputFilterAwareInterface
 		if (array_key_exists('first_name', $data)) $this->setFirstName($data['first_name']);
 		if (array_key_exists('last_name', $data)) $this->setLastName($data['last_name']);
 		if (array_key_exists('emails', $data)) $this->setEmails($data['emails']);
-		if (array_key_exists('addresses', $data)) $this->setAddress($data['addresses']);
+		if (array_key_exists('addresses', $data)) $this->setAddresses($data['addresses']);
 		if (array_key_exists('phones', $data)) $this->setPhones($data['phones']);
 		if (array_key_exists('zipcode', $data)) $this->setZipcode($data['zipcode']);
 		if (array_key_exists('company', $data)) $this->setCompany($data['company']);
@@ -42,7 +43,8 @@ class Customer implements InputFilterAwareInterface
 		if (array_key_exists('webpage', $data)) $this->setWebpage($data['webpage']);
 		if (array_key_exists('birthday', $data)) $this->setBirthday($data['birthday']);
 		if (array_key_exists('alias', $data)) $this->setAlias($data['alias']);
-		if (array_key_exists('description', $data)) $this->setDescription($data['description0']);
+		if (array_key_exists('description', $data)) $this->setDescription($data['description']);
+		if (array_key_exists('city', $data)) $this->setCity($data['city']);
 	}
 
 	public function getArrayCopy()
@@ -436,4 +438,26 @@ class Customer implements InputFilterAwareInterface
 		$this->description = $description;
 		return $this;
 	}
+
+	public function getAddresses()
+	{
+		return $this->addresses;
+	}
+
+	public function setAddresses($addresses)
+	{
+		$this->addresses = $addresses;
+		return $this;
+	}
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    public function setCity($city)
+    {
+        $this->city = $city;
+        return $this;
+    }
 }

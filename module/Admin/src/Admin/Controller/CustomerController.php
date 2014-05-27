@@ -52,7 +52,7 @@ implements ConfigAwareInterface
 			if(isset($data['phones'])) {
 				$data['phones'] = json_encode(array_filter($data['phones']));
 			}
-			
+
 			$document = $data['identification'];
 			$documentTypeId = $data['identification_type'];
 
@@ -64,6 +64,7 @@ implements ConfigAwareInterface
 
 			$documentCompositeKeyValidatorResult = !$documentCompositeKeyValidator->isValid($document);
 
+			$form->setData($data);
 			if ($form->isValid() && $documentCompositeKeyValidatorResult) {
 
 				$customer->exchangeArray($form->getData());

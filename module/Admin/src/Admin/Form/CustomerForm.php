@@ -52,7 +52,6 @@ class CustomerForm extends Form
 			'attributes' => array(
 				'class' => 'form-control',
 				)
-
 			));
 
 		$this->add(array(
@@ -77,6 +76,48 @@ class CustomerForm extends Form
 				),
 			'options' => array(
 				'label' => 'last_name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				),
+			));
+
+		$this->add(array(
+			'name' => 'emails',
+			'attributes' => array(
+				'type'  => 'text',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'emails',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				),
+			));
+
+		$this->add(array(
+			'name' => 'addresses',
+			'attributes' => array(
+				'type'  => 'text',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'addresses',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				),
+			));
+
+		$this->add(array(
+			'name' => 'phones',
+			'attributes' => array(
+				'type'  => 'text',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'phones',
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),

@@ -34,15 +34,21 @@ class CustomerTable
 	public function save(Customer $customer)
 	{
 		$data = array(
-			'name' => $customer->getName(),
-			'name' => $customer->getName(),
-			'name' => $customer->getName(),
-			'name' => $customer->getName(),
-			'name' => $customer->getName(),
-			'name' => $customer->getName(),
-			'name' => $customer->getName(),
-			'name' => $customer->getName(),
-			'name' => $customer->getName(),
+			'identification' => $customer->getIdentification(),
+			'identification_type' => $customer->getIdentificationType(),
+			'first_name' => $customer->getFirstName(),
+			'last_name' => $customer->getLastName(),
+			'emails' => $customer->getEmails(),
+			'addresses' => $customer->getAddresses(),
+			'phones' => $customer->getPhones(),
+			'zipcode' => $customer->getZipcode(),
+			'company' => $customer->getCompany(),
+			'manager' => $customer->getManager(),
+			'webpage' => $customer->getWebpage(),
+			'birthday' => date($customer->getBirthday(), time()),
+			'alias' => $customer->getAlias(),
+			'description' => $customer->getDescription(),
+			'city' => $customer->getCity(),
 			);
 
 		$id = (int)$customer->getId();
