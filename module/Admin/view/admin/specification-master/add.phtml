@@ -40,7 +40,7 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
 		</div>
 	</div>
-	<div class="well">
+	<div class="well well-sm">
 		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 		&nbsp;
 		<a href="<?php echo $this->url('admin/specification_master');?>"><?php echo $this->config['action']['return'] ; ?> </a>
