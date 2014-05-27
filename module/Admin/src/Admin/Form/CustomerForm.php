@@ -46,7 +46,8 @@ class CustomerForm extends Form
 					'class'  => 'col-sm-2 control-label'
 					),
 				'value_options' => array(1 => "Cedula de Ciudadania",2 => "Nit",3 => "Cedula de Extranjeria",4 => "Pasaporte",5 => "Otro"),
-				'empty_option' => ""
+				'empty_option' => "",
+				'disable_inarray_validator' => true,
 				),
 			'attributes' => array(
 				'class' => 'form-control',
@@ -141,8 +142,10 @@ class CustomerForm extends Form
 		$this->add(array(
 			'name' => 'birthday',
 			'attributes' => array(
+				'id' => 'birthday',
 				'type'  => 'text',
 				'class' => 'form-control',
+				'data-date-format' => "mm/dd/yyyy",
 				),
 			'options' => array(
 				'label' => 'birthday',

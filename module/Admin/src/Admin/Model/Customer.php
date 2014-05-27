@@ -14,7 +14,7 @@ class Customer implements InputFilterAwareInterface
 	private $firstName;
 	private $lastName;
 	private $emails;
-	private $address;
+	private $addresses;
 	private $phones;
 	private $zipcode;
 	private $company;
@@ -29,20 +29,20 @@ class Customer implements InputFilterAwareInterface
 	public function exchangeArray($data)
 	{
 		if (array_key_exists('id', $data)) $this->setId($data['id']);
-		if (array_key_exists('identification', $data)) $this->setId($data['identification']);
-		if (array_key_exists('identification_type', $data)) $this->setId($data['identification_type']);
-		if (array_key_exists('first_name', $data)) $this->setId($data['first_name']);
-		if (array_key_exists('last_name', $data)) $this->setId($data['last_name']);
-		if (array_key_exists('emails', $data)) $this->setId($data['emails']);
-		if (array_key_exists('address', $data)) $this->setId($data['address']);
-		if (array_key_exists('phones', $data)) $this->setId($data['phones']);
-		if (array_key_exists('zipcode', $data)) $this->setId($data['zipcode']);
-		if (array_key_exists('company', $data)) $this->setId($data['company']);
-		if (array_key_exists('manager', $data)) $this->setId($data['manager']);
-		if (array_key_exists('webpage', $data)) $this->setId($data['webpage']);
-		if (array_key_exists('birthday', $data)) $this->setId($data['birthday']);
-		if (array_key_exists('alias', $data)) $this->setId($data['alias']);
-		if (array_key_exists('description', $data)) $this->setId($data['description0']);
+		if (array_key_exists('identification', $data)) $this->setIdentification($data['identification']);
+		if (array_key_exists('identification_type', $data)) $this->setIdentificationType($data['identification_type']);
+		if (array_key_exists('first_name', $data)) $this->setFirstName($data['first_name']);
+		if (array_key_exists('last_name', $data)) $this->setLastName($data['last_name']);
+		if (array_key_exists('emails', $data)) $this->setEmails($data['emails']);
+		if (array_key_exists('addresses', $data)) $this->setAddress($data['addresses']);
+		if (array_key_exists('phones', $data)) $this->setPhones($data['phones']);
+		if (array_key_exists('zipcode', $data)) $this->setZipcode($data['zipcode']);
+		if (array_key_exists('company', $data)) $this->setCompany($data['company']);
+		if (array_key_exists('manager', $data)) $this->setManager($data['manager']);
+		if (array_key_exists('webpage', $data)) $this->setWebpage($data['webpage']);
+		if (array_key_exists('birthday', $data)) $this->setBirthday($data['birthday']);
+		if (array_key_exists('alias', $data)) $this->setAlias($data['alias']);
+		if (array_key_exists('description', $data)) $this->setDescription($data['description0']);
 	}
 
 	public function getArrayCopy()
@@ -71,6 +71,25 @@ class Customer implements InputFilterAwareInterface
 
 			$inputFilter->add($factory->createInput(array(
 				'name'     => 'identification',
+				'required' => true,
+				'filters'  => array(
+					array('name' => 'StripTags'),
+					array('name' => 'StringTrim'),
+					),
+				'validators' => array(
+					array(
+						'name'    => 'NotEmpty',
+						'options' => array(
+							'messages' => array(
+								\Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
+								),
+							),
+						),
+					),
+				)));
+
+			$inputFilter->add($factory->createInput(array(
+				'name'     => 'identification_type',
 				'required' => true,
 				'filters'  => array(
 					array('name' => 'StripTags'),

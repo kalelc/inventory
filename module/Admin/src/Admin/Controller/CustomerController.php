@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Admin\Model\Customer;
 use Admin\Form\CustomerForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
+use Admin\Validator\DocumentCompositeKeyValidator;
 use Application\ConfigAwareInterface;
 
 class CustomerController extends AbstractActionController
@@ -34,12 +35,36 @@ implements ConfigAwareInterface
 
 			$data = $request->getPost()->toArray();
 
-			$data['emails'] = array_filter($data['emails']);
-			$data['addresses'] = array_filter($data['addresses']);
-			$data['phones'] = array_filter($data['phones']);
-			dump($data,"data");
-			exit();
-			if ($form->isValid()) {
+			$emails = array();
+
+			if(isset($data['emails'])) {
+				foreach(array_filter($data['emails']) as $email) {
+					if (preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)) {
+						$emails[] = $email; 
+					}
+				}
+				$data['emails'] = json_encode($emails) ;
+			}
+
+			if(isset($data['addresses'])) {
+				$data['addresses'] = json_encode(array_filter($data['addresses']));
+			}
+			if(isset($data['phones'])) {
+				$data['phones'] = json_encode(array_filter($data['phones']));
+			}
+			
+			$document = $data['identification'];
+			$documentTypeId = $data['identification_type'];
+
+			$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+			$documentCompositeKeyValidator = new DocumentCompositeKeyValidator(array(
+				'adapter' => $dbAdapter,
+				'documentTypeId' => $documentTypeId
+				));
+
+			$documentCompositeKeyValidatorResult = !$documentCompositeKeyValidator->isValid($document);
+
+			if ($form->isValid() && $documentCompositeKeyValidatorResult) {
 
 				$customer->exchangeArray($form->getData());
 				$this->getCustomerTable()->save($customer);

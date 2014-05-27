@@ -35,6 +35,14 @@ class CustomerTable
 	{
 		$data = array(
 			'name' => $customer->getName(),
+			'name' => $customer->getName(),
+			'name' => $customer->getName(),
+			'name' => $customer->getName(),
+			'name' => $customer->getName(),
+			'name' => $customer->getName(),
+			'name' => $customer->getName(),
+			'name' => $customer->getName(),
+			'name' => $customer->getName(),
 			);
 
 		$id = (int)$customer->getId();
