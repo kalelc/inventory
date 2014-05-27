@@ -47,9 +47,11 @@ echo $this->layoutHelper()->header(array(
 			<a href="javascript:void(0);" id='addEmailField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['email'][1] ; ?></label></a>
 			<div class="clearfix"></div><br>
 			<div class="list-group" id='list-emails'>
-				<?php foreach($emails as $email): ?>
-					<a class='list-group-item'><input type='text' name='emails[]' class='form-control' placeholder='<?php echo $this->config['component']['email'][1]; ?>' value='<?php echo $email; ?>'></a>
-				<?php endforeach; ?>
+				<?php if(isset($emails)): ?>
+					<?php foreach($emails as $email): ?>
+						<a class='list-group-item'><input type='text' name='emails[]' class='form-control' placeholder='<?php echo $this->config['component']['email'][1]; ?>' value='<?php echo $email; ?>'></a>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
@@ -59,9 +61,11 @@ echo $this->layoutHelper()->header(array(
 			<a href="javascript:void(0);" id='addAddressField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['address'][1] ; ?></label></a>
 			<div class="clearfix"></div><br>
 			<div class="list-group" id='list-addresses'>
-				<?php foreach($addresses as $address): ?>
-					<a class='list-group-item'><input type='text' name='addresses[]' class='form-control' placeholder='<?php echo $this->config['component']['address'][1]; ?>' value='<?php echo $address; ?>'></a>
-				<?php endforeach; ?>
+				<?php if(isset($addresses)): ?>
+					<?php foreach($addresses as $address): ?>
+						<a class='list-group-item'><input type='text' name='addresses[]' class='form-control' placeholder='<?php echo $this->config['component']['address'][1]; ?>' value='<?php echo $address; ?>'></a>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
@@ -71,9 +75,11 @@ echo $this->layoutHelper()->header(array(
 			<a href="javascript:void(0);" id='addPhoneField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['phone'][1] ; ?></label></a>
 			<div class="clearfix"></div><br>
 			<div class="list-group" id='list-phones'>
-				<?php foreach($phones as $phone): ?>
-					<a class='list-group-item'><input type='text' name='phones[]' class='form-control' placeholder='<?php echo $this->config['component']['phone'][1]; ?>' value='<?php echo $phone; ?>'></a>
-				<?php endforeach; ?>
+				<?php if(isset($phones)): ?>
+					<?php foreach($phones as $phone): ?>
+						<a class='list-group-item'><input type='text' name='phones[]' class='form-control' placeholder='<?php echo $this->config['component']['phone'][1]; ?>' value='<?php echo $phone; ?>'></a>
+					<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
