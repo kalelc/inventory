@@ -20,11 +20,9 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	</div>
 	<div class="form-group">
+		<?php echo $this->formLabel($form->get('bank_info')->setLabel($this->config['component']['bank_info'][1])); ?>
 		<div class="col-sm-4">
-			<label>
-				<?php echo $this->formCheckbox($form->get('bank_info')); ?> 
-				<?php echo $this->formLabel($form->get('bank_info')->setLabel($this->config['component']['bank_info'][1])); ?>
-			</label>
+			<?php echo $this->formCheckbox($form->get('bank_info')); ?> 
 		</div>
 	</div>
 	<div class="form-group">
