@@ -16,6 +16,7 @@ return array(
 			'Admin\Controller\Product' 				=> 'Admin\Controller\ProductController',
 			'Admin\Controller\App' 					=> 'Admin\Controller\AppController',
 			'Admin\Controller\Customer' 			=> 'Admin\Controller\CustomerController',
+			'Admin\Controller\UserType'				=> 'Admin\Controller\UserTypeController',
 			),
 ),
 'router' => array(
@@ -237,6 +238,20 @@ return array(
 						'defaults' => array(
 							'controller' => 'Admin\Controller\Product',
 							'action'     => 'getSpecificationToCategory',
+							),
+						),
+					),
+				'user_type' => array(
+					'type'    => 'segment',
+					'options' => array(
+						'route'    => '/user-type[/:action][/:id]',
+						'constraints' => array(
+							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+							'id'     => '[0-9]+',
+							),
+						'defaults' => array(
+							'controller' => 'Admin\Controller\UserType',
+							'action'     => 'index',
 							),
 						),
 					),

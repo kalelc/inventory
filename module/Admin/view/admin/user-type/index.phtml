@@ -1,0 +1,30 @@
+<?php
+$title = $this->config['component']['user_type'][0];
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+    'module' => array('url' => $this->url('admin/user_type'),'value' => $title),
+    ));
+    ?>
+    <p>
+        <a href="<?php echo $this->url('admin/user_type', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
+    </p>
+
+    <table class="table table-striped table-bordered table-hover">
+        <tr>
+            <th><?php echo $this->config['component']['name'][1] ;?></th>
+            <th><?php echo $this->config['component']['description'][1] ;?></th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach ($userTypes as $userType) : ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($userType->getName());?></td>
+                <td><?php echo $this->escapeHtml($userType->getDescription());?></td>
+                <td class='column-button'>
+                    <a href="<?php echo $this->url('admin/user_type',
+                        array('action'=>'edit', 'id' => $userType->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+<a href="<?php echo $this->url('admin/user_type',
+    array('action'=>'delete', 'id' => $userType->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
+</td>
+</tr>
+<?php endforeach; ?>
+</table>

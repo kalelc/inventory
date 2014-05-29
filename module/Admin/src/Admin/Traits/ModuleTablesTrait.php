@@ -157,13 +157,22 @@ Trait ModuleTablesTrait
 		return $productAppTable;
 	}
 
-		public function getCustomerTable()
+	public function getCustomerTable()
 	{
 		$customerTable = "";
 		if(!$customerTable) {
 			$customerTable = $this->getServiceLocator()->get('Admin\model\CustomerTable');
 		}
 		return $customerTable;
+	}
+
+	public function getUserTypeTable()
+	{
+		$userTypeTable = "";
+		if(!$userTypeTable) {
+			$userTypeTable = $this->getServiceLocator()->get('Admin\model\UserTypeTable');
+		}
+		return $userTypeTable;
 	}
 }
 ?>

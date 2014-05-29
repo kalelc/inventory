@@ -46,6 +46,8 @@ use Admin\Model\City;
 use Admin\Model\CityTable;
 use Admin\Model\Customer;
 use Admin\Model\CustomerTable;
+use Admin\Model\UserType;
+use Admin\Model\UserTypeTable;
 
 use Admin\Form\SpecificationForm;
 use Admin\Form\MeasureForm;
@@ -411,6 +413,17 @@ public function getServiceConfig()
 				$resultSetPrototype->setArrayObjectPrototype(new Customer());
 				return new TableGateway('customers', $dbAdapter, null, $resultSetPrototype);
 			},
+			'Admin\Model\UserTypeTable' => function($sm) {
+				$categorySpecificationTableGateway = $sm->get("UserTypeTableGateway");
+				$table = new UserTypeTable($categorySpecificationTableGateway);
+				return $table;
+			},
+			'UserTypeTableGateway' => function($sm) {
+				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				$resultSetPrototype = new ResultSet();
+				$resultSetPrototype->setArrayObjectPrototype(new UserType());
+				return new TableGateway('user_types', $dbAdapter, null, $resultSetPrototype);
+			},
 			'Admin\Model\CityTable' => function($sm) {
 				$cityTableGateway = $sm->get("CityTableGateway");
 				$table = new CityTable($cityTableGateway);
@@ -435,6 +448,6 @@ public function getServiceConfig()
 			},
 
 			),
-		);
-	}
+);
+}
 }

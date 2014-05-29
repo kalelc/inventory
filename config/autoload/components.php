@@ -64,6 +64,7 @@ return array(
 		'user'					=> array('usuarios','usuario'),
 		'username'				=> array('nombres usuario','nombre usuario'),
 		'user_shortcut'			=> array('accesos directos usuario','acceso diercto usuario'),
+		'user_type'				=> array('tipos de usuarios','tipo de usuario'),
 		'upc_bar_code'			=> array('codigos UPC', 'codigo UPC'),
 		'webpage'				=> array('paginas web', 'pagina web'),
 		'zipcode'				=> array('zipcode', 'zipcode')
