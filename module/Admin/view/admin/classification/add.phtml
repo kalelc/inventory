@@ -1,0 +1,41 @@
+<?php
+$title = $this->config['component']['classification'][0];
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('admin/classification'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));
+	?>
+	<?php $form = $this->form; ?>
+	<?php $form->setAttribute('action', $this->url('admin/classification', array('action' => 'add'))); ?>
+	<?php $form->prepare(); ?>
+	<?php echo $this->form()->openTag($form); ?>
+	<?php echo $this->formHidden($form->get('id')); ?>
+	<?php echo $this->formHidden($form->get('csrf'));?>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formInput($form->get('name')); ?>
+			<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('user_type')->setLabel($this->config['component']['user_type'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formSelect($form->get('user_type')); ?>
+			<?php echo $this->formElementErrors($form->get('user_type'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
+		<div class="col-sm-6">
+			<?php echo $this->formTextarea($form->get('description')); ?>
+			<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="well well-sm">
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+		&nbsp;
+		<a href="<?php echo $this->url('admin/classification'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
+	</div>
+	<?php echo $this->form()->closeTag(); ?>

@@ -48,12 +48,15 @@ use Admin\Model\Customer;
 use Admin\Model\CustomerTable;
 use Admin\Model\UserType;
 use Admin\Model\UserTypeTable;
+use Admin\Model\Classification;
+use Admin\Model\ClassificationTable;
 
 use Admin\Form\SpecificationForm;
 use Admin\Form\MeasureForm;
 use Admin\Form\CategoryForm;
 use Admin\Form\ProductForm;
 use Admin\Form\CustomerForm;
+use Admin\Form\ClassificationForm;
 
 use Admin\Service\FileService;
 use Zend\ModuleManager\ModuleManager;
@@ -445,9 +448,30 @@ public function getServiceConfig()
 				}
 				$form = new CustomerForm($citiesList);
 				return $form;
+				},
+			'Admin\Model\ClassificationTable' => function($sm) {
+				$cityTableGateway = $sm->get("ClassificationTableGateway");
+				$table = new ClassificationTable($cityTableGateway);
+				return $table;
 			},
+			'ClassificationTableGateway' => function($sm) {
+				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				$resultSetPrototype = new ResultSet();
+				$resultSetPrototype->setArrayObjectPrototype(new Classification());
+				return new TableGateway('classifications', $dbAdapter, null, $resultSetPrototype);
+				},
+			'Admin\Form\ClassificationForm' =>  function($sm) {
+				$userTypeTable = $sm->get("Admin/Model/UserTypeTable");
+				$userTypes = $userTypeTable->fetchAll();
+				$userTypesList = array();
 
+				foreach($userTypes as $userType){
+					$userTypesList[$userType->getId()] = $userType->getName();
+				}
+				$form = new ClassificationForm($userTypesList);
+				return $form;
+				},
 			),
-);
-}
+		);
+	}
 }

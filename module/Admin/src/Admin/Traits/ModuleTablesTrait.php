@@ -174,5 +174,14 @@ Trait ModuleTablesTrait
 		}
 		return $userTypeTable;
 	}
+
+	public function getClassificationTable()
+	{
+		$classificationTable = "";
+		if(!$classificationTable) {
+			$classificationTable = $this->getServiceLocator()->get('Admin\model\ClassificationTable');
+		}
+		return $classificationTable;
+	}
 }
 ?>

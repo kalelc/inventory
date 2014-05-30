@@ -17,6 +17,7 @@ return array(
 			'Admin\Controller\App' 					=> 'Admin\Controller\AppController',
 			'Admin\Controller\Customer' 			=> 'Admin\Controller\CustomerController',
 			'Admin\Controller\UserType'				=> 'Admin\Controller\UserTypeController',
+			'Admin\Controller\Classification'		=> 'Admin\Controller\ClassificationController',
 			),
 ),
 'router' => array(
@@ -251,6 +252,20 @@ return array(
 							),
 						'defaults' => array(
 							'controller' => 'Admin\Controller\UserType',
+							'action'     => 'index',
+							),
+						),
+					),
+				'classification' => array(
+					'type'    => 'segment',
+					'options' => array(
+						'route'    => '/classification[/:action][/:id]',
+						'constraints' => array(
+							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+							'id'     => '[0-9]+',
+							),
+						'defaults' => array(
+							'controller' => 'Admin\Controller\Classification',
 							'action'     => 'index',
 							),
 						),

@@ -1,0 +1,31 @@
+<?php
+$title = $this->config['component']['classification'][0];
+$this->headTitle($title);
+?>
+<h2 class="page-header"><?php echo $title ; ?></h2>
+<p>
+    <a href="<?php echo $this->url('admin/classification', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th><?php echo $this->config['component']['name'][1] ;?></th>
+        <th><?php echo $this->config['component']['user_type'][1] ;?></th>
+        <th><?php echo $this->config['component']['description'][1] ;?></th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach ($classifications as $classification) : ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($classification->getName());?></td>
+            <td><?php echo $this->escapeHtml($classification->getUserType());?></td>
+            <td><?php echo $this->escapeHtml($classification->getDescription());?></td>
+            <td class='column-button'>
+                <a href="<?php echo $this->url('admin/classification',
+                    array('action'=>'edit', 'id' => $classification->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+<a href="<?php echo $this->url('admin/classification',
+    array('action'=>'delete', 'id' => $classification->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
+</td>
+</tr>
+<?php endforeach; ?>
+</table>
+<?php echo $this->modalHelper()->image(); ?>

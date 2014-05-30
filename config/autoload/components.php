@@ -13,6 +13,7 @@ return array(
 		'birthday' 				=> array('cumpleaños','cumpleaños'),
 		'brand' 				=> array('marcas','marca','image_path'=> 'public/images/brand'),
 		'category' 				=> array('categorias','categoria','image_path'=> 'public/images/category'),
+		'classification'		=> array('clasificaciones','clasificatión'),
 		'company' 				=> array('compañias','compañia'),
 		'customer' 				=> array('clientes','cliente'),
 		'city' 					=> array('ciudades','ciudad'),
