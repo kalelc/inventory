@@ -39,6 +39,9 @@ class CategoryForm extends Form
 				'value_options' => $this->getMasterCategoryList(),
 				'empty_option' => 'seleccione una opción',
 				'disable_inarray_validator' => true,
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			'attributes' => array(
 				'class' => 'form-control',
@@ -53,7 +56,9 @@ class CategoryForm extends Form
 				),
 			'options' => array(
 				'label' => 'singular_name',
-
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -65,7 +70,9 @@ class CategoryForm extends Form
 				),
 			'options' => array(
 				'label' => 'plural_name',
-
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 		
@@ -76,6 +83,9 @@ class CategoryForm extends Form
 				),
 			'options' => array(
 				'label' => 'Imagen',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			)); 
 
@@ -87,6 +97,9 @@ class CategoryForm extends Form
 				),
 			'options' => array(
 				'label' => 'plural_name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 
 				),
 			));
@@ -99,7 +112,9 @@ class CategoryForm extends Form
 				),
 			'options' => array(
 				'label' => 'plural_name',
-
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -111,6 +126,9 @@ class CategoryForm extends Form
 				),
 			'options' => array(
 				'label' => 'descripción',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -137,7 +155,10 @@ class CategoryForm extends Form
 				'label' => 'serial_name',
 				'value_options' => $this->getSerialNameList(),
 				'empty_option' => 'seleccione una opción',
-				'disable_inarray_validator' => true
+				'disable_inarray_validator' => true,
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -160,31 +181,31 @@ class CategoryForm extends Form
 			));
 	}
 
-    public function getMasterCategoryList()
-    {
-        return $this->masterCategoryList;
-    }
-    public function setMasterCategoryList($masterCategoryList)
-    {
-        $this->masterCategoryList = $masterCategoryList;
-        return $this;
-    }
-    public function getSerialNameList()
-    {
-        return $this->serialNameList;
-    }
-    public function setSerialNameList($serialNameList)
-    {
-        $this->serialNameList = $serialNameList;
-        return $this;
-    }
-    public function getSpecificationList()
-    {
-        return $this->specificationList;
-    }
-    public function setSpecificationList($specificationList)
-    {
-        $this->specificationList = $specificationList;
-        return $this;
-    }
+	public function getMasterCategoryList()
+	{
+		return $this->masterCategoryList;
+	}
+	public function setMasterCategoryList($masterCategoryList)
+	{
+		$this->masterCategoryList = $masterCategoryList;
+		return $this;
+	}
+	public function getSerialNameList()
+	{
+		return $this->serialNameList;
+	}
+	public function setSerialNameList($serialNameList)
+	{
+		$this->serialNameList = $serialNameList;
+		return $this;
+	}
+	public function getSpecificationList()
+	{
+		return $this->specificationList;
+	}
+	public function setSpecificationList($specificationList)
+	{
+		$this->specificationList = $specificationList;
+		return $this;
+	}
 }

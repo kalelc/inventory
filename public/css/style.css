@@ -23,7 +23,7 @@ td.column-button { vertical-align: middle; text-align: center;}
 form label { font-weight: bold; text-transform: capitalize;}
 .error { color: #B23634; font-size: 0.9em; -webkit-font-smoothing: antialiased; clear: both; float: left; width: 100%; margin: 0 0 10px -40px; text-align: left; list-style: none;}
 .span2 {background-color: #ddd;}
-ul.list-group li { clear:both;}
+/*ul.list-group li { clear:both;}*/
 img.thumb_24 { height: 24px; width: 24px;}
 img.thumb_32 { height: 32px; width: 32px;}
 
@@ -32,4 +32,5 @@ img.thumb_32 { height: 32px; width: 32px;}
 .control-label { text-align: left !important; }
 .breadcrumb { text-transform: capitalize !important;}
 .list-inputs { margin-top:5px;}
+.page-header {text-transform: capitalize;}
 /*.form-control { height: 35px !important; }*/

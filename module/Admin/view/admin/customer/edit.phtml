@@ -18,16 +18,16 @@ $form->setAttribute('action', $this->url(
 	<?php echo $this->formHidden($form->get('csrf'));?>
 
 	<div class="form-group">
+		<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'])); ?>
 		<div class="col-sm-4">
-			<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'])); ?>
 			<?php echo $this->formInput($form->get('name')); ?>
 			<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
 		</div>
 	</div>
 
 	<div class="form-group">
+		<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'])); ?>
 		<div class="col-sm-4">
-			<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'])); ?>
 			<?php if($image): ?>
 				<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/app/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 					<span class="glyphicon glyphicon-search"></span>
@@ -45,8 +45,8 @@ $form->setAttribute('action', $this->url(
 		</div>
 	</div>
 	<div class="form-group">
+		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'])); ?>
 		<div class="col-sm-6">
-			<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'])); ?>
 			<?php echo $this->formTextarea($form->get('description')); ?>
 		</div>
 	</div>

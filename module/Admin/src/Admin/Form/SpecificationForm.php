@@ -70,6 +70,9 @@ class SpecificationForm extends Form
 				),
 			'options' => array(
 				'label' => 'image',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -81,6 +84,9 @@ class SpecificationForm extends Form
 				),
 			'options' => array(
 				'label' => 'meaning',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 
@@ -92,6 +98,9 @@ class SpecificationForm extends Form
 				),
 			'options' => array(
 				'label' => 'general_information',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
 				),
 			));
 

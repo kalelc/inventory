@@ -12,16 +12,16 @@ $this->headTitle($title);
 <?php echo $this->formHidden($form->get('csrf')); ?>
 
 <div class="form-group">
+	<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
 	<div class="col-sm-4">
-		<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
 		<?php echo $this->formInput($form->get('name')); ?>
 		<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
 	</div>
 </div>
 
 <div class="form-group">
+	<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'][1])); ?>
 	<div class="col-sm-4">
-		<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'][1])); ?>
 		<?php if($image): ?>
 			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/brand/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
 				<span class="glyphicon glyphicon-search"></span>
@@ -38,10 +38,9 @@ $this->headTitle($title);
 		</p>
 	</div>
 </div>
-
 <div class="form-group">
+	<?php echo $this->formLabel($form->get('background_image')->setLabel($this->config['component']['background_image'][1])); ?>
 	<div class="col-sm-4">
-		<?php echo $this->formLabel($form->get('background_image')->setLabel($this->config['component']['background_image'][1])); ?>
 		<?php if($backgroundImage): ?>
 			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/brand/<?php echo $backgroundImage; ?>','<?php echo $this->config['component']['background_image'][1] ; ?>')">
 				<span class="glyphicon glyphicon-search"></span>
@@ -60,8 +59,8 @@ $this->headTitle($title);
 </div>
 
 <div class="form-group">
+	<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
 	<div class="col-sm-4">
-		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
 		<?php echo $this->formTextarea($form->get('description')); ?>
 		<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
 	</div>
