@@ -70,6 +70,7 @@ implements ConfigAwareInterface
 
 				$customer->exchangeArray($form->getData());
 				$this->getCustomerTable()->save($customer);
+				$this->getCustomerClassificationTable()->save($customer,$classification);
 
 				return $this->redirect()->toRoute('admin/customer');
 			}

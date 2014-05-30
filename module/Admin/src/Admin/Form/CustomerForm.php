@@ -6,15 +6,12 @@ use Zend\Form\Element;
 
 class CustomerForm extends Form
 {
-	protected $citiesList;
 
-	public function __construct($citiesList)
+	public function __construct($citiesList,$classificationList)
 	{
 		parent::__construct('customer');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('class', 'form-horizontal');
-
-		$this->citiesList = $citiesList;
 
 		$this->add(array(
 			'name' => 'id',
@@ -218,11 +215,28 @@ class CustomerForm extends Form
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),
-				'value_options' => $this->getCitiesList(),
+				'value_options' => $citiesList,
 				'empty_option' => '',
 				'disable_inarray_validator' => true,
 				),
 			'attributes' => array(
+				'class' => 'form-control',
+				)
+			));
+
+		$this->add(array(
+			'type' => 'select',
+			'name' => 'classification',
+			'options' => array(
+				'label' => 'classification',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' => $classificationList,
+				'disable_inarray_validator' => true,
+				),
+			'attributes' => array(
+				'multiple' => 'multiple',
 				'class' => 'form-control',
 				)
 			));
@@ -259,16 +273,5 @@ class CustomerForm extends Form
 				'class' => 'btn btn-primary btn-sm btn-sm'
 				),
 			));
-	}
-
-	public function getCitiesList()
-	{
-		return $this->citiesList;
-	}
-
-	public function setCitiesList($citiesList)
-	{
-		$this->citiesList = $citiesList;
-		return $this;
 	}
 }

@@ -131,6 +131,13 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	</div>
 	<div class="form-group">
+		<?php echo $this->formLabel($form->get('classification')->setLabel($this->config['component']['classification'][0])); ?>
+		<div class="col-sm-6">
+			<?php echo $this->formSelect($form->get('classification')); ?>
+			<?php echo $this->formElementErrors($form->get('classification'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
 		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
 		<div class="col-sm-6">
 			<?php echo $this->formTextarea($form->get('description')); ?>

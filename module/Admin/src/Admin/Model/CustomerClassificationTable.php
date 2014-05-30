@@ -4,7 +4,7 @@ namespace Admin\Model;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
 
-class CityTable
+class CustomerClassificationTable
 {
 	protected $tableGateway;
 
@@ -30,15 +30,14 @@ class CityTable
 		return $row;
 	}
 
-	public function save(City $city)
+	public function save(CustomerClassification $CustomerClassification)
 	{
 		$data = array(
-			'name' => $city->getName(),
-			'department' => $city->getDepartment(),
-			'description' => $city->getDescription(),
+			'customer' => $CustomerClassification->getCustomer(),
+			'classification' => $CustomerClassification->getClassification(),
 			);
 
-		$id = (int)$city->getId();
+		$id = (int)$CustomerClassification->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
 		} else {

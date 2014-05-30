@@ -183,5 +183,14 @@ Trait ModuleTablesTrait
 		}
 		return $classificationTable;
 	}
+
+	public function getCustomerClassificationTable()
+	{
+		$customerClassificationTable = "";
+		if(!$customerClassificationTable) {
+			$customerClassificationTable = $this->getServiceLocator()->get('Admin\model\CustomerClassificationTable');
+		}
+		return $customerClassificationTable;
+	}
 }
 ?>

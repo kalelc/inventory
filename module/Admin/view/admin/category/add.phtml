@@ -85,16 +85,16 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	</div>
 	<h4 class="page-header"><?php echo $this->config['component']['specification'][0]; ?></h4>
-		<div class="list-group">
-			<ul id="sortable">
-				<?php $formMultiCheckbox = $this->formMultiCheckbox(); ?>
-				<?php $formMultiCheckbox->setSeparator('</li><li class="list-group-item">'.$this->config['action']['icons']['move'].'&nbsp;'); ?>
-				<li class="list-group-item"><?php echo $this->config['action']['icons']['move'] ; ?>&nbsp;<?php echo $formMultiCheckbox->render($form->get('specification')); ?></li>
-			</ul>
-		</div>
-		<div class="well well-sm">
-			<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
-			&nbsp;
-			<a href="<?php echo $this->url('admin/category'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
-		</div>
-		<?php echo $this->form()->closeTag(); ?>
+	<div class="list-group">
+		<ul id="sortable">
+			<?php $formMultiCheckbox = $this->formMultiCheckbox(); ?>
+			<?php $formMultiCheckbox->setSeparator('</li><li class="list-group-item">'.$this->config['action']['icons']['move'].'&nbsp;'); ?>
+			<li class="list-group-item"><?php echo $this->config['action']['icons']['move'] ; ?>&nbsp;<?php echo $formMultiCheckbox->render($form->get('specification')); ?></li>
+		</ul>
+	</div>
+	<div class="well well-sm">
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+		&nbsp;
+		<a href="<?php echo $this->url('admin/category'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
+	</div>
+	<?php echo $this->form()->closeTag(); ?>

@@ -50,6 +50,8 @@ use Admin\Model\UserType;
 use Admin\Model\UserTypeTable;
 use Admin\Model\Classification;
 use Admin\Model\ClassificationTable;
+use Admin\Model\CustomerClassification;
+use Admin\Model\CustomerClassificationTable;
 
 use Admin\Form\SpecificationForm;
 use Admin\Form\MeasureForm;
@@ -446,9 +448,18 @@ public function getServiceConfig()
 				foreach($cities as $city){
 					$citiesList[$city->getId()] = $city->getName();
 				}
-				$form = new CustomerForm($citiesList);
+
+				$classificationTable = $sm->get("Admin/Model/ClassificationTable");
+				$classifications= $classificationTable->fetchAll();
+				$classificationList = array();
+
+				foreach($classifications as $classification){
+					$classificationList[$classification->getId()] = $classification->getName();
+				}
+
+				$form = new CustomerForm($citiesList,$classificationList);
 				return $form;
-				},
+			},
 			'Admin\Model\ClassificationTable' => function($sm) {
 				$cityTableGateway = $sm->get("ClassificationTableGateway");
 				$table = new ClassificationTable($cityTableGateway);
@@ -459,7 +470,7 @@ public function getServiceConfig()
 				$resultSetPrototype = new ResultSet();
 				$resultSetPrototype->setArrayObjectPrototype(new Classification());
 				return new TableGateway('classifications', $dbAdapter, null, $resultSetPrototype);
-				},
+			},
 			'Admin\Form\ClassificationForm' =>  function($sm) {
 				$userTypeTable = $sm->get("Admin/Model/UserTypeTable");
 				$userTypes = $userTypeTable->fetchAll();
@@ -470,8 +481,19 @@ public function getServiceConfig()
 				}
 				$form = new ClassificationForm($userTypesList);
 				return $form;
-				},
+			},
+			'Admin\Model\CustomerClassificationTable' =>  function($sm) {
+				$tableGateway = $sm->get('CustomerClassificationTableGateway');
+				$table = new CustomerClassificationTable($tableGateway);
+				return $table;
+			},
+			'CustomerClassificationTableGateway' => function ($sm) {
+				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				$resultSetPrototype = new ResultSet();
+				$resultSetPrototype->setArrayObjectPrototype(new CustomerClassification());
+				return new TableGateway('customers_classifications', $dbAdapter, null, $resultSetPrototype);
+			},
 			),
-		);
-	}
+);
+}
 }
