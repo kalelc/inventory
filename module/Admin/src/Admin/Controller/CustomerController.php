@@ -80,6 +80,10 @@ implements ConfigAwareInterface
 				$viewModel->setVariable('emails',json_decode($data['emails']));
 				$viewModel->setVariable('addresses',json_decode($data['addresses']));
 				$viewModel->setVariable('phones',json_decode($data['phones']));
+
+				$form->get("identification")->setMessages(array(
+					'error' =>$documentCompositeKeyValidator->getMessage()
+					));
 			}
 		}
 		$viewModel->setVariables(array(
@@ -155,15 +159,14 @@ implements ConfigAwareInterface
 				'adapter' => $dbAdapter,
 				'documentTypeId' => $documentTypeId
 				));
+			$documentCompositeKeyValidatorResult = true;
 
-			if($document && $documentTypeId) {
+			if($customer->getIdentification() !== $document || $documentTypeId !== $customer->getIdentificationType()) {
 				$documentCompositeKeyValidatorResult = !$documentCompositeKeyValidator->isValid($document);
 			}
 
 			$form->setInputFilter($customer->getInputFilter());
 			$form->setData($data);
-
-			dumpx($documentCompositeKeyValidatorResult);
 
 			if ($form->isValid()) {
 
@@ -172,6 +175,16 @@ implements ConfigAwareInterface
 
 				return $this->redirect()->toRoute('admin/customer');
 			}
+			else {
+				$viewModel->setVariable('emails',json_decode($data['emails']));
+				$viewModel->setVariable('addresses',json_decode($data['addresses']));
+				$viewModel->setVariable('phones',json_decode($data['phones']));
+				
+				$form->get("identification")->setMessages(array(
+					'error' =>$documentCompositeKeyValidator->getMessage()
+					));
+			}
+
 		}
 		$viewModel->setVariables(array(
 			'id' => $id,
