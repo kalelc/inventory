@@ -1,15 +1,15 @@
 <?php
-$title = $this->config['component']['specification'][0];
+$title = $this->config['component']['classification'][0];
 $action = $this->config['action']['edit'];
 echo $this->layoutHelper()->header(array(
-	'module' => array('url' => $this->url('admin/specification'),'value' => $title),
+	'module' => array('url' => $this->url('admin/classification'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
 	));
 	?>
 	<?php
 	$form = $this->form;
 	$form->setAttribute('action', $this->url(
-		'admin/specification',
+		'admin/classification',
 		array(
 			'action' => 'edit',
 			'id'     => $this->id,
@@ -42,7 +42,7 @@ echo $this->layoutHelper()->header(array(
 		</div>
 		<div class="well well-sm">
 			<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-			&nbsp;<a href="<?php echo $this->url('admin/specification'); ?>"><?php echo $this->config['action']['return'] ; ?></a>
+			&nbsp;<a href="<?php echo $this->url('admin/classification'); ?>"><?php echo $this->config['action']['return'] ; ?></a>
 		</div>
 		<?php echo $this->form()->closeTag(); ?>
 		<?php echo $this->modalHelper()->image(); ?>
