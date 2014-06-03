@@ -56,13 +56,16 @@ class CustomerTable
 		$id = (int)$customer->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
+			$id = $this->tableGateway->getLastInsertValue();
 		} else {
 			if ($this->get($id)) {
 				$this->tableGateway->update($data, array('id' => $id));
 			} else {
-				throw new \Exception('Form id does not exist');
+				$id = false;
 			}
 		}
+
+		return $id;
 	}
 
 	public function delete($id)

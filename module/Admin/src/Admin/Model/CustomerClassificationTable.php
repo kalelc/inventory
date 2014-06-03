@@ -19,44 +19,31 @@ class CustomerClassificationTable
 		return $resultSet;
 	}
 
-	public function get($id)
+	public function get($customer)
 	{
-		$id  = (int) $id;
-		$rowset = $this->tableGateway->select(array('id' => $id));
-		$row = $rowset->current();
-		if (!$row) {
-			throw new \Exception("Could not find row $id");
+		$customer  = (int) $customer;
+		$resultSet = $this->tableGateway->select(array('customer' => $customer));
+
+		$rows = array();
+
+		foreach($resultSet  as $result) {
+			$rows[] = $result->getClassification();
 		}
-		return $row;
+		
+		return $rows ? $rows : false ;
 	}
 
-	public function save(CustomerClassification $CustomerClassification)
+	public function save($customer,$classifications)
 	{
-		$data = array(
-			'customer' => $CustomerClassification->getCustomer(),
-			'classification' => $CustomerClassification->getClassification(),
-			);
-
-		$id = (int)$CustomerClassification->getId();
-		if ($id == 0) {
-			$this->tableGateway->insert($data);
-		} else {
-			if ($this->get($id)) {
-				$this->tableGateway->update($data, array('id' => $id));
-			} else {
-				throw new \Exception('Form id does not exist');
-			}
-		}
+		$this->delete($customer);
+		
+		foreach($classifications as $classification)
+			$this->tableGateway->insert(array('customer'=>$customer,'classification' =>$classification));
 	}
 
-	public function delete($id)
-	{	
-		try {
-			$result = $this->tableGateway->delete(array('id' => $id));
-		}
-		catch(\Exception $e) {
-			$result = false;
-		}
-		return $result;
+
+	public function delete($customer)
+	{
+		$this->tableGateway->delete(array('customer' => $customer));
 	}
 }

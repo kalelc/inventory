@@ -1,56 +1,155 @@
 <?php
-$title = $this->config['component']['app'][0];
-$this->headTitle($title);
-?>
-<h2 class="page-header"><?php echo $title ; ?></h2>
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url(
-	'admin/app',
-	array(
+$this->headScript()->prependFile('/js/customer.js', 'text/javascript');
+$title = $this->config['component']['customer'][0];
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('admin/customer'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));
+	?>
+	<?php $form = $this->form; ?>
+	<?php $form->setAttribute('action', $this->url('admin/customer', array(
 		'action' => 'edit',
 		'id'     => $this->id,
-		)
-	));
-	$form->prepare();?>
-	<?php echo $this->form()->openTag($form); ?>
-	<?php echo $this->formHidden($form->get('id')); ?>
-	<?php echo $this->formHidden($form->get('csrf'));?>
+		))); ?>
+		<?php $form->prepare(); ?>
+		<?php echo $this->form()->openTag($form); ?>
+		<?php echo $this->formHidden($form->get('id')); ?>
+		<?php echo $this->formHidden($form->get('csrf')); ?>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('identification')->setLabel($this->config['component']['identification'][1])); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('identification'), array("placeholder"=> $this->config['component']['identification'][1])); ?>
+				<?php echo $this->formElementErrors($form->get('identification'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('identification_type')->setLabel($this->config['component']['identification_type'][1])); ?>
+			<div class="col-sm-3">
+				<?php echo $this->formSelect($form->get('identification_type')); ?>
+				<?php echo $this->formElementErrors($form->get('identification_type'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('first_name')->setLabel($this->config['component']['first_name'][1])); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('first_name')); ?>
+				<?php echo $this->formElementErrors($form->get('first_name'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('last_name')->setLabel($this->config['component']['last_name'][1])); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('last_name')); ?>
+				<?php echo $this->formElementErrors($form->get('last_name'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><?php echo $this->config['component']['email'][1]; ?></label>
+			<div class="col-sm-4">
+				<a href="javascript:void(0);" id='addEmailField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['email'][1] ; ?></label></a>
+				<div id='list-emails' class='list-inputs'>
+					<?php if(isset($emails)): ?>
+						<?php foreach($emails as $email): ?>
+							<a class='list-group-item'><input type='text' name='emails[]' class='form-control' placeholder='<?php echo $this->config['component']['email'][1]; ?>' value='<?php echo $email; ?>'></a>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><?php echo $this->config['component']['address'][1]; ?></label>
+			<div class="col-sm-4">
+				<a href="javascript:void(0);" id='addAddressField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['address'][1] ; ?></label></a>
+				<div id='list-addresses' class='list-inputs'>
+					<?php if(isset($addresses)): ?>
+						<?php foreach($addresses as $address): ?>
+							<a class='list-group-item'><input type='text' name='addresses[]' class='form-control' placeholder='<?php echo $this->config['component']['address'][1]; ?>' value='<?php echo $address; ?>'></a>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><?php echo $this->config['component']['phone'][1]; ?></label>
+			<div class="col-sm-3">
+				<a href="javascript:void(0);" id='addPhoneField'><label class="btn btn-warning btn-sm"><?php echo $this->config['action']['icons']['add'] ; ?><?php echo $this->config['component']['phone'][1] ; ?></label></a>
+				<div id='list-phones' class='list-inputs'>
+					<?php if(isset($phones)): ?>
+						<?php foreach($phones as $phone): ?>
+							<a class='list-group-item'><input type='text' name='phones[]' class='form-control' placeholder='<?php echo $this->config['component']['phone'][1]; ?>' value='<?php echo $phone; ?>'></a>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('zipcode')->setLabel($this->config['component']['zipcode'][1])); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('zipcode')); ?>
+				<?php echo $this->formElementErrors($form->get('zipcode'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('company')->setLabel($this->config['component']['company'][1])); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('company')); ?>
+				<?php echo $this->formElementErrors($form->get('company'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('manager')->setLabel($this->config['component']['manager'][1])); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('manager')); ?>
+				<?php echo $this->formElementErrors($form->get('manager'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('webpage')->setLabel($this->config['component']['webpage'][1])); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('webpage')); ?>
+				<?php echo $this->formElementErrors($form->get('webpage'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('birthday')->setLabel($this->config['component']['birthday'][1])); ?>
+			<div class="col-sm-2">
+				<?php echo $this->formInput($form->get('birthday')); ?>
+				<?php echo $this->formElementErrors($form->get('birthday'), array("class" => "error")); ?>
 
-	<div class="form-group">
-		<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'])); ?>
-		<div class="col-sm-4">
-			<?php echo $this->formInput($form->get('name')); ?>
-			<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+			</div>
 		</div>
-	</div>
-
-	<div class="form-group">
-		<?php echo $this->formLabel($form->get('image')->setLabel($this->config['component']['image'])); ?>
-		<div class="col-sm-4">
-			<?php if($image): ?>
-				<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/app/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-					<span class="glyphicon glyphicon-search"></span>
-				</a>
-			<?php endif; ?>
-			<?php echo $this->formInput($form->get('image')); ?>
-			<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
-			<p class="help-block">
-				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-				Tama&ntilde;o: 
-				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-					<?php echo $range." ".$size ; ?>
-				<?php endforeach; ?>
-			</p>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('alias')->setLabel($this->config['component']['alias'][1])); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('alias')); ?>
+				<?php echo $this->formElementErrors($form->get('alias'), array("class" => "error")); ?>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
-		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'])); ?>
-		<div class="col-sm-6">
-			<?php echo $this->formTextarea($form->get('description')); ?>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('city')->setLabel($this->config['component']['city'][1])); ?>
+			<div class="col-sm-3">
+				<?php echo $this->formSelect($form->get('city')); ?>
+				<?php echo $this->formElementErrors($form->get('city'), array("class" => "error")); ?>
+			</div>
 		</div>
-	</div>
-	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-	&nbsp;<a href="<?php echo $this->url('admin/app');?>"><?php echo $this->config['action']['return'] ; ?></a>
-	<?php echo $this->form()->closeTag(); ?>
-	<?php echo $this->modalHelper()->image(); ?>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('classification')->setLabel($this->config['component']['classification'][0])); ?>
+			<div class="col-sm-6">
+				<?php echo $this->formSelect($form->get('classification')); ?>
+				<?php echo $this->formElementErrors($form->get('classification'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
+			<div class="col-sm-6">
+				<?php echo $this->formTextarea($form->get('description')); ?>
+				<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="well well-sm">
+			<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+			&nbsp;
+			<a href="<?php echo $this->url('admin/customer'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
+		</div>
+		<?php echo $this->form()->closeTag(); ?>

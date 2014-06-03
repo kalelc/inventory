@@ -56,6 +56,7 @@ implements ConfigAwareInterface
 
 			$document = $data['identification'];
 			$documentTypeId = $data['identification_type'];
+			$classifications = $data['classification'];
 
 			$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 			$documentCompositeKeyValidator = new DocumentCompositeKeyValidator(array(
@@ -66,11 +67,12 @@ implements ConfigAwareInterface
 			$documentCompositeKeyValidatorResult = !$documentCompositeKeyValidator->isValid($document);
 
 			$form->setData($data);
+
 			if ($form->isValid() && $documentCompositeKeyValidatorResult) {
 
 				$customer->exchangeArray($form->getData());
-				$this->getCustomerTable()->save($customer);
-				$this->getCustomerClassificationTable()->save($customer,$classification);
+				$customerId = $this->getCustomerTable()->save($customer);
+				$this->getCustomerClassificationTable()->save($customerId,$classifications);
 
 				return $this->redirect()->toRoute('admin/customer');
 			}
@@ -91,6 +93,8 @@ implements ConfigAwareInterface
 
 	public function editAction()
 	{
+		$viewModel = new ViewModel();
+
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('admin/customer', array(
@@ -99,25 +103,83 @@ implements ConfigAwareInterface
 		}
 		$customer = $this->getCustomerTable()->get($id);
 
-		$form  = new CustomerForm();
+		$form = $this->getServiceLocator()->get('Admin\Form\CustomerForm');
 		$form->bind($customer);
+
+		$form->get("first_name")->setValue($customer->getFirstName());
+		$form->get("last_name")->setValue($customer->getLastName());
+		$form->get("identification_type")->setValue($customer->getIdentificationType());
+
+		$emails = $customer->getEmails();
+		$addresses = $customer->getAddresses();
+		$phones = $customer->getPhones();
+
+		$viewModel->setVariable('emails',json_decode($emails));
+		$viewModel->setVariable('addresses',json_decode($addresses));
+		$viewModel->setVariable('phones',json_decode($phones));
+
+		$customerClassificationValues = $this->getCustomerClassificationTable()->get($customer->getId());
+
+		$form->get("classification")->setValue($customerClassificationValues);
+
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
+
+			$data = $request->getPost()->toArray();
+
+			$emails = array();
+
+			if(isset($data['emails'])) {
+				foreach(array_filter($data['emails']) as $email) {
+					if (preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",$email)) {
+						$emails[] = $email; 
+					}
+				}
+				$data['emails'] = json_encode($emails) ;
+			}
+
+			if(isset($data['addresses'])) {
+				$data['addresses'] = json_encode(array_filter($data['addresses']));
+			}
+			if(isset($data['phones'])) {
+				$data['phones'] = json_encode(array_filter($data['phones']));
+			}
+
+			$document = $data['identification'];
+			$documentTypeId = $data['identification_type'];
+			$classifications = $data['classification'];
+
+			$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+			$documentCompositeKeyValidator = new DocumentCompositeKeyValidator(array(
+				'adapter' => $dbAdapter,
+				'documentTypeId' => $documentTypeId
+				));
+
+			if($document && $documentTypeId) {
+				$documentCompositeKeyValidatorResult = !$documentCompositeKeyValidator->isValid($document);
+			}
+
 			$form->setInputFilter($customer->getInputFilter());
-			$form->setData($request->getPost());
+			$form->setData($data);
+
+			dumpx($documentCompositeKeyValidatorResult);
 
 			if ($form->isValid()) {
-				$this->getCustomerTable()->save($form->getData());
+
+				$customerId = $this->getCustomerTable()->save($form->getData());
+				$this->getCustomerClassificationTable()->save($customerId,$classifications);
 
 				return $this->redirect()->toRoute('admin/customer');
 			}
 		}
-		return array(
+		$viewModel->setVariables(array(
 			'id' => $id,
 			'form' => $form,
 			'config' => $this->config,
-			);
+			));
+
+		return $viewModel;
 	}
 
 	public function deleteAction()

@@ -440,26 +440,7 @@ public function getServiceConfig()
 				$resultSetPrototype->setArrayObjectPrototype(new City());
 				return new TableGateway('cities', $dbAdapter, null, $resultSetPrototype);
 			},
-			'Admin\Form\CustomerForm' =>  function($sm) {
-				$cityTable = $sm->get("Admin/Model/CityTable");
-				$cities = $cityTable->fetchAll();
-				$citiesList = array();
 
-				foreach($cities as $city){
-					$citiesList[$city->getId()] = $city->getName();
-				}
-
-				$classificationTable = $sm->get("Admin/Model/ClassificationTable");
-				$classifications= $classificationTable->fetchAll();
-				$classificationList = array();
-
-				foreach($classifications as $classification){
-					$classificationList[$classification->getId()] = $classification->getName();
-				}
-
-				$form = new CustomerForm($citiesList,$classificationList);
-				return $form;
-			},
 			'Admin\Model\ClassificationTable' => function($sm) {
 				$cityTableGateway = $sm->get("ClassificationTableGateway");
 				$table = new ClassificationTable($cityTableGateway);
@@ -493,7 +474,28 @@ public function getServiceConfig()
 				$resultSetPrototype->setArrayObjectPrototype(new CustomerClassification());
 				return new TableGateway('customers_classifications', $dbAdapter, null, $resultSetPrototype);
 			},
+
+			'Admin\Form\CustomerForm' =>  function($sm) {
+				$cityTable = $sm->get("Admin/Model/CityTable");
+				$cities = $cityTable->fetchAll();
+				$citiesList = array();
+
+				foreach($cities as $city){
+					$citiesList[$city->getId()] = $city->getName();
+				}
+
+				$classificationTable = $sm->get("Admin/Model/ClassificationTable");
+				$classifications= $classificationTable->fetchAll();
+				$classificationList = array();
+
+				foreach($classifications as $classification){
+					$classificationList[$classification->getId()] = $classification->getName();
+				}
+
+				$form = new CustomerForm($citiesList,$classificationList);
+				return $form;
+				},
 			),
-);
-}
+		);
+	}
 }
