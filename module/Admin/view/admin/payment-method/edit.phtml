@@ -9,7 +9,7 @@ echo $this->layoutHelper()->header(array(
 	<?php
 	$form = $this->form;
 	$form->setAttribute('action', $this->url(
-		'payment_method',
+		'admin/payment_method',
 		array(
 			'action' => 'edit',
 			'id'     => $this->id,
@@ -40,8 +40,8 @@ echo $this->layoutHelper()->header(array(
 				<?php echo $this->formTextarea($form->get('description')); ?>
 			</div>
 		</div>
-		<div class='well'
-		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-		&nbsp;<a href="<?php echo $this->url('admin/payment_method');?>"><?php echo $this->config['action']['return'] ; ?></a>
-	</div>
-	<?php echo $this->form()->closeTag(); ?>
+		<div class="well well-sm">
+			<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+			&nbsp;<a href="<?php echo $this->url('admin/payment_method');?>"><?php echo $this->config['action']['return'] ; ?></a>
+		</div>
+		<?php echo $this->form()->closeTag(); ?>
