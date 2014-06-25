@@ -26,26 +26,11 @@
 	->prependFile($this->basePath() . '/js/scripts.js')
 	->prependFile($this->basePath() . '/js/number-format.js')
 	->prependFile($this->basePath() . '/js/functions.js')
+	->prependFile($this->basePath() . '/js/pagination.js')
+	->prependFile($this->basePath() . '/js/jquery.dataTables.js')
 	->prependFile($this->basePath() . '/js/bootstrap.min.js')
 	->prependFile($this->basePath() . '/js/jquery.min.js')
 	?>
-	<script languaje='javascript'>
-		function showModalImage(image,title){
-			$("#modalBody img").attr('src', image);
-			$("#modalImageLabel").html(title);
-			$("#modalImage").modal('show');
-		}
-		function showModalList(content,title){
-			var json = JSON.parse(content);
-			var result = "" ;
-			$.each(json, function(index, value) {
-				result += (index===0) ? "<a class='list-group-item active'>"+value+"</a>" : "<a class='list-group-item'>"+value+"</a>" ;
-			});
-			$("#modalBody > .list-group").html(result);
-			$("#modalImageLabel").html(title);
-			$("#modalList").modal('show');
-		}
-	</script>
 </head>
 <body>
 	<div class="navbar-default navbar-fixed-top" role="navigation">

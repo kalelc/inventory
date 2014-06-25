@@ -20,7 +20,7 @@ implements ConfigAwareInterface
 	use AdminTablesTrait;
 	private $config;
 
-	const ITEMPAGE = 10;
+	const ITEMPAGE = 25;
 	const PAGERANGE = 10;
 	
 	public function indexAction()
