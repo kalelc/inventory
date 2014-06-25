@@ -29,4 +29,5 @@ return array(
 			'extension' => array('txt','pdf','xls'),
 			)
 		),
+	'pagination' => array(),
 	);
