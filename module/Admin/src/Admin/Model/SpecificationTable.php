@@ -21,6 +21,7 @@ class SpecificationTable
 		$select->join('specifications_masters','specifications_masters.id = specifications.specification_master', array('sm_name' => 'name'));
 
 		$resultSet = $this->tableGateway->selectWith($select);
+		$resultSet->buffer();
 		return $resultSet ? $resultSet : false ;
 	}
 

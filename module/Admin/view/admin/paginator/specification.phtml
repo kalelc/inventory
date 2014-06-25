@@ -1,0 +1,24 @@
+<?php if ($this->pageCount): ?>
+    <ul class="pagination">
+        <li <?php echo !isset($this->previous) ? 'class="disabled"' : ''; ?>>
+            <a href="<?php echo $this->url('admin/specification', array('page' => $this->first)); ?>">&laquo;</a>
+        </li>
+        <li <?php echo !isset($this->previous) ? 'class="disabled"' : ''; ?>>
+            <a href="<?php echo $this->url('admin/specification', array('page' => $this->previous)); ?>">&lsaquo;</a>
+        </li>
+
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <li <?php echo $page == $this->current ? 'class="active"' : ''; ?>>
+                <a href="<?php echo $this->url('admin/specification', array('page' => $page)); ?>"><?php echo $page; ?></a>
+            </li>
+        <?php endforeach; ?>
+        <li <?php echo!isset($this->next) ? 'class="disabled"' : ''; ?>>
+            <a href="<?php echo $this->url('admin/specification', array('page' => $this->next)); ?>">&rsaquo;</a>
+        </li>
+        <li <?php echo!isset($this->next) ? 'class="disabled"' : ''; ?>>
+            <a href="<?php echo $this->url('admin/specification', array( 'page' => $this->last)); ?>">&raquo;</a>
+        </li>
+    </ul>
+<?php endif; ?>
+
+

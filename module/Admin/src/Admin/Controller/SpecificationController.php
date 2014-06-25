@@ -11,16 +11,31 @@ use Admin\Form\SpecificationForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class SpecificationController extends AbstractActionController
 implements ConfigAwareInterface
 {
 	use AdminTablesTrait;
 	private $config;
+
+	const ITEMPAGE = 1;
+	const PAGERANGE = 1;
 	
 	public function indexAction()
 	{
+        $page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$specifications = $this->getSpecificationTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($specifications));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage(self::ITEMPAGE)
+		->setPageRange(self::PAGERANGE);
+
+
 		return new ViewModel(array(
-			'specifications' => $this->getSpecificationTable()->fetchAll(),
+			'specifications' => $paginator,
 			'config' => $this->config
 			));
 	}

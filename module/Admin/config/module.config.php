@@ -106,10 +106,11 @@ return array(
 				'specification' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/specification[/:action][/:id]',
+						'route'    => '/specification[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
+							'page'     => '[0-9]+',
 							),
 						'defaults' => array(
 							'controller' => 'Admin\Controller\Specification',
@@ -271,9 +272,9 @@ return array(
 						),
 					),
 				),
-			),
-		),
-	),
+),
+),
+),
 
 'view_helpers' => array(
 	'factories' => array(
@@ -293,6 +294,9 @@ return array(
 'view_manager' => array(
 	'template_path_stack' => array(
 		'admin' => __DIR__ . '/../view',
+		),
+	'template_map' => array(
+		'specification-paginator' => __DIR__ . '/../view/admin/paginator/specification.phtml',
 		),
 	),
 );
