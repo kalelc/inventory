@@ -40,4 +40,4 @@ $this->headTitle($title);
 <tbody>
 </table>
 <?php echo $this->modalHelper()->image(); ?>
-<?php echo $this->paginationControl($specifications, 'Sliding', 'specification-pagination'); ?>
+<?php echo $this->paginationControl($specifications, 'Sliding', 'pagination',array("route" => "admin/specification")); ?>
