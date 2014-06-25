@@ -19,19 +19,16 @@ implements ConfigAwareInterface
 {
 	use AdminTablesTrait;
 	private $config;
-
-	const ITEMPAGE = 25;
-	const PAGERANGE = 10;
 	
 	public function indexAction()
 	{
-        $page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
 
 		$specifications = $this->getSpecificationTable()->fetchAll();
 		$paginator = new Paginator(new PaginatorIterator($specifications));
 		$paginator->setCurrentPageNumber($page)
-		->setItemCountPerPage(self::ITEMPAGE)
-		->setPageRange(self::PAGERANGE);
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
 
 
 		return new ViewModel(array(

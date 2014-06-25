@@ -29,5 +29,8 @@ return array(
 			'extension' => array('txt','pdf','xls'),
 			)
 		),
-	'pagination' => array(),
+	'pagination' => array(
+		'itempage' => 25,
+		'pagerange' => 10
+		),
 	);
