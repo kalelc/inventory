@@ -11,6 +11,9 @@ use Admin\Form\MeasureForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class MeasureController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -20,8 +23,16 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$measure = $this->getMeasureTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($measure));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'measures' => $this->getMeasureTable()->fetchAll(),
+			'measures' => $paginator,
 			'config' => $this->config
 			));
 	}

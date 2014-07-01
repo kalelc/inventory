@@ -8,6 +8,9 @@ use Admin\Form\UserTypeForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class UserTypeController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -16,8 +19,16 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$userType = $this->getUserTypeTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($userType));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'userTypes' => $this->getUserTypeTable()->fetchAll(),
+			'userTypes' => $paginator,
 			'config' => $this->config,
 			));
 	}

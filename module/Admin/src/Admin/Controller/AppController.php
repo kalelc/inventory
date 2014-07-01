@@ -11,6 +11,9 @@ use Admin\Form\AppForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class AppController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -19,8 +22,17 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$apps = $this->getAppTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($apps));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'apps' => $this->getAppTable()->fetchAll(),
+			'apps' => $paginator,
 			'config' => $this->config
 			));
 	}

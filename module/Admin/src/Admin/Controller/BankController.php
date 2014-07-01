@@ -8,6 +8,9 @@ use Admin\Form\BankForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class BankController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -16,9 +19,17 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-	error_log("carcol test");
+
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$banks = $this->getBankTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($banks));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+		
 		return new ViewModel(array(
-			'banks' => $this->getBankTable()->fetchAll(),
+			'banks' => $paginator,
 			'config' => $this->config,
 			));
 	}

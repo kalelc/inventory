@@ -16,6 +16,7 @@ class PaymentMethodTable
 	public function fetchAll()
 	{
 		$resultSet = $this->tableGateway->select();
+		$resultSet->buffer();
 		return $resultSet;
 
 	}

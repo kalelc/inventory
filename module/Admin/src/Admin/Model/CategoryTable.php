@@ -20,7 +20,7 @@ class CategoryTable
 		$select->from('categories');
 		$select->join('master_categories','master_categories.id = categories.master_category', array('master_category_name' => 'name'));
 		$resultSet = $this->tableGateway->selectWith($select);
-
+		$resultSet->buffer();
 		return $resultSet ? $resultSet : false ;
 
 	}

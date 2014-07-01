@@ -18,6 +18,7 @@ class CustomerTable
 		$select = new Select($this->tableGateway->getTable());
 		$select->join('cities', "cities.id = ".$this->tableGateway->getTable().".city", array('city_name' => 'name'), 'inner');
 		$resultSet = $this->tableGateway->select($select);
+		$resultSet->buffer();
 		return $resultSet;
 
 	}

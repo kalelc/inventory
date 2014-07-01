@@ -36,7 +36,7 @@ return array(
 				'payment_method' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/payment-method[/:action][/:id]',
+						'route'    => '/payment-method[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -50,7 +50,7 @@ return array(
 				'app' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/app[/:action][/:id]',
+						'route'    => '/app[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -64,7 +64,7 @@ return array(
 				'measure_type' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/measure-type[/:action][/:id]',
+						'route'    => '/measure-type[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -78,7 +78,7 @@ return array(
 				'measure' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/measure[/:action][/:id]',
+						'route'    => '/measure[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -92,7 +92,7 @@ return array(
 				'bank' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/bank[/:action][/:id]',
+						'route'    => '/bank[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -121,7 +121,7 @@ return array(
 				'specification_master' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/specification-master[/:action][/:id]',
+						'route'    => '/specification-master[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -135,7 +135,7 @@ return array(
 				'serial_name' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/serial-name[/:action][/:id]',
+						'route'    => '/serial-name[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -149,7 +149,7 @@ return array(
 				'category' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/category[/:action][/:id]',
+						'route'    => '/category[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -163,7 +163,7 @@ return array(
 				'master_category' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/master-category[/:action][/:id]',
+						'route'    => '/master-category[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -177,7 +177,7 @@ return array(
 				'list_price' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/list-price[/:action][/:id]',
+						'route'    => '/list-price[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -191,7 +191,7 @@ return array(
 				'brand' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/brand[/:action][/:id]',
+						'route'    => '/brand[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -205,7 +205,7 @@ return array(
 				'product' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/product[/:action][/:id]',
+						'route'    => '/product[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -219,7 +219,7 @@ return array(
 				'customer' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/customer[/:action][/:id]',
+						'route'    => '/customer[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -246,7 +246,7 @@ return array(
 				'user_type' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/user-type[/:action][/:id]',
+						'route'    => '/user-type[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',
@@ -260,7 +260,7 @@ return array(
 				'classification' => array(
 					'type'    => 'segment',
 					'options' => array(
-						'route'    => '/classification[/:action][/:id]',
+						'route'    => '/classification[/page/:page][/:action][/:id]',
 						'constraints' => array(
 							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 							'id'     => '[0-9]+',

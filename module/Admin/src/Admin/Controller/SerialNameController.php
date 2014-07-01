@@ -8,6 +8,9 @@ use Admin\Form\SerialNameForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class SerialNameController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -16,8 +19,16 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$serialName = $this->getSerialNameTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($serialName));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'serialsName' => $this->getSerialNameTable()->fetchAll(),
+			'serialsName' => $paginator,
 			'config' => $this->config,
 			));
 	}

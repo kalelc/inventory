@@ -12,6 +12,9 @@ use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 use Admin\Model\CategorySpecification;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class CategoryController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -20,8 +23,16 @@ implements ConfigAwareInterface
 	
 	public function indexAction()
 	{
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$category = $this->getCategoryTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($category));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'categories' => $this->getCategoryTable()->fetchAll(),
+			'categories' => $paginator,
 			'config' => $this->config
 			));
 	}

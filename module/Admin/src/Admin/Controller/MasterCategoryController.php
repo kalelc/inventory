@@ -11,6 +11,9 @@ use Admin\Form\MasterCategoryForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class MasterCategoryController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -19,8 +22,16 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$masterCategory = $this->getMasterCategoryTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($masterCategory));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'masterCategories' => $this->getMasterCategoryTable()->fetchAll(),
+			'masterCategories' => $paginator,
 			'config' => $this->config
 			));
 	}

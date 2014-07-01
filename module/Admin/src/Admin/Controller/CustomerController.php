@@ -9,6 +9,9 @@ use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Admin\Validator\DocumentCompositeKeyValidator;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class CustomerController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -17,8 +20,16 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$customer = $this->getCustomerTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($customer));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'customers' => $this->getCustomerTable()->fetchAll(),
+			'customers' => $paginator,
 			'config' => $this->config,
 			));
 	}

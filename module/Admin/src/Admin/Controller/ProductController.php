@@ -17,6 +17,9 @@ use Application\ConfigAwareInterface;
 
 use Zend\Http\Client as HttpClient;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class ProductController extends AbstractActionController 
 implements ConfigAwareInterface
 {
@@ -25,8 +28,16 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$product = $this->getProductTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($product));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'products' => $this->getProductTable()->fetchAll(),
+			'products' => $paginator,
 			'config' => $this->config,
 			));
 	}

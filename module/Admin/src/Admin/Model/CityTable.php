@@ -16,6 +16,7 @@ class CityTable
 	public function fetchAll()
 	{
 		$resultSet = $this->tableGateway->select();
+		$resultSet->buffer();
 		return $resultSet;
 	}
 

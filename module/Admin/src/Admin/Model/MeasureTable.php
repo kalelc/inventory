@@ -22,6 +22,7 @@ class MeasureTable
 		$select->join('specifications','specifications.id = measures.specification', array('s_name' => 'name'));
 		
 		$resultSet = $this->tableGateway->selectWith($select);
+		$resultSet->buffer();
 		return $resultSet ? $resultSet : false ;
 	}
 

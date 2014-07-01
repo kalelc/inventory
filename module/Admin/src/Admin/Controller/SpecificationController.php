@@ -30,7 +30,6 @@ implements ConfigAwareInterface
 		->setItemCountPerPage($this->config['pagination']['itempage'])
 		->setPageRange($this->config['pagination']['pagerange']);
 
-
 		return new ViewModel(array(
 			'specifications' => $paginator,
 			'config' => $this->config

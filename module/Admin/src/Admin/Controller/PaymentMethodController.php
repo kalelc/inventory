@@ -8,6 +8,9 @@ use Admin\Form\PaymentMethodForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+
 class PaymentMethodController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -16,8 +19,16 @@ implements ConfigAwareInterface
 	
 	public function indexAction()
 	{
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$paymentMethod = $this->getPaymentMethodTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($paymentMethod));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
 		return new ViewModel(array(
-			'paymentsMethods' => $this->getPaymentMethodTable()->fetchAll(),
+			'paymentsMethods' => $paginator,
 			'config' => $this->config
 			));
 	}

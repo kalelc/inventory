@@ -19,8 +19,8 @@ class ProductTable
 		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'), 'inner');
 		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'), 'inner');
 		$rows = $this->tableGateway->selectWith($select);
+		$rows->buffer();
 		return $rows;
-
 	}
 
 	public function get($id)
