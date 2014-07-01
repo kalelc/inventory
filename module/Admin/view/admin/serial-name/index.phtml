@@ -1,8 +1,8 @@
 <?php
-$title = $this->config['component']['specification'][0];
+$title = $this->config['component']['serial_name'][0];
 $action = $this->config['action']['new'];
 echo $this->layoutHelper()->header(array(
-    'module' => array('url' => $this->url('admin/specification'),'value' => $title),
+    'module' => array('url' => $this->url('admin/serial_name'),'value' => $title),
     ));
     ?>
 <p>
@@ -28,3 +28,4 @@ echo $this->layoutHelper()->header(array(
 </tr>
 <?php endforeach; ?>
 </table>
+<?php echo $this->paginationControl($serialsName, 'Sliding', 'pagination',array("route" => "admin/serial_name")); ?>

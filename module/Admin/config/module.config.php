@@ -296,7 +296,7 @@ return array(
 		'admin' => __DIR__ . '/../view',
 		),
 	'template_map' => array(
-		'pagination' => __DIR__ . '/../view/admin/pagination/specification.phtml',
+		'pagination' => __DIR__ . '/../view/admin/helper/pagination.phtml',
 		),
 	),
 );

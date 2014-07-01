@@ -16,6 +16,7 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+	error_log("carcol test");
 		return new ViewModel(array(
 			'banks' => $this->getBankTable()->fetchAll(),
 			'config' => $this->config,

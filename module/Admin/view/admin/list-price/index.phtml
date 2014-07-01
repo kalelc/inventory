@@ -31,3 +31,4 @@ echo $this->layoutHelper()->header(array(
 </tr>
 <?php endforeach; ?>
 </table>
+<?php echo $this->paginationControl($listPrices, 'Sliding', 'pagination',array("route" => "admin/list_price")); ?>

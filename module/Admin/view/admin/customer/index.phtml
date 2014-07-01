@@ -57,3 +57,4 @@ echo $this->layoutHelper()->header(array(
 <?php endforeach; ?>
 </table>
 <?php echo $this->modalHelper()->listContent(); ?>
+<?php echo $this->paginationControl($customers, 'Sliding', 'pagination',array("route" => "admin/customer")); ?>

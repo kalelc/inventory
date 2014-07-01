@@ -29,3 +29,4 @@ $this->headTitle($title);
 <?php endforeach; ?>
 </table>
 <?php echo $this->modalHelper()->image(); ?>
+<?php echo $this->paginationControl($classifications, 'Sliding', 'pagination',array("route" => "admin/classification")); ?>

@@ -41,3 +41,4 @@ echo $this->layoutHelper()->header(array(
 <?php endforeach; ?>
 </table>
 <?php echo $this->modalHelper()->image(); ?>
+<?php echo $this->paginationControl($categories, 'Sliding', 'pagination',array("route" => "admin/category")); ?>

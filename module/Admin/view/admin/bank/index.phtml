@@ -28,3 +28,4 @@ echo $this->layoutHelper()->header(array(
 </tr>
 <?php endforeach; ?>
 </table>
+<?php echo $this->paginationControl($banks, 'Sliding', 'pagination',array("route" => "admin/bank")); ?>

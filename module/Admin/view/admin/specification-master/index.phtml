@@ -36,3 +36,4 @@ echo $this->layoutHelper()->header(array(
 <?php endforeach; ?>
 </table>
 <?php echo $this->modalHelper()->image(); ?>
+<?php echo $this->paginationControl($specificationsMasters, 'Sliding', 'pagination',array("route" => "admin/specification_master")); ?>
