@@ -9,36 +9,40 @@ echo $this->layoutHelper()->header(array(
         <a href="<?php echo $this->url('admin/category', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
     </p>
 
-    <table class="table table-striped table-bordered">
-        <tr>
-            <th><?php echo $this->config['component']['master_category'][1] ;?></th>
-            <th><?php echo $this->config['component']['singular_name'][1] ;?></th>
-            <th><?php echo $this->config['component']['plural_name'][1] ;?></th>
-            <th><?php echo $this->config['component']['image'][1] ;?></th>	
-            <th><?php echo $this->config['component']['shipping_cost'][1] ;?></th>
-            <th><?php echo $this->config['component']['additional_shipping'][1] ;?></th>
-            <th>&nbsp;</th>
-        </tr>
-        <?php foreach ($categories as $category) : ?>
+    <table class="table table-striped table-bordered" id='dataTable'>
+        <thead>
             <tr>
-                <td><?php echo $this->escapeHtml($category->getMasterCategoryName());?></td>
-                <td><?php echo $this->escapeHtml($category->getSingularName());?></td>
-                <td><?php echo $this->escapeHtml($category->getPluralName());?></td>
-                <td>
-                    <?php if($category->getImage()): ?>
-                        <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/category/<?php echo $category->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
-                    <?php endif; ?>
-                </td>
-                <td><?php echo "$ ".number_format($category->getShippingCost());?></td>
-                <td><?php echo "$ ".number_format($category->getAdditionalShipping());?></td>
-                <td class='column-button'>
-                    <a href="<?php echo $this->url('admin/category',
-                        array('action'=>'edit', 'id' => $category->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+                <th><?php echo $this->config['component']['master_category'][1] ;?></th>
+                <th><?php echo $this->config['component']['singular_name'][1] ;?></th>
+                <th><?php echo $this->config['component']['plural_name'][1] ;?></th>
+                <th><?php echo $this->config['component']['image'][1] ;?></th>	
+                <th><?php echo $this->config['component']['shipping_cost'][1] ;?></th>
+                <th><?php echo $this->config['component']['additional_shipping'][1] ;?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($categories as $category) : ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($category->getMasterCategoryName());?></td>
+                    <td><?php echo $this->escapeHtml($category->getSingularName());?></td>
+                    <td><?php echo $this->escapeHtml($category->getPluralName());?></td>
+                    <td>
+                        <?php if($category->getImage()): ?>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/category/<?php echo $category->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+                        <?php endif; ?>
+                    </td>
+                    <td><?php echo "$ ".number_format($category->getShippingCost());?></td>
+                    <td><?php echo "$ ".number_format($category->getAdditionalShipping());?></td>
+                    <td class='column-button'>
+                        <a href="<?php echo $this->url('admin/category',
+                            array('action'=>'edit', 'id' => $category->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
 <a href="<?php echo $this->url('admin/category',
     array('action'=>'delete', 'id' => $category->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
 </td>
 </tr>
 <?php endforeach; ?>
+</tbody>
 </table>
 <?php echo $this->modalHelper()->image(); ?>
 <?php echo $this->paginationControl($categories, 'Sliding', 'pagination',array("route" => "admin/category")); ?>

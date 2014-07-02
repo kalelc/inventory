@@ -8,50 +8,54 @@ echo $this->layoutHelper()->header(array(
     <p>
         <a href="<?php echo $this->url('admin/product', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
     </p>
-    <table class="table table-striped table-bordered table-hover">
-        <tr>
-            <th><?php echo $this->config['component']['upc_bar_code'][1] ;?></th>
-            <th><?php echo $this->config['component']['model'][1] ;?></th>
-            <th><?php echo $this->config['component']['brand'][1] ;?></th>
-            <th><?php echo $this->config['component']['category'][1] ;?></th>
-            <th><?php echo $this->config['component']['price'][1] ;?></th>
-            <th><?php echo $this->config['component']['image'][1] ;?></th>
-            <th><?php echo $this->config['component']['specification_file'][1] ;?></th>
-            <th><?php echo $this->config['component']['manual_file'][1] ;?></th>
-            <th>&nbsp;</th>
-        </tr>
-        <?php foreach ($products as $product) : ?>
+    <table class="table table-striped table-bordered table-hover" id='dataTable'>
+        <thead>
             <tr>
-                <td><?php echo $this->escapeHtml($product->getUpcBarCode());?></td>
-                <td><?php echo $this->escapeHtml($product->getModel());?></td>
-                <td><?php echo $this->escapeHtml($product->getBrandName());?></td>
-                <td><?php echo $this->escapeHtml($product->getCategoryName());?></td>
-                <td>$ <?php echo number_format($this->escapeHtml($product->getPrice()));?></td>
-                <td>
-                    <?php if($product->getImage1()): ?>
-                        <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $product->getImage1() ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-                            <span class="glyphicon glyphicon-search"></span></a>
-                        <?php endif; ?>
-                    </td>
+                <th><?php echo $this->config['component']['upc_bar_code'][1] ;?></th>
+                <th><?php echo $this->config['component']['model'][1] ;?></th>
+                <th><?php echo $this->config['component']['brand'][1] ;?></th>
+                <th><?php echo $this->config['component']['category'][1] ;?></th>
+                <th><?php echo $this->config['component']['price'][1] ;?></th>
+                <th><?php echo $this->config['component']['image'][1] ;?></th>
+                <th><?php echo $this->config['component']['specification_file'][1] ;?></th>
+                <th><?php echo $this->config['component']['manual_file'][1] ;?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($products as $product) : ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($product->getUpcBarCode());?></td>
+                    <td><?php echo $this->escapeHtml($product->getModel());?></td>
+                    <td><?php echo $this->escapeHtml($product->getBrandName());?></td>
+                    <td><?php echo $this->escapeHtml($product->getCategoryName());?></td>
+                    <td>$ <?php echo number_format($this->escapeHtml($product->getPrice()));?></td>
                     <td>
-                        <?php if($product->getSpecificationFile()): ?>
-                            <a href="/files/product/<?php echo $product->getSpecificationFile() ?>" target='_blank' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span></a>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if($product->getManualFile()): ?>
-                            <a href="/files/product/<?php echo $product->getManualFile()?>" class="btn btn-primary btn-xs" target='_blank'>
-                                <span class="glyphicon glyphicon-floppy-disk"></span></a>
+                        <?php if($product->getImage1()): ?>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $product->getImage1() ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+                                <span class="glyphicon glyphicon-search"></span></a>
                             <?php endif; ?>
                         </td>
-                        <td class='column-button'>
-                            <a href="<?php echo $this->url('admin/product',
-                                array('action'=>'edit', 'id' => $product->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+                        <td>
+                            <?php if($product->getSpecificationFile()): ?>
+                                <a href="/files/product/<?php echo $product->getSpecificationFile() ?>" target='_blank' class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-floppy-disk"></span></a>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if($product->getManualFile()): ?>
+                                <a href="/files/product/<?php echo $product->getManualFile()?>" class="btn btn-primary btn-xs" target='_blank'>
+                                    <span class="glyphicon glyphicon-floppy-disk"></span></a>
+                                <?php endif; ?>
+                            </td>
+                            <td class='column-button'>
+                                <a href="<?php echo $this->url('admin/product',
+                                    array('action'=>'edit', 'id' => $product->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
 <a href="<?php echo $this->url('admin/product',
     array('action'=>'delete', 'id' => $product->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
 </td>
 </tr>
 <?php endforeach; ?>
+</tbody>
 </table>
 <?php echo $this->modalHelper()->image(); ?>
 <?php echo $this->paginationControl($products, 'Sliding', 'pagination',array("route" => "admin/product")); ?>
