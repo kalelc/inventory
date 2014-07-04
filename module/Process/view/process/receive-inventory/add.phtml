@@ -1,0 +1,76 @@
+<?php
+$title = $this->config['component']['receive_inventory'][0];
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('process/receive_inventory'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));
+	?>
+	<?php $form = $this->form; ?>
+	<?php $form->setAttribute('action', $this->url('process/receive_inventory', array('action' => 'add'))); ?>
+	<?php $form->prepare(); ?>
+	<?php echo $this->form()->openTag($form); ?>
+	<?php echo $this->formHidden($form->get('id')); ?>
+	<?php echo $this->formHidden($form->get('csrf')); ?>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('register_date')->setLabel($this->config['component']['register_date'][1])); ?>
+		<div class="col-sm-2">
+			<?php echo $this->formInput($form->get('register_date')); ?>
+			<?php echo $this->formElementErrors($form->get('register_date'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('customer')->setLabel($this->config['component']['customer'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formSelect($form->get('customer')); ?>
+			<?php echo $this->formElementErrors($form->get('customer'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('payment_method')->setLabel($this->config['component']['payment_method'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formSelect($form->get('payment_method')); ?>
+			<?php echo $this->formElementErrors($form->get('payment_method'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('shipment')->setLabel($this->config['component']['shipment'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formSelect($form->get('shipment')); ?>
+			<?php echo $this->formElementErrors($form->get('shipment'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('guide_number')->setLabel($this->config['component']['guide_number'][1])); ?>
+		<div class="col-sm-2">
+			<?php echo $this->formInput($form->get('guide_number')); ?>
+			<?php echo $this->formElementErrors($form->get('guide_number'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('invoice')->setLabel($this->config['component']['invoice'][1])); ?>
+		<div class="col-sm-2">
+			<?php echo $this->formInput($form->get('invoice')); ?>
+			<?php echo $this->formElementErrors($form->get('invoice'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('invoice_file')->setLabel($this->config['component']['invoice_file'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formInput($form->get('invoice_file')); ?>
+			<?php echo $this->formElementErrors($form->get('invoice_file'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('observation')->setLabel($this->config['component']['observation'][1])); ?>
+		<div class="col-sm-6">
+			<?php echo $this->formTextarea($form->get('observation')); ?>
+			<?php echo $this->formElementErrors($form->get('observation'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="well well-sm">
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+		&nbsp;
+		<a href="<?php echo $this->url('process/receive_inventory'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
+	</div>
+	<?php echo $this->form()->closeTag(); ?>

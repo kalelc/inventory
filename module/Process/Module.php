@@ -8,7 +8,7 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\EventManager\EventInterface;
 
-//use Admin\Model\PaymentMethod;
+use Process\Form\ReceiveInventoryForm;
 
 use Zend\ModuleManager\ModuleManager;
 
@@ -59,20 +59,35 @@ class Module
 	{
 		return array(
 			'factories' => array(
-				/*
-				'Admin\Model\CustomerClassificationTable' =>  function($sm) {
-					$tableGateway = $sm->get('CustomerClassificationTableGateway');
-					$table = new CustomerClassificationTable($tableGateway);
-					return $table;
+				'Admin\Form\ReceiveInventoryForm' =>  function($sm) {
+					$customerTable = $sm->get("Admin/Model/CustomerTable");
+					$customers = $customerTable->fetchAll();
+					$customersList = array();
+
+					foreach($customers as $customer){
+						$customersList[$customer->getId()] = $customer->getLastName()." ".$customer->getLastName();
+					}
+
+					$paymentMethodTable = $sm->get("Admin/Model/PaymentMethodTable");
+					$paymentMethods= $paymentMethodTable->fetchAll();
+					$paymentMethodList = array();
+
+					foreach($paymentMethods as $paymentMethod){
+						$paymentMethodList[$paymentMethod->getId()] = $paymentMethod->getName();
+					}
+
+					$customerTable = $sm->get("Admin/Model/CustomerTable");
+					$shipments= $customerTable->fetchAll();
+					$shipmentList = array();
+
+					foreach($shipments as $shipment){
+						$shipmentList[$shipment->getId()] = !empty($shipment->getCompany()) ? $shipment->getCompany() : $shipment->getLastName()." ".$shipment->getLastName();
+					}
+
+					$form = new ReceiveInventoryForm($customersList,$paymentMethodList,$shipmentList);
+					return $form;
 				},
-				'CustomerClassificationTableGateway' => function ($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new CustomerClassification());
-					return new TableGateway('customers_classifications', $dbAdapter, null, $resultSetPrototype);
-				},
-				*/
-				),
-			);
+			),
+		);
 	}
 }

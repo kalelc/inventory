@@ -6,10 +6,18 @@ use Zend\Form\Element;
 
 class ReceiveInventoryForm extends Form
 {
-	public function __construct()
+	private $customers;
+	private $paymentMethods;
+	private $shipments;
+
+	public function __construct($customers,$paymentMethods,$shipments)
 	{
-		parent::__construct('app');
-		
+		parent::__construct('receive_inventory');
+
+		$this->customers = $customers;
+		$this->paymentMethods = $paymentMethods;
+		$this->shipments = $shipments;
+
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('class', 'form-horizontal');
 		$this->setAttribute('enctype','multipart/form-data');
@@ -22,7 +30,7 @@ class ReceiveInventoryForm extends Form
 			));
 
 		$this->add(array(
-			'name' => 'name',
+			'name' => 'register_date',
 			'attributes' => array(
 				'type'  => 'text',
 				'class' => 'form-control',
@@ -37,27 +45,110 @@ class ReceiveInventoryForm extends Form
 			));
 
 		$this->add(array(
-			'name' => 'image',
+			'type' => 'select',
+			'name' => 'customer',
+			'options' => array(
+				'label' => 'customer',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' => $this->customers,
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
+				),
+			'attributes' => array(
+				'class' => 'form-control',
+				'data-live-search' => 'true'
+				)
+			));
+
+
+		$this->add(array(
+			'type' => 'select',
+			'name' => 'payment_method',
+			'options' => array(
+				'label' => 'payment_method',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' => $this->paymentMethods,
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
+				),
+			'attributes' => array(
+				'class' => 'form-control',
+				)
+			));
+
+		$this->add(array(
+			'type' => 'select',
+			'name' => 'shipment',
+			'options' => array(
+				'label' => 'shipment',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' => $this->shipments,
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
+				),
+			'attributes' => array(
+				'class' => 'form-control',
+				)
+			));
+
+		$this->add(array(
+			'name' => 'guide_number',
+			'attributes' => array(
+				'type'  => 'text',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+
+				),
+			));
+
+		$this->add(array(
+			'name' => 'invoice',
+			'attributes' => array(
+				'type'  => 'text',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+
+				),
+			));
+
+
+		$this->add(array(
+			'name' => 'invoice_file',
 			'attributes' => array(
 				'type'  => 'file',
 				),
 			'options' => array(
-				'label' => 'Imagen',
+				'label' => 'invoice_file',
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),
 				),
 			)); 
 
-
 		$this->add(array(
-			'name' => 'description',
+			'name' => 'observation',
 			'attributes' => array(
 				'type'  => 'textarea',
 				'class' => 'form-control',
 				),
 			'options' => array(
-				'label' => 'descripción',
+				'label' => 'observation',
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),

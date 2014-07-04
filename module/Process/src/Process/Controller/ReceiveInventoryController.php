@@ -27,8 +27,7 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		dumpx("add");
-		$form = $this->getServiceLocator()->get("Admin\Form\MeasureForm");
+		$form = $this->getServiceLocator()->get("Admin\Form\ReceiveInventoryForm");
 		$request = $this->getRequest();
 
 		if ($request->isPost()) {

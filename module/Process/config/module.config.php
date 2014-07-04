@@ -7,7 +7,7 @@ return array(
 		),
 	'router' => array(
 		'routes' => array(
-			'admin' => array(
+			'process' => array(
 				'type' => 'literal',
 				'options' => array(
 					'route' => '/process',
