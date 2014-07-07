@@ -100,6 +100,18 @@ class Module
 			);
 	}
 
+	public function getViewHelperConfig()
+	{
+		return array(
+			'factories' => array(
+				'modalHelper' => function ($serviceManager) {
+					$serviceLocator = $serviceManager->getServiceLocator();
+					return new \Admin\View\Helper\ModalHelper($serviceLocator);
+				}
+				)
+			);
+	}
+
 	public function init(ModuleManager $moduleManager)
 	{
 		/*$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
@@ -494,8 +506,8 @@ public function getServiceConfig()
 
 				$form = new CustomerForm($citiesList,$classificationList);
 				return $form;
-				},
+			},
 			),
-		);
-	}
+);
+}
 }

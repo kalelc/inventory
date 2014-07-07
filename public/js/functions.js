@@ -10,6 +10,10 @@ $(document).ready(function() {
 	});
 });
 
+function showModal(){
+	$('#modal').modal('show');
+}
+
 function showModalImage(image,title){
 	$("#modalBody img").attr('src', image);
 	$("#modalImageLabel").html(title);
@@ -25,3 +29,4 @@ function showModalList(content,title){
 	$("#modalImageLabel").html(title);
 	$("#modalList").modal('show');
 }
+

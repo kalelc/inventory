@@ -230,6 +230,16 @@ return array(
 							),
 						),
 					),
+				'customer_modal_add' => array(
+					'type'    => 'literal',
+					'options' => array(
+						'route'    => '/customer/modal/add',
+						'defaults' => array(
+							'controller' => 'Admin\Controller\Customer',
+							'action'     => 'addModal',
+							),
+						),
+					),
 				'productSearchSpecifications' => array(
 					'type'    => 'segment',
 					'options' => array(
@@ -286,7 +296,7 @@ return array(
 		}
 		),
 	'invokables' => array(
-		'modalHelper' => 'Admin\View\Helper\ModalHelper',
+		//'modalHelper' => 'Admin\View\Helper\ModalHelper',
 		'barCodeHelper' => 'Admin\View\Helper\BarCodeHelper',
 		'layoutHelper' => 'Admin\View\Helper\LayoutHelper',
 		),
