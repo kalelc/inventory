@@ -55,7 +55,7 @@ return array(
 		'product' 				=> array('productos','producto','image_path'=> 'public/images/product','file_path'=> 'public/files/product'),
 		'qty_buy' 				=> array('cantidades comprar','cantidad comprar'),
 		'qty_low' 				=> array('cantidades minimas','cantidad minima'),
-		'receive_inventory'		=> array('entradas','entradas'),
+		'receive_inventory'		=> array('entradas','entradas','file_path'=> 'public/files/receive_inventory'),
 		'register_date'			=> array('fechas registro','fecha registro'),
 		'rol' 					=> array('roles','rol'),
 		'serial_name' 			=> array('seriales','serial'),

@@ -43,18 +43,19 @@ implements ConfigAwareInterface
 
 			if ($form->isValid()) {
 
-				dumpx($form->getData());
-
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 
-				$fileService->setDestination($this->config['component']['measure']['image_path']);
+				$fileService->setDestination($this->config['component']['receive_inventory']['image_path']);
 				$fileService->setSize($this->config['file_characteristics']['image']['size']);
 				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
 
-				$image = $fileService->copy($this->params()->fromFiles('receive_file'));
-				$data['image'] = $image ? $image : "" ;
+				$invoiceFile = $fileService->copy($this->params()->fromFiles('invoice_file'));
 
-				$measure->exchangeArray($data);
+				$data['invoice_file'] = $invoiceFile ? $invoiceFile : "" ;
+
+				$receiveInventory->exchangeArray($data);
+
+				dumpx($data);
 				$this->getMeasureTable()->save($measure);
 
 				return $this->redirect()->toRoute('admin/measure');
