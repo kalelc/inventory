@@ -23,14 +23,14 @@ class ReceiveInventory implements InputFilterAwareInterface
 	public function exchangeArray($data)
 	{
         if (array_key_exists('id', $data)) $this->setId($data['id']);
-        if (array_key_exists('register_date', $data)) $this->setId($data['register_date']);
-        if (array_key_exists('customer', $data)) $this->setId($data['customer']);
-        if (array_key_exists('payment_method', $data)) $this->setId($data['payment_method']);
-        if (array_key_exists('shipment', $data)) $this->setId($data['shipment']);
-        if (array_key_exists('guide_number', $data)) $this->setId($data['guide_number']);
-        if (array_key_exists('invoice', $data)) $this->setId($data['invoice']);
-        if (array_key_exists('invoice_file', $data)) $this->setId($data['invoice_file']);
-        if (array_key_exists('observation', $data)) $this->setId($data['observation']);
+        if (array_key_exists('register_date', $data)) $this->setRegisterDate($data['register_date']);
+        if (array_key_exists('customer', $data)) $this->setCustomer($data['customer']);
+        if (array_key_exists('payment_method', $data)) $this->setPaymentMethod($data['payment_method']);
+        if (array_key_exists('shipment', $data)) $this->setShipment($data['shipment']);
+        if (array_key_exists('guide_number', $data)) $this->setGuideNumber($data['guide_number']);
+        if (array_key_exists('invoice', $data)) $this->setInvoice($data['invoice']);
+        if (array_key_exists('invoice_file', $data)) $this->setInvoiceFile($data['invoice_file']);
+        if (array_key_exists('observation', $data)) $this->setObservation($data['observation']);
 	}
 
 	public function getArrayCopy()
