@@ -2,3 +2,5 @@ composer.phar
 config/autoload/local.php
 public/resource/images/*
 public/images/*.*
+public/files/*.*
+public/videos/*.*
