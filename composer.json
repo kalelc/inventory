@@ -6,14 +6,9 @@
         "framework",
         "zf2"
     ],
-   "autoload": {
-    "psr-0": { "Admin": "module/Admin/src/" }
-    },
-
-
     "homepage": "http://framework.zend.com/",
     "require": {
-        "php": ">=5.4.9",
-        "zendframework/zendframework": ">2.2.0rc1"
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.3.*"
     }
 }

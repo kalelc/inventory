@@ -23,7 +23,7 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-		dump(getenv('SYS_ENV'));
+		dump(getenv('APPLICATION_ENV'));
 		exit();
 	}
 
@@ -45,11 +45,12 @@ implements ConfigAwareInterface
 
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 
-				$fileService->setDestination($this->config['component']['receive_inventory']['image_path']);
-				$fileService->setSize($this->config['file_characteristics']['image']['size']);
-				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
+				$fileService->setDestination($this->config['component']['receive_inventory']['file_path']);
+				$fileService->setSize($this->config['file_characteristics']['file']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['file']['extension']);
 
 				$invoiceFile = $fileService->copy($this->params()->fromFiles('invoice_file'));
+
 
 				$data['invoice_file'] = $invoiceFile ? $invoiceFile : "" ;
 
