@@ -13,14 +13,14 @@ class ReceiveInventoryForm extends Form
 	public function __construct($customers,$paymentMethods,$shipments)
 	{
 		parent::__construct('receive_inventory');
+		$this->setAttribute('method', 'post');
+		$this->setAttribute('class', 'form-horizontal');
+		$this->setAttribute('enctype','multipart/form-data');
 
 		$this->customers = $customers;
 		$this->paymentMethods = $paymentMethods;
 		$this->shipments = $shipments;
 
-		$this->setAttribute('method', 'post');
-		$this->setAttribute('class', 'form-horizontal');
-		$this->setAttribute('enctype','multipart/form-data');
 
 		$this->add(array(
 			'name' => 'id',
@@ -34,6 +34,8 @@ class ReceiveInventoryForm extends Form
 			'attributes' => array(
 				'type'  => 'text',
 				'class' => 'form-control',
+				'readonly' => 'readonly',
+				'value' => date('d-m-Y')
 				),
 			'options' => array(
 				'label' => 'name',

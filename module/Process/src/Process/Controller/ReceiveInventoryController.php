@@ -4,6 +4,7 @@ namespace Process\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Process\Model\ReceiveInventory;
+use Process\Model\ReceiveInventoryTable;
 use Zend\File\Transfer\Adapter\Http  as HttpTransfer;
 use Zend\Validator\File\Size;
 use Zend\Validator\File\Extension;
@@ -22,7 +23,8 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-		dumpx("index");
+		dump(getenv('SYS_ENV'));
+		exit();
 	}
 
 	public function addAction()
@@ -32,8 +34,8 @@ implements ConfigAwareInterface
 
 		if ($request->isPost()) {
 
-			$measure = new Measure();
-			$form->setInputFilter($measure->getInputFilter());
+			$receiveInventory = new ReceiveInventory();
+			$form->setInputFilter($receiveInventory->getInputFilter());
 
 			$data = $request->getPost()->toArray();
 
@@ -41,13 +43,15 @@ implements ConfigAwareInterface
 
 			if ($form->isValid()) {
 
+				dumpx($form->getData());
+
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 
 				$fileService->setDestination($this->config['component']['measure']['image_path']);
 				$fileService->setSize($this->config['file_characteristics']['image']['size']);
 				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
 
-				$image = $fileService->copy($this->params()->fromFiles('image'));
+				$image = $fileService->copy($this->params()->fromFiles('receive_file'));
 				$data['image'] = $image ? $image : "" ;
 
 				$measure->exchangeArray($data);
@@ -62,8 +66,6 @@ implements ConfigAwareInterface
 			);
 
 	}
-
-
 
 	public function setConfig($config){
 		$this->config = $config;

@@ -25,7 +25,7 @@ class ConfigController extends AbstractActionController implements ConfigAwareIn
                 if(isset($component['image_path']) && !empty($component['image_path'])) {
                     if(!file_exists($component['image_path'])) {
                         $oldmask = umask(0);
-                        @mkdir($component['image_path'], 0777);
+                        mkdir($component['image_path'], 0777);
                         umask($oldmask);
                         $jsonModel->setVariable($component['image_path'],$component['image_path']);
                     }
@@ -33,7 +33,7 @@ class ConfigController extends AbstractActionController implements ConfigAwareIn
                 if(isset($component['video_path']) && !empty($component['video_path'])) {
                     if(!file_exists($component['video_path'])) {
                         $oldmask = umask(0);
-                        @mkdir($component['video_path'], 0777);
+                        mkdir($component['video_path'], 0777);
                         umask($oldmask);
                         $jsonModel->setVariable($component['video_path'],$component['video_path']);
                     }
@@ -49,9 +49,9 @@ class ConfigController extends AbstractActionController implements ConfigAwareIn
             }
         }
 
-    $response = $this->getResponse();
-    $response->setContent(json_encode($jsonModel->getVariables()));
-    return $response;
+        $response = $this->getResponse();
+        $response->setContent(json_encode($jsonModel->getVariables()));
+        return $response;
     }
 }
 ?>

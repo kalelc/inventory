@@ -154,8 +154,8 @@ implements ConfigAwareInterface
 
 				$brandTable = $this->getBrandTable()->get($id);
 
-				unlink($this->config['component']['brand']['image_path']."/".$brandTable->getImage());
-				unlink($this->config['component']['brand']['image_path']."/".$brandTable->getBackgroundImage());
+				@unlink($this->config['component']['brand']['image_path']."/".$brandTable->getImage());
+				@unlink($this->config['component']['brand']['image_path']."/".$brandTable->getBackgroundImage());
 
 				$result = $this->getBrandTable()->delete($id);
 
@@ -174,6 +174,8 @@ implements ConfigAwareInterface
 			'config' => $this->config,
 			'brand' => $this->getBrandTable()->get($id)
 			));
+
+		return $viewModel;
 	}
 
 	public function setConfig($config){

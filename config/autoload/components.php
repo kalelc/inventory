@@ -56,7 +56,7 @@ return array(
 		'qty_buy' 				=> array('cantidades comprar','cantidad comprar'),
 		'qty_low' 				=> array('cantidades minimas','cantidad minima'),
 		'receive_inventory'		=> array('entradas','entradas'),
-		'register_date'			=> array('fechas de registro','fecha de registro'),
+		'register_date'			=> array('fechas registro','fecha registro'),
 		'rol' 					=> array('roles','rol'),
 		'serial_name' 			=> array('seriales','serial'),
 		'shipment' 				=> array('trasportadoras','transportador'),

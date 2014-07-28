@@ -81,7 +81,7 @@ class Module
 					$shipmentList = array();
 
 					foreach($shipments as $shipment){
-						$shipmentList[$shipment->getId()] = !empty($shipment->getCompany()) ? $shipment->getCompany() : $shipment->getLastName()." ".$shipment->getLastName();
+						$shipmentList[$shipment->getId()] = !empty($shipment->getCompany()) ? $shipment->getCompany() : $shipment->getFirstName()." ".$shipment->getLastName();
 					}
 
 					$form = new ReceiveInventoryForm($customersList,$paymentMethodList,$shipmentList);

@@ -34,10 +34,10 @@ return array(
         // Whether or not to enable a configuration cache.
         // If enabled, the merged configuration will be cached and used in
         // subsequent requests.
-        //'config_cache_enabled' => $booleanValue,
+        //'config_cache_enabled' => true,
 
         // The key used to create the configuration cache file name.
-        //'config_cache_key' => $stringKey,
+        //'config_cache_key' => 'kao',
 
         // Whether or not to enable a module class map cache.
         // If enabled, creates a module class map cache which will be used
