@@ -35,20 +35,22 @@ class ReceiveInventoryTable
 	public function save(ReceiveInventory $receiveInventory)
 	{
 		$data = array(
-			'name' => $receiveInventory->getName(),
-			'image' => $receiveInventory->getImage(),
-			'description' => $receiveInventory->getDescription(),
+			'register_date' => date("Y-m-d H:i:s", time()),
+			'customer' => $receiveInventory->getCustomer(),
+			'payment_method' => $receiveInventory->getPaymentMethod(),
+			'shipment' => $receiveInventory->getShipment(),
+			'guide' => $receiveInventory->getGuideNumber(),
+			'invoice' => $receiveInventory->getInvoice(),
+			'invoice_file' => $receiveInventory->getInvoiceFile(),
+			'observations' => $receiveInventory->getObservation(),
 			);
 
 		$id = (int)$receiveInventory->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
+			return $this->tableGateway->getLastInsertValue();
 		} else {
-			if ($this->get($id)) {
-				$this->tableGateway->update($data, array('id' => $id));
-			} else {
-				throw new \Exception('Form id does not exist');
-			}
+				return false;
 		}
 	}
 

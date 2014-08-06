@@ -11,6 +11,7 @@ use Zend\Validator\File\Extension;
 use Process\Form\ReceiveInventoryForm;
 use Process\Traits\ModuleTablesTrait as ProcessTablesTrait;
 use Application\ConfigAwareInterface;
+use Zend\Session\Container;
 
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
@@ -18,7 +19,7 @@ use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
 class ReceiveInventoryController extends AbstractActionController
 implements ConfigAwareInterface
 {
-	//use ProcessTablesTrait;
+	use ProcessTablesTrait;
 	private $config;
 
 	public function indexAction()
@@ -51,15 +52,20 @@ implements ConfigAwareInterface
 
 				$invoiceFile = $fileService->copy($this->params()->fromFiles('invoice_file'));
 
-
 				$data['invoice_file'] = $invoiceFile ? $invoiceFile : "" ;
 
 				$receiveInventory->exchangeArray($data);
 
-				dumpx($data);
-				$this->getMeasureTable()->save($measure);
 
-				return $this->redirect()->toRoute('admin/measure');
+				$receiveInventoryId = $this->getReceiveInventoryTable()->save($receiveInventory);
+
+				$container = new Container('receive_inventory');
+                $container->receiveInventoryId = $receiveInventoryId;
+
+                dump($container);
+                dumpx($container->receiveInventoryId);
+				
+				return $this->redirect()->toRoute('process/receive_inventory');
 			}
 		}
 		return array(

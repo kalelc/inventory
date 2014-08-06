@@ -10,6 +10,9 @@ use Zend\EventManager\EventInterface;
 
 use Process\Form\ReceiveInventoryForm;
 
+use Process\Model\ReceiveInventory;
+use Process\Model\ReceiveInventoryTable;
+
 use Zend\ModuleManager\ModuleManager;
 
 use Application\ConfigAwareInterface;
@@ -89,6 +92,19 @@ class Module
 					$form = new ReceiveInventoryForm($customersList,$paymentMethodList,$shipmentList);
 					return $form;
 				},
+				'Process\Model\ReceiveInventoryTable' => function ($sm)
+                {
+                    $tableGateway = $sm->get('ReceiveInventoryTableGateway');
+                    $table = new ReceiveInventoryTable($tableGateway);
+                    return $table;
+                },
+                'ReceiveInventoryTableGateway' => function ($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new ReceiveInventory());
+                    return new TableGateway('receive_inventory', $dbAdapter, null, $resultSetPrototype, null);
+                },
 			),
 		);
 	}
