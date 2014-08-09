@@ -25,17 +25,13 @@ class CategorySpecificationTable
 	{
 
 		$select = new Select($this->tableGateway->getTable());
-		$select->columns(array('specification'));
+		$select->columns(array('specification','name'));
 		$select->order($this->tableGateway->getTable().'.order');
 		$select->join('specifications', "specifications.id = ".$this->tableGateway->getTable().".specification", array('specification_name' => 'name', 'specification_image' => 'image'), 'inner');
 		$select->where(array($this->tableGateway->getTable().'.category' => $category));
 
 		$resulset = $this->tableGateway->selectWith($select);
 		return $resulset;
-
-		//echo $select->getSqlString()."<br>";
-		//echo str_replace('"', '', $select->getSqlString());
-		//exit();
 	}
 
 	public function getCategorySpecificationUncheckValue()
@@ -59,6 +55,7 @@ class CategorySpecificationTable
 		$category  = (int) $category;
 		$select = new Select($this->tableGateway->getTable());
 		$select->where(array('category' => $category));
+		$select->join('specifications', "specifications.id = ".$this->tableGateway->getTable().".specification", array('specification' => 'id','specification_name' => 'name'), 'right');
 		$select->order('order');
 
 
@@ -72,12 +69,15 @@ class CategorySpecificationTable
 		return $rows ? $rows : false ;
 	}
 
-	public function save($category,$specifications)
+	public function save($category,$specifications,$names)
 	{
 		$i = 1 ;
+
 		$this->delete($category);
-		foreach($specifications as $specification){
-			$this->tableGateway->insert(array('category'=>$category,'specification' =>$specification, 'order' => $i));
+		foreach($specifications as $key => $specification){
+
+			$name = array_search($specification,$names)!==false ? 1 : 0 ;
+			$this->tableGateway->insert(array('category'=>$category,'specification' =>$specification, 'name' => $name, 'order' => $i));
 			$i++;
 		}
 

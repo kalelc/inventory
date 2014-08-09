@@ -8,7 +8,18 @@ $(document).ready(function() {
 			$("#password").prop('type', 'password');
 		}
 	});
+
+	$( "#sortable" ).sortable({	stop: function( event, ui ) {} });
+	$( "#sortable" ).disableSelection();
+
+	$(".number_format").blur(function() {
+		var value = $(this).val();
+		NumberFormat.setValue(value);
+		NumberFormat.numericFormat();
+		$(this).val(NumberFormat.getValue());
+	});
 });
+
 
 function showModal(){
 	$('#modal').modal('show');

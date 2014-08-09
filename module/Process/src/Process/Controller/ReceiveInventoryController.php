@@ -10,6 +10,7 @@ use Zend\Validator\File\Size;
 use Zend\Validator\File\Extension;
 use Process\Form\ReceiveInventoryForm;
 use Process\Traits\ModuleTablesTrait as ProcessTablesTrait;
+use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
 use Zend\Session\Container;
 
@@ -19,17 +20,20 @@ use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
 class ReceiveInventoryController extends AbstractActionController
 implements ConfigAwareInterface
 {
-	use ProcessTablesTrait;
+	use ProcessTablesTrait, AdminTablesTrait;
 	private $config;
 
 	public function indexAction()
 	{
+		dumpx($this->getProductTable()->getAll());
 		dump(getenv('APPLICATION_ENV'));
 		exit();
 	}
 
 	public function addAction()
 	{
+		$viewModel = new ViewModel();
+
 		$form = $this->getServiceLocator()->get("Admin\Form\ReceiveInventoryForm");
 		$request = $this->getRequest();
 
@@ -62,17 +66,17 @@ implements ConfigAwareInterface
 				$container = new Container('receive_inventory');
                 $container->receiveInventoryId = $receiveInventoryId;
 
-                dump($container);
-                dumpx($container->receiveInventoryId);
+                //dump($container);
+                //dumpx($container->receiveInventoryId);
 				
-				return $this->redirect()->toRoute('process/receive_inventory');
+				$viewModel->setTemplate("process/receive-inventory/details");
+				//return $this->redirect()->toRoute('process/receive_inventory');
 			}
 		}
-		return array(
-			'form' => $form,
-			'config' => $this->config
-			);
+		$viewModel->setVariable('form', $form);
+		$viewModel->setVariable('config', $this->config);
 
+		return $viewModel;
 	}
 
 	public function setConfig($config){

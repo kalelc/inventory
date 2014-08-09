@@ -54,6 +54,7 @@ implements ConfigAwareInterface
 
 			$data 		= $request->getPost()->toArray();
 
+
 			$form->setData($data);
 
 			if ($form->isValid()) {

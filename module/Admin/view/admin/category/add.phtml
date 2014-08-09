@@ -1,4 +1,5 @@
 <?php
+$this->headScript()->prependFile('/js/category.js', 'text/javascript');
 $title = $this->config['component']['category'][0];
 $action = $this->config['action']['new'];
 echo $this->layoutHelper()->header(array(
@@ -6,7 +7,6 @@ echo $this->layoutHelper()->header(array(
 	'action' => array('url' => '','value' => $action)
 	));
 	?>
-	<?php echo $this->formElementErrors($form->get('specification'), array("class" => "error")); ?>
 	<?php $form = $this->form; ?>
 	<?php $form->setAttribute('action', $this->url('admin/category', array('action' => 'add'))); ?>
 	<?php $form->prepare(); ?>
@@ -84,14 +84,19 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formElementErrors($form->get('serial_name'), array("class" => "error")); ?>
 		</div>
 	</div>
-	<h4 class="page-header"><?php echo $this->config['component']['specification'][0]; ?></h4>
-	<div class="list-group">
+	<div class="form-group">
+		<h4 class="page-header"><?php echo $this->config['component']['specification'][0]; ?></h4>
+		<?php $specification = $form->get('specification')->getOptions(); ?>
 		<ul id="sortable">
-			<?php $formMultiCheckbox = $this->formMultiCheckbox(); ?>
-			<?php $formMultiCheckbox->setSeparator('</li><li class="list-group-item">'.$this->config['action']['icons']['move'].'&nbsp;'); ?>
-			<li class="list-group-item"><?php echo $this->config['action']['icons']['move'] ; ?>&nbsp;<?php echo $formMultiCheckbox->render($form->get('specification')); ?></li>
+			<?php foreach($specification['value_options'] as $key => $specificationValue): ?>
+				<li class="list-group-item"><?php echo $this->config['action']['icons']['move'] ; ?>&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $key; ?>' id='specification<?php echo $key; ?>'>&nbsp;<?php echo $specificationValue; ?><div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $key; ?>' class='specifications_name'></div></li>
+			<?php endforeach; ?>
 		</ul>
+		<div class="center-block">
+			<?php echo $this->formElementErrors($form->get('specification'), array("class" => "error")); ?>
+		</div>
 	</div>
+	
 	<div class="well well-sm">
 		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 		&nbsp;

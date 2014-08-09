@@ -93,7 +93,7 @@ class CategoryForm extends Form
 			'name' => 'shipping_cost',
 			'attributes' => array(
 				'type'  => 'text',
-				'class' => 'form-control number-format',
+				'class' => 'form-control number_format',
 				),
 			'options' => array(
 				'label' => 'plural_name',
@@ -108,7 +108,7 @@ class CategoryForm extends Form
 			'name' => 'additional_shipping',
 			'attributes' => array(
 				'type'  => 'text',
-				'class' => 'form-control number-format',
+				'class' => 'form-control number_format',
 				),
 			'options' => array(
 				'label' => 'plural_name',

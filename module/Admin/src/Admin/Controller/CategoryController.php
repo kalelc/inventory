@@ -41,7 +41,6 @@ implements ConfigAwareInterface
 	{
 		$form = $this->getServiceLocator()->get("Admin\Form\CategoryForm");
 
-		
 		if(count($form->getMasterCategoryList())==0)
 			return $this->redirect()->toRoute('admin/master_category');
 		if(count($form->getSerialNameList())==0)
@@ -57,6 +56,10 @@ implements ConfigAwareInterface
 
 			$form->setInputFilter($category->getInputFilter());
 			$data = $request->getPost()->toArray();
+			
+			$data['shipping_cost'] = str_replace('.','',$data['shipping_cost']);
+			$data['additional_shipping'] = str_replace('.','',$data['additional_shipping']);
+
 			$form->setData($data);
 
 			if ($form->isValid()) {
@@ -76,9 +79,10 @@ implements ConfigAwareInterface
 
 				$serialName = $data['serial_name'];
 				$specification = $data['specification'];
+				$name = $data['name'];
 
 				$this->getCategorySerialNameTable()->save($categoryId,$serialName);
-				$this->getCategorySpecificationTable()->save($categoryId,$specification);
+				$this->getCategorySpecificationTable()->save($categoryId,$specification,$name);
 
 				return $this->redirect()->toRoute('admin/category');
 			}
@@ -101,16 +105,20 @@ implements ConfigAwareInterface
 		$specificationsCheck = $this->getCategorySpecificationTable()->getCategorySpecificationCheckValue($id);
 		$specificationsUncheck = $this->getCategorySpecificationTable()->getCategorySpecificationUncheckValue();
 
-		$specificationValueOptions = array();
+		$specificationChecked = array();
+		$specificationNameCheck = array();
+		$specificationUnchecked = array();
 		
+	
 		foreach($specificationsCheck as $specificationCheck) {
-			$specificationValueOptions[$specificationCheck->getSpecification()] = $specificationCheck->getSpecificationName();
+			$specificationNameCheck[$specificationCheck->getSpecification()] = $specificationCheck->getName();
+			$specificationChecked[$specificationCheck->getSpecification()] = $specificationCheck->getSpecificationName();
 		}
-
+		
 		foreach($specificationsUncheck as $specificationUncheck) {
-			$specificationValueOptions[$specificationUncheck->getSpecification()] = $specificationUncheck->getSpecificationName();
+			$specificationUnchecked[$specificationUncheck->getSpecification()] = $specificationUncheck->getSpecificationName();
 		}
-
+		
 		$category = $this->getCategoryTable()->get($id);
 		$previousImage = $category->getImage();
 
@@ -127,9 +135,6 @@ implements ConfigAwareInterface
 		$specificationValues = $this->getCategorySpecificationTable()->get($category->getId());
 
 		$form->get("serial_name")->setValue($serialNameValues);
-		
-		$form->get('specification')->setValueOptions($specificationValueOptions);
-		$form->get("specification")->setValue($specificationValues);
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -170,9 +175,10 @@ implements ConfigAwareInterface
 
 				$serialName = $categoryData['serial_name'];
 				$specification = $categoryData['specification'];
+				$name = $categoryData['name'];
 
 				$this->getCategorySerialNameTable()->save($categoryId,$serialName);
-				$this->getCategorySpecificationTable()->save($categoryId,$specification);
+				$this->getCategorySpecificationTable()->save($categoryId,$specification,$name);
 
 				return $this->redirect()->toRoute('admin/category');
 			}
@@ -182,7 +188,10 @@ implements ConfigAwareInterface
 			'id' => $id,
 			'image' => $previousImage,
 			'form' => $form,
-			'config' => $this->config
+			'config' => $this->config,
+			'specificationUnchecked' => $specificationUnchecked,
+			'specificationChecked' => $specificationChecked,
+			'specificationNameCheck' => $specificationNameCheck
 			);
 	}
 

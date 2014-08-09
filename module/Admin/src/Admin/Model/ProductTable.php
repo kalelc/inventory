@@ -29,10 +29,22 @@ class ProductTable
 		$rowset = $this->tableGateway->select(array('id' => $id));
 		$row = $rowset->current();
 		if (!$row) {
-			throw new \Exception("Could not find row $id");
+			return false;
 		}
 		return $row;
 	}
+
+	public function getAll()
+	{
+		$select = new Select($this->tableGateway->getTable());
+		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'), 'inner');
+		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'), 'inner');
+		$rows = $this->tableGateway->selectWith($select);
+		
+		dumpx($rows);
+		return $rows;
+
+	}	
 
 	public function save(Product $product)
 	{
