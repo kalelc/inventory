@@ -30,7 +30,7 @@ class MeasureTable
 	{
 		$select = new Select($this->tableGateway->getTable());
 		$select->columns(array('id' => 'id','measure_value'=> 'measure_value','image'=> 'image'));
-		$select->join('measures_types','measures_types.id = '.$this->tableGateway->getTable().'.measure_type', array('mt_name' => 'name'));
+		$select->join('measures_types','measures_types.id = '.$this->tableGateway->getTable().'.measure_type', array('mt_name' => 'name'),$select::JOIN_LEFT);
 		$select->join('specifications', $this->tableGateway->getTable().".specification = specifications.id", array(), 'inner');
 		$select->join('categories_specifications', "categories_specifications.specification = specifications.id", array(), 'inner');
 		$select->order('categories_specifications.order');
@@ -46,7 +46,7 @@ class MeasureTable
 		$select = new Select($this->tableGateway->getTable());
 		$select->columns(array("measure_value" => "measure_value", "image" => "image"));
 		$select->join('products_measures','products_measures.measure = '.$this->tableGateway->getTable().'.id', array(), 'inner');
-		$select->join('measures_types','measures_types.id = '.$this->tableGateway->getTable().'.measure_type', array('mt_name' => 'name'), 'inner');
+		$select->join('measures_types','measures_types.id = '.$this->tableGateway->getTable().'.measure_type', array('mt_name' => 'name'),$select::JOIN_LEFT);
 		$select->join('specifications', $this->tableGateway->getTable().".specification = specifications.id", array('s_name' => 'name'), 'inner');
 		$select->join('categories_specifications', "categories_specifications.specification = specifications.id", array(), 'inner');
 		$select->order('categories_specifications.order');
@@ -71,7 +71,7 @@ class MeasureTable
 	{
 		$select = new select();
 		$select->from('measures');
-		$select->join('measures_types','measures_types.id = measures.measure_type', array('mt_name' => 'name'));
+		$select->join('measures_types','measures_types.id = measures.measure_type', array('mt_name' => 'name'),$select::JOIN_LEFT);
 		$select->join('specifications','specifications.id = measures.specification', array('s_name' => 'name'));
 		$select->where(array($this->tableGateway->getTable().'.specification' => $specification));
 		
