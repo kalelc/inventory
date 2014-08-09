@@ -18,12 +18,12 @@ class MeasureTable
 
 		$select = new select();
 		$select->from('measures');
-		$select->join('measures_types','measures_types.id = measures.measure_type', array('mt_name' => 'name'));
+		$select->join('measures_types','measures_types.id = measures.measure_type', array('mt_name' => 'name'),$select::JOIN_LEFT);
 		$select->join('specifications','specifications.id = measures.specification', array('s_name' => 'name'));
 		
 		$resultSet = $this->tableGateway->selectWith($select);
-		$resultSet->buffer();
-		return $resultSet ? $resultSet : false ;
+		$rows = $resultSet->buffer();
+		return $rows ? $rows : false ;
 	}
 
 	public function getByCategory($category)
