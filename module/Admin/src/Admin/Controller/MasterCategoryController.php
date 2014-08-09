@@ -115,7 +115,7 @@ implements ConfigAwareInterface
 				}
 
 				$this->getMasterCategoryTable()->save($masterCategory);
-				return $this->redirect()->toRoute('admin/masterCategory');
+				return $this->redirect()->toRoute('admin/master_category');
 			}
 		}
 
