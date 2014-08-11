@@ -127,138 +127,148 @@ echo $this->layoutHelper()->header(array(
 			</div>
 		</div>
 		<h4 class="page-header">Archivos</h2>
-			<?php echo $this->formLabel($form->get('specification_file')->setLabel($this->config['component']['specification_file'][1])); ?>
-			<div class="col-sm-6">
-				<?php if($specificationFile): ?>
-					<a href='/files/product/<?php echo $specificationFile; ?>' class="btn btn-primary btn-xs" target='_blank'>
-						<span class="glyphicon glyphicon-floppy-disk"></span>
-					</a>
-				<?php endif; ?>
-				<?php echo $this->formInput($form->get('specification_file')); ?>
-				<?php echo $this->formElementErrors($form->get('specification_file'), array("class" => "error")); ?>
-				<p class="help-block">
-					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['file']['extension'],',') ;?><br>
-					Tama&ntilde;o: 
-					<?php foreach($this->config['file_characteristics']['file']['size'] as $range => $size): ?>
-						<?php echo $range." ".$size ; ?>
-					<?php endforeach; ?>
-				</p>
+			<div class="form-group">
+				<?php echo $this->formLabel($form->get('specification_file')->setLabel($this->config['component']['specification_file'][1])); ?>
+				<div class="col-sm-6">
+					<?php if($specificationFile): ?>
+						<a href='/files/product/<?php echo $specificationFile; ?>' class="btn btn-primary btn-xs" target='_blank'>
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+						</a>
+					<?php endif; ?>
+					<?php echo $this->formInput($form->get('specification_file')); ?>
+					<?php echo $this->formElementErrors($form->get('specification_file'), array("class" => "error")); ?>
+					<p class="help-block">
+						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['file']['extension'],',') ;?><br>
+						Tama&ntilde;o: 
+						<?php foreach($this->config['file_characteristics']['file']['size'] as $range => $size): ?>
+							<?php echo $range." ".$size ; ?>
+						<?php endforeach; ?>
+					</p>
+				</div>
 			</div>
-			<?php echo $this->formLabel($form->get('manual_file')->setLabel($this->config['component']['manual_file'][1])); ?>
-			<div class="col-sm-6">
-				<?php if($manualFile): ?>
-					<a href="/files/product/<?php echo $manualFile; ?>" class="btn btn-primary btn-xs">
-						<span class="glyphicon glyphicon-floppy-disk"></span>
-					</a>
-				<?php endif; ?>
+			<div class="form-group">
+				<?php echo $this->formLabel($form->get('manual_file')->setLabel($this->config['component']['manual_file'][1])); ?>
+				<div class="col-sm-6">
+					<?php if($manualFile): ?>
+						<a href="/files/product/<?php echo $manualFile; ?>" class="btn btn-primary btn-xs">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+						</a>
+					<?php endif; ?>
 
-				<?php echo $this->formInput($form->get('manual_file')); ?>
-				<?php echo $this->formElementErrors($form->get('manual_file'), array("class" => "error")); ?>
-				<p class="help-block">
-					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-					Tama&ntilde;o: 
-					<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-						<?php echo $range." ".$size ; ?>
-					<?php endforeach; ?>
-				</p>
+					<?php echo $this->formInput($form->get('manual_file')); ?>
+					<?php echo $this->formElementErrors($form->get('manual_file'), array("class" => "error")); ?>
+					<p class="help-block">
+						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+						Tama&ntilde;o: 
+						<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+							<?php echo $range." ".$size ; ?>
+						<?php endforeach; ?>
+					</p>
+				</div>
 			</div>
-
-
-			<?php echo $this->formLabel($form->get('image1')->setLabel($this->config['component']['image'][1])); ?>
-			<div class="col-sm-6">
-				<?php if($image1): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image1; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-						<span class="glyphicon glyphicon-search"></span>
-					</a>
-				<?php endif; ?>
-				<?php echo $this->formInput($form->get('image1')); ?>
-				<?php echo $this->formElementErrors($form->get('image1'), array("class" => "error")); ?>
-				<p class="help-block">
-					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-					Tama&ntilde;o: 
-					<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-						<?php echo $range." ".$size ; ?>
-					<?php endforeach; ?>
-				</p>
+			<div class="form-group">
+				<?php echo $this->formLabel($form->get('image1')->setLabel($this->config['component']['image'][1])); ?>
+				<div class="col-sm-6">
+					<?php if($image1): ?>
+						<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image1; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					<?php endif; ?>
+					<?php echo $this->formInput($form->get('image1')); ?>
+					<?php echo $this->formElementErrors($form->get('image1'), array("class" => "error")); ?>
+					<p class="help-block">
+						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+						Tama&ntilde;o: 
+						<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+							<?php echo $range." ".$size ; ?>
+						<?php endforeach; ?>
+					</p>
+				</div>
 			</div>
-			<?php echo $this->formLabel($form->get('image2')->setLabel($this->config['component']['image'][1])); ?>
-			<div class="col-sm-6">
-				<?php if($image2): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image2; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-						<span class="glyphicon glyphicon-search"></span>
-					</a>
-				<?php endif; ?>
-				<?php echo $this->formInput($form->get('image2')); ?>
-				<?php echo $this->formElementErrors($form->get('image2'), array("class" => "error")); ?>
-				<p class="help-block">
-					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-					Tama&ntilde;o: 
-					<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-						<?php echo $range." ".$size ; ?>
-					<?php endforeach; ?>
-				</p>
+			<div class="form-group">
+				<?php echo $this->formLabel($form->get('image2')->setLabel($this->config['component']['image'][1])); ?>
+				<div class="col-sm-6">
+					<?php if($image2): ?>
+						<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image2; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					<?php endif; ?>
+					<?php echo $this->formInput($form->get('image2')); ?>
+					<?php echo $this->formElementErrors($form->get('image2'), array("class" => "error")); ?>
+					<p class="help-block">
+						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+						Tama&ntilde;o: 
+						<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+							<?php echo $range." ".$size ; ?>
+						<?php endforeach; ?>
+					</p>
+				</div>
 			</div>
-
-
-			<?php echo $this->formLabel($form->get('image3')->setLabel($this->config['component']['image'][1])); ?>
-			<div class="col-sm-6">
-				<?php if($image3): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image3; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-						<span class="glyphicon glyphicon-search"></span>
-					</a>
-				<?php endif; ?>
-				<?php echo $this->formInput($form->get('image3')); ?>
-				<?php echo $this->formElementErrors($form->get('image3'), array("class" => "error")); ?>
-				<p class="help-block">
-					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-					Tama&ntilde;o: 
-					<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-						<?php echo $range." ".$size ; ?>
-					<?php endforeach; ?>
-				</p>
+			<div class="form-group">
+				<?php echo $this->formLabel($form->get('image3')->setLabel($this->config['component']['image'][1])); ?>
+				<div class="col-sm-6">
+					<?php if($image3): ?>
+						<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image3; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					<?php endif; ?>
+					<?php echo $this->formInput($form->get('image3')); ?>
+					<?php echo $this->formElementErrors($form->get('image3'), array("class" => "error")); ?>
+					<p class="help-block">
+						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+						Tama&ntilde;o: 
+						<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+							<?php echo $range." ".$size ; ?>
+						<?php endforeach; ?>
+					</p>
+				</div>
 			</div>
-			<?php echo $this->formLabel($form->get('image4')->setLabel($this->config['component']['image'][1])); ?>
-			<div class="col-sm-6">
-				<?php if($image4): ?>
-					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image4; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-						<span class="glyphicon glyphicon-search"></span>
-					</a>
-				<?php endif; ?>
-				<?php echo $this->formInput($form->get('image4')); ?>
-				<?php echo $this->formElementErrors($form->get('image4'), array("class" => "error")); ?>
-				<p class="help-block">
-					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-					Tama&ntilde;o: 
-					<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-						<?php echo $range." ".$size ; ?>
-					<?php endforeach; ?>
-				</p>
+			<div class="form-group">
+				<?php echo $this->formLabel($form->get('image4')->setLabel($this->config['component']['image'][1])); ?>
+				<div class="col-sm-6">
+					<?php if($image4): ?>
+						<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image4; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					<?php endif; ?>
+					<?php echo $this->formInput($form->get('image4')); ?>
+					<?php echo $this->formElementErrors($form->get('image4'), array("class" => "error")); ?>
+					<p class="help-block">
+						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+						Tama&ntilde;o: 
+						<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+							<?php echo $range." ".$size ; ?>
+						<?php endforeach; ?>
+					</p>
+				</div>
 			</div>
-
-
-			<?php echo $this->formLabel($form->get('image5')->setLabel($this->config['component']['image'][1])); ?>
-			<div class="col-sm-6">
-				<?php echo $this->formInput($form->get('image5')); ?>
-				<?php echo $this->formElementErrors($form->get('image5'), array("class" => "error")); ?>
-				<p class="help-block">
-					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-					Tama&ntilde;o: 
-					<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-						<?php echo $range." ".$size ; ?>
-					<?php endforeach; ?>
-				</p>
+			<div class="form-group">
+				<?php echo $this->formLabel($form->get('image5')->setLabel($this->config['component']['image'][1])); ?>
+				<div class="col-sm-6">
+					<?php echo $this->formInput($form->get('image5')); ?>
+					<?php echo $this->formElementErrors($form->get('image5'), array("class" => "error")); ?>
+					<p class="help-block">
+						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+						Tama&ntilde;o: 
+						<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+							<?php echo $range." ".$size ; ?>
+						<?php endforeach; ?>
+					</p>
+				</div>
 			</div>
-			<?php echo $this->formLabel($form->get('image6')->setLabel($this->config['component']['image'][1])); ?>
-			<div class="col-sm-6">
-				<?php echo $this->formInput($form->get('image6')); ?>
-				<?php echo $this->formElementErrors($form->get('image6'), array("class" => "error")); ?>
-				<p class="help-block">
-					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-					Tama&ntilde;o: 
-					<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-						<?php echo $range." ".$size ; ?>
-					<?php endforeach; ?>
-				</p>
+			<div class="form-group">
+				<?php echo $this->formLabel($form->get('image6')->setLabel($this->config['component']['image'][1])); ?>
+				<div class="col-sm-6">
+					<?php echo $this->formInput($form->get('image6')); ?>
+					<?php echo $this->formElementErrors($form->get('image6'), array("class" => "error")); ?>
+					<p class="help-block">
+						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+						Tama&ntilde;o: 
+						<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+							<?php echo $range." ".$size ; ?>
+						<?php endforeach; ?>
+					</p>
+				</div>
 			</div>
 			<h4 class="page-header">Aplicaciones</h2>
 				<div class="form-group">
