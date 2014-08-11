@@ -9,6 +9,7 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\EventManager\EventInterface;
 
 use Process\Form\ReceiveInventoryForm;
+use Process\Form\DetailsReceiveInventoryForm;
 
 use Process\Model\ReceiveInventory;
 use Process\Model\ReceiveInventoryTable;
@@ -62,7 +63,7 @@ class Module
 	{
 		return array(
 			'factories' => array(
-				'Admin\Form\ReceiveInventoryForm' =>  function($sm) {
+				'Process\Form\ReceiveInventoryForm' =>  function($sm) {
 					$customerTable = $sm->get("Admin/Model/CustomerTable");
 					$customers = $customerTable->fetchAll();
 					$customersList = array();
@@ -91,6 +92,14 @@ class Module
 
 					$form = new ReceiveInventoryForm($customersList,$paymentMethodList,$shipmentList);
 					return $form;
+				},
+				'Process\Form\DetailsReceiveInventoryForm' => function($sm) {
+					$productTable = $sm->get("Admin/Model/ProductTable");
+
+					dumpx($productTable->getName());
+					$detailsReceiveInventoryForm = new DetailsReceiveInventoryForm($test);
+					return $detailsReceiveInventoryForm;
+
 				},
 				'Process\Model\ReceiveInventoryTable' => function ($sm)
                 {

@@ -32,6 +32,7 @@ class Product implements InputFilterAwareInterface
 
     protected $categoryName;
     protected $brandName;
+    protected $singularName;
 
 	protected $inputFilter;
 
@@ -560,6 +561,17 @@ class Product implements InputFilterAwareInterface
     public function setPartNo($partNo)
     {
         $this->partNo = $partNo;
+        return $this;
+    }
+
+        public function getSingularName()
+    {
+        return $this->singularName;
+    }
+
+    public function setSingularName($singularName)
+    {
+        $this->singularName = $singularName;
         return $this;
     }
 }

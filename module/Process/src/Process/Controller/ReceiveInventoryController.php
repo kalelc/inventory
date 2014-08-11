@@ -34,7 +34,9 @@ implements ConfigAwareInterface
 	{
 		$viewModel = new ViewModel();
 
-		$form = $this->getServiceLocator()->get("Admin\Form\ReceiveInventoryForm");
+		$form = $this->getServiceLocator()->get("Process\Form\ReceiveInventoryForm");
+		$viewModel->setVariable('form', $form);
+
 		$request = $this->getRequest();
 
 		if ($request->isPost()) {
@@ -68,12 +70,13 @@ implements ConfigAwareInterface
 
                 //dump($container);
                 //dumpx($container->receiveInventoryId);
+                $form = $this->getServiceLocator()->get('Process\Form\DetailsReceiveInventoryForm');
+                $viewModel->setVariable('form',$form);
 				
 				$viewModel->setTemplate("process/receive-inventory/details");
 				//return $this->redirect()->toRoute('process/receive_inventory');
 			}
 		}
-		$viewModel->setVariable('form', $form);
 		$viewModel->setVariable('config', $this->config);
 
 		return $viewModel;

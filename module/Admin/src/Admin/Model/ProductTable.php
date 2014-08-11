@@ -23,6 +23,30 @@ class ProductTable
 		return $rows;
 	}
 
+	public function getName()
+	{
+		$select = new Select($this->tableGateway->getTable());
+		$select->columns(array('model','model'));
+		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'));
+		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'));
+		$rows = $this->tableGateway->selectWith($select);
+		
+
+		foreach($rows as $row) {
+			dump($row->getModel());
+			dump($row->getCategoryName());
+			dumpx($row->getBrandName());
+		}
+
+		$select = new Select();
+
+
+
+		//$select->join('categories_specifications', "categories_specifications.category = categories.id", array('categories_specifications_name' => 'name'));
+		dumpx($rows);
+		return $rows;
+	}
+
 	public function get($id)
 	{
 		$id  = (int) $id;
