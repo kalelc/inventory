@@ -27,7 +27,7 @@ $.fn.getSerialList = function() {
 				if (typeof result === 'object') {
 					for (var i = 0; i < qty; i++) {
 
-						selects += "<div class='col-sm-6'>" ;
+						selects += "<div class='col-sm-4'>" ;
 
 						$.each(result.serialList, function(key, item) {
 							selects += "<div class='list-group'>" ;
