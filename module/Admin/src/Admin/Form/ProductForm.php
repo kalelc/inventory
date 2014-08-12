@@ -111,7 +111,7 @@ class ProductForm extends Form
 			'name' => 'price',
 			'attributes' => array(
 				'type'  => 'text',
-				'class' => 'form-control number-format',
+				'class' => 'form-control number_format',
 				),
 			'options' => array(
 				'label' => 'price',

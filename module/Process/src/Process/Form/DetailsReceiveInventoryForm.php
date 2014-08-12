@@ -43,6 +43,22 @@ class DetailsReceiveInventoryForm extends Form
 			));
 
 		$this->add(array(
+			'name' => 'product_search',
+			'attributes' => array(
+				'id'	=> 'product_search',
+				'type'  => 'text',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+
+				),
+			));
+
+		$this->add(array(
 			'type' => 'select',
 			'name' => 'product',
 			'options' => array(
@@ -50,7 +66,7 @@ class DetailsReceiveInventoryForm extends Form
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),
-				'value_options' => $this->products,
+				//'value_options' => $this->products,
 				'empty_option' => 'seleccione una opción',
 				'disable_inarray_validator' => true,
 				),
@@ -68,7 +84,7 @@ class DetailsReceiveInventoryForm extends Form
 			'attributes' => array(
 				'id'	=> 'cost',
 				'type'  => 'text',
-				'class' => 'form-control',
+				'class' => 'form-control number_format',
 				),
 			'options' => array(
 				'label' => 'name',
@@ -96,6 +112,19 @@ class DetailsReceiveInventoryForm extends Form
 				'class' => 'form-control',
 				'data-live-search' => 'true'
 				)
+			));
+
+			$this->add(array(
+			'name' => 'manifest_file',
+			'attributes' => array(
+				'type'  => 'file',
+				),
+			'options' => array(
+				'label' => 'Imagen',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				),
 			));
 
 		$this->add(array(

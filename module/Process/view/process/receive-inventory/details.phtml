@@ -16,8 +16,13 @@ echo $this->layoutHelper()->header(array(
 	<?php echo $this->formHidden($form->get('csrf')); ?>
 	<div class="form-group">
 		<?php echo $this->formLabel($form->get('cost')->setLabel($this->config['component']['cost'][1])); ?>
-		<div class="col-sm-2">
-			<?php echo $this->formInput($form->get('cost')); ?>
+		<div class="col-sm-3">
+			<div class="input-group">
+				<span class="input-group-addon">$</span>
+				<?php echo $this->formInput($form->get('cost')); ?>
+				<span class="input-group-addon">.00</span>
+			</div>
+
 			<?php echo $this->formElementErrors($form->get('cost'), array("class" => "error")); ?>
 		</div>
 	</div>
@@ -36,6 +41,13 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	</div>
 	<div class="form-group">
+		<?php echo $this->formLabel($form->get('product_search')->setLabel($this->config['component']['product'][1])); ?>
+		<div class="col-sm-3">
+			<?php echo $this->formInput($form->get('product_search')); ?>
+			<?php echo $this->formElementErrors($form->get('product_search'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
 		<?php echo $this->formLabel($form->get('product')->setLabel($this->config['component']['product'][1])); ?>
 		<div class="col-sm-4">
 			<?php echo $this->formSelect($form->get('product')); ?>
@@ -48,7 +60,13 @@ echo $this->layoutHelper()->header(array(
 			</div>
 		</div>
 	</div>
-
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('manifest_file')->setLabel($this->config['component']['manifest_file'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formInput($form->get('manifest_file')); ?>
+			<?php echo $this->formElementErrors($form->get('manifest_file'), array("class" => "error")); ?>
+		</div>
+	</div>
 <div class="well well-sm">
 	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 </div>

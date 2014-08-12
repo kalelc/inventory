@@ -53,7 +53,7 @@ implements ConfigAwareInterface
 			$form->setInputFilter($product->getInputFilter());
 
 			$data 		= $request->getPost()->toArray();
-
+			$data['price'] = str_replace('.','',$data['price']);
 
 			$form->setData($data);
 
@@ -235,6 +235,9 @@ implements ConfigAwareInterface
 			$form->setInputFilter($product->getInputFilter());
 
 			$data = $request->getPost()->toArray();
+			
+			$data['price'] = str_replace('.','',$data['price']);
+
 			$form->setData($data);
 
 			if ($form->isValid()) {
@@ -421,6 +424,25 @@ implements ConfigAwareInterface
 		$jsonModel->setVariable("serialList",$serialList);
 		return $jsonModel;
 
+	}
+
+	public function productSearchAction()
+	{
+		$product = $this->params()->fromPost('product');
+
+		$jsonModel = new JsonModel();
+
+		$products = $this->getProductTable()->getName() ;
+		$productList = array();
+		
+		foreach($products as $key => $productValue) {
+			if(stristr($productValue,$product)){
+				$productList[$key] = $productValue;
+			}
+		}
+
+		$jsonModel->setVariable("products",$productList);
+		return $jsonModel;
 	}
 
 	public function setConfig($config)

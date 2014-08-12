@@ -35,6 +35,7 @@ return array(
 		'list_price' 			=> array('listas precios','lista precio'),
 		'login' 				=> array('ingresar','ingresar'),
 		'manager'				=> array('gerentes','gerente'),
+		'manifest_file'				=> array('archivos de manifiesto','archivo de manifiesto'),
 		'manual_file'			=> array('archivos manuales','archivo manual'),
 		'master_category' 		=> array('categorias maestras','categoria maestra','image_path'=> 'public/images/master_category'),
 		'measure' 				=> array('medidas','medida','image_path'=> 'public/images/measure'),
