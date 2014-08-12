@@ -53,6 +53,7 @@ return array(
 		'price' 				=> array('precios','precio'),
 		'principal' 			=> array('principales','principal'),
 		'product' 				=> array('productos','producto','image_path'=> 'public/images/product','file_path'=> 'public/files/product'),
+		'qty' 					=> array('cantidades','cantidad'),
 		'qty_buy' 				=> array('cantidades comprar','cantidad comprar'),
 		'qty_low' 				=> array('cantidades minimas','cantidad minima'),
 		'receive_inventory'		=> array('entradas','entradas','file_path'=> 'public/files/receive_inventory'),

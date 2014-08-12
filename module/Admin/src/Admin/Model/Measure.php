@@ -18,6 +18,7 @@ class Measure implements InputFilterAwareInterface
 
 	private $specificationName ;
 	private $measureTypeName ;
+	private $measureTypeAbbreviation ;
 
 	protected $inputFilter;
 
@@ -32,6 +33,8 @@ class Measure implements InputFilterAwareInterface
 		if (array_key_exists('image', $data)) $this->setImage($data['image']);
 		if (array_key_exists('meaning', $data)) $this->setMeaning($data['meaning']);
 		if (array_key_exists('general_information', $data)) $this->setGeneralInformation($data['general_information']);
+		if (array_key_exists('mt_name', $data)) $this->setMeasureTypeName($data['mt_name']);
+		if (array_key_exists('mt_abbreviation', $data)) $this->setMeasureTypeAbbreviation($data['mt_abbreviation']);
 	}
 
 	public function getArrayCopy()
@@ -210,4 +213,16 @@ class Measure implements InputFilterAwareInterface
 		$this->generalInformation = $generalInformation;
 		return $this;
 	}
+
+    public function getMeasureTypeAbbreviation()
+    {
+        return $this->measureTypeAbbreviation;
+    }
+
+    public function setMeasureTypeAbbreviation($measureTypeAbbreviation)
+    {
+        $this->measureTypeAbbreviation = $measureTypeAbbreviation;
+
+        return $this;
+    }
 }

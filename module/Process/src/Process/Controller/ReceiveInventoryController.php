@@ -67,14 +67,8 @@ implements ConfigAwareInterface
 
 				$container = new Container('receive_inventory');
                 $container->receiveInventoryId = $receiveInventoryId;
-
-                //dump($container);
-                //dumpx($container->receiveInventoryId);
-                $form = $this->getServiceLocator()->get('Process\Form\DetailsReceiveInventoryForm');
-                $viewModel->setVariable('form',$form);
-				
-				$viewModel->setTemplate("process/receive-inventory/details");
-				//return $this->redirect()->toRoute('process/receive_inventory');
+                
+				return $this->redirect()->toRoute('process/receive_inventory/add/details');
 			}
 		}
 		$viewModel->setVariable('config', $this->config);
@@ -82,7 +76,25 @@ implements ConfigAwareInterface
 		return $viewModel;
 	}
 
-	public function setConfig($config){
+	public function addDetailsAction() 
+	{
+		$form = $this->getServiceLocator()->get('Process\Form\DetailsReceiveInventoryForm');
+		
+		$container = new Container('receive_inventory');
+
+		$viewModel = new ViewModel();
+		$viewModel->setVariable('form',$form);
+		$viewModel->setVariable('config', $this->config);
+		
+		$viewModel->setTemplate("process/receive-inventory/details");
+
+		return $viewModel;
+
+	}
+
+
+	public function setConfig($config)
+	{
 		$this->config = $config;
 	}
 }

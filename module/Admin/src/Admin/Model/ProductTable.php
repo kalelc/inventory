@@ -7,9 +7,10 @@ use Zend\Db\Sql\Select;
 class ProductTable
 {
 
-	public function __construct(TableGateway $tableGateway)
+	public function __construct(TableGateway $tableGateway,TableGateway $measureTableGateway)
 	{
 		$this->tableGateway = $tableGateway;
+		$this->measureTableGateway = $measureTableGateway;
 	}
 
 	public function fetchAll()
@@ -26,25 +27,43 @@ class ProductTable
 	public function getName()
 	{
 		$select = new Select($this->tableGateway->getTable());
-		$select->columns(array('model','model'));
+		$select->columns(array('model','id'));
 		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'));
 		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'));
 		$rows = $this->tableGateway->selectWith($select);
-		
+
+		$productList = array();
 
 		foreach($rows as $row) {
-			dump($row->getModel());
-			dump($row->getCategoryName());
-			dumpx($row->getBrandName());
+			$measureValue = "" ;
+			$measureValue .= " ".$row->getCategoryName() ;
+			$measureValue .= " ".$row->getBrandName() ;
+			$measureValue .= " ".$row->getModel() ;
+
+			$selectMeasures = new Select($this->measureTableGateway->getTable());
+			$selectMeasures->columns(array("measure_value" => "measure_value", "image" => "image"));
+			$selectMeasures->join('products_measures','products_measures.measure = measures.id', array(), 'inner');
+			$selectMeasures->join('measures_types','measures_types.id = measures.measure_type', array('mt_name' => 'name','mt_abbreviation' => 'abbreviation'),$selectMeasures::JOIN_LEFT);
+			$selectMeasures->join('specifications', "measures.specification = specifications.id", array('s_name' => 'name'), 'inner');
+			$selectMeasures->join('categories_specifications', "categories_specifications.specification = specifications.id", array(), 'inner');
+			$selectMeasures->order('categories_specifications.order');
+			$selectMeasures->where(array("products_measures.product" => $row->getId(),"categories_specifications.name" => 1));
+
+			$measureRows = $this->measureTableGateway->selectWith($selectMeasures);
+
+			foreach ($measureRows as $measureRow) {
+
+			if($measureRow->getMeasureTypeAbbreviation()!=false) {
+				$measureValue .= " ".$measureRow->getMeasureValue();
+				$measureValue .= " ".$measureRow->getMeasureTypeAbbreviation();
+			}
+			else
+				$measureValue .= " ".$measureRow->getMeasureValue();
+			}
+			$productList[$row->getId()] = $measureValue;
 		}
 
-		$select = new Select();
-
-
-
-		//$select->join('categories_specifications', "categories_specifications.category = categories.id", array('categories_specifications_name' => 'name'));
-		dumpx($rows);
-		return $rows;
+		return $productList;
 	}
 
 	public function get($id)

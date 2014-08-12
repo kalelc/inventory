@@ -155,8 +155,6 @@ implements ConfigAwareInterface
 
 	public function getSpecificationCategory($category)
 	{
-		error_log("category");
-		error_log($category);
 		$jsonModel = new JsonModel();
 		$listSpecifications = $this->getCategorySpecificationTable()->getCategorySpecificationCheckValue($category);
 
@@ -221,7 +219,6 @@ implements ConfigAwareInterface
 		$form->get("qty_buy")->setValue($product->getQtyBuy());
 		$form->get("description")->setValue($product->getDescription());
 		$form->get("status")->setValue($product->getStatus());
-
 
 		$productAppTable = $this->getProductAppTable();
 		$appValues = $productAppTable->get($id);

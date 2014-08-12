@@ -1,1 +1,33 @@
-details
+<?php
+$title = $this->config['component']['receive_inventory'][0];
+$action = $this->config['action']['detail'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('process/receive_inventory'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));
+	?>
+	<?php $form = $this->form; ?>
+	<?php $form->setAttribute('action', $this->url('process/receive_inventory', array('action' => 'add'))); ?>
+	<?php $form->prepare(); ?>
+	<?php echo $this->form()->openTag($form); ?>
+	<?php echo $this->formHidden($form->get('id')); ?>
+	<?php echo $this->formHidden($form->get('csrf')); ?>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('qty')->setLabel($this->config['component']['qty'][1])); ?>
+		<div class="col-sm-1">
+			<?php echo $this->formInput($form->get('qty')); ?>
+			<?php echo $this->formElementErrors($form->get('qty'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('product')->setLabel($this->config['component']['product'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formSelect($form->get('product')); ?>
+			<?php echo $this->formElementErrors($form->get('product'), array("class" => "error")); ?>
+		</div>
+	</div>
+<div class="well well-sm">
+	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+<?php echo $this->modalHelper()->userAdd(); ?>

@@ -87,7 +87,7 @@ class Module
 					foreach($shipments as $shipment){
 						$shipmentList[$shipment->getId()] = $shipment->getCompany();
 
-						//$shipmentList[$shipment->getId()] = !empty($shipment->getCompany()) ? $shipment->getCompany() : $shipment->getFirstName()." ".$shipment->getLastName();
+						$shipmentList[$shipment->getId()] = $shipment->getCompany() == false ? $shipment->getCompany() : $shipment->getFirstName()." ".$shipment->getLastName();
 					}
 
 					$form = new ReceiveInventoryForm($customersList,$paymentMethodList,$shipmentList);
@@ -96,8 +96,8 @@ class Module
 				'Process\Form\DetailsReceiveInventoryForm' => function($sm) {
 					$productTable = $sm->get("Admin/Model/ProductTable");
 
-					dumpx($productTable->getName());
-					$detailsReceiveInventoryForm = new DetailsReceiveInventoryForm($test);
+					$productList = $productTable->getName();
+					$detailsReceiveInventoryForm = new DetailsReceiveInventoryForm($productList);
 					return $detailsReceiveInventoryForm;
 
 				},

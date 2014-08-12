@@ -19,16 +19,38 @@ return array(
 				'may_terminate' => true,
 				'child_routes' => array(
 					'receive_inventory' => array(
-						'type'    => 'segment',
+						'type'    => 'literal',
 						'options' => array(
-							'route'    => '/receive-inventory[/:action][/:id]',
-							'constraints' => array(
-								'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-								'id'     => '[0-9]+',
-								),
+							'route'    => '/receive-inventory',
 							'defaults' => array(
 								'controller' => 'Process\Controller\ReceiveInventory',
-								'action'     => 'index',
+								'action'     => 'add',
+								),
+							),
+						'may_terminate' => true,
+						'child_routes' => array(
+							'add' => array(
+								'type'    => 'literal',
+								'options' => array(
+									'route'    => '/add',
+									'defaults' => array(
+										'controller' => 'Process\Controller\ReceiveInventory',
+										'action'     => 'add',
+										),
+									),
+								'may_terminate' => true,
+								'child_routes' => array(
+									'details' => array(
+										'type'    => 'literal',
+										'options' => array(
+											'route'    => '/details',
+											'defaults' => array(
+												'controller' => 'Process\Controller\ReceiveInventory',
+												'action'     => 'addDetails',
+												),
+											),
+										),
+									),
 								),
 							),
 						),

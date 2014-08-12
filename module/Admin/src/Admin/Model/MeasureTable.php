@@ -81,8 +81,8 @@ class MeasureTable
 
 	public function save(measure $measure)
 	{
-		if(empty($measure->getMeasureType()))
-			$measure->setMeasureType(NULL);
+		//if(empty($measure->getMeasureType()))
+		//	$measure->setMeasureType(NULL);
 		
 		$data = array(
 			'specification' => $measure->getSpecification(),

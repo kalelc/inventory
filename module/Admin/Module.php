@@ -347,7 +347,8 @@ public function getServiceConfig()
 			},
 			'Admin\Model\ProductTable' =>  function($sm) {
 				$tableGateway = $sm->get('ProductTableGateway');
-				$table = new ProductTable($tableGateway);
+				$measureTableGateway = $sm->get('MeasureTableGateway');
+				$table = new ProductTable($tableGateway,$measureTableGateway);
 				return $table;
 			},
 			'ProductTableGateway' => function ($sm) {
