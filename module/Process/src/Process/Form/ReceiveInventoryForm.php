@@ -38,7 +38,7 @@ class ReceiveInventoryForm extends Form
 				'value' => date('d-m-Y')
 				),
 			'options' => array(
-				'label' => 'name',
+				'label' => 'register_date',
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),

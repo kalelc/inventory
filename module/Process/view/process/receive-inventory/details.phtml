@@ -1,4 +1,6 @@
 <?php
+$this->headScript()->prependFile('/js/details-receive-inventory.js', 'text/javascript');
+
 $title = $this->config['component']['receive_inventory'][0];
 $action = $this->config['action']['detail'];
 echo $this->layoutHelper()->header(array(
@@ -26,6 +28,9 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formElementErrors($form->get('product'), array("class" => "error")); ?>
 		</div>
 	</div>
+	<div id="serial_values_layout">
+	</div>
+
 <div class="well well-sm">
 	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 </div>

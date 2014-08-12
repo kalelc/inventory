@@ -62,11 +62,16 @@ implements ConfigAwareInterface
 
 				$receiveInventory->exchangeArray($data);
 
-
 				$receiveInventoryId = $this->getReceiveInventoryTable()->save($receiveInventory);
 
 				$container = new Container('receive_inventory');
-                $container->receiveInventoryId = $receiveInventoryId;
+                $container->id = $receiveInventoryId;
+                $container->registerDate = $receiveInventory->getRegisterDate();
+				$container->customer = $receiveInventory->getCustomer();
+				$container->paymentMethod = $receiveInventory->getPaymentMethod();
+				$container->shipment = $receiveInventory->getShipment();
+				$container->guide = $receiveInventory->getGuideNumber();
+				$container->invoice = $receiveInventory->getInvoice();
                 
 				return $this->redirect()->toRoute('process/receive_inventory/add/details');
 			}
@@ -78,14 +83,40 @@ implements ConfigAwareInterface
 
 	public function addDetailsAction() 
 	{
+
+		/*test container*/
+		$container = new Container('receive_inventory');
+
+		$receiveInventoryForm = $this->getServiceLocator()->get("Process\Form\ReceiveInventoryForm");
+		
+		/*
+		$receiveInventoryForm->get('register_date')->setValue($container->registerDate);
+		$receiveInventoryForm->get('customer')->setValue($container->customer);
+		$receiveInventoryForm->get('payment_method')->setValue($container->paymentMethod);
+		$receiveInventoryForm->get('shipment')->setValue($container->shipment);
+		$receiveInventoryForm->get('guide_number')->setValue($container->guide);
+		$receiveInventoryForm->get('invoice')->setValue($container->invoice);
+
+		$receiveInventoryForm->get('customer')->setAttributes(array('disabled' => 'disabled'));
+		$receiveInventoryForm->get('payment_method')->setAttributes(array('disabled' => 'disabled'));
+		$receiveInventoryForm->get('shipment')->setAttributes(array('disabled' => 'disabled'));
+		$receiveInventoryForm->get('guide_number')->setAttributes(array('disabled' => 'disabled'));
+		$receiveInventoryForm->get('invoice')->setAttributes(array('disabled' => 'disabled'));
+
+		$viewModelReceiveInventory = new ViewModel();
+		$viewModelReceiveInventory->setTemplate("process/receive-inventory/add");
+		$viewModelReceiveInventory->setVariable('form', $receiveInventoryForm);
+
+		return $viewModelReceiveInventory;*/
+
+		/******/
 		$form = $this->getServiceLocator()->get('Process\Form\DetailsReceiveInventoryForm');
 		
-		$container = new Container('receive_inventory');
 
 		$viewModel = new ViewModel();
 		$viewModel->setVariable('form',$form);
 		$viewModel->setVariable('config', $this->config);
-		
+
 		$viewModel->setTemplate("process/receive-inventory/details");
 
 		return $viewModel;

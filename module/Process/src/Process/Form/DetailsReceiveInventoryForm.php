@@ -29,7 +29,8 @@ class DetailsReceiveInventoryForm extends Form
 		$this->add(array(
 			'name' => 'qty',
 			'attributes' => array(
-				'type'  => 'text',
+				'id'	=> 'qty',
+				'type'  => 'number',
 				'class' => 'form-control',
 				),
 			'options' => array(
@@ -54,6 +55,7 @@ class DetailsReceiveInventoryForm extends Form
 				'disable_inarray_validator' => true,
 				),
 			'attributes' => array(
+				'id' => 'product',
 				'class' => 'form-control',
 				'data-live-search' => 'true'
 				)

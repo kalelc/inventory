@@ -25,13 +25,6 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formSelect($form->get('customer')); ?>
 			<?php echo $this->formElementErrors($form->get('customer'), array("class" => "error")); ?>
 		</div>
-		<!-- modal user add -->
-		<!--<a href="javascript:void(0);" onclick='showModal()'>
-		<label class="btn btn-warning btn-sm">-->
-			<?php //echo $this->config['action']['icons']['add'] ; ?>
-			<?php //echo $this->config['component']['customer'][1] ; ?>
-		<!--	</label>
-		</a>-->
 </div>
 <div class="form-group">
 	<?php echo $this->formLabel($form->get('payment_method')->setLabel($this->config['component']['payment_method'][1])); ?>

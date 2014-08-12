@@ -2,6 +2,7 @@
 namespace Admin\Model;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
 
 class SerialNameTable
 {
@@ -28,6 +29,22 @@ class SerialNameTable
 			throw new \Exception("Could not find row $id");
 		}
 		return $row;
+	}
+
+	public function getSerialName($category)
+	{
+		$select = new Select($this->tableGateway->getTable());
+		$select->columns(array('id','name'));
+		$select->join('categories_serials_name',''.$this->tableGateway->getTable().'.id = categories_serials_name.serial_name', array(), 'inner');
+
+		$rows = $this->tableGateway->selectWith($select);
+
+		$result = array();
+		foreach($rows as $row) {
+			$result[$row->getId()] = $row->getName();
+		}
+		return $result ;
+
 	}
 
 	public function save(SerialName $serialName)

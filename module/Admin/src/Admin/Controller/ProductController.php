@@ -409,6 +409,20 @@ implements ConfigAwareInterface
 			);
 	}
 
+	public function getSerialListAction()
+	{
+		$product = $this->params()->fromPost('product');
+
+		$jsonModel = new JsonModel();
+		$productTable = $this->getProductTable()->get($product);
+		$category = $productTable->getCategory();
+		$serialList = $this->getSerialNameTable()->getSerialName($category);
+
+		$jsonModel->setVariable("serialList",$serialList);
+		return $jsonModel;
+
+	}
+
 	public function setConfig($config)
 	{
 		$this->config = $config;

@@ -240,6 +240,7 @@ return array(
 							),
 						),
 					),
+
 				'productSearchSpecifications' => array(
 					'type'    => 'segment',
 					'options' => array(
@@ -253,6 +254,20 @@ return array(
 							),
 						),
 					),
+				'productSearchSpecifications' => array(
+					'type'    => 'segment',
+					'options' => array(
+						'route'    => '/product/get-serialList',
+						'constraints' => array(
+							'product'     => '[0-9]+',
+							),
+						'defaults' => array(
+							'controller' => 'Admin\Controller\Product',
+							'action'     => 'getSerialList',
+							),
+						),
+					),
+
 				'user_type' => array(
 					'type'    => 'segment',
 					'options' => array(
