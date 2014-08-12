@@ -26,7 +26,7 @@ $.fn.getSerialList = function() {
 				var selects = "" ;
 				if (typeof result === 'object') {
 					for (var i = 0; i < qty; i++) {
-						selects += "<div class='panel panel-success'>" ;
+						selects += "<div class='panel panel-default'>" ;
 						selects += "<div class='panel-heading'><h3 class='panel-title'>Seriales</h3></div>" ;
 						selects += "<div class='panel-body'>" ;
 						$.each(result.serialList, function(key, item) {

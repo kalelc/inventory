@@ -8,7 +8,6 @@ echo $this->layoutHelper()->header(array(
 	'action' => array('url' => '','value' => $action)
 	));
 	?>
-<div class="well bs-component">
 	<?php $form = $this->form; ?>
 	<?php $form->setAttribute('action', $this->url('process/receive_inventory', array('action' => 'add'))); ?>
 	<?php $form->prepare(); ?>
@@ -55,4 +54,3 @@ echo $this->layoutHelper()->header(array(
 </div>
 <?php echo $this->form()->closeTag(); ?>
 <?php echo $this->modalHelper()->userAdd(); ?>
-</div>
