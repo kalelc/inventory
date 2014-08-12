@@ -26,16 +26,26 @@ $.fn.getSerialList = function() {
 				var selects = "" ;
 				if (typeof result === 'object') {
 					for (var i = 0; i < qty; i++) {
-						selects += "<div class='panel panel-default'>" ;
-						selects += "<div class='panel-heading'><h3 class='panel-title'>Seriales</h3></div>" ;
-						selects += "<div class='panel-body'>" ;
+
+						selects += "<div class='col-sm-6'>" ;
+
 						$.each(result.serialList, function(key, item) {
-							selects += "<div class='form-group'>" ;
-							selects += "<label class='col-sm-3 control-label'>"+item+"</label>";
-							selects += "<div class='col-sm-5'><input type='text' name='serialValues[]' class='form-control'></div>";
-							selects += "</div>";
+							selects += "<div class='list-group'>" ;
+
+							if(key==1)
+								selects += "<a href='javascript:void(0);' class='list-group-item active'>" ;
+							else
+								selects += "<a href='javascript:void(0);' class='list-group-item'>" ;
+							
+							selects += "<h5 class='list-group-item-heading'>"+item+"</h5>" ;
+							selects += "<p><input type='text' name='serialValues[]' class='form-control'></p>";
+							selects += "</a>" ;
+							
+							selects += "</div>" ;
+
+							
 						});
-						selects += "</div></div>";
+						selects += "</div>" ;
 					}
 					$("#serial_values_layout").html(selects);
 

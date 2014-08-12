@@ -23,7 +23,7 @@ echo $this->layoutHelper()->header(array(
 	</div>
 	<div class="form-group">
 		<?php echo $this->formLabel($form->get('iva')->setLabel($this->config['component']['iva'][1])); ?>
-		<div class="col-sm-2">
+		<div class="col-sm-3">
 			<?php echo $this->formSelect($form->get('iva')); ?>
 			<?php echo $this->formElementErrors($form->get('iva'), array("class" => "error")); ?>
 		</div>
