@@ -8,12 +8,27 @@ echo $this->layoutHelper()->header(array(
 	'action' => array('url' => '','value' => $action)
 	));
 	?>
+<div class="well bs-component">
 	<?php $form = $this->form; ?>
 	<?php $form->setAttribute('action', $this->url('process/receive_inventory', array('action' => 'add'))); ?>
 	<?php $form->prepare(); ?>
 	<?php echo $this->form()->openTag($form); ?>
 	<?php echo $this->formHidden($form->get('id')); ?>
 	<?php echo $this->formHidden($form->get('csrf')); ?>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('cost')->setLabel($this->config['component']['cost'][1])); ?>
+		<div class="col-sm-2">
+			<?php echo $this->formInput($form->get('cost')); ?>
+			<?php echo $this->formElementErrors($form->get('cost'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('iva')->setLabel($this->config['component']['iva'][1])); ?>
+		<div class="col-sm-2">
+			<?php echo $this->formSelect($form->get('iva')); ?>
+			<?php echo $this->formElementErrors($form->get('iva'), array("class" => "error")); ?>
+		</div>
+	</div>
 	<div class="form-group">
 		<?php echo $this->formLabel($form->get('qty')->setLabel($this->config['component']['qty'][1])); ?>
 		<div class="col-sm-1">
@@ -28,7 +43,11 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formElementErrors($form->get('product'), array("class" => "error")); ?>
 		</div>
 	</div>
-	<div id="serial_values_layout">
+	<div class="form-group">
+		<div class="col-sm-8">
+			<div id="serial_values_layout">
+			</div>
+		</div>
 	</div>
 
 <div class="well well-sm">
@@ -36,3 +55,4 @@ echo $this->layoutHelper()->header(array(
 </div>
 <?php echo $this->form()->closeTag(); ?>
 <?php echo $this->modalHelper()->userAdd(); ?>
+</div>

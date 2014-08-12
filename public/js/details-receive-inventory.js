@@ -24,14 +24,15 @@ $.fn.getSerialList = function() {
 			function(result) {
 				
 				var selects = "" ;
-
 				if (typeof result === 'object') {
 					for (var i = 0; i < qty; i++) {
-						selects += "<div class='panel panel-default'><div class='panel-body'>" ;
+						selects += "<div class='panel panel-success'>" ;
+						selects += "<div class='panel-heading'><h3 class='panel-title'>Seriales</h3></div>" ;
+						selects += "<div class='panel-body'>" ;
 						$.each(result.serialList, function(key, item) {
 							selects += "<div class='form-group'>" ;
-							selects += "<label class='col-sm-2 control-label'>"+item+"</label>";
-							selects += "<div class='col-sm-2'><input type='text' name='serialValues[]' class='form-control'></div>";
+							selects += "<label class='col-sm-3 control-label'>"+item+"</label>";
+							selects += "<div class='col-sm-5'><input type='text' name='serialValues[]' class='form-control'></div>";
 							selects += "</div>";
 						});
 						selects += "</div></div>";

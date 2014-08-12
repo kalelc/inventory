@@ -61,6 +61,43 @@ class DetailsReceiveInventoryForm extends Form
 				)
 			));
 
+
+
+			$this->add(array(
+			'name' => 'cost',
+			'attributes' => array(
+				'id'	=> 'cost',
+				'type'  => 'text',
+				'class' => 'form-control',
+				),
+			'options' => array(
+				'label' => 'name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+
+				),
+			));
+
+			$this->add(array(
+			'type' => 'select',
+			'name' => 'iva',
+			'options' => array(
+				'label' => 'iva',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' =>array("1" => "Iva incluido","2" => "Iva excluido","3" => "Excento de iva"),
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
+				),
+			'attributes' => array(
+				'id' => 'iva',
+				'class' => 'form-control',
+				'data-live-search' => 'true'
+				)
+			));
+
 		$this->add(array(
 			'type' => 'Zend\Form\Element\Csrf',
 			'name' => 'csrf',
