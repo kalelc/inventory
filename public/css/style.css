@@ -2,6 +2,7 @@ body {
     padding-top: 60px;
     padding-bottom: 40px;
     font-family: 'Average Sans', sans-serif;
+    background-color: #eee;
 }
 
 h1,h2,h3,h4,h5,h6 { font-family: 'Average Sans', sans-serif; }

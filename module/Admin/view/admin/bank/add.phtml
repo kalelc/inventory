@@ -4,7 +4,7 @@ $action = $this->config['action']['new'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/bank'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
-	));
+	));	
 	?>
 	<?php $form = $this->form; ?>
 	<?php $form->setAttribute('action', $this->url('admin/bank', array('action' => 'add'))); ?>
