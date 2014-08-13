@@ -13,6 +13,7 @@ use Application\ConfigAwareInterface;
 
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+use Zend\View\Model\JsonModel;
 
 class SpecificationController extends AbstractActionController
 implements ConfigAwareInterface
@@ -166,6 +167,17 @@ implements ConfigAwareInterface
 			));
 
 		return $viewModel;
+	}
+
+	public function getMeasuresAction()
+	{	
+		$specification = $this->params()->fromPost('specification');
+
+		$jsonModel = new JsonModel();
+		$measures = $this->getMeasureTable()->getBySpecification($specification);
+		
+		$jsonModel->setVariable("measures",$measures);
+		return $jsonModel;
 	}
 
 	public function setConfig($config)

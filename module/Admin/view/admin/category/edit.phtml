@@ -91,19 +91,29 @@ $this->headTitle($title);
 <h4 class="page-header"><?php echo $this->config['component']['specification'][0]; ?></h4>
 <ul id="sortable">
 	<?php foreach($specificationChecked as $specificationCheckedId => $specificationCheckedValue): ?>
-		<li class="list-group-item"><?php echo $this->config['action']['icons']['move'] ; ?>&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' id='specification<?php echo $specificationCheckedId; ?>' checked='checked'>&nbsp;<?php echo $specificationCheckedValue; ?>
+		<li>
+			<a href="#" class="list-group-item">
+			<?php echo $this->config['action']['icons']['move'] ; ?>
+			&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' id='specification<?php echo $specificationCheckedId; ?>' checked='checked'>
+			&nbsp;<?php echo $specificationCheckedValue; ?>
 			<div class="pull-right">
-
 				<?php if($specificationNameCheck[$specificationCheckedId] == 1): ?> 
 					<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name' checked='checked'>
 				<?php else:?>
 					<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name'>
 				<?php endif; ?>
 			</div>
+			</a>
 		</li>
 	<?php endforeach; ?>
 	<?php foreach($specificationUnchecked as $specificationUncheckedId => $specificationUncheckedValue): ?>
-		<li class="list-group-item"><?php echo $this->config['action']['icons']['move'] ; ?>&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' id='specification<?php echo $specificationUncheckedId; ?>'>&nbsp;<?php echo $specificationUncheckedValue; ?><div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' class='specifications_name'></div></li>
+		<li class="list-group-item">
+		<?php echo $this->config['action']['icons']['move'] ; ?>
+		&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' id='specification<?php echo $specificationUncheckedId; ?>'>
+		&nbsp;<?php echo $specificationUncheckedValue; ?>
+		<div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' class='specifications_name'>
+		</div>
+		</li>
 	<?php endforeach; ?>
 </ul>
 </ul>

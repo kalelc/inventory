@@ -1,11 +1,10 @@
 $(document).ready(function() {
-	//$("#category").val($("#target option:first").val());
 	$('#category').change(function() {
 		var category = $("#category").val();
 		$.fn.searchSpecifications(category);
 	});
 
-	$( "#product" ).submit(function() {
+	$("#product").submit(function() {
 		var select = $('select[name="measures[]"] option:selected');
 		result = true;
 		$(select).each(function(){
@@ -16,10 +15,16 @@ $(document).ready(function() {
 		});
 		return result;
 	});
+
+	$("a.specificacionEvent").click(function() {
+		var specification = $(this).attr("value");
+		$(this).hide();
+		$.fn.getMeasures(specification);
+
+	});
 });
 
 $.fn.searchSpecifications = function(category) {
-	console.log("category "+category)
 	if (category>0) {
 		$.ajax({
 			type : "POST",
@@ -51,4 +56,39 @@ $.fn.searchSpecifications = function(category) {
 	}
 	else
 		$("#tab-product-specifications ul").html("");
+}
+
+$.fn.getMeasures = function(specification) {
+	if (specification>0) {
+		$.ajax({
+			type : "POST",
+			url : "/admin/specification/measures",
+			data : {
+				specification : 			specification,
+			}
+		})
+		.done(
+			function(result) {
+
+				$("#measure"+specification).html("");
+				$("#measure"+specification).prop("disabled", false);
+
+				if (typeof result === 'object') {
+					$.each(result.measures, function( id, measure ) {
+					var measureName = "" ;
+
+					measureName += !measure.measureValue ? "" : measure.measureValue+" ";
+					measureName += !measure.measureTypeName ? "" : measure.measureTypeName;
+
+					$("#measure"+measure.specification).append("<option value='"+measure.id+"'>"+measureName+"</option>");
+					});
+
+				} else {
+					console.log("debe seleccionar una specification");
+				}
+			});
+	}
+	else
+		console.log("error");
+
 }

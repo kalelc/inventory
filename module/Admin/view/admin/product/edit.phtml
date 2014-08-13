@@ -1,4 +1,5 @@
 <?php
+$this->headScript()->prependFile('/js/product.js', 'text/javascript');
 $title = $this->config['component']['product'][0];
 $action = $this->config['action']['edit'];
 echo $this->layoutHelper()->header(array(
@@ -56,9 +57,18 @@ echo $this->layoutHelper()->header(array(
 							<li class='list-group-item'>
 								<?php $image = $productMeasure->getImage() ? "/images/specification/".$productMeasure->getImage() : "/img/icons/picture.png" ;?>
 								<img src='<?php echo $image; ?>' class='thumb_24'>&nbsp;
-								<span class="btn btn-primary badge pull-right"><?php echo $productMeasure->getSpecificationName(); ?></span>
-								<?php echo $productMeasure->getMeasureValue(); ?>
-								<?php echo $productMeasure->getMeasureTypeName();?>
+								<?php echo $productMeasure->getSpecificationName(); ?>
+									<div class="pull-right">
+										
+										<select name='measures[]' id='measure<?php echo $productMeasure->getSpecification(); ?>'>
+											<option value='<?php echo $productMeasure->getId(); ?>'>
+												<?php echo $productMeasure->getMeasureValue(); ?>
+												<?php echo $productMeasure->getMeasureTypeName();?>
+											</option>
+										</select>
+									<a href="javascript:void(0)" class='specificacionEvent' value='<?php echo $productMeasure->getSpecification(); ?>'><?php echo $config['action']['update']; ?></a>
+									</div>
+										
 							</li>
 						<?php endforeach; ?>
 					</ul>

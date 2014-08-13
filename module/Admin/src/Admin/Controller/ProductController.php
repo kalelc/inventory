@@ -235,7 +235,7 @@ implements ConfigAwareInterface
 			$form->setInputFilter($product->getInputFilter());
 
 			$data = $request->getPost()->toArray();
-			
+
 			$data['price'] = str_replace('.','',$data['price']);
 
 			$form->setData($data);
@@ -343,7 +343,11 @@ implements ConfigAwareInterface
 				$productId = $this->getProductTable()->save($product);
 
 				$apps = $data['apps'];
+				$measures = $data['measures'];
 
+				$productMeasuresTable = $this->getProductMeasureTable();
+				$productMeasuresTable->save($productId,$measures);
+				
 				$productAppTable->save($productId,$apps);
 
 				return $this->redirect()->toRoute('admin/product');

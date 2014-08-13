@@ -34,3 +34,7 @@ img.thumb_32 { height: 32px; width: 32px;}
 .list-inputs { margin-top:5px;}
 .page-header {text-transform: capitalize;}
 /*.form-control { height: 35px !important; }*/
+
+ul#sortable li { 
+  list-style: none;
+}

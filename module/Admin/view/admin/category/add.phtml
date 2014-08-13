@@ -89,7 +89,14 @@ echo $this->layoutHelper()->header(array(
 		<?php $specification = $form->get('specification')->getOptions(); ?>
 		<ul id="sortable">
 			<?php foreach($specification['value_options'] as $key => $specificationValue): ?>
-				<li class="list-group-item"><?php echo $this->config['action']['icons']['move'] ; ?>&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $key; ?>' id='specification<?php echo $key; ?>'>&nbsp;<?php echo $specificationValue; ?><div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $key; ?>' class='specifications_name'></div></li>
+				<li>
+					<a href="#" class="list-group-item">
+					<?php echo $this->config['action']['icons']['move'] ; ?>
+					&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $key; ?>' id='specification<?php echo $key; ?>'>
+					&nbsp;<?php echo $specificationValue; ?>
+					<div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $key; ?>' class='specifications_name'></div>
+					</a>
+				</li>
 			<?php endforeach; ?>
 		</ul>
 		<div class="center-block">

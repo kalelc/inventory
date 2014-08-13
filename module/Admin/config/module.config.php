@@ -89,6 +89,7 @@ return array(
 							),
 						),
 					),
+
 				'bank' => array(
 					'type'    => 'segment',
 					'options' => array(
@@ -118,6 +119,18 @@ return array(
 							),
 						),
 					),
+
+				'specification_measures' => array(
+					'type'    => 'literal',
+					'options' => array(
+						'route'    => '/specification/measures',
+						'defaults' => array(
+							'controller' => 'Admin\Controller\Specification',
+							'action'     => 'getMeasures',
+							),
+						),
+					),
+
 				'specification_master' => array(
 					'type'    => 'segment',
 					'options' => array(

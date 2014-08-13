@@ -29,7 +29,7 @@ class MeasureTable
 	public function getByCategory($category)
 	{
 		$select = new Select($this->tableGateway->getTable());
-		$select->columns(array('id' => 'id','measure_value'=> 'measure_value','image'=> 'image'));
+		$select->columns(array('id' => 'id','measure_value'=> 'measure_value'/*,'image'=> 'image'*/));
 		$select->join('measures_types','measures_types.id = '.$this->tableGateway->getTable().'.measure_type', array('mt_name' => 'name'),$select::JOIN_LEFT);
 		$select->join('specifications', $this->tableGateway->getTable().".specification = specifications.id", array(), 'inner');
 		$select->join('categories_specifications', "categories_specifications.specification = specifications.id", array(), 'inner');
@@ -44,10 +44,10 @@ class MeasureTable
 	public function getByProduct($product)
 	{
 		$select = new Select($this->tableGateway->getTable());
-		$select->columns(array("measure_value" => "measure_value", "image" => "image"));
+		$select->columns(array("id" => "id","measure_value" => "measure_value", "image" => "image"));
 		$select->join('products_measures','products_measures.measure = '.$this->tableGateway->getTable().'.id', array(), 'inner');
 		$select->join('measures_types','measures_types.id = '.$this->tableGateway->getTable().'.measure_type', array('mt_name' => 'name'),$select::JOIN_LEFT);
-		$select->join('specifications', $this->tableGateway->getTable().".specification = specifications.id", array('s_name' => 'name'), 'inner');
+		$select->join('specifications', $this->tableGateway->getTable().".specification = specifications.id", array('s_name' => 'name','image' => 'image','specification' => 'id'), 'inner');
 		$select->join('categories_specifications', "categories_specifications.specification = specifications.id", array(), 'inner');
 		$select->order('categories_specifications.order');
 		$select->where(array("products_measures.product" => $product));
@@ -81,8 +81,8 @@ class MeasureTable
 
 	public function save(measure $measure)
 	{
-		//if(empty($measure->getMeasureType()))
-		//	$measure->setMeasureType(NULL);
+		if($measure->getMeasureType()==false)
+			$measure->setMeasureType(NULL);
 		
 		$data = array(
 			'specification' => $measure->getSpecification(),
