@@ -48,6 +48,7 @@ class DetailsReceiveInventoryForm extends Form
 				'id'	=> 'product_search',
 				'type'  => 'text',
 				'class' => 'form-control',
+				'placeholder' => 'Ingrese el nombre del producto'
 				),
 			'options' => array(
 				'label' => 'name',

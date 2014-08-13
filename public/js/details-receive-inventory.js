@@ -77,6 +77,8 @@ $.fn.searchProduct = function(product) {
 		.done(
 			function(result) {
 
+				$("#product").html("<option value=''>Buscando..</option>")
+
 				if (typeof result === 'object') {
 						var productList = Array();
 						$("#product").html("")
