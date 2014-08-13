@@ -20,6 +20,9 @@ $(document).ready(function() {
 	});
 });
 
+function showModalNote(){
+	$('#modalNote').modal('show');
+}
 
 function showModal(){
 	$('#modal').modal('show');

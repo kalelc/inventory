@@ -34,6 +34,15 @@ class ModalHelper extends AbstractHelper
 		return $this->getView()->render($viewModel);
 	}
 
+	public function notes()
+	{
+		$viewModel = new ViewModel();
+		$viewModel->setTemplate('admin/helper/modal/notes');
+		
+		return $this->getView()->render($viewModel);
+
+	}
+
 	public function userAdd()
 	{
 		$viewModel = new ViewModel();

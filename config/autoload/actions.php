@@ -17,6 +17,7 @@ return array(
 		'icons' => array(
 			'add'		=> '<span class="glyphicon glyphicon-plus-sign"></span>&nbsp;',
 			'move'		=> '<span class="glyphicon glyphicon-move"></span>&nbsp;',
+			'notes'		=> '<span class="glyphicon glyphicon-book"></span>&nbsp;',
 			)
 		)
 	);
