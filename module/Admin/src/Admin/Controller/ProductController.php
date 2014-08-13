@@ -53,6 +53,7 @@ implements ConfigAwareInterface
 			$form->setInputFilter($product->getInputFilter());
 
 			$data 		= $request->getPost()->toArray();
+
 			$data['price'] = str_replace('.','',$data['price']);
 
 			$form->setData($data);
