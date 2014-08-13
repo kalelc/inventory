@@ -65,7 +65,7 @@ $.fn.getSerialList = function() {
 $.fn.searchProduct = function(product) {
 
 	var product = product;
-	
+
 	if (product != "") {
 		$.ajax({
 			type : "POST",

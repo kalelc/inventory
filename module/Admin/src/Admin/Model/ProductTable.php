@@ -24,13 +24,18 @@ class ProductTable
 		return $rows;
 	}
 
-	public function getName()
+	public function getName($upcBarCode = false)
 	{
 		$select = new Select($this->tableGateway->getTable());
 		$select->columns(array('model','id'));
 		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'));
 		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'));
+		
+		if($upcBarCode)
+			$select->where(array($this->tableGateway->getTable().".upc_bar_code"=> $upcBarCode));
+
 		$rows = $this->tableGateway->selectWith($select);
+
 
 		$productList = array();
 
@@ -84,7 +89,6 @@ class ProductTable
 		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'), 'inner');
 		$rows = $this->tableGateway->selectWith($select);
 		
-		dumpx($rows);
 		return $rows;
 
 	}	

@@ -42,14 +42,8 @@ echo $this->layoutHelper()->header(array(
 	</div>
 	<div class="form-group">
 		<?php echo $this->formLabel($form->get('product_search')->setLabel($this->config['component']['product'][1])); ?>
-		<div class="col-sm-3">
-			<?php echo $this->formInput($form->get('product_search')); ?>
-			<?php echo $this->formElementErrors($form->get('product_search'), array("class" => "error")); ?>
-		</div>
-	</div>
-	<div class="form-group">
-		<?php echo $this->formLabel($form->get('product')->setLabel($this->config['component']['product'][1])); ?>
 		<div class="col-sm-4">
+			<?php echo $this->formInput($form->get('product_search')); ?>
 			<?php echo $this->formSelect($form->get('product')); ?>
 			<?php echo $this->formElementErrors($form->get('product'), array("class" => "error")); ?>
 		</div>

@@ -431,13 +431,18 @@ implements ConfigAwareInterface
 		$product = $this->params()->fromPost('product');
 
 		$jsonModel = new JsonModel();
-
-		$products = $this->getProductTable()->getName() ;
 		$productList = array();
-		
-		foreach($products as $key => $productValue) {
-			if(stristr($productValue,$product)){
-				$productList[$key] = $productValue;
+
+		if(intval($product)>0) {
+			$productList = $this->getProductTable()->getName($product) ;
+		}
+		else {
+			$products = $this->getProductTable()->getName() ;
+
+			foreach($products as $key => $productValue) {
+				if(stristr($productValue,$product)){
+					$productList[$key] = $productValue;
+				}
 			}
 		}
 
