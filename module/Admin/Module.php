@@ -40,6 +40,8 @@ use Admin\Model\ProductMeasure;
 use Admin\Model\ProductMeasureTable;
 use Admin\Model\App;
 use Admin\Model\AppTable;
+use Admin\Model\Note;
+use Admin\Model\NoteTable;
 use Admin\Model\ProductApp;
 use Admin\Model\ProductAppTable;
 use Admin\Model\City;
@@ -487,7 +489,17 @@ public function getServiceConfig()
 				$resultSetPrototype->setArrayObjectPrototype(new CustomerClassification());
 				return new TableGateway('customers_classifications', $dbAdapter, null, $resultSetPrototype);
 			},
-
+			'Admin\Model\NoteTable' =>  function($sm) {
+				$tableGateway = $sm->get('NoteTableGateway');
+				$table = new NoteTable($tableGateway);
+				return $table;
+			},
+			'NoteTableGateway' => function ($sm) {
+				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+				$resultSetPrototype = new ResultSet();
+				$resultSetPrototype->setArrayObjectPrototype(new Note());
+				return new TableGateway('notes', $dbAdapter, null, $resultSetPrototype);
+			},
 			'Admin\Form\CustomerForm' =>  function($sm) {
 				$cityTable = $sm->get("Admin/Model/CityTable");
 				$cities = $cityTable->fetchAll();

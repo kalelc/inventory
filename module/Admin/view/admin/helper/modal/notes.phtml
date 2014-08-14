@@ -6,43 +6,52 @@
 				<h4 class="modal-title">Notas</h4>
 			</div>
 			<div class="modal-body" id="modalBody">
+				<div class='pull-right'><a href='javascript:void(0)' id='add_note'><?php echo $config['action']['icons']['add']; ?></a></div>
+
+				<?php $form = $this->form; ?>
+				<div id='layout_add_note'>
+					<?php $form->setAttribute('action', $this->url('admin/bank', array('action' => 'add'))); ?>
+					<?php $form->prepare(); ?>
+					<?php echo $this->form()->openTag($form); ?>
+					<?php echo $this->formHidden($form->get('id')); ?>
+					<?php echo $this->formHidden($form->get('csrf'));?>
+					<div class="form-group">
+						<?php echo $this->formLabel($form->get('title')->setLabel($this->config['component']['title'][1])); ?>
+						<div class="col-sm-4">
+							<?php echo $this->formInput($form->get('title')); ?>
+							<?php echo $this->formElementErrors($form->get('title'), array("class" => "error")); ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<?php echo $this->formLabel($form->get('content')->setLabel($this->config['component']['content'][1])); ?>
+						<div class="col-sm-6">
+							<?php echo $this->formTextarea($form->get('content')); ?>
+							<?php echo $this->formElementErrors($form->get('content'), array("class" => "error")); ?>
+						</div>
+					</div>
+					<a href='javascript:void(0)' id='save_note'><?php echo $this->config['action']['add']; ?></a>
+					<?php echo $this->form()->closeTag(); ?>
+				</div>
+				<div class='clearfix'></div><br>
+				<div class="message_note"></div>
+
 				<div class="panel-group" id="accordion">
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#note1">Nota Uno</a>
-							</h4>
-						</div>
-						<div id="note1" class="panel-collapse collapse in">
-							<div class="panel-body">
-								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+					<?php foreach($notes as $key => $note): ?>
+						<div class="panel panel-default" id='panel_note_<?php echo $note->getId(); ?>'>
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#note<?php echo $note->getId(); ?>"><?php echo $note->getTitle(); ?></a>
+									<div class='pull-right'>
+										<button type="button" class="close delete_note" noteValue='<?php echo $note->getId(); ?>'><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+									</div>
+								</h4>
+							</div>
+							<?php $status = $key == 0 ? "in" : "" ?>
+							<div id="note<?php echo $note->getId(); ?>" class="panel-collapse collapse <?php echo $status; ?>">
+								<div class="panel-body"><?php echo $note->getContent(); ?></div>
 							</div>
 						</div>
-					</div>
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#note2">Nota Uno</a>
-							</h4>
-						</div>
-						<div id="note2" class="panel-collapse collapse out">
-							<div class="panel-body">
-								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-warning">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-							<a data-toggle="collapse" data-parent="#accordion" href="#note3">Nota Uno</a>
-							</h4>
-						</div>
-						<div id="note3" class="panel-collapse collapse out">
-							<div class="panel-body">
-								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-							</div>
-						</div>
-					</div>
+					<?php endforeach; ?>
 				</div>
 			</div>
 		</div>

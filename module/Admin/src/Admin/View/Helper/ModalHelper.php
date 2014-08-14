@@ -4,8 +4,11 @@ namespace Admin\View\Helper;
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Model\ViewModel;
 
+use Admin\Form\NoteForm;
+
 class ModalHelper extends AbstractHelper
 {
+
 	protected $serviceLocator;
 
 	public function __invoke()
@@ -38,7 +41,17 @@ class ModalHelper extends AbstractHelper
 	{
 		$viewModel = new ViewModel();
 		$viewModel->setTemplate('admin/helper/modal/notes');
-		
+		$config = $this->serviceLocator->get('config');
+
+		$noteTable = $this->serviceLocator->get('Admin\Model\NoteTable');
+		$notes = $noteTable->fetchAll();
+
+		$form = new NoteForm();
+		$viewModel->setVariables(array(
+			'form' => $form,
+			'config' => $config,
+			'notes' => $notes
+			));		
 		return $this->getView()->render($viewModel);
 
 	}

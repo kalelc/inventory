@@ -192,5 +192,14 @@ Trait ModuleTablesTrait
 		}
 		return $customerClassificationTable;
 	}
+
+	public function getNoteTable()
+	{
+		$noteTable = "";
+		if(!$noteTable) {
+			$noteTable = $this->getServiceLocator()->get('Admin\model\NoteTable');
+		}
+		return $noteTable;
+	}
 }
 ?>

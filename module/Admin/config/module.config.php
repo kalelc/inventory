@@ -18,6 +18,7 @@ return array(
 			'Admin\Controller\Customer' 			=> 'Admin\Controller\CustomerController',
 			'Admin\Controller\UserType'				=> 'Admin\Controller\UserTypeController',
 			'Admin\Controller\Classification'		=> 'Admin\Controller\ClassificationController',
+			'Admin\Controller\Note'					=> 'Admin\Controller\NoteController',
 			),
 ),
 'router' => array(
@@ -104,6 +105,22 @@ return array(
 							),
 						),
 					),
+
+				'note' => array(
+					'type'    => 'segment',
+					'options' => array(
+						'route'    => '/note[/page/:page][/:action][/:id]',
+						'constraints' => array(
+							'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+							'id'     => '[0-9]+',
+							),
+						'defaults' => array(
+							'controller' => 'Admin\Controller\Note',
+							'action'     => 'index',
+							),
+						),
+					),
+
 				'specification' => array(
 					'type'    => 'segment',
 					'options' => array(

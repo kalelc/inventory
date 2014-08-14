@@ -1,12 +1,11 @@
 <?php 
-namespace Process\Model;
+namespace Admin\Model;
 
 use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\Sql\Select;
 
-class ReceiveInventoryTable
+
+class NoteTable
 {
-	protected $tableGateway;
 
 	public function __construct(TableGateway $tableGateway)
 	{
@@ -27,31 +26,32 @@ class ReceiveInventoryTable
 		$rowset = $this->tableGateway->select(array('id' => $id));
 		$row = $rowset->current();
 		if (!$row) {
-			$row = false;
+			return false;
 		}
 		return $row;
 	}
 
-	public function save(ReceiveInventory $receiveInventory)
+	public function save(Note $note)
 	{
 		$data = array(
-			'register_date' => date("Y-m-d H:i:s", time()),
 			'user' => 1,
-			'customer' => $receiveInventory->getCustomer(),
-			'payment_method' => $receiveInventory->getPaymentMethod(),
-			'shipment' => $receiveInventory->getShipment(),
-			'guide' => $receiveInventory->getGuideNumber(),
-			'invoice' => $receiveInventory->getInvoice(),
-			'invoice_file' => $receiveInventory->getInvoiceFile(),
-			'observations' => $receiveInventory->getObservation(),
+			'title' => $note->getTitle(),
+			'content' => $note->getContent(),
 			);
 
-		$id = (int)$receiveInventory->getId();
+		error_log(json_encode($data));
+
+		$id = (int)$note->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
-			return $this->tableGateway->getLastInsertValue();
+			$id = $this->tableGateway->getLastInsertValue();
+			return $id ;
 		} else {
+			if ($this->get($id)) {
+				$this->tableGateway->update($data, array('id' => $id));
+			} else {
 				return false;
+			}
 		}
 	}
 

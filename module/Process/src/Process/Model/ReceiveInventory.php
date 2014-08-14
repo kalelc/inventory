@@ -8,7 +8,8 @@ use Zend\InputFilter\InputFilterInterface;
 
 class ReceiveInventory implements InputFilterAwareInterface
 {
-	protected $id;
+    protected $id;
+	protected $user;
 	protected $registerDate;
 	protected $customer;
 	protected $paymentMethod;
@@ -23,6 +24,7 @@ class ReceiveInventory implements InputFilterAwareInterface
 	public function exchangeArray($data)
 	{
         if (array_key_exists('id', $data)) $this->setId($data['id']);
+        if (array_key_exists('user', $data)) $this->setUser($data['user']);
         if (array_key_exists('register_date', $data)) $this->setRegisterDate($data['register_date']);
         if (array_key_exists('customer', $data)) $this->setCustomer($data['customer']);
         if (array_key_exists('payment_method', $data)) $this->setPaymentMethod($data['payment_method']);
@@ -197,23 +199,11 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this->inputFilter;
     }
 
-    /**
-     * Gets the value of id.
-     *
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
-    
-    /**
-     * Sets the value of id.
-     *
-     * @param mixed $id the id 
-     *
-     * @return self
-     */
+
     public function setId($id)
     {
         $this->id = $id;
@@ -221,23 +211,23 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this;
     }
 
-    /**
-     * Gets the value of registerDate.
-     *
-     * @return mixed
-     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
     public function getRegisterDate()
     {
         return $this->registerDate;
     }
     
-    /**
-     * Sets the value of registerDate.
-     *
-     * @param mixed $registerDate the register date 
-     *
-     * @return self
-     */
+
     public function setRegisterDate($registerDate)
     {
         $this->registerDate = $registerDate;
@@ -245,23 +235,12 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this;
     }
 
-    /**
-     * Gets the value of customer.
-     *
-     * @return mixed
-     */
     public function getCustomer()
     {
         return $this->customer;
     }
     
-    /**
-     * Sets the value of customer.
-     *
-     * @param mixed $customer the customer 
-     *
-     * @return self
-     */
+
     public function setCustomer($customer)
     {
         $this->customer = $customer;
@@ -269,23 +248,11 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this;
     }
 
-    /**
-     * Gets the value of paymentMethod.
-     *
-     * @return mixed
-     */
     public function getPaymentMethod()
     {
         return $this->paymentMethod;
     }
-    
-    /**
-     * Sets the value of paymentMethod.
-     *
-     * @param mixed $paymentMethod the payment method 
-     *
-     * @return self
-     */
+
     public function setPaymentMethod($paymentMethod)
     {
         $this->paymentMethod = $paymentMethod;
@@ -293,23 +260,11 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this;
     }
 
-    /**
-     * Gets the value of shipment.
-     *
-     * @return mixed
-     */
     public function getShipment()
     {
         return $this->shipment;
     }
     
-    /**
-     * Sets the value of shipment.
-     *
-     * @param mixed $shipment the shipment 
-     *
-     * @return self
-     */
     public function setShipment($shipment)
     {
         $this->shipment = $shipment;
@@ -317,23 +272,11 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this;
     }
 
-    /**
-     * Gets the value of guideNumber.
-     *
-     * @return mixed
-     */
     public function getGuideNumber()
     {
         return $this->guideNumber;
     }
     
-    /**
-     * Sets the value of guideNumber.
-     *
-     * @param mixed $guideNumber the guide number 
-     *
-     * @return self
-     */
     public function setGuideNumber($guideNumber)
     {
         $this->guideNumber = $guideNumber;
@@ -341,23 +284,11 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this;
     }
 
-    /**
-     * Gets the value of invoice.
-     *
-     * @return mixed
-     */
     public function getInvoice()
     {
         return $this->invoice;
     }
     
-    /**
-     * Sets the value of invoice.
-     *
-     * @param mixed $invoice the invoice 
-     *
-     * @return self
-     */
     public function setInvoice($invoice)
     {
         $this->invoice = $invoice;
@@ -365,23 +296,11 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this;
     }
 
-    /**
-     * Gets the value of invoiceFile.
-     *
-     * @return mixed
-     */
     public function getInvoiceFile()
     {
         return $this->invoiceFile;
     }
     
-    /**
-     * Sets the value of invoiceFile.
-     *
-     * @param mixed $invoiceFile the invoice file 
-     *
-     * @return self
-     */
     public function setInvoiceFile($invoiceFile)
     {
         $this->invoiceFile = $invoiceFile;
@@ -389,23 +308,11 @@ class ReceiveInventory implements InputFilterAwareInterface
         return $this;
     }
 
-    /**
-     * Gets the value of observation.
-     *
-     * @return mixed
-     */
     public function getObservation()
     {
         return $this->observation;
     }
-    
-    /**
-     * Sets the value of observation.
-     *
-     * @param mixed $observation the observation 
-     *
-     * @return self
-     */
+
     public function setObservation($observation)
     {
         $this->observation = $observation;

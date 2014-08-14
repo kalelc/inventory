@@ -27,6 +27,7 @@
 	->prependFile($this->basePath() . '/js/number-format.js')
 	->prependFile($this->basePath() . '/js/functions.js')
 	->prependFile($this->basePath() . '/js/pagination.js')
+	->prependFile($this->basePath() . '/js/notes.js')
 	->prependFile($this->basePath() . '/js/jquery.dataTables.js')
 	->prependFile($this->basePath() . '/js/bootstrap.min.js')
 	->prependFile($this->basePath() . '/js/jquery.min.js')
@@ -110,10 +111,7 @@
 			<div class="panel panel-default">
   				<div class="panel-body">
   				<div class='pull-right'><a href="javascript:void(0);" onclick="showModalNote()"><span class="glyphicon glyphicon-tasks"></span></a></div>
-					<!--revisar como helper -->
 					<?php echo $this->modalHelper()->notes(); ?>
-
-
 					<div class="col-md-12"><?php echo $this->content; ?></div>
 				</div>
 			</div>
