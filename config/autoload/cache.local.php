@@ -1,5 +1,6 @@
 <?php
 return array(
+    /*
     'caches' => array(
         'memcached' => array( //can be called directly via SM in the name of 'memcached'
             'adapter' => array(
@@ -26,5 +27,5 @@ return array(
                     ),
                 ),
             ),
-        ),
+        ),*/
     );

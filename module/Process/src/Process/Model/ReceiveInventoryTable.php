@@ -34,6 +34,9 @@ class ReceiveInventoryTable
 
 	public function save(ReceiveInventory $receiveInventory)
 	{
+		dumpx($this->getServiceLocator()->get("Cache\Adapter\Memcached"));
+		
+
 		$data = array(
 			'register_date' => date("Y-m-d H:i:s", time()),
 			'user' => 1,

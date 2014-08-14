@@ -27,7 +27,7 @@ class AppTable
 		$rowset = $this->tableGateway->select(array('id' => $id));
 		$row = $rowset->current();
 		if (!$row) {
-			throw new \Exception("Could not find row $id");
+			return false;
 		}
 		return $row;
 	}

@@ -103,6 +103,15 @@ class Module
 				},
 				'Process\Model\ReceiveInventoryTable' => function ($sm)
                 {
+				$cache = $sm->get("Cache\Adapter\Memcached");
+				//$id = 1 ;
+				//$content = "andres";
+				//$cache->setItem($id, $content);
+
+				dump($cache->getItem(1));
+				dumpx("exit");
+
+
                     $tableGateway = $sm->get('ReceiveInventoryTableGateway');
                     $table = new ReceiveInventoryTable($tableGateway);
                     return $table;
