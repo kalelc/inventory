@@ -5,6 +5,13 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Cache\Storage\Adapter\MemcachedOptions;
 use Zend\Cache\Storage\Adapter\Memcached;
+use Application\Listener\MemcachedListener;
+
+use Application\Model\EventFeatureCacheAwareInterface;
+use Zend\Db\TableGateway\Feature\EventFeature;
+use Zend\Db\TableGateway\Feature\GlobalAdapterFeature;
+
+use Zend\EventManager\EventManager;
 
 class Module
 {
@@ -42,17 +49,24 @@ class Module
     {
         return array(
             'factories' => array(
-                'Cache\Adapter\MemcachedOptions' => function ($sm)
-                {
+                'Cache\Adapter\MemcachedOptions' => function ($sm) {
                     $config = $sm->get('config');
-
                     return new MemcachedOptions($config['memcached']);
                 },
-                'Cache\Adapter\Memcached' => function ($sm)
-                {
+                'Cache\Adapter\Memcached' => function ($sm) {
                     return new Memcached($sm->get('Cache\Adapter\MemcachedOptions'));
                 },
-                ),
-            );
+                "Application\Listener\MemcachedListener" => function($sm) {
+                    $memcached = $sm->get('Cache\Adapter\Memcached');
+                    $cacheListener = new MemcachedListener($memcached);
+                    return $cacheListener;
+
+                },
+                'Zend\EventManager\EventManager' => function($sm) {
+                    $eventManager = new EventManager();
+                    return $eventManager;
+                }
+            ),
+        );
     }
 }

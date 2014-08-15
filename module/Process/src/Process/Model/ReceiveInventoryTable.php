@@ -7,6 +7,8 @@ use Zend\Db\Sql\Select;
 class ReceiveInventoryTable
 {
 	protected $tableGateway;
+	protected $eventManager;
+	protected $cache;
 
 	public function __construct(TableGateway $tableGateway)
 	{
@@ -23,20 +25,33 @@ class ReceiveInventoryTable
 
 	public function get($id)
 	{
-		$id  = (int) $id;
-		$rowset = $this->tableGateway->select(array('id' => $id));
+		$id = (int) $id;
+		$class = get_class();
+		$key = md5($id."_".$class);
+
+		$row = $this->cache->getItem($key);
+		if(!$row) {
+		$select = new Select($this->tableGateway->getTable());
+		$select->columns(array("register_date","guide","invoice","invoice_file","observations"));
+		$select->join('customers', "customers.id = ".$this->tableGateway->getTable().".customer", array('customer_first_name' => 'first_name','customer_last_name' => 'first_name'), 'inner');
+		$select->join(array('shipments' => 'customers'), "shipments.id = ".$this->tableGateway->getTable().".shipment", array('shipment_first_name' => 'first_name',
+																															  'shipment_last_name' => 'last_name',
+																															  'shipment_company' => 'company'), 
+		'inner');
+		$select->where(array($this->tableGateway->getTable().".id" => $id,$this->tableGateway->getTable().".user" => 1));
+
+		$rowset = $this->tableGateway->selectWith($select);
 		$row = $rowset->current();
-		if (!$row) {
-			$row = false;
+		$this->cache->addItem($key,$row);
 		}
+
+		dumpx($row);
 		return $row;
 	}
 
 	public function save(ReceiveInventory $receiveInventory)
 	{
-		dumpx($this->getServiceLocator()->get("Cache\Adapter\Memcached"));
 		
-
 		$data = array(
 			'register_date' => date("Y-m-d H:i:s", time()),
 			'user' => 1,
@@ -52,7 +67,16 @@ class ReceiveInventoryTable
 		$id = (int)$receiveInventory->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
-			return $this->tableGateway->getLastInsertValue();
+
+			$id = $this->tableGateway->getLastInsertValue();
+			$class = get_class();
+
+			$key = md5($id."_".$class);
+
+			$this->cache->addItem($key,$data);
+        	//dumpx($this->cache->getItem($key),"cache");
+			return $id;
+
 		} else {
 				return false;
 		}
@@ -68,4 +92,26 @@ class ReceiveInventoryTable
 		}
 		return $result;
 	}
+
+    public function getEventManager()
+    {
+        return $this->eventManager;
+    }
+
+    public function setEventManager($eventManager)
+    {
+        $this->eventManager = $eventManager;
+        return $this;
+    }
+
+    public function getCache()
+    {
+        return $this->cache;
+    }
+
+    public function setCache($cache)
+    {
+        $this->cache = $cache;
+        return $this;
+    }
 }

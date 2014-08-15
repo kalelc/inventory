@@ -32,8 +32,7 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		
-		
+		$this->getReceiveInventoryTable()->get(10);
 		$viewModel = new ViewModel();
 
 		$form = $this->getServiceLocator()->get("Process\Form\ReceiveInventoryForm");
@@ -80,6 +79,10 @@ implements ConfigAwareInterface
 	public function addDetailsAction() 
 	{
 
+		$container = new Container('receive_inventory');
+         
+
+        $this->getReceiveInventoryTable()->get($container->id);
 		$container = new Container('receive_inventory');
 
 		$form = $this->getServiceLocator()->get('Process\Form\DetailsReceiveInventoryForm');

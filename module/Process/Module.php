@@ -53,11 +53,21 @@ class Module
 			);
 	}
 
-	public function init(ModuleManager $moduleManager)
-	{
+	public function onBootstrap(MvcEvent $e)
+    {
+        $em = $e->getApplication()->getEventManager();
+        $sharedManager = $em->getSharedManager();
+        $sm = $e->getApplication()->getServiceManager();
+
+        $sharedManager->attach('Process\Controller\ReceiveInventoryController', 'dispatch', function ($e) use($sm, $em)
+        {
+            $controller = $e->getTarget();
+            $cacheListener = $sm->get('Application\Listener\MemcachedListener');
+            $controller->getEventManager()->attachAggregate($cacheListener);
+        }, 2);
 
 
-	}
+    }
 
 	public function getServiceConfig()
 	{
@@ -103,17 +113,13 @@ class Module
 				},
 				'Process\Model\ReceiveInventoryTable' => function ($sm)
                 {
-				$cache = $sm->get("Cache\Adapter\Memcached");
-				//$id = 1 ;
-				//$content = "andres";
-				//$cache->setItem($id, $content);
-
-				dump($cache->getItem(1));
-				dumpx("exit");
-
-
                     $tableGateway = $sm->get('ReceiveInventoryTableGateway');
+					$cache = $sm->get('Cache\Adapter\Memcached');
+					$eventManager = $sm->get("Zend\EventManager\EventManager");
+
                     $table = new ReceiveInventoryTable($tableGateway);
+                    $table->setCache($cache);
+                    $table->setEventManager($eventManager);
                     return $table;
                 },
                 'ReceiveInventoryTableGateway' => function ($sm)
@@ -121,7 +127,8 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new ReceiveInventory());
-                    return new TableGateway('receive_inventory', $dbAdapter, null, $resultSetPrototype, null);
+
+                    return new TableGateway('receive_inventory', $dbAdapter,null, $resultSetPrototype, null);
                 },
 			),
 		);

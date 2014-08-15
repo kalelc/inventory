@@ -19,6 +19,17 @@ class ReceiveInventory implements InputFilterAwareInterface
 	protected $invoiceFile;
 	protected $observation;
 
+    protected $customerFirstName;
+    protected $customerLastName;
+
+    protected $shipmentFirstName;
+    protected $shipmentLastName;
+
+    protected $shipmentCompany;
+    //protected $paymentMethod;
+    //protected $shipment;
+    
+
 	protected $inputFilter;
 
 	public function exchangeArray($data)
@@ -33,6 +44,12 @@ class ReceiveInventory implements InputFilterAwareInterface
         if (array_key_exists('invoice', $data)) $this->setInvoice($data['invoice']);
         if (array_key_exists('invoice_file', $data)) $this->setInvoiceFile($data['invoice_file']);
         if (array_key_exists('observation', $data)) $this->setObservation($data['observation']);
+        
+        if (array_key_exists('customer_first_name', $data)) $this->setCustomerFirstName($data['customer_first_name']);
+        if (array_key_exists('customer_last_name', $data)) $this->setCustomerLastName($data['customer_last_name']);
+        if (array_key_exists('shipment_first_name', $data)) $this->setShipmentFirstName($data['shipment_first_name']);
+        if (array_key_exists('shipment_last_name', $data)) $this->setShipmentLastName($data['shipment_last_name']);
+        if (array_key_exists('shipment_company', $data)) $this->setShipmentCompany($data['shipment_company']);
 	}
 
 	public function getArrayCopy()
@@ -316,7 +333,61 @@ class ReceiveInventory implements InputFilterAwareInterface
     public function setObservation($observation)
     {
         $this->observation = $observation;
+        return $this;
+    }
 
+    public function getCustomerFirstName()
+    {
+        return $this->customerFirstName;
+    }
+    
+    public function setCustomerFirstName($customerFirstName)
+    {
+        $this->customerFirstName = $customerFirstName;
+        return $this;
+    }
+
+    public function getCustomerLastName()
+    {
+        return $this->customerLastName;
+    }
+
+    public function setCustomerLastName($customerLastName)
+    {
+        $this->customerLastName = $customerLastName;
+        return $this;
+    }
+
+    public function getShipmentFirstName()
+    {
+        return $this->shipmentFirstName;
+    }
+
+    public function setShipmentFirstName($shipmentFirstName)
+    {
+        $this->shipmentFirstName = $shipmentFirstName;
+        return $this;
+    }
+
+    public function getShipmentLastName()
+    {
+        return $this->shipmentLastName;
+    }
+    
+    public function setShipmentLastName($shipmentLastName)
+    {
+        $this->shipmentLastName = $shipmentLastName;
+        return $this;
+    }
+
+    public function getShipmentCompany()
+    {
+        return $this->shipmentCompany;
+    }
+
+    public function setShipmentCompany($shipmentCompany)
+    {
+        $this->shipmentCompany = $shipmentCompany;
         return $this;
     }
 }
