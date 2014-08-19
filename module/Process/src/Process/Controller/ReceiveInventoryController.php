@@ -99,18 +99,22 @@ implements ConfigAwareInterface
 
 		if ($request->isPost()) {
 
+			$serials = array();
+
 			$qty = (int) $data['qty'];
 			$serialValuesElementErrors = true;
 
 			for($i = 0; $i < $qty; $i++) {
 				$serialValue = $data['serials'][$i][0];
 				if(isset($serialValue) && !empty($serialValue)) {
+					$serials[$i] = array_filter($data['serials'][$i]);
 				}
 				else {
 					$serialValuesElementErrors = false ;
 					break;
 				}
 			}
+
 
 			if ($form->isValid() && $serialValuesElementErrors) {
 
@@ -124,11 +128,14 @@ implements ConfigAwareInterface
 
 				$data['cost'] = str_replace('.','',$data['cost']);
 				$data['receive_inventory'] = $container->id ;
-				$data['serials'] = json_encode($data['serials']);
+				$data['serials'] = json_encode($serials);
 				$data['manifest_file'] = $manifestFile ? $manifestFile : "" ;
 
 				$detailsReceiveInventory->exchangeArray($data);
 				$receiveInventoryId = $this->getDetailsReceiveInventoryTable()->save($detailsReceiveInventory);
+
+				return $this->redirect()->toRoute('process/receive_inventory/add/details');
+
 
 			}
 			else {

@@ -10,7 +10,7 @@ echo $this->layoutHelper()->header(array(
 	));
 	?>
 	<div class="form-group">
-		<div class="col-sm-10">
+		<div class="col-sm-12">
 			<div class="panel panel-default">
 				<div class="panel-heading"></div>
 				<table class="table table-bordered">
@@ -107,9 +107,12 @@ echo $this->layoutHelper()->header(array(
 				<?php echo $this->formElementErrors($form->get('manifest_file'), array("class" => "error")); ?>
 			</div>
 		</div>
-		<?php if($detailsReceiveInventory): ?>
-			<!--<div class="panel panel-default">
-				<div class="panel-heading"><h5><?php //echo $title2; ?></h5></div>-->
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+		<?php echo $this->form()->closeTag(); ?>
+		<br>
+		<?php if(isset($detailsReceiveInventory) && $detailsReceiveInventory->count()>0): ?>
+			<div class="panel panel-default">
+				<div class="panel-heading"><h5><?php echo $title2; ?></h5></div>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -128,17 +131,18 @@ echo $this->layoutHelper()->header(array(
 								<td><?php echo $detailsReceiveInventory->getIva(); ?></td>
 								<td><?php echo $detailsReceiveInventory->getProduct(); ?></td>
 								<td><?php echo $detailsReceiveInventory->getQty(); ?></td>
-								<td><?php echo $detailsReceiveInventory->getSerials(); ?></td>
+								<td>
+									<a href="javascript:void(0)" class="btn btn-primary se-xs" onclick='showModalList("<?php echo addslashes($detailsReceiveInventory->getSerials()); ?>","<?php echo $this->config['component']['serial_name'][0] ?>");'>
+                                    <span class="glyphicon glyphicon-th-list"></span></a>
+								</td>
 								<td><?php echo $detailsReceiveInventory->getManifestFile(); ?></td>
 							</tr>
 						</tbody>
 					<?php endforeach; ?>
 				</table>
-			<!--</div>
-		</div>-->
-	<?php endif; ?>
-	<div class="well well-sm">
-		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
-	</div>
-	<?php echo $this->form()->closeTag(); ?>
-	<?php echo $this->modalHelper()->userAdd(); ?>
+			</div>
+		<?php endif; ?>
+		<div class="well well-sm">
+			<a href="<?php echo $this->url('admin/app'); ?>"><?php echo $this->config['action']['finish'] ; ?> </a>
+		</div>
+		<?php echo $this->modalHelper()->listContent(); ?>

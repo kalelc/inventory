@@ -24,7 +24,7 @@ class DetailsReceiveInventoryForm extends Form
 				'id'	=> 'qty',
 				'type'  => 'text',
 				'class' => 'form-control',
-				'maxlength'=>'1'
+				'maxlength'=>'2'
 				),
 			'options' => array(
 				'label' => 'name',
