@@ -10,7 +10,7 @@ echo $this->layoutHelper()->header(array(
 	));
 	?>
 	<div class="form-group">
-		<div class="col-sm-12">
+		<div class="col-sm-10">
 			<div class="panel panel-default">
 				<div class="panel-heading"></div>
 				<table class="table table-bordered">
@@ -108,8 +108,8 @@ echo $this->layoutHelper()->header(array(
 			</div>
 		</div>
 		<?php if($detailsReceiveInventory): ?>
-			<div class="panel panel-default">
-				<div class="panel-heading"><h2><?php echo $title2; ?></h2></div>
+			<!--<div class="panel panel-default">
+				<div class="panel-heading"><h5><?php //echo $title2; ?></h5></div>-->
 				<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -134,8 +134,8 @@ echo $this->layoutHelper()->header(array(
 						</tbody>
 					<?php endforeach; ?>
 				</table>
-			</div>
-		</div>
+			<!--</div>
+		</div>-->
 	<?php endif; ?>
 	<div class="well well-sm">
 		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
