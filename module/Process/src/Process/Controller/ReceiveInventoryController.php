@@ -80,6 +80,11 @@ implements ConfigAwareInterface
 	{
 
 		$container = new Container('receive_inventory');
+		
+		if(!$container->id) {
+			return $this->redirect()->toRoute('process/receive_inventory');
+		}
+
         $receiveInventory = $this->getReceiveInventoryTable()->get($container->id);
 
 		$form = $this->getServiceLocator()->get('Process\Form\DetailsReceiveInventoryForm');

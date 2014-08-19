@@ -32,7 +32,7 @@ class ReceiveInventoryTable
 		$row = $this->cache->getItem($key);
 		if(!$row) {
 			$select = new Select($this->tableGateway->getTable());
-			$select->columns(array("register_date","guide","invoice","invoice_file","observations"));
+			$select->columns(array("id","register_date","guide","invoice","invoice_file","observations"));
 			$select->join('customers', "customers.id = ".$this->tableGateway->getTable().".customer", array('customer_first_name' => 'first_name','customer_last_name' => 'first_name'), 'inner');
 			$select->join(array('shipments' => 'customers'), "shipments.id = ".$this->tableGateway->getTable().".shipment", array('shipment_first_name' => 'first_name',
 				'shipment_last_name' => 'last_name',

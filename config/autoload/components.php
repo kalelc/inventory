@@ -46,6 +46,7 @@ return array(
 		'model' 				=> array('modelos','modelo'),
 		'module' 				=> array('modulos','modulo'),
 		'name' 					=> array('nombres','nombre'),
+		'number' 				=> array('numeros','numero'),
 		'observation' 			=> array('observaciones','observación'),
 		'part_no' 				=> array('no partes','no parte'),
 		'password' 				=> array('contraseñas','contraseña'),

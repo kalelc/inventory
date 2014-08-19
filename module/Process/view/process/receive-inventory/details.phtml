@@ -11,10 +11,11 @@ echo $this->layoutHelper()->header(array(
 	<div class="form-group">
 		<div class="col-sm-10">
 			<div class="panel panel-default">
-				<div class="panel-heading"><?php echo $config['component']['receive_inventory'][0]; ?></div>
+				<div class="panel-heading"></div>
 				<table class="table table-bordered">
 					<thead>
 						<tr>
+							<th><?php echo $config['component']['number'][1]; ?></th>
 							<th><?php echo $config['component']['register_date'][1]; ?></th>
 							<th><?php echo $config['component']['customer'][1]; ?></th>
 							<th><?php echo $config['component']['payment_method'][1]; ?></th>
@@ -25,6 +26,7 @@ echo $this->layoutHelper()->header(array(
 					</thead>
 					<tbody>
 						<tr>
+							<td><b><?php echo $receiveInventory->getId(); ?></b></td>
 							<td><?php echo $receiveInventory->getRegisterDate(); ?></td>
 							<td><?php echo $receiveInventory->getCustomerFirstName()." ".$receiveInventory->getCustomerLastName(); ?></td>
 							<td><?php echo $receiveInventory->getPaymentMethodName(); ?></td>
