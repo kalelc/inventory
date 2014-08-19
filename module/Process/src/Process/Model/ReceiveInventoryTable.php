@@ -31,21 +31,22 @@ class ReceiveInventoryTable
 
 		$row = $this->cache->getItem($key);
 		if(!$row) {
-		$select = new Select($this->tableGateway->getTable());
-		$select->columns(array("register_date","guide","invoice","invoice_file","observations"));
-		$select->join('customers', "customers.id = ".$this->tableGateway->getTable().".customer", array('customer_first_name' => 'first_name','customer_last_name' => 'first_name'), 'inner');
-		$select->join(array('shipments' => 'customers'), "shipments.id = ".$this->tableGateway->getTable().".shipment", array('shipment_first_name' => 'first_name',
-																															  'shipment_last_name' => 'last_name',
-																															  'shipment_company' => 'company'), 
-		'inner');
-		$select->where(array($this->tableGateway->getTable().".id" => $id,$this->tableGateway->getTable().".user" => 1));
+			$select = new Select($this->tableGateway->getTable());
+			$select->columns(array("register_date","guide","invoice","invoice_file","observations"));
+			$select->join('customers', "customers.id = ".$this->tableGateway->getTable().".customer", array('customer_first_name' => 'first_name','customer_last_name' => 'first_name'), 'inner');
+			$select->join(array('shipments' => 'customers'), "shipments.id = ".$this->tableGateway->getTable().".shipment", array('shipment_first_name' => 'first_name',
+				'shipment_last_name' => 'last_name',
+				'shipment_company' => 'company'), 
+			'inner');
+			$select->join('payments_methods', "payments_methods.id = ".$this->tableGateway->getTable().".payment_method", array('payment_method_name' => 'name'), 'inner');
 
-		$rowset = $this->tableGateway->selectWith($select);
-		$row = $rowset->current();
-		$this->cache->addItem($key,$row);
+			$select->where(array($this->tableGateway->getTable().".id" => $id,$this->tableGateway->getTable().".user" => 1));
+
+			$rowset = $this->tableGateway->selectWith($select);
+			$row = $rowset->current();
+			$this->cache->addItem($key,$row);
 		}
 
-		dumpx($row);
 		return $row;
 	}
 
@@ -73,12 +74,11 @@ class ReceiveInventoryTable
 
 			$key = md5($id."_".$class);
 
-			$this->cache->addItem($key,$data);
-        	//dumpx($this->cache->getItem($key),"cache");
+			$this->cache->addItem($key,$this->get($id));
 			return $id;
 
 		} else {
-				return false;
+			return false;
 		}
 	}
 
@@ -93,25 +93,25 @@ class ReceiveInventoryTable
 		return $result;
 	}
 
-    public function getEventManager()
-    {
-        return $this->eventManager;
-    }
+	public function getEventManager()
+	{
+		return $this->eventManager;
+	}
 
-    public function setEventManager($eventManager)
-    {
-        $this->eventManager = $eventManager;
-        return $this;
-    }
+	public function setEventManager($eventManager)
+	{
+		$this->eventManager = $eventManager;
+		return $this;
+	}
 
-    public function getCache()
-    {
-        return $this->cache;
-    }
+	public function getCache()
+	{
+		return $this->cache;
+	}
 
-    public function setCache($cache)
-    {
-        $this->cache = $cache;
-        return $this;
-    }
+	public function setCache($cache)
+	{
+		$this->cache = $cache;
+		return $this;
+	}
 }

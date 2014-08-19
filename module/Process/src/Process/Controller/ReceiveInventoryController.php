@@ -80,15 +80,13 @@ implements ConfigAwareInterface
 	{
 
 		$container = new Container('receive_inventory');
-         
-
-        $this->getReceiveInventoryTable()->get($container->id);
-		$container = new Container('receive_inventory');
+        $receiveInventory = $this->getReceiveInventoryTable()->get($container->id);
 
 		$form = $this->getServiceLocator()->get('Process\Form\DetailsReceiveInventoryForm');
-		
+
 		$viewModel = new ViewModel();
 		$viewModel->setVariable('form',$form);
+		$viewModel->setVariable('receiveInventory', $receiveInventory);
 		$viewModel->setVariable('config', $this->config);
 
 		$viewModel->setTemplate("process/receive-inventory/details");

@@ -8,6 +8,37 @@ echo $this->layoutHelper()->header(array(
 	'action' => array('url' => '','value' => $action)
 	));
 	?>
+	<div class="form-group">
+		<div class="col-sm-10">
+			<div class="panel panel-default">
+				<div class="panel-heading"><?php echo $config['component']['receive_inventory'][0]; ?></div>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th><?php echo $config['component']['register_date'][1]; ?></th>
+							<th><?php echo $config['component']['customer'][1]; ?></th>
+							<th><?php echo $config['component']['payment_method'][1]; ?></th>
+							<th><?php echo $config['component']['shipment'][1]; ?></th>
+							<th><?php echo $config['component']['guide_number'][1]; ?></th>
+							<th><?php echo $config['component']['invoice'][1]; ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><?php echo $receiveInventory->getRegisterDate(); ?></td>
+							<td><?php echo $receiveInventory->getCustomerFirstName()." ".$receiveInventory->getCustomerLastName(); ?></td>
+							<td><?php echo $receiveInventory->getPaymentMethodName(); ?></td>
+							<td><?php echo $receiveInventory->getShipmentFirstName()." ".$receiveInventory->getShipmentLastName(); ?></td>
+							<td><?php echo $receiveInventory->getGuideNumber(); ?></td>
+							<td><?php echo $receiveInventory->getInvoice(); ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class='clearfix'></div>
+
 	<?php $form = $this->form; ?>
 	<?php $form->setAttribute('action', $this->url('process/receive_inventory', array('action' => 'add'))); ?>
 	<?php $form->prepare(); ?>
@@ -61,8 +92,8 @@ echo $this->layoutHelper()->header(array(
 			<?php echo $this->formElementErrors($form->get('manifest_file'), array("class" => "error")); ?>
 		</div>
 	</div>
-<div class="well well-sm">
-	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
-</div>
-<?php echo $this->form()->closeTag(); ?>
-<?php echo $this->modalHelper()->userAdd(); ?>
+	<div class="well well-sm">
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+	</div>
+	<?php echo $this->form()->closeTag(); ?>
+	<?php echo $this->modalHelper()->userAdd(); ?>

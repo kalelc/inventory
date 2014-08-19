@@ -21,13 +21,10 @@ class ReceiveInventory implements InputFilterAwareInterface
 
     protected $customerFirstName;
     protected $customerLastName;
-
     protected $shipmentFirstName;
     protected $shipmentLastName;
-
     protected $shipmentCompany;
-    //protected $paymentMethod;
-    //protected $shipment;
+    protected $paymentMethodName;
     
 
 	protected $inputFilter;
@@ -50,6 +47,7 @@ class ReceiveInventory implements InputFilterAwareInterface
         if (array_key_exists('shipment_first_name', $data)) $this->setShipmentFirstName($data['shipment_first_name']);
         if (array_key_exists('shipment_last_name', $data)) $this->setShipmentLastName($data['shipment_last_name']);
         if (array_key_exists('shipment_company', $data)) $this->setShipmentCompany($data['shipment_company']);
+        if (array_key_exists('payment_method_name', $data)) $this->setPaymentMethodName($data['payment_method_name']);
 	}
 
 	public function getArrayCopy()
@@ -390,4 +388,16 @@ class ReceiveInventory implements InputFilterAwareInterface
         $this->shipmentCompany = $shipmentCompany;
         return $this;
     }
+
+    public function getPaymentMethodName()
+    {
+        return $this->paymentMethodName;
+    }
+
+    public function setPaymentMethodName($paymentMethodName)
+    {
+        $this->paymentMethodName = $paymentMethodName;
+        return $this;
+    }
+    
 }
