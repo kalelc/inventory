@@ -77,7 +77,7 @@ implements ConfigAwareInterface
 		return $viewModel;
 	}
 
-	public function addDetailsAction() 
+	public function detailsAction() 
 	{
 		$container = new Container('receive_inventory');
 		$viewModel = new ViewModel();
@@ -157,6 +157,14 @@ implements ConfigAwareInterface
 
 		return $viewModel;
 
+	}
+
+	public function finishAction()
+	{
+		$container = new Container('receive_inventory');
+		$container->getManager()->getStorage()->clear('receive_inventory');
+		
+		return $this->redirect()->toRoute('process/receive_inventory/add');
 	}
 
 

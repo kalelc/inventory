@@ -46,11 +46,22 @@ return array(
 											'route'    => '/details',
 											'defaults' => array(
 												'controller' => 'Process\Controller\ReceiveInventory',
-												'action'     => 'addDetails',
+												'action'     => 'details',
 												),
 											),
 										),
 									),
+								),
+							'finish' => array(
+								'type'    => 'literal',
+								'options' => array(
+									'route'    => '/finish',
+									'defaults' => array(
+										'controller' => 'Process\Controller\ReceiveInventory',
+										'action'     => 'finish',
+										),
+									),
+								
 								),
 							),
 						),
