@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('#product').change(function() {
+	$('#product').blur(function() {
 		$.fn.getSerialList();
 	});
 	$('#qty').blur(function() {

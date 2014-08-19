@@ -68,13 +68,8 @@ class ReceiveInventoryTable
 		$id = (int)$receiveInventory->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
-
 			$id = $this->tableGateway->getLastInsertValue();
-			$class = get_class();
-
-			$key = md5($id."_".$class);
-
-			$this->cache->addItem($key,$this->get($id));
+			$this->get($id);
 			return $id;
 
 		} else {
