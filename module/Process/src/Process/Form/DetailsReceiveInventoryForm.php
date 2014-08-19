@@ -18,20 +18,13 @@ class DetailsReceiveInventoryForm extends Form
 		$this->products = $products;
 		
 
-
-		$this->add(array(
-			'name' => 'id',
-			'attributes' => array(
-				'type'  => 'hidden',
-				),
-			));
-
 		$this->add(array(
 			'name' => 'qty',
 			'attributes' => array(
 				'id'	=> 'qty',
-				'type'  => 'number',
+				'type'  => 'text',
 				'class' => 'form-control',
+				'maxlength'=>'1'
 				),
 			'options' => array(
 				'label' => 'name',

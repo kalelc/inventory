@@ -11,5 +11,14 @@ Trait ModuleTablesTrait
 		}
 		return $receiveInventoryTable;
 	}
+
+		public function getDetailsReceiveInventoryTable()
+	{
+		$detailsReceiveInventoryTable = "";
+		if (!$detailsReceiveInventoryTable) {
+			$detailsReceiveInventoryTable = $this->getServiceLocator()->get('Process\Model\DetailsReceiveInventoryTable');
+		}
+		return $detailsReceiveInventoryTable;
+	}
 }
 ?>

@@ -42,7 +42,7 @@ $.fn.getSerialList = function() {
 								selects += "<a href='javascript:void(0);' class='list-group-item'>" ;
 							
 							selects += "<h5 class='list-group-item-heading'>"+item+"</h5>" ;
-							selects += "<p><input type='text' name='serialValues[]' class='form-control'></p>";
+							selects += "<p><input type='text' name='serials["+i+"][]' class='form-control'></p>";
 							selects += "</a>" ;
 							
 							selects += "</div>" ;
@@ -59,7 +59,7 @@ $.fn.getSerialList = function() {
 			});
 	}
 	else
-		$("#serial_values_layout").html("<div class='alert alert-info'><p>Debe seleccionar una cantidad y un producto.</p></div>");
+		$("#serial_values_layout").html("<div class='alert alert-info'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button><p>debe seleccionar una cantidad y un producto.</p></div>");
 }
 
 $.fn.searchProduct = function(product) {

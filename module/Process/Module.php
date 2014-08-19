@@ -14,6 +14,9 @@ use Process\Form\DetailsReceiveInventoryForm;
 use Process\Model\ReceiveInventory;
 use Process\Model\ReceiveInventoryTable;
 
+use Process\Model\DetailsReceiveInventory;
+use Process\Model\DetailsReceiveInventoryTable;
+
 use Zend\ModuleManager\ModuleManager;
 
 use Application\ConfigAwareInterface;
@@ -54,20 +57,20 @@ class Module
 	}
 
 	public function onBootstrap(MvcEvent $e)
-    {
-        $em = $e->getApplication()->getEventManager();
-        $sharedManager = $em->getSharedManager();
-        $sm = $e->getApplication()->getServiceManager();
+	{
+		$em = $e->getApplication()->getEventManager();
+		$sharedManager = $em->getSharedManager();
+		$sm = $e->getApplication()->getServiceManager();
 
-        $sharedManager->attach('Process\Controller\ReceiveInventoryController', 'dispatch', function ($e) use($sm, $em)
-        {
-            $controller = $e->getTarget();
-            $cacheListener = $sm->get('Application\Listener\MemcachedListener');
-            $controller->getEventManager()->attachAggregate($cacheListener);
-        }, 2);
+		$sharedManager->attach('Process\Controller\ReceiveInventoryController', 'dispatch', function ($e) use($sm, $em)
+		{
+			$controller = $e->getTarget();
+			$cacheListener = $sm->get('Application\Listener\MemcachedListener');
+			$controller->getEventManager()->attachAggregate($cacheListener);
+		}, 2);
 
 
-    }
+	}
 
 	public function getServiceConfig()
 	{
@@ -112,25 +115,44 @@ class Module
 
 				},
 				'Process\Model\ReceiveInventoryTable' => function ($sm)
-                {
-                    $tableGateway = $sm->get('ReceiveInventoryTableGateway');
+				{
+					$tableGateway = $sm->get('ReceiveInventoryTableGateway');
 					$cache = $sm->get('Cache\Adapter\Memcached');
 					$eventManager = $sm->get("Zend\EventManager\EventManager");
 
-                    $table = new ReceiveInventoryTable($tableGateway);
-                    $table->setCache($cache);
-                    $table->setEventManager($eventManager);
-                    return $table;
-                },
-                'ReceiveInventoryTableGateway' => function ($sm)
-                {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new ReceiveInventory());
+					$table = new ReceiveInventoryTable($tableGateway);
+					$table->setCache($cache);
+					$table->setEventManager($eventManager);
+					return $table;
+				},
+				'ReceiveInventoryTableGateway' => function ($sm)
+				{
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new ReceiveInventory());
 
-                    return new TableGateway('receive_inventory', $dbAdapter,null, $resultSetPrototype, null);
-                },
-			),
-		);
-	}
+					return new TableGateway('receive_inventory', $dbAdapter,null, $resultSetPrototype, null);
+				},
+				'Process\Model\DetailsReceiveInventoryTable' => function ($sm)
+				{
+					$tableGateway = $sm->get('DetailsReceiveInventoryTableGateway');
+					$cache = $sm->get('Cache\Adapter\Memcached');
+					$eventManager = $sm->get("Zend\EventManager\EventManager");
+
+					$table = new DetailsReceiveInventoryTable($tableGateway);
+					$table->setCache($cache);
+					$table->setEventManager($eventManager);
+					return $table;
+				},
+				'DetailsReceiveInventoryTableGateway' => function ($sm)
+				{
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new DetailsReceiveInventory());
+
+					return new TableGateway('details_receive_inventory', $dbAdapter,null, $resultSetPrototype, null);
+				},
+				),
+);
+}
 }
