@@ -146,7 +146,7 @@ implements ConfigAwareInterface
 			}
 		}
 
-		$detailsReceiveInventory = $this->getDetailsReceiveInventoryTable()->geList($container->id);
+		$detailsReceiveInventory = $this->getDetailsReceiveInventoryTable()->get($container->id);
 
 		$viewModel->setVariable('form',$form);
 		$viewModel->setVariable('receiveInventory', $receiveInventory);
@@ -165,6 +165,48 @@ implements ConfigAwareInterface
 		$container->getManager()->getStorage()->clear('receive_inventory');
 		
 		return $this->redirect()->toRoute('process/receive_inventory/add');
+	}
+
+	public function deleteDetailAction()
+	{
+		$viewModel = new ViewModel();
+		$container = new Container('receive_inventory');
+		$receiveInventoryId = (int) $container->id;
+
+		$id = (int) $this->params()->fromRoute('id', 0);
+		if (!$id || !$receiveInventoryId) {
+			return $this->redirect()->toRoute('process/receive_inventory/add/details');
+		}
+
+		//$this->getDetailsReceiveInventoryTable()->geList($container->id);
+
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$del = $request->getPost('del', 'No');
+			if ($del == 'Si') {
+				$id = (int) $request->getPost('id');
+				@unlink($this->config['component']['detail_receive_inventory']['file_path']."/".$this->getDetailsReceiveInventoryTable()->get($receiveInventoryId,$id)->getManifestFile());
+
+				$result = $this->getDetailsReceiveInventoryTable()->delete($id);
+
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('process/receive_inventory/add/details');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else
+				return $this->redirect()->toRoute('process/receive_inventory/add/details');
+		}
+
+		$viewModel->setVariables(array(
+			'id'=> $id,
+			'detailReceiveInventory' => $this->getDetailsReceiveInventoryTable()->get($receiveInventoryId,$id),
+			'config' => $this->config,
+			));
+
+		return $viewModel;
 	}
 
 

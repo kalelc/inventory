@@ -122,20 +122,27 @@ echo $this->layoutHelper()->header(array(
 							<th><?php echo $config['component']['qty'][1]; ?></th>
 							<th><?php echo $config['component']['serial_name'][1]; ?></th>
 							<th><?php echo $config['component']['manifest_file'][1]; ?></th>
+							<th></th>
 						</tr>
 					</thead>
 					<?php foreach($detailsReceiveInventory as $detailReceiveInventory): ?>
 						<tbody>
 							<tr>
 								<td>$ <?php echo number_format($detailReceiveInventory->getCost()); ?></td>
-								<td><?php echo $detailReceiveInventory->getIva(); ?></td>
+								<td>$ <?php echo number_format($detailReceiveInventory->getIvaAccumulated()); ?></td>
 								<td><?php echo $detailReceiveInventory->getProduct(); ?></td>
 								<td><?php echo $detailReceiveInventory->getQty(); ?></td>
 								<td>
 									<a href="javascript:void(0)" class="btn btn-primary se-xs" onclick='showModalList("<?php echo addslashes($detailReceiveInventory->getSerials()); ?>","<?php echo $this->config['component']['serial_name'][0] ?>");'>
                                     <span class="glyphicon glyphicon-th-list"></span></a>
 								</td>
-								<td><?php echo $detailReceiveInventory->getManifestFile(); ?></td>
+								<td>
+									<?php if($detailReceiveInventory->getManifestFile()): ?>
+									<a href="/files/details_receive_inventory/<?php echo $detailReceiveInventory->getManifestFile()?>" class="btn btn-primary btn-xs" target='_blank'>
+										<span class="glyphicon glyphicon-floppy-disk"></span></a>
+									<?php endif; ?>
+								</td>
+								<td><a href="<?php echo $this->url('process/receive_inventory/add/details/delete', array('id' => $detailReceiveInventory->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a></td>
 							</tr>
 						</tbody>
 					<?php endforeach; ?>

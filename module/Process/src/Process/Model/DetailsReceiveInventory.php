@@ -12,6 +12,7 @@ class DetailsReceiveInventory implements InputFilterAwareInterface
 	protected $receiveInventory;
 	protected $cost;
     protected $iva;
+    protected $ivaAccumulated;
     protected $product;
     protected $qty;
     protected $manifestFile;
@@ -228,6 +229,17 @@ class DetailsReceiveInventory implements InputFilterAwareInterface
     public function setManifestFile($manifestFile)
     {
         $this->manifestFile = $manifestFile;
+
+        return $this;
+    }
+    public function getIvaAccumulated()
+    {
+        return $this->ivaAccumulated;
+    }
+
+    public function setIvaAccumulated($ivaAccumulated)
+    {
+        $this->ivaAccumulated = $ivaAccumulated;
 
         return $this;
     }

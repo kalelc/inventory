@@ -49,6 +49,22 @@ return array(
 												'action'     => 'details',
 												),
 											),
+										'may_terminate' => true,
+										'child_routes' => array(
+											'delete' => array(
+												'type'    => 'segment',
+												'options' => array(
+													'route'    => '/delete[/:id]',
+													'constraints' => array(
+													'id'     => '[0-9]+',
+													),
+													'defaults' => array(
+														'controller' => 'Process\Controller\ReceiveInventory',
+														'action'     => 'deleteDetail',
+														),
+													),
+												),
+											),
 										),
 									),
 								),

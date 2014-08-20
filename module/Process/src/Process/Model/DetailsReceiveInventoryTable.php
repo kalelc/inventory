@@ -24,32 +24,54 @@ class DetailsReceiveInventoryTable
 
 	}
 
-	public function get($id)
-	{
-		dumpx("get");
-	}
-
-	public function geList($receiveInventoryId)
+	public function get($receiveInventoryId,$id = false)
 	{
 		$select = new Select($this->tableGateway->getTable());
 		$select->join('receive_inventory', "receive_inventory.id = ".$this->tableGateway->getTable().".receive_inventory", array(), 'inner');
-		//$select->join('products', "products.id = ".$this->tableGateway->getTable().".product", array(), 'inner');
-		$select->where(array("receive_inventory" => $receiveInventoryId));
-		$resultSet = $this->tableGateway->selectWith($select);
-		
-		$result = array();
+		$select->where(array($this->tableGateway->getTable().".receive_inventory" => $receiveInventoryId));
 
-		foreach($resultSet as $rows) {
-			$product = $this->productTable->getName(false,$rows->getProduct());
-			$rows->setProduct(implode($product));
-			$result[] = $rows ;
+		if($id) {
+			$select->where(array($this->tableGateway->getTable().".id" => $id));
+			$resultSet = $this->tableGateway->selectWith($select);
+			$result = $resultSet->current();
+			$product = $this->productTable->getName(false,$result->getProduct());
+			$result->setProduct(implode($product));
 		}
+		else {
 
+			$resultSet = $this->tableGateway->selectWith($select);
+
+			$result = array();
+
+			foreach($resultSet as $rows) {
+				$product = $this->productTable->getName(false,$rows->getProduct());
+				$rows->setProduct(implode($product));
+				
+				switch($rows->getIva()) {
+					case 1 :
+					$rows->setIvaAccumulated($rows->getCost() - ($rows->getCost() / 1.16));
+					break ;
+					case 2 :
+					$rows->setIvaAccumulated($rows->getCost() * 0.16);
+					break ;
+					case 3 :
+					$rows->setIvaAccumulated(0);
+					break ;
+				}
+
+				$result[] = $rows;
+			}
+		}
 		return $result;
 	}
 
 	public function save(DetailsReceiveInventory $detailsReceiveInventory)
 	{
+
+		if($detailsReceiveInventory->getIva()==1) {
+			$detailsReceiveInventory->setCost($detailsReceiveInventory->getCost() - ($detailsReceiveInventory->getCost() / 1.16));
+		}
+
 		$data = array(
 			'receive_inventory' => $detailsReceiveInventory->getReceiveInventory(),
 			'cost' => $detailsReceiveInventory->getCost(),
@@ -104,15 +126,20 @@ class DetailsReceiveInventoryTable
 		return $this;
 	}
 
-    public function getProductTable()
-    {
-        return $this->productTable;
-    }
+	public function getProductTable()
+	{
+		return $this->productTable;
+	}
 
-    public function setProductTable($productTable)
-    {
-        $this->productTable = $productTable;
+	public function setProductTable($productTable)
+	{
+		$this->productTable = $productTable;
 
-        return $this;
-    }
+		return $this;
+	}
+
+	public function calculateIva($cost,$opt)
+	{
+
+	}
 }

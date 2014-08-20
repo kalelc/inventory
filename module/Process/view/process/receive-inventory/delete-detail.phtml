@@ -1,0 +1,35 @@
+<?php
+$title = $this->config['component']['detail_receive_inventory'][0];
+$action = $this->config['action']['remove'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('process/receive_inventory/add/details/delete'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));
+	?>
+
+	<?php if(isset($error) && $error): ?>
+		<div class="alert alert-danger fade in">
+			<h4>¡Vaya! Se ha producido un error.</h4>
+			<p>No se puede borrar el registro de <?php echo $title; ?> ya que este se encuentra vinculado a otro registro.</p>
+			<p>
+				<a href="<?php echo $this->url('process/receive_inventory/add/details');?>"><?php echo $this->config['action']['return'] ; ?> </a>
+			</p>
+		</div>
+	<?php else: ?>
+
+			<div class="alert alert-danger">
+				<p>Esta seguro que quiere borrar el producto '<?php echo $detailReceiveInventory->getProduct(); ?>'?</p>
+			</div>
+			<?php
+			$url = $this->url('process/receive_inventory/add/details/delete', array(
+				'id'=> $this->id,
+				));
+				?>
+				<form action="<?php echo $url; ?>" method="post">
+					<div class="well well-sm">
+						<input type="hidden" name="id" value="<?php echo (int) $detailReceiveInventory->getId(); ?>" />
+						<?php echo $this->config['action']['delete_yes']; ?>
+						<?php echo $this->config['action']['delete_no']; ?>
+					</div>
+				</form>
+	<?php endif; ?>
