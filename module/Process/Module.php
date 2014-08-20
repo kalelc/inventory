@@ -137,9 +137,11 @@ class Module
 				{
 					$tableGateway = $sm->get('DetailsReceiveInventoryTableGateway');
 					$cache = $sm->get('Cache\Adapter\Memcached');
+					$productTable = $sm->get('Admin\Model\ProductTable');
 					$eventManager = $sm->get("Zend\EventManager\EventManager");
 
 					$table = new DetailsReceiveInventoryTable($tableGateway);
+					$table->setProductTable($productTable);
 					$table->setCache($cache);
 					$table->setEventManager($eventManager);
 					return $table;

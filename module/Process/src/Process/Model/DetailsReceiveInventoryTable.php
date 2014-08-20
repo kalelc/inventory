@@ -9,6 +9,7 @@ class DetailsReceiveInventoryTable
 	protected $tableGateway;
 	protected $eventManager;
 	protected $cache;
+	protected $productTable;
 
 	public function __construct(TableGateway $tableGateway)
 	{
@@ -35,7 +36,16 @@ class DetailsReceiveInventoryTable
 		//$select->join('products', "products.id = ".$this->tableGateway->getTable().".product", array(), 'inner');
 		$select->where(array("receive_inventory" => $receiveInventoryId));
 		$resultSet = $this->tableGateway->selectWith($select);
-		return $resultSet;
+		
+		$result = array();
+
+		foreach($resultSet as $rows) {
+			$product = $this->productTable->getName(false,$rows->getProduct());
+			$rows->setProduct(implode($product));
+			$result[] = $rows ;
+		}
+
+		return $result;
 	}
 
 	public function save(DetailsReceiveInventory $detailsReceiveInventory)
@@ -93,4 +103,16 @@ class DetailsReceiveInventoryTable
 		$this->cache = $cache;
 		return $this;
 	}
+
+    public function getProductTable()
+    {
+        return $this->productTable;
+    }
+
+    public function setProductTable($productTable)
+    {
+        $this->productTable = $productTable;
+
+        return $this;
+    }
 }

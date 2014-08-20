@@ -110,7 +110,7 @@ echo $this->layoutHelper()->header(array(
 		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 		<?php echo $this->form()->closeTag(); ?>
 		<br>
-		<?php if(isset($detailsReceiveInventory) && $detailsReceiveInventory->count()>0): ?>
+		<?php if(isset($detailsReceiveInventory) && count($detailsReceiveInventory)>0): ?>
 			<div class="panel panel-default">
 				<div class="panel-heading"><h5><?php echo $title2; ?></h5></div>
 				<table class="table table-bordered">
@@ -124,18 +124,18 @@ echo $this->layoutHelper()->header(array(
 							<th><?php echo $config['component']['manifest_file'][1]; ?></th>
 						</tr>
 					</thead>
-					<?php foreach($detailsReceiveInventory as $detailsReceiveInventory): ?>
+					<?php foreach($detailsReceiveInventory as $detailReceiveInventory): ?>
 						<tbody>
 							<tr>
-								<td>$ <?php echo number_format($detailsReceiveInventory->getCost()); ?></td>
-								<td><?php echo $detailsReceiveInventory->getIva(); ?></td>
-								<td><?php echo $detailsReceiveInventory->getProduct(); ?></td>
-								<td><?php echo $detailsReceiveInventory->getQty(); ?></td>
+								<td>$ <?php echo number_format($detailReceiveInventory->getCost()); ?></td>
+								<td><?php echo $detailReceiveInventory->getIva(); ?></td>
+								<td><?php echo $detailReceiveInventory->getProduct(); ?></td>
+								<td><?php echo $detailReceiveInventory->getQty(); ?></td>
 								<td>
-									<a href="javascript:void(0)" class="btn btn-primary se-xs" onclick='showModalList("<?php echo addslashes($detailsReceiveInventory->getSerials()); ?>","<?php echo $this->config['component']['serial_name'][0] ?>");'>
+									<a href="javascript:void(0)" class="btn btn-primary se-xs" onclick='showModalList("<?php echo addslashes($detailReceiveInventory->getSerials()); ?>","<?php echo $this->config['component']['serial_name'][0] ?>");'>
                                     <span class="glyphicon glyphicon-th-list"></span></a>
 								</td>
-								<td><?php echo $detailsReceiveInventory->getManifestFile(); ?></td>
+								<td><?php echo $detailReceiveInventory->getManifestFile(); ?></td>
 							</tr>
 						</tbody>
 					<?php endforeach; ?>

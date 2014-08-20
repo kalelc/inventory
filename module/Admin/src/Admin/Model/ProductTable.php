@@ -24,7 +24,7 @@ class ProductTable
 		return $rows;
 	}
 
-	public function getName($upcBarCode = false)
+	public function getName($upcBarCode = false, $id = false)
 	{
 		$select = new Select($this->tableGateway->getTable());
 		$select->columns(array('model','id'));
@@ -33,6 +33,8 @@ class ProductTable
 		
 		if($upcBarCode)
 			$select->where(array($this->tableGateway->getTable().".upc_bar_code"=> $upcBarCode));
+		if($id)
+			$select->where(array($this->tableGateway->getTable().".id"=> $id));
 
 		$rows = $this->tableGateway->selectWith($select);
 
