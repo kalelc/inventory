@@ -98,7 +98,7 @@ class Module
 						$paymentMethodList[$paymentMethod->getId()] = $paymentMethod->getName();
 					}
 
-					$shipments= $customerTable->fetchAll($transporter);
+					$shipments = $customerTable->fetchAll($transporter);
 					$shipmentList = array();
 
 					foreach($shipments as $shipment){

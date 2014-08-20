@@ -23,8 +23,8 @@ class CustomerTable
 		
 		if($userType)
 			$select->where(array("user_types.id" => $userType));
-		
-		$resultSet = $this->tableGateway->select($select);
+
+		$resultSet = $this->tableGateway->selectWith($select);
 		$resultSet->buffer();
 		return $resultSet;
 	}

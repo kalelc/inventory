@@ -21,7 +21,6 @@ class ReceiveInventoryForm extends Form
 		$this->paymentMethods = $paymentMethods;
 		$this->shipments = $shipments;
 
-
 		$this->add(array(
 			'name' => 'id',
 			'attributes' => array(
