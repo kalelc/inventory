@@ -49,6 +49,7 @@ class DetailsReceiveInventoryTable
 				
 				switch($rows->getIva()) {
 					case 1 :
+					$rows->setCost($rows->getCost() / 1.16);
 					$rows->setIvaAccumulated($rows->getCost() - ($rows->getCost() / 1.16));
 					break ;
 					case 2 :
