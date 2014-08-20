@@ -31,23 +31,23 @@ echo $this->layoutHelper()->header(array(
                     <td><?php echo $this->escapeHtml($customer->getCompany());?></td>
                     <td>
                         <?php if(count($customer->getEmails())>0) : ?>
-                            <?php echo json_decode($customer->getEmails())[0];?>
                             <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick='showModalList("<?php echo addslashes($customer->getEmails()); ?>","<?php echo $this->config['component']['email'][0] ?>");'>
                                 <span class="glyphicon glyphicon-th-list"></span></a>
+                            <?php echo json_decode($customer->getEmails())[0];?>
                             <?php endif; ?>
                         </td>
                         <td>
                             <?php if(count($customer->getEmails())>0) : ?>
-                                <?php echo json_decode($customer->getAddresses())[0];?>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick='showModalList("<?php echo addslashes($customer->getAddresses()); ?>","<?php echo $this->config['component']['address'][0] ?>");'>
                                     <span class="glyphicon glyphicon-th-list"></span></a>
+                                <?php echo json_decode($customer->getAddresses())[0];?>
                                 <?php endif; ?>
                             </td>
                             <td>
                                 <?php if(count($customer->getEmails())>0) : ?>
-                                    <?php echo json_decode($customer->getPhones())[0];?>
                                     <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick='showModalList("<?php echo addslashes($customer->getPhones()); ?>","<?php echo $this->config['component']['phone'][0] ?>");'>
                                         <span class="glyphicon glyphicon-th-list"></span></a>
+                                    <?php echo json_decode($customer->getPhones())[0];?>
                                     <?php endif;?>
                                 </td>
                                 <td class='column-button'>

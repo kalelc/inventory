@@ -68,10 +68,6 @@ class DetailsReceiveInventoryTable
 	public function save(DetailsReceiveInventory $detailsReceiveInventory)
 	{
 
-		if($detailsReceiveInventory->getIva()==1) {
-			$detailsReceiveInventory->setCost($detailsReceiveInventory->getCost() - ($detailsReceiveInventory->getCost() / 1.16));
-		}
-
 		$data = array(
 			'receive_inventory' => $detailsReceiveInventory->getReceiveInventory(),
 			'cost' => $detailsReceiveInventory->getCost(),
