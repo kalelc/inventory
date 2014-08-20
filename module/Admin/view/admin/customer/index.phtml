@@ -33,7 +33,7 @@ echo $this->layoutHelper()->header(array(
                         <?php if(count($customer->getEmails())>0) : ?>
                             <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick='showModalList("<?php echo addslashes($customer->getEmails()); ?>","<?php echo $this->config['component']['email'][0] ?>");'>
                                 <span class="glyphicon glyphicon-th-list"></span></a>
-                            <?php echo //json_decode($customer->getEmails())[0];?>
+                            <?php //echo json_decode($customer->getEmails())[0];?>
                             <?php endif; ?>
                         </td>
                         <td>
