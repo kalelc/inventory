@@ -18,6 +18,7 @@ $(document).ready(function() {
 		NumberFormat.numericFormat();
 		$(this).val(NumberFormat.getValue());
 	});
+	$('.tooltip_preview').tooltip();
 });
 
 function showModalNote(){

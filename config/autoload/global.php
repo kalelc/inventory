@@ -33,4 +33,9 @@ return array(
 		'itempage' => 25,
 		'pagerange' => 10
 		),
+	'customers' => array(
+		'client' => 1,
+		'provider' => 2,
+		'transporter' => 3,
+		)
 	);

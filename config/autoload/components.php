@@ -75,6 +75,7 @@ return array(
 		'specification_master' 			=> array('especificaciones maestras','espeficación maestra','image_path'=> 'public/images/specification_master'),
 		'status' 						=> array('estados','estado'),
 		'title' 						=> array('titulos','titulo'),
+		'total' 						=> array('totales','total'),
 		'video' 						=> array('videos','video'),
 		'user'							=> array('usuarios','usuario'),
 		'username'						=> array('nombres usuario','nombre usuario'),

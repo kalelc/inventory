@@ -18,6 +18,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Average Sans', sans-serif; text-transform: cap
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
 }
 
+th, td { vertical-align: middle; text-align: center;}
 td.column-button { vertical-align: middle; text-align: center;}
 .btn-success:active, .btn-success.active {  background-color: #57a900; }
 form label { font-weight: bold; text-transform: capitalize;}

@@ -77,8 +77,13 @@ class Module
 		return array(
 			'factories' => array(
 				'Process\Form\ReceiveInventoryForm' =>  function($sm) {
+
+
+					$client = $sm->get('config')['customers']['client'];
+					$transporter = $sm->get('config')['customers']['transporter'];
+
 					$customerTable = $sm->get("Admin/Model/CustomerTable");
-					$customers = $customerTable->fetchAll();
+					$customers = $customerTable->fetchAll($client);
 					$customersList = array();
 
 					foreach($customers as $customer){
@@ -93,8 +98,7 @@ class Module
 						$paymentMethodList[$paymentMethod->getId()] = $paymentMethod->getName();
 					}
 
-					$customerTable = $sm->get("Admin/Model/CustomerTable");
-					$shipments= $customerTable->fetchAll();
+					$shipments= $customerTable->fetchAll($transporter);
 					$shipmentList = array();
 
 					foreach($shipments as $shipment){

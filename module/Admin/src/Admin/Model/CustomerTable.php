@@ -13,14 +13,20 @@ class CustomerTable
 		$this->tableGateway = $tableGateway;
 	}
 
-	public function fetchAll()
+	public function fetchAll($userType = false)
 	{
 		$select = new Select($this->tableGateway->getTable());
 		$select->join('cities', "cities.id = ".$this->tableGateway->getTable().".city", array('city_name' => 'name'), 'inner');
+		$select->join('customers_classifications', "customers_classifications.customer = ".$this->tableGateway->getTable().".id", array(), 'inner');
+		$select->join('classifications', "classifications.id = customers_classifications.classification", array(), 'inner');
+		$select->join('user_types', "user_types.id = classifications.user_type", array(), 'inner');
+		
+		if($userType)
+			$select->where(array("user_types.id" => $userType));
+		
 		$resultSet = $this->tableGateway->select($select);
 		$resultSet->buffer();
 		return $resultSet;
-
 	}
 
 	public function get($id)
@@ -29,7 +35,7 @@ class CustomerTable
 		$rowset = $this->tableGateway->select(array('id' => $id));
 		$row = $rowset->current();
 		if (!$row) {
-			throw new \Exception("Could not find row $id");
+			return false;
 		}
 		return $row;
 	}

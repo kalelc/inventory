@@ -73,13 +73,6 @@ echo $this->layoutHelper()->header(array(
 			</div>
 		</div>
 		<div class="form-group">
-			<?php echo $this->formLabel($form->get('qty')->setLabel($this->config['component']['qty'][1])); ?>
-			<div class="col-sm-2">
-				<?php echo $this->formInput($form->get('qty')); ?>
-				<?php echo $this->formElementErrors($form->get('qty'), array("class" => "error")); ?>
-			</div>
-		</div>
-		<div class="form-group">
 			<?php echo $this->formLabel($form->get('product_search')->setLabel($this->config['component']['product'][1])); ?>
 			<div class="col-sm-4">
 				<?php echo $this->formInput($form->get('product_search')); ?>
@@ -95,6 +88,13 @@ echo $this->layoutHelper()->header(array(
 			</div>
 		</div>
 		<div class="form-group">
+			<?php echo $this->formLabel($form->get('qty')->setLabel($this->config['component']['qty'][1])); ?>
+			<div class="col-sm-2">
+				<?php echo $this->formInput($form->get('qty')); ?>
+				<?php echo $this->formElementErrors($form->get('qty'), array("class" => "error")); ?>
+			</div>
+		</div>
+		<div class="form-group">
 			<div class="col-sm-12">
 				<div id="serial_values_layout">
 				</div>
@@ -107,49 +107,76 @@ echo $this->layoutHelper()->header(array(
 				<?php echo $this->formElementErrors($form->get('manifest_file'), array("class" => "error")); ?>
 			</div>
 		</div>
-		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['attach'])); ?>
 		<?php echo $this->form()->closeTag(); ?>
 		<br>
 		<?php if(isset($detailsReceiveInventory) && count($detailsReceiveInventory)>0): ?>
 			<div class="panel panel-default">
 				<div class="panel-heading"><h5><?php echo $title2; ?></h5></div>
-				<table class="table table-bordered">
+				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
 							<th><?php echo $config['component']['cost'][1]; ?></th>
 							<th><?php echo $config['component']['iva'][1]; ?></th>
 							<th><?php echo $config['component']['product'][1]; ?></th>
 							<th><?php echo $config['component']['qty'][1]; ?></th>
+							<th><?php echo $config['component']['total'][1]; ?></th>
 							<th><?php echo $config['component']['serial_name'][1]; ?></th>
 							<th><?php echo $config['component']['manifest_file'][1]; ?></th>
 							<th></th>
 						</tr>
 					</thead>
+					<?php $totalQty = 0 ?>
+					<?php $totalCost = 0 ?>
 					<?php foreach($detailsReceiveInventory as $detailReceiveInventory): ?>
+						<?php $subTotalCost = 0 ?>
 						<tbody>
 							<tr>
 								<td>$ <?php echo number_format($detailReceiveInventory->getCost()); ?></td>
 								<td>$ <?php echo number_format($detailReceiveInventory->getIvaAccumulated()); ?></td>
-								<td><?php echo $detailReceiveInventory->getProduct(); ?></td>
-								<td><?php echo $detailReceiveInventory->getQty(); ?></td>
+								<td>
+									<a href="javascript:void(0);" class="tooltip_preview" data-original-title="<?php echo $detailReceiveInventory->getProduct(); ?>"><?php echo substr($detailReceiveInventory->getProduct(),0,30); ?>...</a>
+								</td>
+								<td>
+								<?php 
+								$totalQty = $totalQty +	$detailReceiveInventory->getQty(); 
+								echo $detailReceiveInventory->getQty();
+								?>
+								</td>
+								<td>$ 
+								<?php 
+								$subTotalCost = $detailReceiveInventory->getQty() * $detailReceiveInventory->getCost() ;
+								echo number_format($subTotalCost); 
+								$totalCost = $totalCost + $subTotalCost;
+								?>
+								</td>
 								<td>
 									<a href="javascript:void(0)" class="btn btn-primary se-xs" onclick='showModalList("<?php echo addslashes($detailReceiveInventory->getSerials()); ?>","<?php echo $this->config['component']['serial_name'][0] ?>");'>
-                                    <span class="glyphicon glyphicon-th-list"></span></a>
-								</td>
-								<td>
-									<?php if($detailReceiveInventory->getManifestFile()): ?>
-									<a href="/files/details_receive_inventory/<?php echo $detailReceiveInventory->getManifestFile()?>" class="btn btn-primary btn-xs" target='_blank'>
-										<span class="glyphicon glyphicon-floppy-disk"></span></a>
-									<?php endif; ?>
-								</td>
-								<td><a href="<?php echo $this->url('process/receive_inventory/add/details/delete', array('id' => $detailReceiveInventory->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a></td>
-							</tr>
-						</tbody>
-					<?php endforeach; ?>
-				</table>
-			</div>
-		<?php endif; ?>
-		<div class="well well-sm">
-			<a href="<?php echo $this->url('process/receive_inventory/finish'); ?>"><?php echo $this->config['action']['finish'] ; ?> </a>
-		</div>
-		<?php echo $this->modalHelper()->listContent(); ?>
+										<span class="glyphicon glyphicon-th-list"></span></a>
+									</td>
+									<td>
+										<?php if($detailReceiveInventory->getManifestFile()): ?>
+											<a href="/files/details_receive_inventory/<?php echo $detailReceiveInventory->getManifestFile()?>" class="btn btn-primary btn-xs" target='_blank'>
+												<span class="glyphicon glyphicon-floppy-disk"></span></a>
+											<?php endif; ?>
+										</td>
+										<td><a href="<?php echo $this->url('process/receive_inventory/add/details/delete', array('id' => $detailReceiveInventory->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a></td>
+									</tr>
+								</tbody>
+							<?php $totalCost = $totalCost + $detailReceiveInventory->getCost(); ?>
+							<?php endforeach; ?>
+						<tfoot>
+						<tr class="success">
+							<td colspan='3'></td>
+							<td><?php echo $totalQty ; ?></td>
+							<td>$ <?php echo number_format($totalCost); ?></td>
+							<td colspan='3'></td>
+						</tr>
+						</tfoot>
+						</table>
+					</div>
+				<?php endif; ?>
+				<div class="well well-sm">
+					<a href="<?php echo $this->url('process/receive_inventory/finish'); ?>"><?php echo $this->config['action']['finish'] ; ?> </a>
+				</div>
+				<?php echo $this->modalHelper()->listContent(); ?>

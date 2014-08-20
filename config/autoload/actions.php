@@ -8,6 +8,7 @@ return array(
 		'remove' 		=> 'borrar',
 		'detail' 		=> 'detalle',
 		'login' 		=> 'Ingresar',
+		'attach'		=> 'Agregar', 
 		'add' 			=> '<label class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Agregar</label>',
 		'finish' 		=> '<label class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-ok"></span> Finalizar</label>',
 		'update' 		=> '<label class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Editar</label>',
