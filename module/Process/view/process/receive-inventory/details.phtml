@@ -127,13 +127,19 @@ echo $this->layoutHelper()->header(array(
 						</tr>
 					</thead>
 					<?php $totalQty = 0 ?>
+					<?php $totalIva = 0 ?>
 					<?php $totalCost = 0 ?>
 					<?php foreach($detailsReceiveInventory as $detailReceiveInventory): ?>
 						<?php $subTotalCost = 0 ?>
 						<tbody>
 							<tr>
 								<td>$ <?php echo number_format($detailReceiveInventory->getCost()); ?></td>
-								<td>$ <?php echo number_format($detailReceiveInventory->getIvaAccumulated()); ?></td>
+								<td>$ 
+								<?php 
+								$totalIva = $totalIva + $detailReceiveInventory->getIvaAccumulated();
+								echo number_format($detailReceiveInventory->getIvaAccumulated()); 
+								?>
+								</td>
 								<td>
 									<a href="javascript:void(0);" class="tooltip_preview" data-original-title="<?php echo $detailReceiveInventory->getProduct(); ?>"><?php echo substr($detailReceiveInventory->getProduct(),0,30); ?>...</a>
 								</td>
@@ -167,10 +173,13 @@ echo $this->layoutHelper()->header(array(
 							<?php endforeach; ?>
 						<tfoot>
 						<tr class="success">
-							<td colspan='3'></td>
+							<td></td>
+							<td>$ <?php echo number_format($totalIva) ; ?></td>
+							<td></td>
 							<td><?php echo $totalQty ; ?></td>
 							<td>$ <?php echo number_format($totalCost); ?></td>
-							<td colspan='3'></td>
+							<td>$ <?php echo number_format($totalIva + $totalCost) ; ?></td>
+							<td colspan='2'></td>
 						</tr>
 						</tfoot>
 						</table>

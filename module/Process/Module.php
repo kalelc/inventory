@@ -102,8 +102,6 @@ class Module
 					$shipmentList = array();
 
 					foreach($shipments as $shipment){
-						$shipmentList[$shipment->getId()] = $shipment->getCompany();
-
 						$shipmentList[$shipment->getId()] = $shipment->getCompany() == false ? $shipment->getCompany() : $shipment->getFirstName()." ".$shipment->getLastName();
 					}
 
