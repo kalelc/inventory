@@ -12,6 +12,8 @@ class Classification implements InputFilterAwareInterface
 	private $name;
 	private $userType;
 	private $description;
+
+	private $userTypeName;
 	protected $inputFilter;
 
 	public function exchangeArray($data)
@@ -20,6 +22,7 @@ class Classification implements InputFilterAwareInterface
 		if (array_key_exists('name', $data)) $this->setName($data['name']);
 		if (array_key_exists('user_type', $data)) $this->setUserType($data['user_type']);
 		if (array_key_exists('description', $data)) $this->setDescription($data['description']);
+		if (array_key_exists('user_type_name', $data)) $this->setUserTypeName($data['user_type_name']);
 	}
 
 	public function getArrayCopy()
@@ -139,4 +142,15 @@ class Classification implements InputFilterAwareInterface
 		$this->description = $description;
 		return $this;
 	}
+
+    public function getUserTypeName()
+    {
+        return $this->userTypeName;
+    }
+    
+    public function setUserTypeName($userTypeName)
+    {
+        $this->userTypeName = $userTypeName;
+        return $this;
+    }
 }

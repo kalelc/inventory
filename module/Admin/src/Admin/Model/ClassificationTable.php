@@ -2,7 +2,7 @@
 namespace Admin\Model;
 
 use Zend\Db\TableGateway\TableGateway;
-
+use Zend\Db\Sql\Select;
 
 class ClassificationTable
 {
@@ -14,10 +14,11 @@ class ClassificationTable
 
 	public function fetchAll()
 	{
-		$resultSet = $this->tableGateway->select();
+		$select = new Select($this->tableGateway->getTable());
+		$select->join('user_types', "user_types.id = ".$this->tableGateway->getTable().".user_type", array('user_type_name' => 'name'), 'inner');
+		$resultSet = $this->tableGateway->selectWith($select);
 		$resultSet->buffer();
 		return $resultSet;
-
 	}
 
 	public function get($id)

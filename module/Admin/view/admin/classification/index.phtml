@@ -20,7 +20,7 @@ $this->headTitle($title);
         <?php foreach ($classifications as $classification) : ?>
             <tr>
                 <td><?php echo $this->escapeHtml($classification->getName());?></td>
-                <td><?php echo $this->escapeHtml($classification->getUserType());?></td>
+                <td><?php echo $this->escapeHtml($classification->getUserTypeName());?></td>
                 <td><?php echo $this->escapeHtml($classification->getDescription());?></td>
                 <td class='column-button'>
                     <a href="<?php echo $this->url('admin/classification',

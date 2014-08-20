@@ -25,7 +25,27 @@ echo $this->layoutHelper()->header(array(
             <?php foreach ($customers as $customer) : ?>
                 <tr>
                     <td><?php echo $this->escapeHtml($customer->getIdentification());?></td>
-                    <td><?php echo $this->escapeHtml($customer->getIdentificationType());?></td>
+                    <td>
+                        <?php 
+                        switch($customer->getIdentificationType()):
+                        case 1 : 
+                        echo "Cedula de Ciudadania"; 
+                        break; 
+                        case 2 : 
+                        echo "Nit"; 
+                        break ;
+                        case 3 : 
+                        echo "Cedula de Extranjeria"; 
+                        break ;
+                        case 4 : 
+                        echo "Pasaporte"; 
+                        break ;
+                        case 5 : 
+                        echo "Otro"; 
+                        break ;
+                        endswitch;
+                        ?>
+                    </td>
                     <td><?php echo $this->escapeHtml($customer->getFirstName());?></td>
                     <td><?php echo $this->escapeHtml($customer->getLastName());?></td>
                     <td><?php echo $this->escapeHtml($customer->getCompany());?></td>
@@ -33,21 +53,21 @@ echo $this->layoutHelper()->header(array(
                         <?php if(count($customer->getEmails())>0) : ?>
                             <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick='showModalList("<?php echo addslashes($customer->getEmails()); ?>","<?php echo $this->config['component']['email'][0] ?>");'>
                                 <span class="glyphicon glyphicon-th-list"></span></a>
-                            <?php //echo json_decode($customer->getEmails())[0];?>
+                                <?php //echo json_decode($customer->getEmails())[0];?>
                             <?php endif; ?>
                         </td>
                         <td>
                             <?php if(count($customer->getEmails())>0) : ?>
                                 <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick='showModalList("<?php echo addslashes($customer->getAddresses()); ?>","<?php echo $this->config['component']['address'][0] ?>");'>
                                     <span class="glyphicon glyphicon-th-list"></span></a>
-                                <?php //echo json_decode($customer->getAddresses())[0];?>
+                                    <?php //echo json_decode($customer->getAddresses())[0];?>
                                 <?php endif; ?>
                             </td>
                             <td>
                                 <?php if(count($customer->getEmails())>0) : ?>
                                     <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick='showModalList("<?php echo addslashes($customer->getPhones()); ?>","<?php echo $this->config['component']['phone'][0] ?>");'>
                                         <span class="glyphicon glyphicon-th-list"></span></a>
-                                    <?php //echo json_decode($customer->getPhones())[0];?>
+                                        <?php //echo json_decode($customer->getPhones())[0];?>
                                     <?php endif;?>
                                 </td>
                                 <td class='column-button'>
