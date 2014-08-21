@@ -32,8 +32,10 @@ $form->setAttribute('action', $this->url(
 					<span class="glyphicon glyphicon-search"></span>
 				</a>
 			<?php endif; ?>
+			<div class='pull-left'>
 			<?php echo $this->formInput($form->get('image')); ?>
 			<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
+			</div>
 			<p class="help-block">
 				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 				Tama&ntilde;o: 

@@ -1,105 +1,91 @@
 <?php
 $title = $this->config['component']['user'][0];
-$this->headTitle($title);
-?>
-<h2 class="page-header"><?php echo $title ; ?></h2>
-<?php $form = $this->form; ?>
-<?php $form->setAttribute('action', $this->url('security/user', array('action' => 'add'))); ?>
-<?php $form->prepare(); ?>
-<?php echo $this->form()->openTag($form); ?>
-<div class="clearfix"></div>
-<div class="form-group">
-	<div class="col-lg-4">
-		<?php echo $this->formHidden($form->get('csrf'));?>
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('security/user'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));
+	?>
+	<?php $form = $this->form; ?>
+	<?php $form->setAttribute('action', $this->url('security/user', array('action' => 'add'))); ?>
+	<?php $form->prepare(); ?>
+	<?php echo $this->form()->openTag($form); ?>
+	<div class="form-group">
 		<?php echo $this->formLabel($form->get('first_name')->setLabel($this->config['component']['first_name'][0])); ?>
-		<?php echo $this->formText($form->get('first_name')); ?>
-		<?php echo $this->formElementErrors($form->get('first_name'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-4">
-		<?php echo $this->formLabel($form->get('last_name')->setLabel($this->config['component']['last_name'][0])); ?>
-		<?php echo $this->formText($form->get('last_name')); ?>
-		<?php echo $this->formElementErrors($form->get('last_name'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-3">
-		<?php echo $this->formLabel($form->get('username')->setLabel($this->config['component']['username'][1])); ?>
-		<?php echo $this->formText($form->get('username')); ?>
-		<?php echo $this->formElementErrors($form->get('username'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-4">
-		<?php echo $this->formLabel($form->get('email')->setLabel($this->config['component']['email'][1])); ?>
-		<?php echo $this->formText($form->get('email')); ?>
-		<?php echo $this->formElementErrors($form->get('email'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-4">
-		<?php echo $this->formLabel($form->get('picture')->setLabel($this->config['component']['picture'][1])); ?>
-		<?php echo $this->formInput($form->get('picture')); ?>
-		<?php echo $this->formElementErrors($form->get('picture'), array("class" => "error")); ?>
-		<p class="help-block">
-			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-			Tama&ntilde;o: 
-			<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-				<?php echo $range." ".$size ; ?>
-			<?php endforeach; ?>
-		</p>
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-4">
-		<?php echo $this->formLabel($form->get('signature')->setLabel($this->config['component']['signature'][1])); ?>
-		<?php echo $this->formInput($form->get('signature')); ?>
-		<?php echo $this->formElementErrors($form->get('signature'), array("class" => "error")); ?>
-		<p class="help-block">
-			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-			Tama&ntilde;o: 
-			<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-				<?php echo $range." ".$size ; ?>
-			<?php endforeach; ?>
-		</p>
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-3">
-		<?php echo $this->formLabel($form->get('rol')->setLabel($this->config['component']['rol'][1])); ?>
-		<?php echo $this->formSelect($form->get('rol')); ?>
-		<?php echo $this->formElementErrors($form->get('rol'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-4">
-		<?php echo $this->formLabel($form->get('password')->setLabel($this->config['component']['password'][1])); ?>
-		<div class="input-group">
-			<?php echo $this->formPassword($form->get('password')); ?>
-			<span class="input-group-addon"><input type="checkbox" id='viewchars'>Mostrar</span>
+		<div class="col-sm-3">
+			<?php echo $this->formHidden($form->get('csrf'));?>
+			<?php echo $this->formText($form->get('first_name')); ?>
+			<?php echo $this->formElementErrors($form->get('first_name'), array("class" => "error")); ?>
 		</div>
-		<?php echo $this->formElementErrors($form->get('password'), array("class" => "error")); ?>
 	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-4">
-		<?php echo $this->formLabel($form->get('password_repeat')->setLabel($this->config['component']['password'][1])); ?>
-		<?php echo $this->formPassword($form->get('password_repeat')); ?>
-		<?php echo $this->formElementErrors($form->get('password_repeat'), array("class" => "error")); ?>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('last_name')->setLabel($this->config['component']['last_name'][0])); ?>
+		<div class="col-sm-3">
+			<?php echo $this->formText($form->get('last_name')); ?>
+			<?php echo $this->formElementErrors($form->get('last_name'), array("class" => "error")); ?>
+		</div>
 	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-2">
-		<?php echo $this->formLabel($form->get('status')->setLabel($this->config['component']['status'][1])); ?>
-		<?php echo $this->formSelect($form->get('status')); ?>
-		<?php echo $this->formElementErrors($form->get('status'), array("class" => "error")); ?>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('username')->setLabel($this->config['component']['username'][1])); ?>
+		<div class="col-sm-3">
+			<?php echo $this->formText($form->get('username')); ?>
+			<?php echo $this->formElementErrors($form->get('username'), array("class" => "error")); ?>
+		</div>
 	</div>
-</div>
-<div class="form-group">
-	<div class="col-lg-8">
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('email')->setLabel($this->config['component']['email'][1])); ?>
+		<div class="col-sm-3">
+			<?php echo $this->formText($form->get('email')); ?>
+			<?php echo $this->formElementErrors($form->get('email'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('picture')->setLabel($this->config['component']['picture'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formInput($form->get('picture')); ?>
+			<?php echo $this->formElementErrors($form->get('picture'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('signature')->setLabel($this->config['component']['signature'][1])); ?>
+		<div class="col-sm-4">
+			<?php echo $this->formInput($form->get('signature')); ?>
+			<?php echo $this->formElementErrors($form->get('signature'), array("class" => "error")); ?>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('rol')->setLabel($this->config['component']['rol'][1])); ?>
+		<div class="col-sm-3">
+			<?php echo $this->formSelect($form->get('rol')); ?>
+			<?php echo $this->formElementErrors($form->get('rol'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('password')->setLabel($this->config['component']['password'][1])); ?>
+		<div class="col-sm-4">
+			<div class="input-group">
+				<?php echo $this->formPassword($form->get('password')); ?>
+				<span class="input-group-addon"><input type="checkbox" id='viewchars'>Mostrar</span>
+			</div>
+			<?php echo $this->formElementErrors($form->get('password'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="well well-sm">
 		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
 		&nbsp;<a href="<?php echo $this->url("security/user"); ?>"><?php echo $this->config['action']['return'] ;?></a>
-		<?php echo $this->form()->closeTag(); ?>
 	</div>
-</div>
+	<?php echo $this->form()->closeTag(); ?>

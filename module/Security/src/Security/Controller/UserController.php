@@ -20,7 +20,6 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-
 		return new ViewModel(array(
 			'users' => $this->getUserTable()->fetchAll(),
 			'config' => $this->config,
@@ -38,27 +37,25 @@ implements ConfigAwareInterface
 			$adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 			$user->setAdapter($adapter);
 
+			$data = $request->getPost()->toArray();
 			$form->setInputFilter($user->getInputFilter());
-			$form->setData($request->getPost());
-
-			$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
-
-			$picture = $fileService->copy($this->params()->fromFiles('picture'));
-			$signature = $fileService->copy($this->params()->fromFiles('signature'));
-
-			$fileExtension = new FileExtension($this->config['file_characteristics']['image']['extension']);
-			$fileSize = new FileSize($this->config['file_characteristics']['image']['size']);
-
-			//pendiente upload image
-			if(!empty($this->params()->fromFiles('signature'))) {
-				$fileExtension->isValid($this->params()->fromFiles('signature'));
-			}
-			if(!empty($this->params()->fromFiles('picture'))) {
-				$fileSize->isValid($this->params()->fromFiles('picture'));
-			}
+			$form->setData($data);
 
 			if ($form->isValid()) {
-				$user->exchangeArray($form->getData());
+
+				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
+
+				$fileService->setDestination($this->config['component']['user']['image_path']);
+				$fileService->setSize($this->config['file_characteristics']['image']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
+
+				$picture = $fileService->copy($this->params()->fromFiles('picture'));
+				$signature = $fileService->copy($this->params()->fromFiles('signature'));
+
+				$data['picture'] = $picture ? $picture : "" ;
+				$data['signature'] = $signature ? $signature : "" ;
+
+				$user->exchangeArray($data);
 				$this->getUserTable()->save($user);
 
 				return $this->redirect()->toRoute('security/user');
@@ -66,47 +63,73 @@ implements ConfigAwareInterface
 		}
 		return array(
 			'form' => $form,
-			'config' => $this->config);
+			'config' => $this->config
+			);
 	}
 
 
 	public function editAction()
 	{
+
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('security/user', array('action' => 'add'));
 		}
 		$user = $this->getUserTable()->get($id);
-
-		$form = $this->getServiceLocator()->get("Security\Form\UserForm");
 		$adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
 		$user->setAdapter($adapter);
 
-		$form->bind($user);
+		$previousPicture = $user->getPicture();
+		$previousSignature = $user->getSignature();
+
+		$form = $this->getServiceLocator()->get("Security\Form\UserForm");
+		
 		$form->get("first_name")->setValue($user->getFirstName());
 		$form->get("last_name")->setValue($user->getLastName());
-
+		$form->bind($user);
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
+
 			$form->setInputFilter($user->getInputFilter());
-			$form->setData($request->getPost());
+			$userData = $request->getPost()->toArray();
+			$form->setData($userData);
 
 			if ($form->isValid()) {
-			//	dumpx($form->getData(),"form values");
-				$this->getUserTable()->save($form->getData());
 
+				$user->setName($userData["name"]);
+				$user->setSpecificationMaster($userData["user_master"]);
+				$user->setMeaning($userData["meaning"]);
+				$user->setGeneralInformation($userData["general_information"]);
+
+				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
+				$fileService->setDestination($this->config['component']['user']['image_path']);
+				$fileService->setSize($this->config['file_characteristics']['image']['size']);
+				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
+
+				$image = $this->params()->fromFiles('image');
+
+				if(isset($image['name']) && !empty($image['name'])) {
+					$image = $fileService->copy($image);
+					$user->setImage($image);
+					if(isset($previousImage) && !empty($previousImage))
+						@unlink($this->config['component']['user']['image_path']."/".$previousImage);
+				}
+
+
+				$this->getUserTable()->save($user);
 				return $this->redirect()->toRoute('security/user');
 			}
-			else
-				dumpx($form->getMessages(),"no es valido");
 		}
+
 		return array(
 			'id' => $id,
+			'picture' => $previousPicture,
+			'signature' => $previousSignature,
 			'form' => $form,
-			'config' => $this->config,
+			'config' => $this->config
 			);
-
+	
 	}
 
 	public function deleteAction()
@@ -120,7 +143,8 @@ implements ConfigAwareInterface
 			$del = $request->getPost('del', 'No');
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
-
+				@unlink($this->config['component']['user']['image_path']."/".$this->getUserTable()->get($id)->getSignature());
+				@unlink($this->config['component']['user']['image_path']."/".$this->getUserTable()->get($id)->getPicture());
 				$this->getUserTable()->delete($id);
 			}
 

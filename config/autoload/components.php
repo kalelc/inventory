@@ -77,7 +77,7 @@ return array(
 		'title' 						=> array('titulos','titulo'),
 		'total' 						=> array('totales','total'),
 		'video' 						=> array('videos','video'),
-		'user'							=> array('usuarios','usuario'),
+		'user'							=> array('usuarios','usuario','image_path'=> 'public/images/user'),
 		'username'						=> array('nombres usuario','nombre usuario'),
 		'user_shortcut'					=> array('accesos directos usuario','acceso diercto usuario'),
 		'user_type'						=> array('tipos de usuarios','tipo de usuario'),

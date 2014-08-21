@@ -26,7 +26,7 @@ $this->headTitle($title);
             <td><?php echo $this->escapeHtml($user->getRolName());?></td>
             <td><?php echo $this->escapeHtml($user->getStatus());?></td>
             <td class='column-button'>
-                 <!--<a href="<?php //echo $this->url('security/user', array('action'=>'edit', 'id' => $user->getId())); ?>"><?php //echo $this->config['action']['update'] ; ?></a>-->
+                 <a href="<?php echo $this->url('security/user', array('action'=>'edit', 'id' => $user->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
                 <a href="<?php echo $this->url('security/user', array('action'=>'delete', 'id' => $user->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
             </td>
         </tr>

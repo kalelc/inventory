@@ -40,8 +40,10 @@ $this->headTitle($title);
 				<span class="glyphicon glyphicon-search"></span>
 			</a>
 		<?php endif; ?>
-		<?php echo $this->formInput($form->get('image')); ?>
-		<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
+		<div class='pull-left'>
+			<?php echo $this->formInput($form->get('image')); ?>
+			<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
+		</div>
 		<p class="help-block">
 			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 			Tama&ntilde;o: 
@@ -93,26 +95,26 @@ $this->headTitle($title);
 	<?php foreach($specificationChecked as $specificationCheckedId => $specificationCheckedValue): ?>
 		<li>
 			<a href="#" class="list-group-item">
-			<?php echo $this->config['action']['icons']['move'] ; ?>
-			&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' id='specification<?php echo $specificationCheckedId; ?>' checked='checked'>
-			&nbsp;<?php echo $specificationCheckedValue; ?>
-			<div class="pull-right">
-				<?php if($specificationNameCheck[$specificationCheckedId] == 1): ?> 
-					<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name' checked='checked'>
-				<?php else:?>
-					<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name'>
-				<?php endif; ?>
-			</div>
+				<?php echo $this->config['action']['icons']['move'] ; ?>
+				&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' id='specification<?php echo $specificationCheckedId; ?>' checked='checked'>
+				&nbsp;<?php echo $specificationCheckedValue; ?>
+				<div class="pull-right">
+					<?php if($specificationNameCheck[$specificationCheckedId] == 1): ?> 
+						<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name' checked='checked'>
+					<?php else:?>
+						<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name'>
+					<?php endif; ?>
+				</div>
 			</a>
 		</li>
 	<?php endforeach; ?>
 	<?php foreach($specificationUnchecked as $specificationUncheckedId => $specificationUncheckedValue): ?>
 		<li class="list-group-item">
-		<?php echo $this->config['action']['icons']['move'] ; ?>
-		&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' id='specification<?php echo $specificationUncheckedId; ?>'>
-		&nbsp;<?php echo $specificationUncheckedValue; ?>
-		<div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' class='specifications_name'>
-		</div>
+			<?php echo $this->config['action']['icons']['move'] ; ?>
+			&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' id='specification<?php echo $specificationUncheckedId; ?>'>
+			&nbsp;<?php echo $specificationUncheckedValue; ?>
+			<div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' class='specifications_name'>
+			</div>
 		</li>
 	<?php endforeach; ?>
 </ul>

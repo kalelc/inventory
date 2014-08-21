@@ -26,7 +26,10 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'first_name'
+                'label' => 'first_name',
+                'label_attributes' => array(
+                    'class'  => 'col-sm-2 control-label'
+                    ),  
                 )
             ));
 
@@ -39,7 +42,10 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'last_name'
+                'label' => 'last_name',
+                'label_attributes' => array(
+                    'class'  => 'col-sm-2 control-label'
+                    ),  
                 )
             ));
         $this->add(array(
@@ -51,7 +57,10 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'username'
+                'label' => 'username',
+                'label_attributes' => array(
+                    'class'  => 'col-sm-2 control-label'
+                    ),  
                 )
             ));
 
@@ -64,20 +73,10 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'password'
-                )
-            ));
-
-        $this->add(array(
-            'name' => 'password_repeat',
-            'attributes' => array(
-                'type' => 'password',
-                'id' => 'password_repeat',
-                'maxlength' => 20,
-                'class' => 'form-control',
-                ),
-            'options' => array(
-                'label' => 'password'
+                'label' => 'password',
+                'label_attributes' => array(
+                    'class'  => 'col-sm-2 control-label'
+                    ),  
                 )
             ));
 
@@ -90,7 +89,10 @@ class UserForm extends Form
                 'class' => 'form-control',
                 ),
             'options' => array(
-                'label' => 'email'
+                'label' => 'email',
+                'label_attributes' => array(
+                    'class'  => 'col-sm-2 control-label'
+                    ),  
                 )
             ));
 
@@ -101,6 +103,9 @@ class UserForm extends Form
                 ),
             'options' => array(
                 'label' => 'picture',
+                'label_attributes' => array(
+                    'class'  => 'col-sm-2 control-label'
+                    ),  
                 ),
             )); 
 
@@ -111,6 +116,9 @@ class UserForm extends Form
                 ),
             'options' => array(
                 'label' => 'signature',
+                'label_attributes' => array(
+                    'class'  => 'col-sm-2 control-label'
+                    ),  
                 ),
             )); 
 
@@ -119,6 +127,9 @@ class UserForm extends Form
             'name' => 'rol',
             'options' => array(
                 'label' => 'rol',
+                'label_attributes' => array(
+                    'class'  => 'col-sm-2 control-label'
+                    ),  
                 'value_options' => $roles,
                 'empty_option' => "Seleccione",
                 'disable_inarray_validator' => true
@@ -128,20 +139,6 @@ class UserForm extends Form
                 'class' => 'form-control',
                 )
 
-            ));
-
-        $this->add(array(
-            'type' => 'Select',
-            'name' => 'status',
-            'options' => array(
-                'label' => 'status',
-                'value_options' => array(1 => "activo",0 => "inactivo"),
-                'disable_inarray_validator' => true
-                ),
-            'attributes' => array(
-                'id' => 'status',
-                'class' => 'form-control',
-                )
             ));
 
         $this->add(array(

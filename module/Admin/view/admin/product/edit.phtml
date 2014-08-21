@@ -58,17 +58,17 @@ echo $this->layoutHelper()->header(array(
 								<?php $image = $productMeasure->getImage() ? "/images/specification/".$productMeasure->getImage() : "/img/icons/picture.png" ;?>
 								<img src='<?php echo $image; ?>' class='thumb_24'>&nbsp;
 								<?php echo $productMeasure->getSpecificationName(); ?>
-									<div class="pull-right">
-										
-										<select name='measures[]' id='measure<?php echo $productMeasure->getSpecification(); ?>'>
-											<option value='<?php echo $productMeasure->getId(); ?>'>
-												<?php echo $productMeasure->getMeasureValue(); ?>
-												<?php echo $productMeasure->getMeasureTypeName();?>
-											</option>
-										</select>
+								<div class="pull-right">
+
+									<select name='measures[]' id='measure<?php echo $productMeasure->getSpecification(); ?>'>
+										<option value='<?php echo $productMeasure->getId(); ?>'>
+											<?php echo $productMeasure->getMeasureValue(); ?>
+											<?php echo $productMeasure->getMeasureTypeName();?>
+										</option>
+									</select>
 									<a href="javascript:void(0)" class='specificacionEvent' value='<?php echo $productMeasure->getSpecification(); ?>'><?php echo $config['action']['update']; ?></a>
-									</div>
-										
+								</div>
+
 							</li>
 						<?php endforeach; ?>
 					</ul>
@@ -145,8 +145,10 @@ echo $this->layoutHelper()->header(array(
 							<span class="glyphicon glyphicon-floppy-disk"></span>
 						</a>
 					<?php endif; ?>
-					<?php echo $this->formInput($form->get('specification_file')); ?>
-					<?php echo $this->formElementErrors($form->get('specification_file'), array("class" => "error")); ?>
+					<div class='pull-left'>
+						<?php echo $this->formInput($form->get('specification_file')); ?>
+						<?php echo $this->formElementErrors($form->get('specification_file'), array("class" => "error")); ?>
+					</div>
 					<p class="help-block">
 						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['file']['extension'],',') ;?><br>
 						Tama&ntilde;o: 
@@ -164,9 +166,10 @@ echo $this->layoutHelper()->header(array(
 							<span class="glyphicon glyphicon-floppy-disk"></span>
 						</a>
 					<?php endif; ?>
-
-					<?php echo $this->formInput($form->get('manual_file')); ?>
-					<?php echo $this->formElementErrors($form->get('manual_file'), array("class" => "error")); ?>
+					<div class='pull-left'>
+						<?php echo $this->formInput($form->get('manual_file')); ?>
+						<?php echo $this->formElementErrors($form->get('manual_file'), array("class" => "error")); ?>
+					</div>
 					<p class="help-block">
 						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 						Tama&ntilde;o: 
@@ -184,8 +187,10 @@ echo $this->layoutHelper()->header(array(
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					<?php endif; ?>
-					<?php echo $this->formInput($form->get('image1')); ?>
-					<?php echo $this->formElementErrors($form->get('image1'), array("class" => "error")); ?>
+					<div class='pull-left'>
+						<?php echo $this->formInput($form->get('image1')); ?>
+						<?php echo $this->formElementErrors($form->get('image1'), array("class" => "error")); ?>
+					</div>
 					<p class="help-block">
 						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 						Tama&ntilde;o: 
@@ -203,8 +208,10 @@ echo $this->layoutHelper()->header(array(
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					<?php endif; ?>
-					<?php echo $this->formInput($form->get('image2')); ?>
-					<?php echo $this->formElementErrors($form->get('image2'), array("class" => "error")); ?>
+					<div class='pull-left'>
+						<?php echo $this->formInput($form->get('image2')); ?>
+						<?php echo $this->formElementErrors($form->get('image2'), array("class" => "error")); ?>
+					</div>
 					<p class="help-block">
 						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 						Tama&ntilde;o: 
@@ -222,8 +229,10 @@ echo $this->layoutHelper()->header(array(
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					<?php endif; ?>
-					<?php echo $this->formInput($form->get('image3')); ?>
-					<?php echo $this->formElementErrors($form->get('image3'), array("class" => "error")); ?>
+					<div class='pull-left'>
+						<?php echo $this->formInput($form->get('image3')); ?>
+						<?php echo $this->formElementErrors($form->get('image3'), array("class" => "error")); ?>
+					</div>
 					<p class="help-block">
 						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 						Tama&ntilde;o: 
@@ -241,8 +250,10 @@ echo $this->layoutHelper()->header(array(
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					<?php endif; ?>
-					<?php echo $this->formInput($form->get('image4')); ?>
-					<?php echo $this->formElementErrors($form->get('image4'), array("class" => "error")); ?>
+					<div class='pull-left'>
+						<?php echo $this->formInput($form->get('image4')); ?>
+						<?php echo $this->formElementErrors($form->get('image4'), array("class" => "error")); ?>
+					</div>
 					<p class="help-block">
 						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 						Tama&ntilde;o: 
@@ -255,8 +266,15 @@ echo $this->layoutHelper()->header(array(
 			<div class="form-group">
 				<?php echo $this->formLabel($form->get('image5')->setLabel($this->config['component']['image'][1])); ?>
 				<div class="col-sm-6">
-					<?php echo $this->formInput($form->get('image5')); ?>
-					<?php echo $this->formElementErrors($form->get('image5'), array("class" => "error")); ?>
+					<?php if($image5): ?>
+						<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image5; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					<?php endif; ?>
+					<div class='pull-left'>
+						<?php echo $this->formInput($form->get('image5')); ?>
+						<?php echo $this->formElementErrors($form->get('image5'), array("class" => "error")); ?>
+					</div>
 					<p class="help-block">
 						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 						Tama&ntilde;o: 
@@ -269,8 +287,15 @@ echo $this->layoutHelper()->header(array(
 			<div class="form-group">
 				<?php echo $this->formLabel($form->get('image6')->setLabel($this->config['component']['image'][1])); ?>
 				<div class="col-sm-6">
-					<?php echo $this->formInput($form->get('image6')); ?>
-					<?php echo $this->formElementErrors($form->get('image6'), array("class" => "error")); ?>
+					<?php if($image6): ?>
+						<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $image6; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					<?php endif; ?>
+					<div class='pull-left'>
+						<?php echo $this->formInput($form->get('image6')); ?>
+						<?php echo $this->formElementErrors($form->get('image6'), array("class" => "error")); ?>
+					</div>
 					<p class="help-block">
 						Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 						Tama&ntilde;o: 

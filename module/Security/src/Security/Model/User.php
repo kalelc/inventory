@@ -39,7 +39,6 @@ class User implements InputFilterAwareInterface
         if (array_key_exists('rol', $data)) $this->setRol($data['rol']);
         if (array_key_exists('rol_name', $data)) $this->setRolName($data['rol_name']);
         if (array_key_exists('password', $data)) $this->setPassword($data['password']);
-        if (array_key_exists('status', $data)) $this->setStatus($data['status']);
     }
 
     public function getArrayCopy()
@@ -150,10 +149,21 @@ class User implements InputFilterAwareInterface
                             )
                         ),
                     array(
+                        'name' => 'Db\NoRecordExists',
+                        'options' => array(
+                        'table' => 'users',
+                        'field' => 'username',
+                        'adapter' => $this->getAdapter(),
+                        'messages' => array(
+                            \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El nombre de usuario ya existe."
+                            )
+                        )
+                    ),
+                    array(
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Este no es un nombre para comentar válido.'
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'nombre de usuario invalido.'
                                 )
                             )
                         ),
@@ -186,7 +196,7 @@ class User implements InputFilterAwareInterface
                             'field' => 'email',
                             'adapter' => $this->getAdapter(),
                             'messages' => array(
-                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El correo electrónico que ingresaste ya está asociado a otra cuenta de un usuario, ingresa uno nuevo."
+                                \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El correo electrónico ya existe."
                                 )
                             )
                         )
@@ -201,7 +211,7 @@ class User implements InputFilterAwareInterface
                         'name' => 'NotEmpty',
                         'options' => array(
                             'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario que selecciones rol.'
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario seleccionar el rol.'
                                 )
                             )
                         )
@@ -223,7 +233,7 @@ class User implements InputFilterAwareInterface
                             'min' => 8,
                             'max' => 100,
                             'messages' => array(
-                                \Zend\Validator\StringLength::TOO_SHORT => 'La contraseña que ingresaste no es válida. Recuerda que esta debe tener mínimo 8 caracteres.'
+                                \Zend\Validator\StringLength::TOO_SHORT => 'La contraseña debe tener mínimo 8 caracteres.'
                                 )
                             )
                         ),
@@ -237,62 +247,6 @@ class User implements InputFilterAwareInterface
                         ),
                     )
                 )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'password_repeat',
-                'required' => true,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim')
-                    ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min' => 8,
-                            'max' => 100,
-                            'messages' => array(
-                                \Zend\Validator\StringLength::TOO_SHORT => 'La contraseña que ingresaste no es válida. Recuerda que esta debe tener mínimo 8 caracteres.'
-                                )
-                            )
-                        ),
-                    array(
-                        'name' => 'NotEmpty',
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => ''
-                                )
-                            )
-                        ),
-                    array(
-                        'name' => 'Identical',
-                        'options' => array(
-                            'token' => 'password',
-                            'messages' => array(
-                                \Zend\Validator\Identical::NOT_SAME => 'las contraseñas ingresadas no coninciden'
-                                )
-                            ),
-                        ),
-                    )
-                )));
-
-
-            $inputFilter->add($factory->createInput(array(
-                'name' => 'status',
-                'required' => true,
-                'validators' => array(
-                    array(
-                        'name' => 'NotEmpty',
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Es necesario seleccionar el estado.'
-                                )
-                            )
-                        )
-                    )
-                )));
-
 
     $this->inputFilter = $inputFilter;
     }

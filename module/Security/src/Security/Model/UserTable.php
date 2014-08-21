@@ -68,19 +68,21 @@ class UserTable
             'picture' => $user->getPicture(),
             'signature' => $user->getSignature(),
             'rol' => $user->getRol(),
-            'password' => $user->getPassword(),
+            'password' => $hash,
             'hash' => $hash,
-            'status' => $user->getStatus(),
+            'status' => 0,
             );
 
         $id = (int)$user->getId();
         if ($id == 0) {
             $this->tableGateway->insert($data);
+            return true;
         } else {
             if ($this->get($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
+                return true;
             } else {
-                throw new \Exception('Form id does not exist');
+                return false;
             }
         }
     }
