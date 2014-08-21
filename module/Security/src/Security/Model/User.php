@@ -153,6 +153,7 @@ class User implements InputFilterAwareInterface
                         'options' => array(
                         'table' => 'users',
                         'field' => 'username',
+                        'exclude' => 'text',
                         'adapter' => $this->getAdapter(),
                         'messages' => array(
                             \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El nombre de usuario ya existe."

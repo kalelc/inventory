@@ -95,6 +95,8 @@ implements ConfigAwareInterface
 			$userData = $request->getPost()->toArray();
 			$form->setData($userData);
 
+			dumpx($userData);
+
 			if ($form->isValid()) {
 
 				$user->setName($userData["name"]);
@@ -115,7 +117,6 @@ implements ConfigAwareInterface
 					if(isset($previousImage) && !empty($previousImage))
 						@unlink($this->config['component']['user']['image_path']."/".$previousImage);
 				}
-
 
 				$this->getUserTable()->save($user);
 				return $this->redirect()->toRoute('security/user');
