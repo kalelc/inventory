@@ -126,10 +126,12 @@ echo $this->layoutHelper()->header(array(
 							<th></th>
 						</tr>
 					</thead>
-					<?php $totalQty = 0 ?>
-					<?php $totalIva = 0 ?>
-					<?php $totalCost = 0 ?>
-					<?php foreach($detailsReceiveInventory as $detailReceiveInventory): ?>
+					<?php 
+					$totalQty = 0 ; 
+					$totalIva = 0 ;
+					$totalCost = 0 ;
+
+					foreach($detailsReceiveInventory as $detailReceiveInventory): ?>
 						<?php $subTotalCost = 0 ?>
 						<tbody>
 							<tr>
@@ -184,8 +186,8 @@ echo $this->layoutHelper()->header(array(
 						</tfoot>
 						</table>
 					</div>
-				<?php endif; ?>
 				<div class="well well-sm">
 					<a href="<?php echo $this->url('process/receive_inventory/finish'); ?>"><?php echo $this->config['action']['finish'] ; ?> </a>
 				</div>
+				<?php endif; ?>
 				<?php echo $this->modalHelper()->listContent(); ?>
