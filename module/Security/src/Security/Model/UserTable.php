@@ -9,7 +9,6 @@ use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Predicate\Predicate;
-use Zend\Crypt\Password\Bcrypt;
 
 class UserTable
 {
@@ -57,9 +56,6 @@ class UserTable
 
     public function save(User $user)
     {
-        $bcrypt = new Bcrypt();
-        $hash = $bcrypt->create($user->getPassword());
-
         $data = array(
             'first_name' => $user->getFirstName(),
             'last_name' => $user->getLastName(),
@@ -68,8 +64,8 @@ class UserTable
             'picture' => $user->getPicture(),
             'signature' => $user->getSignature(),
             'rol' => $user->getRol(),
-            'password' => $hash,
-            'hash' => $hash,
+            'password' => $user->getPassword(),
+            'hash' => $user->getPassword(),
             'status' => 0,
             );
 

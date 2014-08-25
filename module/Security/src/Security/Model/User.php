@@ -9,6 +9,7 @@ use Zend\InputFilter\InputFilterInterface;
 use Casper\Model\OAuthTools;
 use Zend\Authentication\AuthenticationService;
 use Zend\Session\Container;
+use Zend\Crypt\Password\Bcrypt;
 
 class User implements InputFilterAwareInterface
 {
@@ -22,6 +23,7 @@ class User implements InputFilterAwareInterface
     private $rol;
     private $rolName;
     private $password;
+    private $passwordBcrypt;
     private $status;
 
     private $adapter;
@@ -153,7 +155,6 @@ class User implements InputFilterAwareInterface
                         'options' => array(
                         'table' => 'users',
                         'field' => 'username',
-                        'exclude' => 'text',
                         'adapter' => $this->getAdapter(),
                         'messages' => array(
                             \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El nombre de usuario ya existe."
@@ -195,6 +196,7 @@ class User implements InputFilterAwareInterface
                         'options' => array(
                             'table' => 'users',
                             'field' => 'email',
+                            'exclude' => $this->getExcludeEmail(),
                             'adapter' => $this->getAdapter(),
                             'messages' => array(
                                 \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El correo electrónico ya existe."
@@ -332,7 +334,20 @@ class User implements InputFilterAwareInterface
     }
     public function setPassword($password)
     {
-        $this->password = $password;
+        $bcrypt = new Bcrypt();
+        $hash = $bcrypt->create($password);
+        $this->password = $hash;
+        return $this;
+    }
+    public function getPasswordBcrypt()
+    {
+        return $this->passwordBcrypt;
+    }
+    public function setPasswordBcrypt($passwordBcrypt)
+    {
+        $bcrypt = new Bcrypt();
+        $hash = $bcrypt->create($passwordBcrypt);
+        $this->passwordBcrypt = $hash;
         return $this;
     }
     public function getStatus()
@@ -361,5 +376,10 @@ class User implements InputFilterAwareInterface
     public function getAdapter()
     {
         return $this->adapter;
+    }
+
+    public function getExcludeEmail()
+    {
+        return array();
     }
 }

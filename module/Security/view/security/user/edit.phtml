@@ -40,12 +40,12 @@ $this->headTitle($title);
 	<?php echo $this->formLabel($form->get('picture')->setLabel($this->config['component']['picture'][1])); ?>
 	<div class="col-sm-4">
 		<?php if($picture): ?>
-			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/user/<?php echo $picture ?>','<?php echo $this->config['component']['picture'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+			<div class='pull-left'>
+				<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/user/<?php echo $picture ?>','<?php echo $this->config['component']['picture'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+			</div>
 		<?php endif; ?>
-		<div class='pull-left'>
-			<?php echo $this->formInput($form->get('picture')); ?>
-			<?php echo $this->formElementErrors($form->get('picture'), array("class" => "error")); ?>
-		</div>
+		<?php echo $this->formInput($form->get('picture')); ?>
+		<?php echo $this->formElementErrors($form->get('picture'), array("class" => "error")); ?>
 		<p class="help-block">
 			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 			Tama&ntilde;o: 
@@ -59,12 +59,12 @@ $this->headTitle($title);
 	<?php echo $this->formLabel($form->get('signature')->setLabel($this->config['component']['signature'][1])); ?>
 	<div class="col-sm-4">
 		<?php if($signature): ?>
-			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/user/<?php echo $signature ?>','<?php echo $this->config['component']['signature'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+			<div class='pull-left'>
+				<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/user/<?php echo $signature ?>','<?php echo $this->config['component']['signature'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+			</div>
 		<?php endif; ?>
-		<div class='pull-left'>
-			<?php echo $this->formInput($form->get('signature')); ?>
-			<?php echo $this->formElementErrors($form->get('signature'), array("class" => "error")); ?>
-		</div>
+		<?php echo $this->formInput($form->get('signature')); ?>
+		<?php echo $this->formElementErrors($form->get('signature'), array("class" => "error")); ?>
 		<p class="help-block">
 			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 			Tama&ntilde;o: 

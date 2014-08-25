@@ -40,7 +40,6 @@ implements ConfigAwareInterface
 			$data = $request->getPost()->toArray();
 			$form->setInputFilter($user->getInputFilter());
 			$form->setData($data);
-
 			if ($form->isValid()) {
 
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
@@ -81,6 +80,7 @@ implements ConfigAwareInterface
 
 		$previousPicture = $user->getPicture();
 		$previousSignature = $user->getSignature();
+		$previousPassword = $user->getPassword();
 
 		$form = $this->getServiceLocator()->get("Security\Form\UserForm");
 		
@@ -91,31 +91,49 @@ implements ConfigAwareInterface
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 
+			
+
 			$form->setInputFilter($user->getInputFilter());
 			$userData = $request->getPost()->toArray();
-			$form->setData($userData);
+			
+			$password = $this->params()->fromPost('password');
+			
+			if($password!=="xxxxxxxxxxxx")
+				$user->setPassword($password);
 
-			dumpx($userData);
+			$form->setData($userData);
 
 			if ($form->isValid()) {
 
-				$user->setName($userData["name"]);
-				$user->setSpecificationMaster($userData["user_master"]);
-				$user->setMeaning($userData["meaning"]);
-				$user->setGeneralInformation($userData["general_information"]);
+				$user->setFirstName($userData["first_name"]);
+				$user->setLastName($userData["last_name"]);
+				$user->setUsername($userData["username"]);
+				$user->setEmail($userData["email"]);
+				$user->setRol($userData["rol"]);
+				
+				dump($previousPassword);
+				dumpx($user);
 
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 				$fileService->setDestination($this->config['component']['user']['image_path']);
 				$fileService->setSize($this->config['file_characteristics']['image']['size']);
 				$fileService->setExtension($this->config['file_characteristics']['image']['extension']);
 
-				$image = $this->params()->fromFiles('image');
+				$picture = $this->params()->fromFiles('picture');
+				$signature = $this->params()->fromFiles('signature');
 
-				if(isset($image['name']) && !empty($image['name'])) {
-					$image = $fileService->copy($image);
-					$user->setImage($image);
-					if(isset($previousImage) && !empty($previousImage))
-						@unlink($this->config['component']['user']['image_path']."/".$previousImage);
+				if(isset($picture['name']) && !empty($picture['name'])) {
+					$picture = $fileService->copy($picture);
+					$user->setpicture($picture);
+					if(isset($previousPicture) && !empty($previousPicture))
+						@unlink($this->config['component']['user']['image_path']."/".$previousPicture);
+				}
+
+				if(isset($signature['name']) && !empty($signature['name'])) {
+					$signature = $fileService->copy($signature);
+					$user->setsignature($signature);
+					if(isset($previousSignature) && !empty($previousSignature))
+						@unlink($this->config['component']['user']['image_path']."/".$previousSignature);
 				}
 
 				$this->getUserTable()->save($user);
