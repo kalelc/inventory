@@ -12,10 +12,13 @@ use Security\Traits\SecurityTrait;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
+use Application\ConfigAwareInterface;
 
 class SessionController extends AbstractActionController
+implements ConfigAwareInterface
 {
 	use SecurityTrait;
+	private $config;
 
 	public function indexAction()
 	{
@@ -30,7 +33,7 @@ class SessionController extends AbstractActionController
 		$this->layout("layout/security");
 		$viewModel = new ViewModel();
 		$viewModel->setVariable("form",$form);
-
+		$viewModel->setVariable("config",$this->config);
 
 		$request = $this->getRequest();
 		if($request->isPost()) {
@@ -45,6 +48,9 @@ class SessionController extends AbstractActionController
 				$username = $form->get('username')->getValue();
 				$password = $form->get('password')->getValue();
 
+				dump($username);
+				dumpx($password);
+
 				$authSessionAdapter = $this->getAuthSessionAdapter();
 				$authentication = $authSessionAdapter->authenticate($username,$password);
 
@@ -57,7 +63,7 @@ class SessionController extends AbstractActionController
 				}
 				else {
 					//@todo revisar mensajes
-					$form->get("username")->setMessages(array('username' => "La dirección de correo electrónico o la contraseña que  introducido no es correcta."));
+					$form->get("username")->setMessages(array('username' => "La dirección de correo electrónico o la contraseña que introducido no es correcta."));
 				}
 			}
 		}
@@ -92,5 +98,10 @@ class SessionController extends AbstractActionController
 		dump($acl->getResources(),"getResources()");
 		dumpx($acl->getRoles(),"getRoles()");
 
+	}
+
+	public function setConfig($config)
+	{
+		$this->config = $config;
 	}
 }

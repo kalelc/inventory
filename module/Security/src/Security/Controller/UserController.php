@@ -91,8 +91,6 @@ implements ConfigAwareInterface
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 
-			
-
 			$form->setInputFilter($user->getInputFilter());
 			$userData = $request->getPost()->toArray();
 			
@@ -111,9 +109,6 @@ implements ConfigAwareInterface
 				$user->setEmail($userData["email"]);
 				$user->setRol($userData["rol"]);
 				
-				dump($previousPassword);
-				dumpx($user);
-
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 				$fileService->setDestination($this->config['component']['user']['image_path']);
 				$fileService->setSize($this->config['file_characteristics']['image']['size']);

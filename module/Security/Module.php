@@ -43,6 +43,21 @@ class Module
 
         }, 100);
     }
+
+    public function getControllerConfig()
+    {
+        return array(
+            'initializers' => array(
+                function ($instance, $sm) {
+                    if ($instance instanceof ConfigAwareInterface) {
+                        $locator = $sm->getServiceLocator();
+                        $config  = $locator->get('Config');
+                        $instance->setConfig($config);
+                    }
+                }
+                )
+            );
+    }
     
 
     public function getConfig()

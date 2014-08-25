@@ -155,6 +155,7 @@ class User implements InputFilterAwareInterface
                         'options' => array(
                         'table' => 'users',
                         'field' => 'username',
+                        'exclude' => $this->getExcludeUserName(),
                         'adapter' => $this->getAdapter(),
                         'messages' => array(
                             \Zend\Validator\Db\NoRecordExists::ERROR_RECORD_FOUND => "El nombre de usuario ya existe."
@@ -339,17 +340,7 @@ class User implements InputFilterAwareInterface
         $this->password = $hash;
         return $this;
     }
-    public function getPasswordBcrypt()
-    {
-        return $this->passwordBcrypt;
-    }
-    public function setPasswordBcrypt($passwordBcrypt)
-    {
-        $bcrypt = new Bcrypt();
-        $hash = $bcrypt->create($passwordBcrypt);
-        $this->passwordBcrypt = $hash;
-        return $this;
-    }
+
     public function getStatus()
     {
         return $this->status;
@@ -380,6 +371,26 @@ class User implements InputFilterAwareInterface
 
     public function getExcludeEmail()
     {
-        return array();
+        $excludeEmail = null;
+        if ($this->email) {
+            $excludeEmail = array(
+                'field' => 'email',
+                'value' => $this->email
+                );
+        }
+        return $excludeEmail;
+    }
+
+    public function getExcludeUserName()
+    {
+        $excludeUsername = null;
+        if ($this->username) {
+            $excludeUsername = array(
+                'field' => 'username',
+                'value' => $this->username
+                );
+        }
+        return $excludeUsername;
+
     }
 }

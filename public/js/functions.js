@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$("#viewchars").click(function() {
+		console.log("hizo lick");
 		if ($("#viewchars").is(':checked')) {
 			$("#password").prop('type', 'text');
 			$("#password").attr('value', $('#password').val());

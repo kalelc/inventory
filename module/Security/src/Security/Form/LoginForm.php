@@ -25,7 +25,10 @@ class LoginForm extends Form
 				'placeholder' => 'nombre de usuario'
 				),
 			'options' => array(
-				'label' => 'Nombre de Usuario',
+				'label' => 'username',
+				'label_attributes' => array(
+					'class'  => 'col-sm-4 control-label'
+					),	
 				),
 			));
 
@@ -33,11 +36,16 @@ class LoginForm extends Form
 			'name' => 'password',
 			'attributes' => array(
 				'type'  => 'password',
+				'id' => 'password',
+                'maxlength' => 20,
 				'class' => 'form-control',
 				'placeholder' => 'Contraseña'
 				),
 			'options' => array(
-				'label' => 'contraseña',
+				'label' => 'password',
+				'label_attributes' => array(
+					'class'  => 'col-sm-4 control-label'
+					),	
 				),
 			));
 
@@ -55,42 +63,23 @@ class LoginForm extends Form
 		$captchaImage->setWordlen(6);
 		$captchaImage->setMessage("El código no coincide, actualízalo y vuelve a intentarlo",$captchaImage::BAD_CAPTCHA);
 
-// Create our own session container so that we don't use end up with
-// old captcha information in the session.
-//$container = new Container('UserForm_Captcha');
-//$container->setExpirationHops(1);
-//$container->setExpirationSeconds(300);
-//$captchaImage->setSession($container);
-
 		$this->add(array(
 			'type' => 'Zend\Form\Element\Captcha',
 			'attributes' => array(
 				'type'  => 'password',
 				'class' => 'form-control',
-				'placeholder' => 'Codigo de seguridad'
+				'placeholder' => 'captcha'
 				),
 			'name' => 'captcha',
 			'options' => array(
 				'captcha' => $captchaImage,
 				'id' => 'captcha',
-				'label' => 'Codigo de Seguridad',
+				'label' => 'captcha',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),	
 				),
 			));
-			/*
-			$this->add(array(
-			'type' => 'Zend\Form\Element\Captcha',
-			'name' => 'captcha',
-			'options' => array(
-			'wordLen' => 2, 
-			'timeout' => 300, 
-
-			'label' => 'Please verify you are human. ',
-			'captcha' => array(
-			'class' => 'Figlet',
-			),
-			),
-			)
-			);*/
 
 		$this->add(array(
 			'type' => 'Zend\Form\Element\Csrf',
@@ -110,5 +99,5 @@ class LoginForm extends Form
 				'class' => 'btn btn-primary btn-sm btn-sm'
 				),
 			));
-		}
+	}
 }

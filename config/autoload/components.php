@@ -12,6 +12,7 @@ return array(
 		'bank_info' 					=> array('informaciones banco','información banco'),
 		'birthday' 						=> array('cumpleaños','cumpleaños'),
 		'brand' 						=> array('marcas','marca','image_path'=> 'public/images/brand'),
+		'captcha' 						=> array('captchas','catpcha'),
 		'category' 						=> array('categorias','categoria','image_path'=> 'public/images/category'),
 		'city' 							=> array('ciudades','ciudad'),
 		'classification'				=> array('clasificaciones','clasificatión'),
