@@ -30,7 +30,7 @@ class Module
         $sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
         {
             $controller = $e->getTarget();
-            $controller->layout('security/layout');
+            $controller->layout('layout/security');
         }, 100);
     }
 
