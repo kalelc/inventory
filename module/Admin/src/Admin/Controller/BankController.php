@@ -19,8 +19,6 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{	
-		echo $this->getClassName();
-		exit();
 		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
 
 		$banks = $this->getBankTable()->fetchAll();

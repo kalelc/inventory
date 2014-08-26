@@ -5,8 +5,7 @@ Trait ModuleTablesTrait
 {
 	public function getClassName(){
 		$values = explode("\\",get_class());
-		echo $values[count($values)-1];
-		exit();
+		return $values[count($values)-1];
 	}
 
 	public function getBankTable()

@@ -17,19 +17,31 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager = $e->getApplication()->getEventManager();
+        $sharedManager = $eventManager->getSharedManager();
+        $serviceManager = $e->getApplication()->getServiceManager();
+        
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        $sharedManager->attach('Security\Controller\SessionController', 'dispatch', function ($e) use($serviceManager, $eventManager)
+        {
+            dumpx("evento");
+            $controller = $e->getTarget();
+            $userAuditListener = $serviceManager->get('Audit\Listener\UserAuditListener');
+            $controller->getEventManager()
+                ->attachAggregate($userAuditListener);
+        }, 2);
     }
 
 
     public function init(ModuleManager $moduleManager)
     {
         $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
-
         $sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
         {
             $controller = $e->getTarget();
+            //dumpx(get_class($controller));
             $controller->layout('layout/security');
         }, 100);
     }
