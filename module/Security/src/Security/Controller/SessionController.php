@@ -55,7 +55,6 @@ implements ConfigAwareInterface
 
 				$authSessionAdapter = $this->getAuthSessionAdapter();
 				if($authSessionAdapter->authenticate($username,$password)) {
-				/*revisar que hacer despues de validar un login*/
 				return $this->redirect()->toRoute('admin/bank');
 				}
 				else {
@@ -77,22 +76,15 @@ implements ConfigAwareInterface
 
 	public function aclAction()
 	{
-
 		$acl = new Acl();
-		$username = "kalelc";
-		$acl->addRole(new Role($username));
+		$rol = "admin";
+		$acl->addRole(new Role($rol));
 		$acl->addResource(new Resource('product'));
 		$acl->addResource(new Resource('bank'));
-		$acl->allow($username, 'product', array('read','create'));
-		$acl->allow($username, 'bank', array('read','create'));
+		$acl->allow($rol, 'product', array('read','create'));
+		$acl->allow($rol, 'bank', array('read','create'));
 
-		$objetoSerializado = serialize($acl);
-		dump($objetoSerializado);
-		dump(unserialize($objetoSerializado));
-		exit();
-
-		dump($acl->isAllowed($username, 'product','delete'));
-		dump($acl,"acl");
+		//dump($acl->isAllowed($rol, 'product','create'));
 		dump($acl->getResources(),"getResources()");
 		dumpx($acl->getRoles(),"getRoles()");
 

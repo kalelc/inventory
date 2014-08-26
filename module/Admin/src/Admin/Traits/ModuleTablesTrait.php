@@ -3,6 +3,12 @@ namespace Admin\Traits;
 
 Trait ModuleTablesTrait
 {
+	public function getClassName(){
+		$values = explode("\\",get_class());
+		echo $values[count($values)-1];
+		exit();
+	}
+
 	public function getBankTable()
 	{
 		$bankTable = "";

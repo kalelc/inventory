@@ -132,8 +132,7 @@ class Module
 				$controller->plugin('redirect')->toRoute('security/login');
 			}
 		}, 100);
-
-}
+	}
 
 public function getServiceConfig()
 {
