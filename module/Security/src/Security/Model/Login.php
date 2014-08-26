@@ -55,6 +55,12 @@ class Login implements InputFilterAwareInterface
 					),
 				)));
 
+
+			$inputFilter->add($factory->createInput(array(
+				'name'     => 'captcha',
+				'required' => true,
+				)));
+
 			$inputFilter->add($factory->createInput(array(
 				'name'     => 'password',
 				'required' => true,

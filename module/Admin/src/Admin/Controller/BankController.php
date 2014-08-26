@@ -19,7 +19,6 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-
 		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
 
 		$banks = $this->getBankTable()->fetchAll();

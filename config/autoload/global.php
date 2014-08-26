@@ -37,5 +37,13 @@ return array(
 		'client' => 1,
 		'provider' => 2,
 		'transporter' => 3,
+		),
+	'authentication_codes' => array(
+		 0 => 'error',                       
+		-1 => 'identidad invalida',   
+		-2 => 'identidad ambigua',   
+		-3 => 'contraseña invalida',   
+		-4 => 'error desconocido',        
+		 1 => 'ok'                      
 		)
 	);

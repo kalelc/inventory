@@ -30,17 +30,7 @@ class Module
         $sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
         {
             $controller = $e->getTarget();
-            $controller->layout('layout/layout');
-            /*
-            $authSessionAdapter = $controller->getAuthSessionAdapter();
-            if($authSessionAdapter->hasIdentity()){
-                $identity = $authSessionAdapter->getIdentity();
-                $controller->layout()->setVariable("identity",$identity);
-            }
-            else {
-                $controller->plugin('redirect')->toRoute('security/login');
-            }*/
-
+            $controller->layout('security/layout');
         }, 100);
     }
 

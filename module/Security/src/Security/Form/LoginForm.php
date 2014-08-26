@@ -27,7 +27,7 @@ class LoginForm extends Form
 			'options' => array(
 				'label' => 'username',
 				'label_attributes' => array(
-					'class'  => 'col-sm-4 control-label'
+					'class'  => 'col-sm-3 control-label'
 					),	
 				),
 			));
@@ -44,7 +44,7 @@ class LoginForm extends Form
 			'options' => array(
 				'label' => 'password',
 				'label_attributes' => array(
-					'class'  => 'col-sm-4 control-label'
+					'class'  => 'col-sm-3 control-label'
 					),	
 				),
 			));

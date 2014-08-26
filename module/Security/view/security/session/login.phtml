@@ -16,45 +16,65 @@
 			<div class="panel-body">
 				<div class="form-group">
 					<?php echo $this->formLabel($form->get('username')->setLabel($this->config['component']['user'][1])); ?>
-					<div class="col-sm-8">
+					<div class="col-sm-9">
 						<?php echo $this->formInput($form->get('csrf')); ?>
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 							<?php echo $this->formInput($form->get('username')); ?>
 						</div>
-						<?php echo $this->formElementErrors($form->get('username')); ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<?php
+						echo $this->formElementErrors()
+						->setMessageOpenFormat("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button><p>")
+						->setMessageSeparatorString('')
+						->setMessageCloseString('</p></div>')
+						->render($form->get('username'));
+						?>
 					</div>
 				</div>
 				<div class="form-group">
 					<?php echo $this->formLabel($form->get('password')->setLabel($this->config['component']['password'][1])); ?>
-					<div class="col-sm-8">
+					<div class="col-sm-9">
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-credit-card"></span></span>
 							<?php echo $this->formPassword($form->get('password')); ?>
-							<span class="input-group-addon"><input type="checkbox" id='viewchars'>
-								<!--<span class="glyphicon glyphicon-eye-open"></span>Mostrar</span>-->
+							<span class="input-group-addon"><input type="checkbox" id='viewchars'></span>
 						</div>
-						<?php echo $this->formElementErrors($form->get('password')); ?>
 					</div>
 				</div>
-				<!--
 				<div class="form-group">
-					<?php //echo $this->formLabel($form->get('captcha')->setLabel($this->config['component']['captcha'][1]));?><br>
-					<div class="col-sm-6">
-						<?php //echo $this->formElement($form->get('captcha'));?>
-						<?php //echo $this->formElementErrors($form->get('captcha')); ?>
+					<div class="col-sm-12">
+						<?php
+						echo $this->formElementErrors()
+						->setMessageOpenFormat("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button><p>")
+						->setMessageSeparatorString('')
+						->setMessageCloseString('</p></div>')
+						->render($form->get('password'));
+						?>
 					</div>
 				</div>
-				-->
-				<div align='center' class='center-block'><a href="javascript:void(0);"><img src='/img/social.png'></a></div>
+				
+			<!--
+			<div class="form-group">
+				<?php //echo $this->formLabel($form->get('captcha')->setLabel($this->config['component']['captcha'][1]));?><br>
+				<div class="col-sm-6">
+					<?php //echo $this->formElement($form->get('captcha'));?>
+					<?php //echo $this->formElementErrors($form->get('captcha')); ?>
+				</div>
 			</div>
-			<div class="panel-footer" align='center'>
-				<?php echo $this->formSubmit($form->get('submit')); ?>
-				<a href="javascript:void(0);"><?php echo $this->config['action']['register'] ;?></a>
-				<a href="javascript:void(0);"><?php echo $this->config['action']['can_not_log_in'] ;?></a>
-			</div>
-			<?php echo $this->form()->closeTag(); ?>
+		-->
+		<div align='center' class='center-block'><a href="javascript:void(0);"><img src='/img/social.png'></a></div>
+		<br>
+		<div class="panel-footer" align='center'>
+			<?php echo $this->formSubmit($form->get('submit')); ?>
+			<a href="javascript:void(0);"><?php echo $this->config['action']['register'] ;?></a>
+			<a href="javascript:void(0);"><?php echo $this->config['action']['can_not_log_in'] ;?></a>
 		</div>
+		<?php echo $this->form()->closeTag(); ?>
 	</div>
-	<div class="col-md-4"></div>
+</div>
+<div class="col-md-4"></div>
 </div>

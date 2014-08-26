@@ -22,8 +22,11 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-		dump("management security login");
-		dumpx($this->getAuthSessionAdapter()->getIdentity(),"SessionController::index");
+		$authenticationService = new AuthenticationService();
+		dump($authenticationService->clearIdentity());
+		dump($authenticationService->getStorage()->read());
+		dumpx($authenticationService->hasIdentity());
+
 	}
 
 	public function loginAction()
@@ -31,6 +34,7 @@ implements ConfigAwareInterface
 		$form = new LoginForm();
 
 		$this->layout("layout/security");
+
 		$viewModel = new ViewModel();
 		$viewModel->setVariable("form",$form);
 		$viewModel->setVariable("config",$this->config);
@@ -39,6 +43,7 @@ implements ConfigAwareInterface
 		if($request->isPost()) {
 
 			$login = new Login();
+            $login->getInputFilter()->get('captcha')->setRequired(false);
 
 			$form->setInputFilter($login->getInputFilter());
 			$form->setData($request->getPost());
@@ -48,21 +53,14 @@ implements ConfigAwareInterface
 				$username = $form->get('username')->getValue();
 				$password = $form->get('password')->getValue();
 
-				dump($username);
-				dumpx($password);
-
 				$authSessionAdapter = $this->getAuthSessionAdapter();
-				$authentication = $authSessionAdapter->authenticate($username,$password);
-
-				if(is_object($authentication)) {
-
-					/*search by rol*/
-					
-					/*crear lista de control de accesos*/
-					return $this->redirect()->toRoute('product');
+				if($authSessionAdapter->authenticate($username,$password)) {
+				/*revisar que hacer despues de validar un login*/
+				return $this->redirect()->toRoute('admin/bank');
 				}
 				else {
-					//@todo revisar mensajes
+					$form->get('username')->setValue("");
+					$form->get('password')->setValue("");
 					$form->get("username")->setMessages(array('username' => "La dirección de correo electrónico o la contraseña que introducido no es correcta."));
 				}
 			}
@@ -72,9 +70,9 @@ implements ConfigAwareInterface
 
 	public function logoutAction()
 	{
-		$this->getAuthSessionAdapter()->clearIdentity();
+		$authenticationService = new AuthenticationService();
+		$authenticationService->clearIdentity();
 		return $this->redirect()->toRoute('security/login');
-
 	}
 
 	public function aclAction()

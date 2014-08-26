@@ -98,8 +98,8 @@ class Module
 						$instance->setConfig($config);
 					}
 				}
-				)
-			);
+			)
+		);
 	}
 
 	public function getViewHelperConfig()
@@ -110,28 +110,28 @@ class Module
 					$serviceLocator = $serviceManager->getServiceLocator();
 					return new \Admin\View\Helper\ModalHelper($serviceLocator);
 				}
-				)
-			);
+			)
+		);
 	}
 
 	public function init(ModuleManager $moduleManager)
 	{
-		/*$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
-
+		$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
 		$sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
 		{
 			$controller = $e->getTarget();
 			$controller->layout('layout/layout');
-			$authSessionAdapter = $controller->getAuthSessionAdapter();
 
-			if($authSessionAdapter->hasIdentity()){
-				$identity = $authSessionAdapter->getIdentity();
+			$authenticationService = new AuthenticationService();
+			if($authenticationService->hasIdentity()){
+				$authenticationService->getStorage()->read();
+				$identity = $authenticationService->getIdentity();
 				$controller->layout()->setVariable("identity",$identity);
 			}
 			else {
 				$controller->plugin('redirect')->toRoute('security/login');
 			}
-		}, 100);*/
+		}, 100);
 
 }
 

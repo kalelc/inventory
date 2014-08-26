@@ -1,18 +1,15 @@
 <?php
 namespace Security\Adapter;
 
-
-use Zend\Authentication\Adapter\DbTable as AuthDbAdapter;
 use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Storage\Session as SessionStorage;
-use Zend\Authentication\Adapter\AdapterInterface;
+use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
+use Zend\Authentication\Validator\Authentication as AuthenticationValidator;
 use Zend\Crypt\Password\Bcrypt;
 
 class AuthSessionAdapter
 {
 	protected $dbAdapter;
-	protected $identity;
-	protected $credential;
+	protected $code;
 
 	public function __construct($dbAdapter)
 	{
@@ -21,53 +18,40 @@ class AuthSessionAdapter
 
 	public function authenticate($username,$password)
 	{
-		$bcrypt = new Bcrypt();
+		
+		$callback = function($password, $hash) {
+			$bcrypt = new Bcrypt();
+			return $bcrypt->verify($hash, $password);
+		};
 
-		$authDbAdapter = new AuthDbAdapter($this->dbAdapter,'users','username','password' ,'MD5(?)AND status = 1');
-		$authDbAdapter->setIdentity($username);
-		$authDbAdapter->setCredential($password);
-		$authenticate = $authDbAdapter->authenticate();
+		$authenticationService = new AuthenticationService();
+		$callbackCheckAdapter = new CallbackCheckAdapter($this->dbAdapter,"users",'username','password',$callback);
 
-		if($authenticate->isValid()) {
+		$callbackCheckAdapter->setIdentity($username)
+		->setCredential($password);
 
-			$userValues = $authDbAdapter->getResultRowObject('hash');
-			if($bcrypt->verify($password,$userValues->hash)) {
+		$authenticationService->setAdapter($callbackCheckAdapter);
+		$authResult = $authenticationService->authenticate();
 
-				$authService = new AuthenticationService();
-				$authService->setStorage(new SessionStorage(SessionStorage::NAMESPACE_DEFAULT));
-				$authService->setAdapter($authDbAdapter);
-				$authService->authenticate();
-
-				if($authService->authenticate()->isValid()) {
-					return $authService;
-				}
-				else
-					error_log("error al validar");
-
-			}
-			else 
-				error_log("hash invalido");
+		if($authResult->isValid()) {
+			$authenticationService->getStorage()->write($callbackCheckAdapter->getResultRowObject());
+			return true;
 		}
 		else {
-			return $authenticate->getMessages();
+			$this->setCode($authResult->getCode());
+			return false;
 		}
 	}
 
-	public function hasIdentity()
-	{
-		$authService = new AuthenticationService();
-		return $authService->hasIdentity();
-	}
+    public function getCode()
+    {
+        return $this->code;
+    }
 
-	public function getIdentity()
-	{
-		$authService = new AuthenticationService();
-		return $authService->getIdentity();
-	}
+    protected function setCode($code)
+    {
+        $this->code = $code;
 
-	public function clearIdentity()
-	{
-		$authService = new AuthenticationService();
-		$authService->clearIdentity();
-	}
+        return $this;
+    }
 }
