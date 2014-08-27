@@ -11,6 +11,7 @@ use Security\Model\Rol;
 use Security\Model\UserTable;
 use Security\Model\User;
 use Security\Form\UserForm;
+use Application\Listener\LogListener;
 use Zend\ModuleManager\ModuleManager;
 
 class Module
@@ -26,9 +27,9 @@ class Module
 
         $sharedManager->attach('Security\Controller\SessionController', 'dispatch', function ($e) use($serviceManager, $eventManager)
         {
-            dumpx("evento");
             $controller = $e->getTarget();
-            $userAuditListener = $serviceManager->get('Audit\Listener\UserAuditListener');
+
+            $userAuditListener = $serviceManager->get('Application\Listener\LogListener');
             $controller->getEventManager()
                 ->attachAggregate($userAuditListener);
         }, 2);
@@ -57,8 +58,8 @@ class Module
                         $instance->setConfig($config);
                     }
                 }
-                )
-            );
+            )
+        );
     }
     
 
@@ -115,6 +116,11 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Rol());
                     return new TableGateway('roles', $dbAdapter, null, $resultSetPrototype, null);
+                },
+                'Application\Listener\LogListener' => function ($sm)
+                {
+                    $logListener = new LogListener();
+                    return $logListener;
                 },
             ),
         );

@@ -14,8 +14,7 @@ class LogListener implements ListenerAggregateInterface
      
     public function attach(EventManagerInterface $e)
     {  
-        $this->listeners[] = $e->attach('log.pre', array($this, 'load'));
-        $this->listeners[] = $e->attach('log.post', array($this, 'save'));
+        $this->listeners[] = $e->attach('log.save', array($this, 'save'));
     }
      
     public function detach(EventManagerInterface $e) 
@@ -27,12 +26,6 @@ class LogListener implements ListenerAggregateInterface
         }
     }
      
-    public function load(EventInterface $e) 
-    { 
-        error_log("LogListener load") ;
-        echo 'load...'; 
-    }
-    
     public function save(EventInterface $e) 
     { 
         error_log("LogListener save") ;

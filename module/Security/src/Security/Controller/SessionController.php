@@ -22,10 +22,8 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-		$authenticationService = new AuthenticationService();
-		dump($authenticationService->clearIdentity());
-		dump($authenticationService->getStorage()->read());
-		dumpx($authenticationService->hasIdentity());
+		$this->getEventManager()->trigger("log.save", $this);
+		dumpx("exit");
 
 	}
 

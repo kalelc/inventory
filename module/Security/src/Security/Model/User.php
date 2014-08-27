@@ -23,7 +23,6 @@ class User implements InputFilterAwareInterface
     private $rol;
     private $rolName;
     private $password;
-    private $passwordBcrypt;
     private $status;
 
     private $adapter;
