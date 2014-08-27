@@ -18,50 +18,21 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
+        /*
         $eventManager = $e->getApplication()->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
         $serviceManager = $e->getApplication()->getServiceManager();
         
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-
-        $sharedManager->attach('Security\Controller\SessionController', 'dispatch', function ($e) use($serviceManager, $eventManager)
+        
+        $sharedManager->attach('*', 'dispatch', function ($e) use($serviceManager, $eventManager)
         {
             $controller = $e->getTarget();
-
             $userAuditListener = $serviceManager->get('Application\Listener\LogListener');
-            $controller->getEventManager()
-                ->attachAggregate($userAuditListener);
-        }, 2);
+            $controller->getEventManager()->attachAggregate($userAuditListener);
+        }, 2);*/
     }
-
-
-    public function init(ModuleManager $moduleManager)
-    {
-        $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
-        $sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
-        {
-            $controller = $e->getTarget();
-            //dumpx(get_class($controller));
-            $controller->layout('layout/security');
-        }, 100);
-    }
-
-    public function getControllerConfig()
-    {
-        return array(
-            'initializers' => array(
-                function ($instance, $sm) {
-                    if ($instance instanceof ConfigAwareInterface) {
-                        $locator = $sm->getServiceLocator();
-                        $config  = $locator->get('Config');
-                        $instance->setConfig($config);
-                    }
-                }
-            )
-        );
-    }
-    
 
     public function getConfig()
     {

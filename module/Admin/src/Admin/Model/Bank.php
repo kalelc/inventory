@@ -106,4 +106,10 @@ class Bank implements InputFilterAwareInterface
 		$this->description = $description;
 		return $this;
 	}
+
+	public function getToString() {
+		$this->getName();
+		$this->getDescription();
+	}
+
 }

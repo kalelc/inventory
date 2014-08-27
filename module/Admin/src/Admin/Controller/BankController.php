@@ -7,12 +7,13 @@ use Admin\Model\Bank;
 use Admin\Form\BankForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
+use Application\Interfaces\AuthenticationInterface;
 
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
 
 class BankController extends AbstractActionController
-implements ConfigAwareInterface
+implements ConfigAwareInterface,AuthenticationInterface
 {
 	use AdminTablesTrait;
 	private $config;
@@ -46,8 +47,11 @@ implements ConfigAwareInterface
 			if ($form->isValid()) {
 
 				$bank->exchangeArray($form->getData());
-				$this->getBankTable()->save($bank);
+				$result = $this->getBankTable()->save($bank);
 
+				if($result) {
+					$this->getEventManager()->trigger("log.save", $this, $bank);
+				}
 				return $this->redirect()->toRoute('admin/bank');
 			}
 		}

@@ -87,21 +87,6 @@ class Module
 			);
 	}
 
-	public function getControllerConfig()
-	{
-		return array(
-			'initializers' => array(
-				function ($instance, $sm) {
-					if ($instance instanceof ConfigAwareInterface) {
-						$locator = $sm->getServiceLocator();
-						$config  = $locator->get('Config');
-						$instance->setConfig($config);
-					}
-				}
-			)
-		);
-	}
-
 	public function getViewHelperConfig()
 	{
 		return array(
@@ -114,28 +99,8 @@ class Module
 		);
 	}
 
-	public function init(ModuleManager $moduleManager)
+	public function getServiceConfig()
 	{
-		$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
-		$sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
-		{
-			$controller = $e->getTarget();
-			$controller->layout('layout/layout');
-
-			$authenticationService = new AuthenticationService();
-			if($authenticationService->hasIdentity()){
-				$authenticationService->getStorage()->read();
-				$identity = $authenticationService->getIdentity();
-				$controller->layout()->setVariable("identity",$identity);
-			}
-			else {
-				$controller->plugin('redirect')->toRoute('security/login');
-			}
-		}, 100);
-	}
-
-public function getServiceConfig()
-{
 	return array(
 		'factories' => array(
 			'Admin\Service\FileService' => function($sm) {

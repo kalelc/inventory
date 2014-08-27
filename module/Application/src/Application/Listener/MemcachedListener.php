@@ -29,7 +29,7 @@ class MemcachedListener implements ListenerAggregateInterface
 
     public function attach(EventManagerInterface $events)
     {
-        $this->listeners[] = $events->attach('save', array($this,'save'), - 100);
+        $this->listeners[] = $events->attach('memcached.save', array($this,'save'), - 100);
     }
 
     public function save(EventInterface $e)

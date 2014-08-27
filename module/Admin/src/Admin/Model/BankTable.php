@@ -41,11 +41,13 @@ class BankTable
 		$id = (int)$bank->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
+			return true;
 		} else {
 			if ($this->get($id)) {
 				$this->tableGateway->update($data, array('id' => $id));
+				return true;
 			} else {
-				throw new \Exception('Form id does not exist');
+				return false;
 			}
 		}
 	}
