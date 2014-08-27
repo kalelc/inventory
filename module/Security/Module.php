@@ -18,14 +18,14 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        /*
+        
         $eventManager = $e->getApplication()->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
         $serviceManager = $e->getApplication()->getServiceManager();
         
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        
+        /*
         $sharedManager->attach('*', 'dispatch', function ($e) use($serviceManager, $eventManager)
         {
             $controller = $e->getTarget();

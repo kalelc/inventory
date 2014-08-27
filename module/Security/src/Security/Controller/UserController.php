@@ -15,7 +15,6 @@ class UserController extends AbstractActionController
 implements ConfigAwareInterface
 {
 	use SecurityTrait;
-	
 	private $config;
 
 	public function indexAction()

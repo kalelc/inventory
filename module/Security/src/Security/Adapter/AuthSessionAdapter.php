@@ -27,15 +27,21 @@ class AuthSessionAdapter
 		$authenticationService = new AuthenticationService();
 		$callbackCheckAdapter = new CallbackCheckAdapter($this->dbAdapter,"users",'username','password',$callback);
 
-		$callbackCheckAdapter->setIdentity($username)
-		->setCredential($password);
+		$callbackCheckAdapter->setIdentity($username)->setCredential($password);
 
 		$authenticationService->setAdapter($callbackCheckAdapter);
 		$authResult = $authenticationService->authenticate();
 
 		if($authResult->isValid()) {
-			$authenticationService->getStorage()->write($callbackCheckAdapter->getResultRowObject());
-			return true;
+			$userObject = $callbackCheckAdapter->getResultRowObject();
+			$authenticationService->getStorage()->write($userObject);
+
+			if($userObject->status==0) {
+				$this->setCode(-5);
+				return false;
+			}
+			else
+				return true;
 		}
 		else {
 			$this->setCode($authResult->getCode());
@@ -43,15 +49,15 @@ class AuthSessionAdapter
 		}
 	}
 
-    public function getCode()
-    {
-        return $this->code;
-    }
+	public function getCode()
+	{
+		return $this->code;
+	}
 
-    protected function setCode($code)
-    {
-        $this->code = $code;
+	protected function setCode($code)
+	{
+		$this->code = $code;
 
-        return $this;
-    }
+		return $this;
+	}
 }

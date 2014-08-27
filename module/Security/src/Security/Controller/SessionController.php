@@ -29,40 +29,54 @@ implements ConfigAwareInterface
 
 	public function loginAction()
 	{
-		$form = new LoginForm();
+		$authenticationService = new AuthenticationService();
+		if($authenticationService->hasIdentity()) {
+			return $this->redirect()->toRoute('admin/bank');
+		}
+		else {
+			$form = new LoginForm();
 
-		$viewModel = new ViewModel();
-		$this->layout("layout/login");
+			$viewModel = new ViewModel();
+			$this->layout("layout/login");
 
-		$viewModel->setVariable("form",$form);
-		$viewModel->setVariable("config",$this->config);
+			$viewModel->setVariable("form",$form);
+			$viewModel->setVariable("config",$this->config);
 
-		$request = $this->getRequest();
-		if($request->isPost()) {
+			$request = $this->getRequest();
+			if($request->isPost()) {
 
-			$login = new Login();
-            $login->getInputFilter()->get('captcha')->setRequired(false);
+				$login = new Login();
+				$login->getInputFilter()->get('captcha')->setRequired(false);
 
-			$form->setInputFilter($login->getInputFilter());
-			$form->setData($request->getPost());
+				$form->setInputFilter($login->getInputFilter());
+				$form->setData($request->getPost());
 
-			if ($form->isValid()){
+				if ($form->isValid()){
 
-				$username = $form->get('username')->getValue();
-				$password = $form->get('password')->getValue();
+					$username = $form->get('username')->getValue();
+					$password = $form->get('password')->getValue();
 
-				$authSessionAdapter = $this->getAuthSessionAdapter();
-				if($authSessionAdapter->authenticate($username,$password)) {
-				return $this->redirect()->toRoute('admin/bank');
+					$authSessionAdapter = $this->getAuthSessionAdapter();
+					if($authSessionAdapter->authenticate($username,$password)) {
+						return $this->redirect()->toRoute('admin/bank');
+					}
+					else {
+						$form->get('username')->setValue("");
+						$form->get('password')->setValue("");
+
+						if($authSessionAdapter->getCode()==-5)
+							$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][$authSessionAdapter->getCode()]));
+						else
+							$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][-6]));
+					}
 				}
 				else {
-					$form->get('username')->setValue("");
-					$form->get('password')->setValue("");
-					$form->get("username")->setMessages(array('username' => "La dirección de correo electrónico o la contraseña que introducido no es correcta."));
+					$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][-6]));
+
 				}
 			}
+			return $viewModel;
 		}
-		return $viewModel;
 	}
 
 	public function logoutAction()

@@ -48,7 +48,7 @@ class Login implements InputFilterAwareInterface
 						'name'    => 'NotEmpty',
 						'options' => array(
 							'messages' => array(
-								\Zend\Validator\NotEmpty::IS_EMPTY => 'Debe ingresar el usuario'
+								\Zend\Validator\NotEmpty::IS_EMPTY => ''
 								),
 							),
 						),
@@ -73,7 +73,7 @@ class Login implements InputFilterAwareInterface
 						'name'    => 'NotEmpty',
 						'options' => array(
 							'messages' => array(
-								\Zend\Validator\NotEmpty::IS_EMPTY => 'Debe ingresar su contraseña'
+								\Zend\Validator\NotEmpty::IS_EMPTY => ''
 								),
 							),
 						),

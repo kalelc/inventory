@@ -27,6 +27,7 @@ class Module
             $controller->layout('layout/layout');
         }, 100);
 
+        /*
         $sharedEvents->attach(array("Admin","Process") , 'dispatch', function ($e)
         {
             $controller = $e->getTarget();
@@ -40,6 +41,7 @@ class Module
                 $controller->plugin('redirect')->toRoute('security/login');
             }
         }, 100);
+        */
 
     }
 

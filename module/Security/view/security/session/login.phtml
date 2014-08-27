@@ -35,6 +35,20 @@
 	</div>
 	<div class="col-md-3">
 		<h2 class="page-header">Ingresar</h2>
+
+		
+		<div class="form-group">
+			<div class="col-sm-12">
+				<?php
+				echo $this->formElementErrors()
+				->setMessageOpenFormat("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button><p>")
+				->setMessageSeparatorString('')
+				->setMessageCloseString('</p></div>')
+				->render($form->get('username'));
+				?>
+			</div>
+		</div>
+
 		<?php $form = $this->form; ?>
 		<?php $form->setAttribute('action', $this->url('security/login')); ?>
 		<?php $form->setAttribute('class', 'form-horizontal'); ?>
@@ -52,17 +66,6 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-sm-12">
-				<?php
-				echo $this->formElementErrors()
-				->setMessageOpenFormat("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button><p>")
-				->setMessageSeparatorString('')
-				->setMessageCloseString('</p></div>')
-				->render($form->get('username'));
-				?>
-			</div>
-		</div>
-		<div class="form-group">
 			<?php echo $this->formLabel($form->get('password')->setLabel($this->config['component']['password'][1])); ?>
 			<div class="col-sm-9">
 				<div class="input-group">
@@ -70,17 +73,6 @@
 					<?php echo $this->formPassword($form->get('password')); ?>
 					<span class="input-group-addon"><input type="checkbox" id='viewchars'>&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;Mostrar</span>	
 				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-12">
-				<?php
-				echo $this->formElementErrors()
-				->setMessageOpenFormat("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>×</span><span class='sr-only'>Close</span></button><p>")
-				->setMessageSeparatorString('')
-				->setMessageCloseString('</p></div>')
-				->render($form->get('password'));
-				?>
 			</div>
 		</div>
 					<!--
