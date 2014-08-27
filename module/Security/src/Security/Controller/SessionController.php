@@ -31,9 +31,9 @@ implements ConfigAwareInterface
 	{
 		$form = new LoginForm();
 
-		$this->layout("layout/security");
-
 		$viewModel = new ViewModel();
+		$this->layout("layout/login");
+
 		$viewModel->setVariable("form",$form);
 		$viewModel->setVariable("config",$this->config);
 

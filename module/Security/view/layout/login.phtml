@@ -10,62 +10,33 @@
 	<!-- Le styles -->
 	<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
 	->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
-	->prependStylesheet($this->basePath() . 'http://fonts.googleapis.com/css?family=Average+Sans')
+	//->prependStylesheet($this->basePath() . 'http://fonts.googleapis.com/css?family=Average+Sans')
 	->prependStylesheet($this->basePath() . '/css/fonts.css')
 	->prependStylesheet($this->basePath() . '/css/style.css')
 	->prependStylesheet($this->basePath() . 'http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css')
 	->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
 	<!-- Scripts -->
 	<?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+	->prependFile($this->basePath() . '/js/functions.js')
 	->prependFile($this->basePath() . '/js/jquery.ui.sortable.js')
 	->prependFile($this->basePath() . '/js/jquery.ui.mouse.js')
 	->prependFile($this->basePath() . '/js/jquery.ui.widget.js')
 	->prependFile($this->basePath() . '/js/jquery.ui.core.js')
-	->prependFile($this->basePath() . '/js/number-format.js')
-	->prependFile($this->basePath() . '/js/functions.js')
 	->prependFile($this->basePath() . '/js/bootstrap.min.js')
 	->prependFile($this->basePath() . '/js/jquery.min.js')
 	?>
-	<script languaje='javascript'>
-		function showModalImage(image,title){
-			$("#modalBody img").attr('src', image);
-			$("#modalImageLabel").html(title);
-			$("#modalImage").modal('show');
-		}
-	</script>
 </head>
 <body>
 	<div class="navbar-inverse navbar-default navbar-fixed-top" role="navigation">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Cambiar Navegación</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"></span></a>
+			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span></a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class='pull-right'><a href="javascript:void(0);" onclick="showModalNote()"><span class="glyphicon glyphicon-tasks"></span></a></div>
-					<?php echo $this->modalHelper()->notes(); ?>
-					<div class="col-md-12"><?php echo $this->content; ?></div>
-				</div>
-			</div>
-		</div>
-		<div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Cambiar Navegación</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
+				<div class="col-md-12"><?php echo $this->content; ?></div>
 			</div>
 		</div>
 	</div>
