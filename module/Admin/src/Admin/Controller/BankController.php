@@ -46,10 +46,6 @@ class BankController extends AbstractActionController implements ConfigAwareInte
 
 				$bank->exchangeArray($form->getData());
 				$result = $this->getBankTable()->save($bank);
-
-				if($result) {
-					$this->getEventManager()->trigger("log.save", $this, $bank);
-				}
 				return $this->redirect()->toRoute('admin/bank');
 			}
 		}

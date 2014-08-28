@@ -1,7 +1,7 @@
 <?php 
 namespace Admin\Model;
 
-use Zend\Db\TableGateway\TableGateway;
+use Application\Db\TableGateway;
 use Zend\Db\Sql\Select;
 
 class ProductTable
@@ -10,6 +10,7 @@ class ProductTable
 	public function __construct(TableGateway $tableGateway,TableGateway $measureTableGateway)
 	{
 		$this->tableGateway = $tableGateway;
+		$this->featureSet = $this->tableGateway->getFeatureSet()->getFeatureByClassName('Zend\Db\TableGateway\Feature\EventFeature');
 		$this->measureTableGateway = $measureTableGateway;
 	}
 

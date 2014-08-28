@@ -1,16 +1,18 @@
 <?php 
 namespace Admin\Model;
 
-use Zend\Db\TableGateway\TableGateway;
+use Application\Db\TableGateway;
 use Zend\Db\Sql\Select;
 
 class CustomerClassificationTable
 {
 	protected $tableGateway;
+protected $featureSet;
 
 	public function __construct(TableGateway $tableGateway)
 	{
 		$this->tableGateway = $tableGateway;
+		$this->featureSet = $this->tableGateway->getFeatureSet()->getFeatureByClassName('Zend\Db\TableGateway\Feature\EventFeature');
 	}
 
 	public function fetchAll()

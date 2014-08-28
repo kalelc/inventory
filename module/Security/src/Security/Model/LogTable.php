@@ -5,6 +5,8 @@ use Application\Db\TableGateway;
 
 class LogTable
 {
+	protected $tableGateway;
+    protected $featureSet;
 
 	public function __construct(TableGateway $tableGateway)
 	{

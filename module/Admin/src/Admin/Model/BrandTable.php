@@ -1,16 +1,18 @@
 <?php 
 namespace Admin\Model;
 
-use Zend\Db\TableGateway\TableGateway;
+use Application\Db\TableGateway;
 use Zend\Db\Sql\Select;
 
 class BrandTable
 {
 	protected $tableGateway;
+protected $featureSet;
 
 	public function __construct(TableGateway $tableGateway)
 	{
 		$this->tableGateway = $tableGateway;
+		$this->featureSet = $this->tableGateway->getFeatureSet()->getFeatureByClassName('Zend\Db\TableGateway\Feature\EventFeature');
 	}
 
 	public function fetchAll()
@@ -33,7 +35,6 @@ class BrandTable
 
 	public function save(Brand $brand)
 	{
-
 		$data = array(
 			'name' => $brand->getName(),
 			'image' => $brand->getImage(),

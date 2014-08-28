@@ -12,7 +12,6 @@ class BankTable
 	{
 		$this->tableGateway = $tableGateway;
 		$this->featureSet = $this->tableGateway->getFeatureSet()->getFeatureByClassName('Zend\Db\TableGateway\Feature\EventFeature');
-
 	}
 
 	public function fetchAll()
@@ -35,7 +34,10 @@ class BankTable
 	}
 
 	public function save(Bank $bank)
-	{
+	{	
+		$params = array();
+		$params['table'] = $this->tableGateway->getTable();
+
 		$data = array(
 			'name' => $bank->getName(),
 			'description' => $bank->getDescription(),
@@ -45,23 +47,20 @@ class BankTable
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
 			$id = $this->tableGateway->getLastInsertValue();
-
 			
 			if($id) {
-				$params = array();
-
 				$params['id'] = $id;
-				$params['table'] = $this->tableGateway->getTable();
 				$params['operation'] = 1;
-
 				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
-				dumpx("exit");
 				return true;
 			}
 			else
 				return false;
 		} else {
 			if ($this->get($id)) {
+				$params['id'] = $id;
+				$params['operation'] = 2;
+				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 				$this->tableGateway->update($data, array('id' => $id));
 				return true;
 			} else {
@@ -72,15 +71,17 @@ class BankTable
 
 	public function delete($id)
 	{	
-		try {
-			$result = $this->tableGateway->delete(array('id' => $id));
-			if($result) {
-				//$this->evenManager->trigger("log.save", $this);
-			}
+		$params = array();
+		$params['table'] = $this->tableGateway->getTable();
+
+		$result = $this->tableGateway->delete(array('id' => $id));
+		if($result) {
+			$params['id'] = $id;
+			$params['operation'] = 3;
+			$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
+			return true;
 		}
-		catch(\Exception $e) {
-			$result = false;
-		}
-		return $result;
+		else
+			return false;
 	}
 }

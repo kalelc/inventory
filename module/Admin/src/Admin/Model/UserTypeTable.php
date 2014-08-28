@@ -1,7 +1,7 @@
 <?php 
 namespace Admin\Model;
 
-use Zend\Db\TableGateway\TableGateway;
+use Application\Db\TableGateway;
 
 
 class UserTypeTable
@@ -10,6 +10,7 @@ class UserTypeTable
 	public function __construct(TableGateway $tableGateway)
 	{
 		$this->tableGateway = $tableGateway;
+		$this->featureSet = $this->tableGateway->getFeatureSet()->getFeatureByClassName('Zend\Db\TableGateway\Feature\EventFeature');
 	}
 
 	public function fetchAll()
@@ -17,7 +18,6 @@ class UserTypeTable
 		$resultSet = $this->tableGateway->select();
 		$resultSet->buffer();
 		return $resultSet;
-
 	}
 
 	public function get($id)
