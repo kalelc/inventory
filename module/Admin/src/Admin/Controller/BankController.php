@@ -7,13 +7,11 @@ use Admin\Model\Bank;
 use Admin\Form\BankForm;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
-use Application\Interfaces\AuthenticationInterface;
 
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
 
-class BankController extends AbstractActionController
-implements ConfigAwareInterface,AuthenticationInterface
+class BankController extends AbstractActionController implements ConfigAwareInterface
 {
 	use AdminTablesTrait;
 	private $config;

@@ -6,12 +6,11 @@ use Zend\Mvc\MvcEvent;
 use Zend\Cache\Storage\Adapter\MemcachedOptions;
 use Zend\Cache\Storage\Adapter\Memcached;
 use Application\Listener\MemcachedListener;
-
 use Application\Model\EventFeatureCacheAwareInterface;
-use Zend\Db\TableGateway\Feature\EventFeature;
-use Zend\Db\TableGateway\Feature\GlobalAdapterFeature;
 use Zend\EventManager\EventManager;
 use Zend\ModuleManager\ModuleManager;
+use Zend\Db\TableGateway\Feature\EventFeature;
+use Zend\Db\TableGateway\Feature\GlobalAdapterFeature;
 
 use Zend\Authentication\AuthenticationService;
 
@@ -113,6 +112,19 @@ class Module
                     return $eventManager;
                 }
             ),
+            'initializers' => array(
+                'EventFeatureCacheAwareInterface' => function ($model, $serviceLocator)
+                {
+                    if ($model instanceof EventFeatureCacheAwareInterface)
+                    {
+                        $logListener = $serviceLocator->get('Security\Listener\LogListener');
+
+                        $eventFeature = new EventFeature();
+                        $eventFeature->getEventManager()->attachAggregate($logListener);
+                        $model->setEventFeatureCache($eventFeature);
+                    }
+                }
+            )
         );
     }
 }

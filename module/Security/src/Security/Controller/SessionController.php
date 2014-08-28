@@ -23,8 +23,6 @@ implements ConfigAwareInterface
 	public function indexAction()
 	{
 		$this->getEventManager()->trigger("log.save", $this);
-		dumpx("exit");
-
 	}
 
 	public function loginAction()

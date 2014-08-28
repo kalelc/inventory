@@ -5,7 +5,7 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
+use Application\Db\TableGateway;
 use Zend\EventManager\EventInterface;
 
 use Admin\Model\PaymentMethod;
@@ -143,8 +143,11 @@ class Module
 				$table = new BankTable($tableGateway);
 				return $table;
 			},
+
 			'BankTableGateway' => function ($sm) {
+
 				$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+
 				$resultSetPrototype = new ResultSet();
 				$resultSetPrototype->setArrayObjectPrototype(new Bank());
 				return new TableGateway('banks', $dbAdapter, null, $resultSetPrototype);

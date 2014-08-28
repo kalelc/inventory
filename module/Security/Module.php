@@ -3,35 +3,36 @@ namespace Security;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
+use Application\Db\TableGateway;
 use Zend\Mvc\MvcEvent;
 use Security\Adapter\AuthSessionAdapter;
 use Security\Model\RolTable;
 use Security\Model\Rol;
+use Security\Model\LogTable;
+use Security\Model\Log;
 use Security\Model\UserTable;
 use Security\Model\User;
 use Security\Form\UserForm;
-use Application\Listener\LogListener;
+use Security\Listener\LogListener;
 use Zend\ModuleManager\ModuleManager;
 
 class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        
         $eventManager = $e->getApplication()->getEventManager();
         $sharedManager = $eventManager->getSharedManager();
         $serviceManager = $e->getApplication()->getServiceManager();
         
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        /*
+        
         $sharedManager->attach('*', 'dispatch', function ($e) use($serviceManager, $eventManager)
         {
             $controller = $e->getTarget();
-            $userAuditListener = $serviceManager->get('Application\Listener\LogListener');
-            $controller->getEventManager()->attachAggregate($userAuditListener);
-        }, 2);*/
+            $logListener = $serviceManager->get('Security\Listener\LogListener');
+            $controller->getEventManager()->attachAggregate($logListener);
+        }, 2);
     }
 
     public function getConfig()
@@ -88,9 +89,23 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Rol());
                     return new TableGateway('roles', $dbAdapter, null, $resultSetPrototype, null);
                 },
-                'Application\Listener\LogListener' => function ($sm)
+                'Security\Model\LogTable' => function ($sm)
                 {
-                    $logListener = new LogListener();
+                    $tableGateway = $sm->get('LogTableGateway');
+                    $table = new LogTable($tableGateway);
+                    return $table;
+                },
+                'LogTableGateway' => function ($sm)
+                {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Log());
+                    return new TableGateway('logs', $dbAdapter, null, $resultSetPrototype, null);
+                },
+                'Security\Listener\LogListener' => function ($sm)
+                {
+                    //dumpx($sm->get("Security\Model\UserTable"));
+                    $logListener = new LogListener($sm);
                     return $logListener;
                 },
             ),

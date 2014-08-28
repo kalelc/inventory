@@ -29,6 +29,48 @@ return array(
 			'extension' => array('txt','pdf','xls'),
 			)
 		),
+	'main_config_values' => array(
+		'cache_ttl' => array(
+			'master_slave_best_server' => 360,
+			'master_slave_factory_process' => 5
+			),
+		),
+    // Maestros
+    'master_db_array' => array(
+        'master_1' => array(
+            'weight' => 1,
+            'driver' => 'Pdo',
+            'driver_options' => array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+            )
+        ),
+        'master_2' => array(
+            'weight' => 1,
+            'driver' => 'Pdo',
+            'driver_options' => array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+            )
+        )
+    ),
+
+    // Esclavos
+    'slave_db_array' => array(
+        'slave_1' => array(
+            'weight' => 1,
+            'driver' => 'Pdo',
+            'driver_options' => array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+            ),
+        ),
+        'slave_2' => array(
+            'weight' => 1,
+            'driver' => 'Pdo',
+            'driver_options' => array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+            ),
+        )
+    ),
+
 	'pagination' => array(
 		'itempage' => 25,
 		'pagerange' => 10
@@ -43,8 +85,8 @@ return array(
 		'user' => 2
 		),
 	'authentication_codes' => array(
-		 0 => 'error',                       
-		 1 => 'ok' ,                     
+		0 => 'error',                       
+		1 => 'ok' ,                     
 		-1 => 'identidad invalida',   
 		-2 => 'identidad ambigua',   
 		-3 => 'contraseña invalida',   

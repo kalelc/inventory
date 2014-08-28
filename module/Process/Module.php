@@ -5,22 +5,16 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
+use Application\Db\TableGateway;
 use Zend\EventManager\EventInterface;
-
 use Process\Form\ReceiveInventoryForm;
 use Process\Form\DetailsReceiveInventoryForm;
-
 use Process\Model\ReceiveInventory;
 use Process\Model\ReceiveInventoryTable;
-
 use Process\Model\DetailsReceiveInventory;
 use Process\Model\DetailsReceiveInventoryTable;
-
 use Zend\ModuleManager\ModuleManager;
-
 use Application\ConfigAwareInterface;
-
 use Zend\Authentication\AuthenticationService;
 
 class Module

@@ -1,15 +1,18 @@
 <?php 
 namespace Admin\Model;
 
-use Zend\Db\TableGateway\TableGateway;
-
+use Application\Db\TableGateway;
 
 class BankTable
 {
+	private $tableGateway;
+	private $eventManager;
 
 	public function __construct(TableGateway $tableGateway)
 	{
 		$this->tableGateway = $tableGateway;
+		$this->featureSet = $this->tableGateway->getFeatureSet()->getFeatureByClassName('Zend\Db\TableGateway\Feature\EventFeature');
+
 	}
 
 	public function fetchAll()
@@ -41,7 +44,22 @@ class BankTable
 		$id = (int)$bank->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
-			return true;
+			$id = $this->tableGateway->getLastInsertValue();
+
+			
+			if($id) {
+				$params = array();
+
+				$params['id'] = $id;
+				$params['table'] = $this->tableGateway->getTable();
+				$params['operation'] = 1;
+
+				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
+				dumpx("exit");
+				return true;
+			}
+			else
+				return false;
 		} else {
 			if ($this->get($id)) {
 				$this->tableGateway->update($data, array('id' => $id));
@@ -56,6 +74,9 @@ class BankTable
 	{	
 		try {
 			$result = $this->tableGateway->delete(array('id' => $id));
+			if($result) {
+				//$this->evenManager->trigger("log.save", $this);
+			}
 		}
 		catch(\Exception $e) {
 			$result = false;
