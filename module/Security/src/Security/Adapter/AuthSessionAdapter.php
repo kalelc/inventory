@@ -40,8 +40,12 @@ class AuthSessionAdapter
 				$this->setCode(-5);
 				return false;
 			}
-			else
+			else {
+				dumpx($userObject);
+				//get rol name
+				//get list modules and resources
 				return true;
+			}
 		}
 		else {
 			$this->setCode($authResult->getCode());

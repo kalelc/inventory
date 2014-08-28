@@ -3,78 +3,87 @@ namespace Security\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\Authentication\AuthenticationService;
 
 use Security\Model\Login;
 use Security\Form\LoginForm;
 use Security\Traits\SecurityTrait;
+use Security\Traits\AuthenticationTrait;
 
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Application\ConfigAwareInterface;
+use Zend\Authentication\AuthenticationService;
 
 class SessionController extends AbstractActionController
 implements ConfigAwareInterface
 {
-	use SecurityTrait;
+	use SecurityTrait,AuthenticationTrait;
 	private $config;
 
 	public function indexAction()
 	{
-		$this->getEventManager()->trigger("log.save", $this);
+		$config = $this->config;
+		$routes = $config['router']['routes'];
+
+		foreach($routes['admin']['child_routes'] as $key => $route) {
+			echo $key;
+			echo "<br>" ;
+		}
+		dumpx($this->getRequest()->getRequestUri(),"current uri");
+		exit();
 	}
 
 	public function loginAction()
 	{
+
 		$authenticationService = new AuthenticationService();
-		if($authenticationService->hasIdentity()) {
+		
+		if($authenticationService->hasIdentity())
 			return $this->redirect()->toRoute('admin/bank');
-		}
-		else {
-			$form = new LoginForm();
 
-			$viewModel = new ViewModel();
-			$this->layout("layout/login");
+		$form = new LoginForm();
 
-			$viewModel->setVariable("form",$form);
-			$viewModel->setVariable("config",$this->config);
+		$viewModel = new ViewModel();
+		$this->layout("layout/login");
 
-			$request = $this->getRequest();
-			if($request->isPost()) {
+		$viewModel->setVariable("form",$form);
+		$viewModel->setVariable("config",$this->config);
 
-				$login = new Login();
-				$login->getInputFilter()->get('captcha')->setRequired(false);
+		$request = $this->getRequest();
+		if($request->isPost()) {
 
-				$form->setInputFilter($login->getInputFilter());
-				$form->setData($request->getPost());
+			$login = new Login();
+			$login->getInputFilter()->get('captcha')->setRequired(false);
 
-				if ($form->isValid()){
+			$form->setInputFilter($login->getInputFilter());
+			$form->setData($request->getPost());
 
-					$username = $form->get('username')->getValue();
-					$password = $form->get('password')->getValue();
+			if ($form->isValid()){
 
-					$authSessionAdapter = $this->getAuthSessionAdapter();
-					if($authSessionAdapter->authenticate($username,$password)) {
-						return $this->redirect()->toRoute('admin/bank');
-					}
-					else {
-						$form->get('username')->setValue("");
-						$form->get('password')->setValue("");
+				$username = $form->get('username')->getValue();
+				$password = $form->get('password')->getValue();
 
-						if($authSessionAdapter->getCode()==-5)
-							$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][$authSessionAdapter->getCode()]));
-						else
-							$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][-6]));
-					}
+				$authSessionAdapter = $this->getAuthSessionAdapter();
+				if($authSessionAdapter->authenticate($username,$password)) {
+					return $this->redirect()->toRoute('admin/bank');
 				}
 				else {
-					$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][-6]));
+					$form->get('username')->setValue("");
+					$form->get('password')->setValue("");
 
+					if($authSessionAdapter->getCode()==-5)
+						$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][$authSessionAdapter->getCode()]));
+					else
+						$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][-6]));
 				}
 			}
-			return $viewModel;
+			else {
+				$form->get("username")->setMessages(array('username' => $this->config['authentication_codes'][-6]));
+
+			}
 		}
+		return $viewModel;
 	}
 
 	public function logoutAction()
@@ -87,16 +96,18 @@ implements ConfigAwareInterface
 	public function aclAction()
 	{
 		$acl = new Acl();
-		$rol = "admin";
+		$rol = "admin usuario";
 		$acl->addRole(new Role($rol));
 		$acl->addResource(new Resource('product'));
 		$acl->addResource(new Resource('bank'));
-		$acl->allow($rol, 'product', array('read','create'));
-		$acl->allow($rol, 'bank', array('read','create'));
+		$acl->allow($rol, 'product');
+		$acl->allow($rol, 'bank');
 
-		//dump($acl->isAllowed($rol, 'product','create'));
-		dump($acl->getResources(),"getResources()");
-		dumpx($acl->getRoles(),"getRoles()");
+		//dump($acl->getResources(),"getResources()");
+		//dump($acl->getRoles(),"getRoles()");
+		dump($acl->hasResource("product"));
+		dump($acl->isAllowed("admin usuario","product"));
+		dumpx($acl);
 
 	}
 

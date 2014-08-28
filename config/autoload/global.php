@@ -35,42 +35,6 @@ return array(
 			'master_slave_factory_process' => 5
 			),
 		),
-    // Maestros
-    'master_db_array' => array(
-        'master_1' => array(
-            'weight' => 1,
-            'driver' => 'Pdo',
-            'driver_options' => array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-            )
-        ),
-        'master_2' => array(
-            'weight' => 1,
-            'driver' => 'Pdo',
-            'driver_options' => array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-            )
-        )
-    ),
-
-    // Esclavos
-    'slave_db_array' => array(
-        'slave_1' => array(
-            'weight' => 1,
-            'driver' => 'Pdo',
-            'driver_options' => array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-            ),
-        ),
-        'slave_2' => array(
-            'weight' => 1,
-            'driver' => 'Pdo',
-            'driver_options' => array(
-                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-            ),
-        )
-    ),
-
 	'pagination' => array(
 		'itempage' => 25,
 		'pagerange' => 10

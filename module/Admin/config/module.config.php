@@ -260,16 +260,6 @@ return array(
 							),
 						),
 					),
-				'customer_modal_add' => array(
-					'type'    => 'literal',
-					'options' => array(
-						'route'    => '/customer/modal/add',
-						'defaults' => array(
-							'controller' => 'Admin\Controller\Customer',
-							'action'     => 'addModal',
-							),
-						),
-					),
 
 				'productSearchSpecifications' => array(
 					'type'    => 'segment',

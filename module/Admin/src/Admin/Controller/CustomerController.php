@@ -105,12 +105,6 @@ implements ConfigAwareInterface
 		return $viewModel;
 	}
 
-	public function addModalAction()
-	{
-
-	}
-
-
 	public function editAction()
 	{
 		$viewModel = new ViewModel();
