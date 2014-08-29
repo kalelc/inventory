@@ -2,11 +2,12 @@
 namespace Security\Model;
 
 use Application\Db\TableGateway;
+use Zend\Db\Sql\Select;
 
 class RolTable
 {
-    protected $tableGateway;
-    protected $featureSet;
+	protected $tableGateway;
+	protected $featureSet;
 
 	public function __construct(TableGateway $tableGateway)
 	{
@@ -16,27 +17,35 @@ class RolTable
 
 	public function fetchAll()
 	{
-		$resultSet = $this->tableGateway->select();
+		$select = new Select($this->tableGateway->getTable());
+		$select->where("id != 1");
+		$resultSet = $this->tableGateway->selectWith($select);
 		return $resultSet;
 	}
 
 	public function get($id)
 	{
 		$id  = (int) $id;
-		$rowset = $this->tableGateway->select(array('id' => $id));
-		$row = $rowset->current();
-		if (!$row) {
-			throw new \Exception("Could not find row $id");
+		if($id != 1){
+			$rowset = $this->tableGateway->select(array('id' => $id));
+			$row = $rowset->current();
+			if (!$row) {
+				return false;
+			}
+			return $row;
 		}
-		return $row;
+		else {
+			return false;
+		}
+
 	}
 
 	public function save(Rol $rol)
 	{
 		$data = array(
-				'name' => $rol->getName(),
-				'description' => $rol->getDescription(),
-		);
+			'name' => $rol->getName(),
+			'description' => $rol->getDescription(),
+			);
 
 		$id = (int)$rol->getId();
 		if ($id == 0) {

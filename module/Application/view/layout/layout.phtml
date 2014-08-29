@@ -1,7 +1,6 @@
 <?php echo $this->doctype(); ?>
 <html lang="en">
 <head>
-
 	<?php echo $this->headTitle("::Kaozend::")->setAutoEscape(false) ?>
 	<?php //echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
 	<meta charset="utf-8">
@@ -13,112 +12,12 @@
 	->prependStylesheet($this->basePath() . 'http://fonts.googleapis.com/css?family=Average+Sans')
 	->prependStylesheet($this->basePath() . '/css/fonts.css')
 	->prependStylesheet($this->basePath() . '/css/style.css')
-	->prependStylesheet($this->basePath() . 'http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css')
-	->prependStylesheet($this->basePath() . '/css/datatable.css')
-	->prependStylesheet($this->basePath() . '/css/datepicker.css')
 	->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
-	<!-- Scripts -->
-	<?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-	->prependFile($this->basePath() . '/js/jquery.ui.sortable.js')
-	->prependFile($this->basePath() . '/js/jquery.ui.mouse.js')
-	->prependFile($this->basePath() . '/js/jquery.ui.widget.js')
-	->prependFile($this->basePath() . '/js/jquery.ui.core.js')
-	->prependFile($this->basePath() . '/js/bootstrap-datepicker.js')
-	->prependFile($this->basePath() . '/js/number-format.js')
-	->prependFile($this->basePath() . '/js/functions.js')
-	->prependFile($this->basePath() . '/js/pagination.js')
-	->prependFile($this->basePath() . '/js/notes.js')
-	->prependFile($this->basePath() . '/js/jquery.dataTables.js')
-	->prependFile($this->basePath() . '/js/bootstrap.min.js')
-	->prependFile($this->basePath() . '/js/jquery.min.js')
-	?>
 </head>
 <body>
-	<div class="navbar-default navbar-fixed-top navbar-inverse" role="navigation">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Cambiar Navegación</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-home"></span></a>
-		</div>
-		<div class="navbar-collapse collapse " id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="<?php echo $this->url('application'); ?>" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="<?php echo $this->url('admin/bank'); ?>">Bancos</a></li>
-						<li><a href="<?php echo $this->url('admin/payment_method'); ?>">Metodos de Pago</a></li>
-						<li class="dropdown-header">Especificaciones</li>
-						<li><a href="<?php echo $this->url('admin/specification_master'); ?>">Maestras</a></li>
-						<li><a href="<?php echo $this->url('admin/specification'); ?>">Especificaciones</a></li>
-						<li class="dropdown-header">Categorias</li>
-						<li><a href="<?php echo $this->url('admin/master_category'); ?>">Maestra</a></li>
-						<li><a href="<?php echo $this->url('admin/category'); ?>">Categorias</a></li>
-						<li class="dropdown-header">Medidas</li>
-						<li><a href="<?php echo $this->url('admin/measure_type'); ?>">Tipos de Medidas</a></li>
-						<li><a href="<?php echo $this->url('admin/measure'); ?>">Medidas</a></li>
-						<li><a href="<?php echo $this->url('admin/serial_name'); ?>">Nombre de seriales</a></li>
-						<li><a href="<?php echo $this->url('admin/list_price'); ?>">lista de precios</a></li>
-						<li><a href="<?php echo $this->url('admin/brand'); ?>">Marcas</a></li>
-						<li><a href="<?php echo $this->url('admin/product'); ?>">Productos</a></li>
-						<li><a href="<?php echo $this->url('admin/app'); ?>">Aplicaciones</a></li>
-
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="<?php echo $this->url('admin/customer'); ?>" class="dropdown-toggle" data-toggle="dropdown">Clientes <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="<?php echo $this->url('admin/customer'); ?>">Clientes</a></li>
-						<li><a href="<?php echo $this->url('admin/user_type'); ?>">Tipos de Usuarios</a></li>
-						<li><a href="<?php echo $this->url('admin/classification'); ?>">Clasificaciones</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguridad <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="<?php echo $this->url('security/rol'); ?>">Roles</a></li>
-						<li><a href="<?php echo $this->url('security/user'); ?>">Usuarios</a></li>
-					</ul>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Procesos <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="<?php echo $this->url('process/receive_inventory'); ?>">Entradas</a></li>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
-					<?php if(!empty($identity->first_name)) echo $identity->first_name; ?>
-					<?php if(!empty($identity->last_name)) echo $identity->last_name; ?>
-					<b class="caret"></b>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Perfil</a></li>
-						<li><a href="#">Configuración</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Ayudanos a mejorar</a></li>
-						<li><a href="#">Reportar error</a></li>
-						<li class="divider"></li>
-						<li><a href="<?php echo $this->url("security/logout"); ?>">Cerrar Sesión</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
 	<div class="container">
 		<div class="row">
-			<div class="panel panel-default">
-  				<div class="panel-body">
-  				<div class='pull-right'><a href="javascript:void(0);" onclick="showModalNote()"><span class="glyphicon glyphicon-tasks"></span></a></div>
-					<?php echo $this->modalHelper()->notes(); ?>
-					<div class="col-md-12"><?php echo $this->content; ?></div>
-				</div>
-			</div>
+			<div class="col-md-12"><?php echo $this->content; ?></div>
 		</div>
 	</div>
 	<?php echo $this->inlineScript() ?>

@@ -17,33 +17,6 @@ use Zend\Authentication\AuthenticationService;
 class Module
 {
 
-    public function init(ModuleManager $moduleManager)
-    {
-        $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
-        $sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
-        {
-            $controller = $e->getTarget();
-            $controller->layout('layout/layout');
-        }, 100);
-
-        /*
-        $sharedEvents->attach(array("Admin","Process") , 'dispatch', function ($e)
-        {
-            $controller = $e->getTarget();
-            $authenticationService = new AuthenticationService();
-            if($authenticationService->hasIdentity()){
-                $authenticationService->getStorage()->read();
-                $identity = $authenticationService->getIdentity();
-                $controller->layout()->setVariable("identity",$identity);
-            }
-            else {
-                $controller->plugin('redirect')->toRoute('security/login');
-            }
-        }, 100);
-        */
-
-    }
-
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
@@ -69,6 +42,7 @@ class Module
 
     public function getConfig()
     {
+        $config = __DIR__ . '/config/module.config.php';
         return include __DIR__ . '/config/module.config.php';
     }
     public function getViewHelperConfig()

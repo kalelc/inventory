@@ -55,24 +55,4 @@ class ModalHelper extends AbstractHelper
 		return $this->getView()->render($viewModel);
 
 	}
-
-	public function userAdd()
-	{
-		$viewModel = new ViewModel();
-		$viewModel->setTerminal(false);
-		
-		$form = $this->serviceLocator->get('Admin\Form\CustomerForm');
-		$config = $this->serviceLocator->get('config');
-
-		$viewModel->setTemplate('admin/helper/modal/customer/add');
-
-
-		$viewModel->setVariables(array(
-			'form' => $form,
-			'config' => $config
-			));
-
-		return $this->getView()->render($viewModel);
-	}
-
 }

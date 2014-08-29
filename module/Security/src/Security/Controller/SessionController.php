@@ -26,7 +26,7 @@ implements ConfigAwareInterface
 		$config = $this->config;
 		$routes = $config['router']['routes'];
 
-		foreach($routes['admin']['child_routes'] as $key => $route) {
+		foreach($routes['process']['child_routes'] as $key => $route) {
 			echo $key;
 			echo "<br>" ;
 		}

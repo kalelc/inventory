@@ -26,6 +26,7 @@ implements ConfigAwareInterface
 	public function addAction()
 	{
 		$form = new RolForm();
+		$resources = $this->config['resources'];
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -43,7 +44,9 @@ implements ConfigAwareInterface
 		}
 		return array(
 				'form' => $form,
-				'config' => $this->config);
+				'resources' => $resources,
+				'config' => $this->config
+				);
 	}
 
 

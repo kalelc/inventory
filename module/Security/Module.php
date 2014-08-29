@@ -15,6 +15,7 @@ use Security\Model\User;
 use Security\Form\UserForm;
 use Security\Listener\LogListener;
 use Zend\ModuleManager\ModuleManager;
+use Zend\Authentication\AuthenticationService;
 
 class Module
 {
@@ -108,9 +109,9 @@ class Module
                     $logListener = new LogListener($sm);
                     return $logListener;
                 },
-            ),
-        );
-    }
+                ),
+);
+}
 
 public function getAutoloaderConfig()
 {

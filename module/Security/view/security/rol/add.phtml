@@ -9,13 +9,28 @@ $this->headTitle($title);
 <?php echo $this->form()->openTag($form); ?>
 <?php echo $this->formHidden($form->get('id')); ?>
 <?php echo $this->formHidden($form->get('csrf'));?>
-<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
-<?php echo $this->formInput($form->get('name')); ?>
-<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
-<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
-<?php echo $this->formTextarea($form->get('description')); ?>
-<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
-<br><br>
-<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
-&nbsp;<a href="<?php echo $this->url('security/rol');?>"><?php echo $this->config['action']['return'] ; ?></a>
-<?php echo $this->form()->closeTag(); ?>
+<div class="form-group">
+	<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
+	<div class="col-sm-2">
+		<?php echo $this->formInput($form->get('name')); ?>
+		<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+	</div>
+</div>
+<?php foreach ($resources as $module => $resource): ?>
+	<?php echo $this->config['component'][$module][1] ?><br>
+	<?php foreach ($resource as $resourceValue): ?>
+		<input type='checkbox' value='<?php echo $resourceValue; ?>' name='resources[]'>&nbsp;<?php echo $this->config['component'][$resourceValue][0] ?><br>
+	<?php endforeach ?>
+<?php endforeach ?>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
+		<div class="col-sm-5">
+			<?php echo $this->formTextarea($form->get('description')); ?>
+			<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="well well-sm">
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+		&nbsp;<a href="<?php echo $this->url('security/rol');?>"><?php echo $this->config['action']['return'] ; ?></a>
+	</div>
+	<?php echo $this->form()->closeTag(); ?>

@@ -41,7 +41,7 @@ class Module
 		$sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
 		{
 			$controller = $e->getTarget();
-			$controller->layout('layout/layout');
+			$controller->layout('layout/admin');
 
 			$authenticationService = new AuthenticationService();
 			if($authenticationService->hasIdentity()){
@@ -55,6 +55,8 @@ class Module
 		}, 100);
 	}
 
+
+
 	public function getControllerConfig()
 	{
 		return array(
@@ -66,8 +68,8 @@ class Module
 						$instance->setConfig($config);
 					}
 				}
-				)
-			);
+			)
+		);
 	}
 
 	public function onBootstrap(MvcEvent $e)
@@ -170,7 +172,7 @@ class Module
 
 					return new TableGateway('details_receive_inventory', $dbAdapter,null, $resultSetPrototype, null);
 				},
-				),
-);
-}
+			),
+		);
+	}
 }

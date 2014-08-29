@@ -33,8 +33,8 @@ $form->setAttribute('action', $this->url(
 				</a>
 			<?php endif; ?>
 			<div class='pull-left'>
-			<?php echo $this->formInput($form->get('image')); ?>
-			<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
+				<?php echo $this->formInput($form->get('image')); ?>
+				<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
 			</div>
 			<p class="help-block">
 				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
@@ -51,7 +51,9 @@ $form->setAttribute('action', $this->url(
 			<?php echo $this->formTextarea($form->get('description')); ?>
 		</div>
 	</div>
-	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-	&nbsp;<a href="<?php echo $this->url('admin/app');?>"><?php echo $this->config['action']['return'] ; ?></a>
-	<?php echo $this->form()->closeTag(); ?>
+	<div class="well well-sm">
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+		&nbsp;<a href="<?php echo $this->url('admin/app');?>"><?php echo $this->config['action']['return'] ; ?></a>
+		<?php echo $this->form()->closeTag(); ?>
+	</div>
 	<?php echo $this->modalHelper()->image(); ?>
