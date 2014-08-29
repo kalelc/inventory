@@ -1,8 +1,11 @@
 <?php
 $title = $this->config['component']['user'][0];
-$this->headTitle($title);
+$action = $this->config['action']['edit'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('security/user'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));	
 ?>
-<h1 class="page-header"><?php echo $title ; ?></h1>
 <?php $form = $this->form; ?>
 <?php $form->setAttribute('action', $this->url('security/user', array('action' => 'edit','id'     => $this->id))); ?>
 <?php $form->prepare(); ?>

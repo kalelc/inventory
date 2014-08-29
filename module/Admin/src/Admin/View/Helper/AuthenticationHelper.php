@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 
 use Admin\Form\NoteForm;
 use Application\ConfigAwareInterface;
+use Zend\Authentication\AuthenticationService;
 
 class AuthenticationHelper extends AbstractHelper
 implements ConfigAwareInterface
@@ -29,11 +30,16 @@ implements ConfigAwareInterface
 		$resources = $this->config->get("config")['resources'];
 		$components = $this->config->get('config')['component'];
 
+		$authenticationService = new AuthenticationService();
+		$authenticationService->getStorage()->read();
+		$identity = $authenticationService->getIdentity();
+
 		$viewModel = new ViewModel();
 		$viewModel->setTemplate('admin/helper/menu');
 		$viewModel->setVariables(array(
 			'resources' => $resources,
-			'components' => $components
+			'components' => $components,
+			'identity' => $identity
 			));
 		
 		return $this->getView()->render($viewModel);

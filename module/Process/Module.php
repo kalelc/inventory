@@ -55,8 +55,6 @@ class Module
 		}, 100);
 	}
 
-
-
 	public function getControllerConfig()
 	{
 		return array(

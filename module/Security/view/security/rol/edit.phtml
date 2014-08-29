@@ -1,9 +1,11 @@
 <?php
 $title = $this->config['component']['rol'][0];
-$this->headTitle($title);
-?>
-<h2 class="page-header"><?php echo $title ; ?></h2>
-<?php
+$action = $this->config['action']['edit'];
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('security/rol'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));	
+
 $form = $this->form;
 $form->setAttribute('action', $this->url(
 	'security/rol',

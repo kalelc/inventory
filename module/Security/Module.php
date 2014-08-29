@@ -19,6 +19,17 @@ use Zend\Authentication\AuthenticationService;
 
 class Module
 {
+
+    public function init(ModuleManager $moduleManager)
+    {
+        $sharedEvents = $moduleManager->getEventManager()->getSharedManager();
+        $sharedEvents->attach(__NAMESPACE__, 'dispatch', function ($e)
+        {
+            $controller = $e->getTarget();
+            $controller->layout('layout/admin');
+        }, 100);
+    }
+
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager = $e->getApplication()->getEventManager();

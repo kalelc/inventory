@@ -96,12 +96,7 @@ class Module
 			$controller->layout('layout/admin');
 
 			$authenticationService = new AuthenticationService();
-			if($authenticationService->hasIdentity()){
-				$authenticationService->getStorage()->read();
-				$identity = $authenticationService->getIdentity();
-				$controller->layout()->setVariable("components",$components);
-			}
-			else {
+			if(!$authenticationService->hasIdentity()){
 				$controller->plugin('redirect')->toRoute('security/login');
 			}
 		}, 100);

@@ -1,8 +1,10 @@
 <?php
 $title = $this->config['component']['rol'][0];
-$this->headTitle($title);
-?>
-<h2 class="page-header"><?php echo $title ; ?></h2>
+$action = $this->config['action']['new'];
+echo $this->layoutHelper()->header(array(
+    'module' => array('url' => $this->url('security/rol'),'value' => $title),
+    ));
+    ?>
 <p>
     <a href="<?php echo $this->url('security/rol', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
 </p>
