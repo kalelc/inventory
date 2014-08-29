@@ -7,7 +7,7 @@ body {
 
 h1,h2,h3,h4,h5,h6 { font-family: 'Average Sans', sans-serif; text-transform: capitalize; }
 .clear-text { text-transform: none;}
-
+.color-grey { color:grey; }
 .btn-success {
   background-color: #57a900;
   background-image: -moz-linear-gradient(top, #70d900, #57a900);
