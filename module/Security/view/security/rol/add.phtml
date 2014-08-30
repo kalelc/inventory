@@ -24,11 +24,22 @@ echo $this->layoutHelper()->header(array(
 			<?php foreach ($resources as $module => $resource): ?>
 				<h3><?php echo $this->config['component'][$module][1] ?></h3>
 				<?php foreach ($resource as $resourceValue): ?>
-					<a href="#" class="list-group-item">
+					<a href="javascript:void(0);" class="list-group-item">
 						<h4 class="list-group-item-heading"><input type='checkbox' value='<?php echo $resourceValue; ?>' name='resources[]'>&nbsp;<?php echo $this->config['component'][$resourceValue][0] ?></h4>
 						<p class="list-group-item-text">
 							<div class="input-group">
-								<input type="checkbox">Crear<input type="checkbox">Consultar<input type="checkbox">Actualizar<input type="checkbox">Borrar
+								<label class="checkbox-inline">
+									<input type="checkbox">Crear
+								</label>
+								<label class="checkbox-inline">
+									<input type="checkbox">Consultar
+								</label>
+								<label class="checkbox-inline">
+									<input type="checkbox">Actualizar
+								</label>
+								<label class="checkbox-inline">
+									<input type="checkbox">Borrar
+								</label>
 							</div>
 						</p>
 					</a>

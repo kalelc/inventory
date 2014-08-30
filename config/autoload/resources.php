@@ -12,7 +12,7 @@ return array(
 			"master_category",
 			"measure_type",
 			"measure",
-			"note",
+			//"note",
 			"payment_method",
 			"product",
 			"serial_name",
