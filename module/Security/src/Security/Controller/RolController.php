@@ -32,13 +32,15 @@ implements ConfigAwareInterface
 		if ($request->isPost()) {
 			$rol = new Rol();
 			$form->setInputFilter($rol->getInputFilter());
+
+			dumpx($request->getPost('permissions'));
 			$form->setData($request->getPost());
 
 			if ($form->isValid()) {
 
 				$rol->exchangeArray($form->getData());
-				$this->getRolTable()->save($rol);
-
+				$rolId = $this->getRolTable()->save($rol);
+				
 				return $this->redirect()->toRoute('security/rol');
 			}
 		}

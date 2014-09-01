@@ -86,7 +86,7 @@ return array(
 		'user'							=> array('usuarios','usuario','image_path'=> 'public/images/user'),
 		'username'						=> array('nombres usuario','nombre usuario'),
 		'user_shortcut'					=> array('accesos directos usuario','acceso diercto usuario'),
-		'user_type'						=> array('tipos de usuarios','tipo de usuario'),
+		'user_type'						=> array('tipos usuarios','tipo usuario'),
 		'upc_bar_code'					=> array('codigos UPC', 'codigo UPC'),
 		'webpage'						=> array('paginas web', 'pagina web'),
 		'zipcode'						=> array('zipcode', 'zipcode')

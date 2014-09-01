@@ -78,7 +78,11 @@ class DetailsReceiveInventoryTable
 			'product' => $detailsReceiveInventory->getProduct(),
 			'qty' => $detailsReceiveInventory->getQty(),
 			'serials' => $detailsReceiveInventory->getSerials(),
+			'register_date' => $detailsReceiveInventory->getSerials(),
+			'update_date' => $detailsReceiveInventory->getSerials(),
 			'manifest_file' => $detailsReceiveInventory->getManifestFile(),
+			'register_date'			=> date("Y-m-d H:i:s", time()),
+			'update_date' 			=> date("Y-m-d H:i:s", time()),
 			);
 
 		$id = (int)$detailsReceiveInventory->getId();

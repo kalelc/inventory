@@ -10,14 +10,13 @@
 		</div>
 		<div class="navbar-collapse collapse " id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<?php $i = 0 ; ?>
 				<?php foreach($resources as $module => $resource): ?>
 					<li class="dropdown">
 						<a href="<?php echo $this->url('application'); ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $components[$module][0]; ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<?php for($index = 0; $index < count($resource); $index++): ?>
-								<li><a href="<?php echo $this->url($module."/".$resource[$index]); ?>"><?php echo $components[$resource[$index]][0] ; ?></a></li>
-							<?php endfor; ?>
+							<?php foreach($resource as $resourceIndex => $resourceValue): ?>
+								<li><a href="<?php echo $this->url($module."/".$resourceIndex); ?>" class='capitalize-text'><?php echo $components[$resourceIndex][0] ; ?></a></li>
+							<?php endforeach; ?>
 						</ul>
 					</li>
 				<?php endforeach; ?>

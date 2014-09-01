@@ -25,29 +25,28 @@ class ReceiveInventoryTable
 
 	}
 
-	public function get($id)
-	{
+	public function get($id,$user)
+	{	
+		/*
 		$id = (int) $id;
 		$class = get_class();
 		$key = md5($id."_".$class);
 
-		$row = $this->cache->getItem($key);
-		if(!$row) {
-			$select = new Select($this->tableGateway->getTable());
-			$select->columns(array("id","register_date","guide","invoice","invoice_file","observations"));
-			$select->join('customers', "customers.id = ".$this->tableGateway->getTable().".customer", array('customer_first_name' => 'first_name','customer_last_name' => 'first_name'), 'inner');
-			$select->join(array('shipments' => 'customers'), "shipments.id = ".$this->tableGateway->getTable().".shipment", array('shipment_first_name' => 'first_name',
-				'shipment_last_name' => 'last_name',
-				'shipment_company' => 'company'), 
-			'inner');
-			$select->join('payments_methods', "payments_methods.id = ".$this->tableGateway->getTable().".payment_method", array('payment_method_name' => 'name'), 'inner');
-
-			$select->where(array($this->tableGateway->getTable().".id" => $id,$this->tableGateway->getTable().".user" => 1));
-
-			$rowset = $this->tableGateway->selectWith($select);
-			$row = $rowset->current();
-			$this->cache->addItem($key,$row);
-		}
+		$row = $this->cache->getItem($key);*/
+		//if(!$row) {
+		$select = new Select($this->tableGateway->getTable());
+		$select->columns(array("id","register_date","guide","invoice","invoice_file","observations"));
+		$select->join('customers', "customers.id = ".$this->tableGateway->getTable().".customer", array('customer_first_name' => 'first_name','customer_last_name' => 'first_name'), 'inner');
+		$select->join(array('shipments' => 'customers'), "shipments.id = ".$this->tableGateway->getTable().".shipment", array('shipment_first_name' => 'first_name',
+			'shipment_last_name' => 'last_name',
+			'shipment_company' => 'company'), 
+		'inner');
+		$select->join('payments_methods', "payments_methods.id = ".$this->tableGateway->getTable().".payment_method", array('payment_method_name' => 'name'), 'inner');
+		$select->where(array($this->tableGateway->getTable().".id" => $id,$this->tableGateway->getTable().".user" => $user));
+		$rowset = $this->tableGateway->selectWith($select);
+		$row = $rowset->current();
+			//$this->cache->addItem($key,$row);
+		//}
 
 		return $row;
 	}
@@ -57,7 +56,7 @@ class ReceiveInventoryTable
 		
 		$data = array(
 			'register_date' => date("Y-m-d H:i:s", time()),
-			'user' => 1,
+			'user' => $receiveInventory->getUser(),
 			'customer' => $receiveInventory->getCustomer(),
 			'payment_method' => $receiveInventory->getPaymentMethod(),
 			'shipment' => $receiveInventory->getShipment(),
@@ -71,7 +70,6 @@ class ReceiveInventoryTable
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
 			$id = $this->tableGateway->getLastInsertValue();
-			$this->get($id);
 			return $id;
 
 		} else {

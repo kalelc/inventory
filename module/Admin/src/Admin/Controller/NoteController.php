@@ -10,9 +10,10 @@ use Zend\Validator\File\Extension;
 use Zend\Escaper\Escaper;
 use Admin\Traits\ModuleTablesTrait as AdminTablesTrait;
 use Application\ConfigAwareInterface;
-
+use Zend\View\Model\ViewModel;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+use Zend\Authentication\AuthenticationService;
 
 class NoteController extends AbstractActionController
 implements ConfigAwareInterface
@@ -22,19 +23,7 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-
-		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
-
-		$notes = $this->getNoteTable()->fetchAll();
-		$paginator = new Paginator(new PaginatorIterator($notes));
-		$paginator->setCurrentPageNumber($page)
-		->setItemCountPerPage($this->config['pagination']['itempage'])
-		->setPageRange($this->config['pagination']['pagerange']);
-
-		return new ViewModel(array(
-			'notes' => $paginator,
-			'config' => $this->config
-			));
+		return false;
 	}
 
 	public function addAction()
@@ -47,13 +36,15 @@ implements ConfigAwareInterface
 		$title = $this->params()->fromPost('title');
 		$content = $this->params()->fromPost('content');
 
-
 		if(!empty($title) && !empty($content)) {
+			$authenticationService = new AuthenticationService();
+			$user = $authenticationService->getStorage()->read();
+
+			$note->setUser($user->id);
 			$note->setTitle($title);
 			$note->setContent($content);
 			$result = $this->getNoteTable()->save($note);
 			$jsonModel->setVariable("result",$result);
-
 		}
 		else
 			$result = false;

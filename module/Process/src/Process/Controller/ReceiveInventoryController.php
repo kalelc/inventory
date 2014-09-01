@@ -17,6 +17,7 @@ use Zend\Session\Container;
 
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\Iterator as PaginatorIterator;
+use Zend\Authentication\AuthenticationService;
 
 class ReceiveInventoryController extends AbstractActionController
 implements ConfigAwareInterface
@@ -26,14 +27,10 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-		dumpx($this->getProductTable()->getAll());
-		dump(getenv('APPLICATION_ENV'));
-		exit();
 	}
 
 	public function addAction()
 	{
-		$this->getReceiveInventoryTable()->get(10);
 		$viewModel = new ViewModel();
 
 		$form = $this->getServiceLocator()->get("Process\Form\ReceiveInventoryForm");
@@ -62,12 +59,18 @@ implements ConfigAwareInterface
 
 				$data['invoice_file'] = $invoiceFile ? $invoiceFile : "" ;
 
+				$authenticationService = new AuthenticationService();
+				$user = $authenticationService->getStorage()->read()->id;
+
+				$receiveInventory->setUser($user);
 				$receiveInventory->exchangeArray($data);
 
 				$receiveInventoryId = $this->getReceiveInventoryTable()->save($receiveInventory);
 
 				$container = new Container('receive_inventory');
 				$container->id = $receiveInventoryId;
+				$container->user = $user;
+
 
 				return $this->redirect()->toRoute('process/receive_inventory/add/details');
 			}
@@ -86,7 +89,10 @@ implements ConfigAwareInterface
 			return $this->redirect()->toRoute('process/receive_inventory');
 		}
 
-		$receiveInventory = $this->getReceiveInventoryTable()->get($container->id);
+		$receiveInventoryId = $container->id ;
+		$user = $container->user ;
+
+		$receiveInventory = $this->getReceiveInventoryTable()->get($receiveInventoryId,$user);
 		$form = $this->getServiceLocator()->get('Process\Form\DetailsReceiveInventoryForm');
 
 		$detailsReceiveInventory = new DetailsReceiveInventory();
@@ -114,7 +120,6 @@ implements ConfigAwareInterface
 					break;
 				}
 			}
-
 
 			if ($form->isValid() && $serialValuesElementErrors) {
 

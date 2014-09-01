@@ -50,11 +50,14 @@ class RolTable
 		$id = (int)$rol->getId();
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
+			$id = $this->tableGateway->getLastInsertValue();
+			return $id;
 		} else {
 			if ($this->get($id)) {
 				$this->tableGateway->update($data, array('id' => $id));
+				return $id;
 			} else {
-				throw new \Exception('Form id does not exist');
+				return false;
 			}
 		}
 	}

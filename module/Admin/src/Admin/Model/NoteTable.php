@@ -13,9 +13,9 @@ class NoteTable
 		$this->featureSet = $this->tableGateway->getFeatureSet()->getFeatureByClassName('Zend\Db\TableGateway\Feature\EventFeature');
 	}
 
-	public function fetchAll()
+	public function fetchAll($user)
 	{
-		$resultSet = $this->tableGateway->select();
+		$resultSet = $this->tableGateway->select(array('user' => $user));
 		$resultSet->buffer();
 		return $resultSet;
 
@@ -35,7 +35,7 @@ class NoteTable
 	public function save(Note $note)
 	{
 		$data = array(
-			'user' => 1,
+			'user' => $note->getUser(),
 			'title' => $note->getTitle(),
 			'content' => $note->getContent(),
 			);

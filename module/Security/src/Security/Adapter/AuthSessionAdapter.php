@@ -37,11 +37,11 @@ class AuthSessionAdapter
 			$authenticationService->getStorage()->write($userObject);
 
 			if($userObject->status==0) {
+				$authenticationService->clearIdentity();
 				$this->setCode(-5);
 				return false;
 			}
 			else {
-				dumpx($userObject);
 				//get rol name
 				//get list modules and resources
 				return true;
