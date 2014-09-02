@@ -18,9 +18,9 @@ implements ConfigAwareInterface
 	public function indexAction()
 	{
 		return new ViewModel(array(
-				'roles' => $this->getRolTable()->fetchAll(),
-				'config' => $this->config,
-		));
+			'roles' => $this->getRolTable()->fetchAll(),
+			'config' => $this->config,
+			));
 	}
 
 	public function addAction()
@@ -33,22 +33,27 @@ implements ConfigAwareInterface
 			$rol = new Rol();
 			$form->setInputFilter($rol->getInputFilter());
 
-			dumpx($request->getPost('permissions'));
+			$permissions = $request->getPost('permissions');
 			$form->setData($request->getPost());
 
-			if ($form->isValid()) {
-
+			if ($form->isValid() && count($permissions)) {
 				$rol->exchangeArray($form->getData());
 				$rolId = $this->getRolTable()->save($rol);
+
+				$this->getModuleRolTable()->save($rolId,$permissions);
 				
 				return $this->redirect()->toRoute('security/rol');
 			}
+			else {
+				$form->get("permissions")->setMessages(array('permissions' => "para crear un rol debe asignar permisos"));
+			}
+
 		}
 		return array(
-				'form' => $form,
-				'resources' => $resources,
-				'config' => $this->config
-				);
+			'form' => $form,
+			'resources' => $resources,
+			'config' => $this->config
+			);
 	}
 
 
@@ -57,8 +62,8 @@ implements ConfigAwareInterface
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('security/rol', array(
-					'action' => 'add'
-			));
+				'action' => 'add'
+				));
 		}
 		$rol = $this->getRolTable()->get($id);
 
@@ -77,10 +82,10 @@ implements ConfigAwareInterface
 			}
 		}
 		return array(
-				'id' => $id,
-				'form' => $form,
-				'config' => $this->config,
-		);
+			'id' => $id,
+			'form' => $form,
+			'config' => $this->config,
+			);
 	}
 
 	public function deleteAction()
@@ -95,16 +100,22 @@ implements ConfigAwareInterface
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 
-				$this->getRolTable()->delete($id);
+				$result = $this->getRolTable()->delete($id);
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('security/rol');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
 			}
 
 			return $this->redirect()->toRoute('security/rol');
 		}
 		return array(
-				'id'=> $id,
-				'rol' => $this->getRolTable()->get($id),
-				'config' => $this->config,
-		);
+			'id'=> $id,
+			'rol' => $this->getRolTable()->get($id),
+			'config' => $this->config,
+			);
 	}
 
 	public function setConfig($config)

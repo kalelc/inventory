@@ -12,6 +12,10 @@ use Security\Model\LogTable;
 use Security\Model\Log;
 use Security\Model\UserTable;
 use Security\Model\User;
+use Security\Model\ModuleTable;
+use Security\Model\Modules;
+use Security\Model\ModuleRolTable;
+use Security\Model\ModuleRol;
 use Security\Form\UserForm;
 use Security\Listener\LogListener;
 use Zend\ModuleManager\ModuleManager;
@@ -100,6 +104,34 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Rol());
                     return new TableGateway('roles', $dbAdapter, null, $resultSetPrototype, null);
+                },
+                'Security\Model\ModuleTable' => function($sm) {
+                    $tableGateway = $sm->get('ModuleTableGateway');
+                    $table = new ModuleTable($tableGateway);
+                    return $table;
+                },
+
+                'ModuleTableGateway' => function ($sm) {
+
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Modules());
+                    return new TableGateway('modules', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Security\Model\ModuleRolTable' => function($sm) {
+                    $tableGateway = $sm->get('ModuleRolTableGateway');
+                    $table = new ModuleRolTable($tableGateway);
+                    return $table;
+                },
+
+                'ModuleRolTableGateway' => function ($sm) {
+
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new ModuleRol());
+                    return new TableGateway('modules_roles', $dbAdapter, null, $resultSetPrototype);
                 },
                 'Security\Model\LogTable' => function ($sm)
                 {

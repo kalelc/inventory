@@ -64,6 +64,10 @@ class RolTable
 
 	public function delete($id)
 	{
-		$this->tableGateway->delete(array('id' => $id));
+		$result = $this->tableGateway->delete(array('id' => $id));
+		if($result)
+			return true;
+		else
+			return false;
 	}
 }

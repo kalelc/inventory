@@ -19,6 +19,24 @@ Trait SecurityTrait
 		}
 		return $rolTable;
 	}
+	public function getModuleTable()
+	{
+		$moduleTable = "";
+		if (!$moduleTable) {
+			$moduleTable = $this->getServiceLocator()->get('Security\Model\ModuleTable');
+		}
+		return $moduleTable;
+	}
+
+	public function getModuleRolTable()
+	{
+		$moduleRolTable = "";
+		if (!$moduleRolTable) {
+			$moduleRolTable = $this->getServiceLocator()->get('Security\Model\ModuleRolTable');
+		}
+		return $moduleRolTable;
+	}
+
 	public function getAuthSessionAdapter()
 	{
 		$authSessionAdapter = "";

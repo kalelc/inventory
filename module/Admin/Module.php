@@ -86,7 +86,7 @@ class Module
 				),
 			);
 	}
-
+	//revisar con el AbstractActionController
 	public function init(ModuleManager $moduleManager)
 	{
 		$sharedEvents = $moduleManager->getEventManager()->getSharedManager();

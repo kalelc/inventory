@@ -6,7 +6,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class Rol implements InputFilterAwareInterface
+class Modules implements InputFilterAwareInterface
 {
 	private $id;
 	private $name;
@@ -37,45 +37,42 @@ class Rol implements InputFilterAwareInterface
 			$factory     = new InputFactory();
 
 			$inputFilter->add($factory->createInput(array(
-				'name'     => 'id',
-				'required' => true,
-				'filters'  => array(
-					array('name' => 'Int'),
+					'name'     => 'id',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'Int'),
 					),
-				)));
+			)));
+
+
 
 			$inputFilter->add($factory->createInput(array(
-				'name'     => 'name',
-				'required' => true,
-				'filters'  => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
+					'name'     => 'name',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
 					),
-				'validators' => array(
-					array(
-						'name'    => 'NotEmpty',
-						'options' => array(
-							'messages' => array(
-								\Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
-								),
+					'validators' => array(
+							array(
+									'name'    => 'NotEmpty',
+									'options' => array(
+											'messages' => array(
+													\Zend\Validator\NotEmpty::IS_EMPTY => 'el campo no debe estar vacio'
+											),
+									),
 							),
-						),
 					),
-				)));
+			)));
 
 			$inputFilter->add($factory->createInput(array(
-				'name'     => 'permissions',
-				'required' => false,
-				)));
-
-			$inputFilter->add($factory->createInput(array(
-				'name'     => 'description',
-				'required' => false,
-				'filters'  => array(
-					array('name' => 'StripTags'),
-					array('name' => 'StringTrim'),
+					'name'     => 'description',
+					'required' => false,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
 					),
-				)));
+			)));
 
 			$this->inputFilter = $inputFilter;
 		}
@@ -109,4 +106,10 @@ class Rol implements InputFilterAwareInterface
 		$this->description = $description;
 		return $this;
 	}
+
+	public function getToString() {
+		$this->getName();
+		$this->getDescription();
+	}
+
 }

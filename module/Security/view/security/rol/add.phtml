@@ -14,7 +14,7 @@ echo $this->layoutHelper()->header(array(
 	<?php echo $this->formHidden($form->get('csrf'));?>
 	<div class="form-group">
 		<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
-		<div class="col-sm-2">
+		<div class="col-sm-3">
 			<?php echo $this->formInput($form->get('name')); ?>
 			<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
 		</div>
@@ -25,20 +25,18 @@ echo $this->layoutHelper()->header(array(
 				<h4><?php echo $this->config['component'][$module][0]; ?></h4>
 				<?php foreach($resource as $resourceIndex => $resourceValue): ?>
 					<div class='tabulate'><h5><?php echo $this->config['component'][$resourceIndex][0]; ?></h5></div>
-						<div class="well well-sm">
-							<?php foreach($resourceValue as $permissionIndex => $permission): ?>
-								<label class="checkbox-inline">
-									<input type="checkbox" name="permissions['<?php echo $resourceIndex; ?>'][<?php echo $permissionIndex; ?>]" value="<?php echo $permissionIndex; ?>"><?php echo $this->config['action'][$permission]; ?>
-								</label>
-							<?php endforeach; ?>
-						</div>
+					<div class="well well-sm">
+						<?php foreach($resourceValue as $permissionIndex => $permission): ?>
+							<label class="checkbox-inline">
+								<input type="checkbox" name="permissions[<?php echo $resourceIndex; ?>][]" value="<?php echo $permission; ?>"><?php echo $this->config['action'][$permission]; ?>
+							</label>
+						<?php endforeach; ?>
+					</div>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
+			<?php echo $this->formElementErrors($form->get('permissions'), array("class" => "error")); ?>
 		</div>
 	</div>
-
-
-
 	<div class="form-group">
 		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
 		<div class="col-sm-5">

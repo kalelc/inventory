@@ -38,7 +38,7 @@ implements ConfigAwareInterface
 	{
 
 		$authenticationService = new AuthenticationService();
-		
+
 		if($authenticationService->hasIdentity())
 			return $this->redirect()->toRoute('admin/bank');
 
@@ -103,8 +103,8 @@ implements ConfigAwareInterface
 		$acl->allow($rol, 'product');
 		$acl->allow($rol, 'bank');
 
-		//dump($acl->getResources(),"getResources()");
-		//dump($acl->getRoles(),"getRoles()");
+//dump($acl->getResources(),"getResources()");
+//dump($acl->getRoles(),"getRoles()");
 		dump($acl->hasResource("product"));
 		dump($acl->isAllowed("admin usuario","product"));
 		dumpx($acl);
