@@ -1,7 +1,7 @@
 <?php
 $this->headScript()->prependFile('/js/product.js', 'text/javascript');
 $title = $this->config['component']['product'][0];
-$action = $this->config['action']['new'];
+$action = $this->config['action']['create']['text'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/product'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
@@ -237,7 +237,10 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	</div>
 	<div class="well well-sm">
-		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
-		&nbsp;<a href="<?php echo $this->url('admin/product'); ?>"><?php echo $this->config['action']['return'] ;?></a>
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create']['text'])); ?>
+		&nbsp;<a href="<?php echo $this->url('admin/product'); ?>"><label class="<?php echo $this->config['action']['return']['class']; ?>">
+<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
+<?php echo $this->config['action']['return']['text']; ?>
+</label></a>
 		<?php echo $this->form()->closeTag(); ?>
 	</div>

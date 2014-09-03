@@ -19,6 +19,16 @@ Trait SecurityTrait
 		}
 		return $rolTable;
 	}
+
+	public function getLogTable()
+	{
+		$logTable = "";
+		if (!$logTable) {
+			$logTable = $this->getServiceLocator()->get('Security\Model\LogTable');
+		}
+		return $logTable;
+	}
+
 	public function getModuleTable()
 	{
 		$moduleTable = "";

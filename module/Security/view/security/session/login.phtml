@@ -8,7 +8,7 @@
 				<div class="zero-clipboard"><span class="btn-clipboard with-example"></span></div>
 				<div class="media">
 					<a class="pull-left" href="#">
-						<span class="glyphicon glyphicon-shopping-cart"></span>
+						<i class="fa fa-shopping-cart fa-3x"></i>
 					</a>
 					<div class="media-body">
 						<h4 class="media-heading">Inventarios</h4>
@@ -16,14 +16,14 @@
 					</div>
 				</div>
 				<div class="media">
-					<a class="pull-left" href="#"><span class="glyphicon glyphicon-user"></span></a>
+					<a class="pull-left" href="#"><span class="fa fa-user fa-3x"></span></a>
 					<div class="media-body">
-						<h4 class="media-heading">Acceso Social</h4>
-						Ingresa con tus redes sociales, nuestro sistema no publica en tus redes sociales sin tu permiso, solo te permite acceder como usuario basico a las caracteristicas del sistema.
+						<h4 class="media-heading">Acceso para Clientes</h4>
+						Ingresa y verifica tu orden. Puedes hacer tracking de tus pedidos y compras.
 					</div>
 				</div>
 				<div class="media">
-					<a class="pull-left" href="#"><span class="glyphicon glyphicon-fullscreen"></span></a>
+					<a class="pull-left" href="#"><span class="fa fa-tablet fa-3x"></span></a>
 					<div class="media-body">
 						<h4 class="media-heading">Tabletas y Moviles</h4>
 						Accede al sistema desde tabletas y moviles, mejora tu experiencia de portabilidad con la webapp.
@@ -59,19 +59,15 @@
 			<?php echo $this->formLabel($form->get('username')->setLabel($this->config['component']['user'][1])); ?>
 			<div class="col-sm-9">
 				<?php echo $this->formInput($form->get('csrf')); ?>
-				<div class="input-group">
-					<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 					<?php echo $this->formInput($form->get('username')); ?>
-				</div>
 			</div>
 		</div>
 		<div class="form-group">
 			<?php echo $this->formLabel($form->get('password')->setLabel($this->config['component']['password'][1])); ?>
 			<div class="col-sm-9">
 				<div class="input-group">
-					<span class="input-group-addon"><span class="glyphicon glyphicon-credit-card"></span></span>
 					<?php echo $this->formPassword($form->get('password')); ?>
-					<span class="input-group-addon"><input type="checkbox" id='viewchars'>&nbsp;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;Mostrar</span>	
+					<span class="input-group-addon"><input type="checkbox" id='viewchars'>&nbsp;<span class="fa fa-eye"></span>&nbsp;Mostrar</span>	
 				</div>
 			</div>
 		</div>
@@ -87,8 +83,7 @@
 			<br>
 			<div class="well well-sm" align="center">
 				<?php echo $this->formSubmit($form->get('submit')); ?>
-				<a href="javascript:void(0);"><?php echo $this->config['action']['register'] ;?></a>
-				<a href="javascript:void(0);"><?php echo $this->config['action']['can_not_log_in'] ;?></a>
+				<a href="javascript:void(0);"><span class='btn btn-warning btn-sm'>Recordar Contraseña</span></a>
 			</div>
 			<?php echo $this->form()->closeTag(); ?>
 		</div>

@@ -1,34 +1,34 @@
 <?php
 $title = $this->config['component']['app'][0];
-$action = $this->config['action']['remove'];
+$action = $this->config['action']['delete']['text'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/app'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
 	));
 	?>
-<?php if(isset($error) && $error): ?>
-	<div class="alert alert-danger fade in">
-		<h4>¡Vaya! Se ha producido un error.</h4>
-		<p>No se puede borrar el registro de <?php echo $title; ?> ya que este se encuentra vinculado a otro registro.</p>
-		<p>
-			<a href="<?php echo $this->url('admin/app');?>"><?php echo $this->config['action']['return'] ; ?> </a>
-		</p>
-	</div>
-<?php else: ?>
-	<div class="alert alert-danger">
-		<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($app->getName()); ?>'?</p>
-	</div>
-	<?php
-	$url = $this->url('admin/app', array(
-		'action' => 'delete',
-		'id'=> $this->id,
-		));
-		?>
-		<form action="<?php echo $url; ?>" method="post">
-			<div class="well well-sm">
-				<input type="hidden" name="id" value="<?php echo (int) $app->getId(); ?>" />
-				<?php echo $this->config['action']['delete_yes']; ?>
-				<?php echo $this->config['action']['delete_no']; ?>
-			</div>
-		</form>
-	<?php endif; ?>
+	<?php if(isset($error) && $error): ?>
+		<div class="alert alert-danger fade in">
+			<h4>¡Vaya! Se ha producido un error.</h4>
+			<p>No se puede borrar el registro de <?php echo $title; ?> ya que este se encuentra vinculado a otro registro.</p>
+			<p>
+				<a href="<?php echo $this->url('admin/app');?>"><?php echo $this->config['action']['return']['text'] ; ?> </a>
+			</p>
+		</div>
+	<?php else: ?>
+		<div class="alert alert-danger">
+			<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($app->getName()); ?>'?</p>
+		</div>
+		<?php
+		$url = $this->url('admin/app', array(
+			'action' => 'delete',
+			'id'=> $this->id,
+			));
+			?>
+			<form action="<?php echo $url; ?>" method="post">
+				<div class="well well-sm">
+					<input type="hidden" name="id" value="<?php echo (int) $app->getId(); ?>" />
+					<input type="submit" name="del" value="<?php echo $this->config['action']['delete']['text']; ?>" class="btn btn-danger btn-sm"/>
+					<input type="submit" name="del" value="<?php echo $this->config['action']['return']['text']; ?>" class="btn btn-default btn-sm"/>
+				</div>
+			</form>
+		<?php endif; ?>

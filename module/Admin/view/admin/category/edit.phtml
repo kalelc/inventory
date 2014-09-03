@@ -1,127 +1,136 @@
 <?php
 $this->headScript()->prependFile('/js/category.js', 'text/javascript');
 $title = $this->config['component']['category'][0];
+$action = $this->config['action']['update']['text'];
 $this->headTitle($title);
-?>
-<h2 class="page-header"><?php echo $title ; ?></h2>
-<?php echo $this->formElementErrors($form->get('specification'), array("class" => "error")); ?>
-<?php $form = $this->form; ?>
-<?php $form->setAttribute('action', $this->url('admin/category', array('action' => 'edit','id' => $this->id))); ?>
-<?php $form->prepare(); ?>
-<?php echo $this->form()->openTag($form); ?>
-<div class="form-group">
-	<?php echo $this->formHidden($form->get('id')); ?>
-	<?php echo $this->formHidden($form->get('csrf'));?>
-	<?php echo $this->formLabel($form->get('master_category')->setLabel($this->config['component']['master_category'][1])); ?>
-	<div class="col-sm-5">
-		<?php echo $this->formSelect($form->get('master_category')); ?>
-		<?php echo $this->formElementErrors($form->get('master_category'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<?php echo $this->formLabel($form->get('singular_name')->setLabel($this->config['component']['singular_name'][1])); ?>
-	<div class="col-sm-5">
-		<?php echo $this->formInput($form->get('singular_name')); ?>
-		<?php echo $this->formElementErrors($form->get('singular_name'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<?php echo $this->formLabel($form->get('plural_name')->setLabel($this->config['component']['plural_name'][1])); ?>
-	<div class="col-sm-5">
-		<?php echo $this->formInput($form->get('plural_name')); ?>
-		<?php echo $this->formElementErrors($form->get('plural_name'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<?php echo $this->formLabel($form->get('image')); ?>
-	<div class="col-sm-5">
-		<?php if($image): ?>
-			<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/category/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-				<span class="glyphicon glyphicon-search"></span>
-			</a>
-		<?php endif; ?>
-		<div class='pull-left'>
-			<?php echo $this->formInput($form->get('image')); ?>
-			<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
+echo $this->layoutHelper()->header(array(
+	'module' => array('url' => $this->url('admin/category'),'value' => $title),
+	'action' => array('url' => '','value' => $action)
+	));	
+	?>
+	<h2 class="page-header"><?php echo $title ; ?></h2>
+	<?php echo $this->formElementErrors($form->get('specification'), array("class" => "error")); ?>
+	<?php $form = $this->form; ?>
+	<?php $form->setAttribute('action', $this->url('admin/category', array('action' => 'edit','id' => $this->id))); ?>
+	<?php $form->prepare(); ?>
+	<?php echo $this->form()->openTag($form); ?>
+	<div class="form-group">
+		<?php echo $this->formHidden($form->get('id')); ?>
+		<?php echo $this->formHidden($form->get('csrf'));?>
+		<?php echo $this->formLabel($form->get('master_category')->setLabel($this->config['component']['master_category'][1])); ?>
+		<div class="col-sm-5">
+			<?php echo $this->formSelect($form->get('master_category')); ?>
+			<?php echo $this->formElementErrors($form->get('master_category'), array("class" => "error")); ?>
 		</div>
-		<p class="help-block">
-			Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
-			Tama&ntilde;o: 
-			<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
-				<?php echo $range." ".$size ; ?>
-			<?php endforeach; ?>
-		</p>
 	</div>
-</div>
-<div class="form-group">
-	<?php echo $this->formLabel($form->get('shipping_cost')->setLabel($this->config['component']['shipping_cost'][1])); ?>
-	<div class="col-sm-3">
-		<div class="input-group">
-			<span class="input-group-addon">$</span>
-			<?php echo $this->formInput($form->get('shipping_cost')); ?>
-			<span class="input-group-addon">.00</span>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('singular_name')->setLabel($this->config['component']['singular_name'][1])); ?>
+		<div class="col-sm-5">
+			<?php echo $this->formInput($form->get('singular_name')); ?>
+			<?php echo $this->formElementErrors($form->get('singular_name'), array("class" => "error")); ?>
 		</div>
-		<?php echo $this->formElementErrors($form->get('shipping_cost'), array("class" => "error")); ?>
 	</div>
-</div>
-<div class="form-group">
-	<?php echo $this->formLabel($form->get('additional_shipping')->setLabel($this->config['component']['additional_shipping'][1])); ?>
-	<div class="col-sm-3">
-		<div class="input-group">
-			<span class="input-group-addon">$</span>
-			<?php echo $this->formInput($form->get('additional_shipping')); ?>
-			<span class="input-group-addon">.00</span>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('plural_name')->setLabel($this->config['component']['plural_name'][1])); ?>
+		<div class="col-sm-5">
+			<?php echo $this->formInput($form->get('plural_name')); ?>
+			<?php echo $this->formElementErrors($form->get('plural_name'), array("class" => "error")); ?>
 		</div>
-		<?php echo $this->formElementErrors($form->get('additional_shipping'), array("class" => "error")); ?>
 	</div>
-</div>
-<div class="form-group">
-	<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
-	<div class="col-sm-6">
-		<?php echo $this->formTextarea($form->get('description')); ?>
-		<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
-	</div>
-</div>
-<div class="form-group">
-	<?php echo $this->formLabel($form->get('serial_name')->setLabel($this->config['component']['serial_name'][0])); ?>
-	<div class="col-sm-6">
-		<?php echo $this->formSelect($form->get('serial_name')); ?>
-		<?php echo $this->formElementErrors($form->get('serial_name'), array("class" => "error")); ?>
-	</div>
-</div>
-
-<h4 class="page-header"><?php echo $this->config['component']['specification'][0]; ?></h4>
-<ul id="sortable">
-	<?php foreach($specificationChecked as $specificationCheckedId => $specificationCheckedValue): ?>
-		<li>
-			<a href="#" class="list-group-item">
-				<?php echo $this->config['action']['icons']['move'] ; ?>
-				&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' id='specification<?php echo $specificationCheckedId; ?>' checked='checked'>
-				&nbsp;<?php echo $specificationCheckedValue; ?>
-				<div class="pull-right">
-					<?php if($specificationNameCheck[$specificationCheckedId] == 1): ?> 
-						<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name' checked='checked'>
-					<?php else:?>
-						<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name'>
-					<?php endif; ?>
-				</div>
-			</a>
-		</li>
-	<?php endforeach; ?>
-	<?php foreach($specificationUnchecked as $specificationUncheckedId => $specificationUncheckedValue): ?>
-		<li class="list-group-item">
-			<?php echo $this->config['action']['icons']['move'] ; ?>
-			&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' id='specification<?php echo $specificationUncheckedId; ?>'>
-			&nbsp;<?php echo $specificationUncheckedValue; ?>
-			<div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' class='specifications_name'>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('image')); ?>
+		<div class="col-sm-5">
+			<?php if($image): ?>
+				<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/category/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
+					<span class="glyphicon glyphicon-search"></span>
+				</a>
+			<?php endif; ?>
+			<div class='pull-left'>
+				<?php echo $this->formInput($form->get('image')); ?>
+				<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
 			</div>
-		</li>
-	<?php endforeach; ?>
-</ul>
-</ul>
+			<p class="help-block">
+				Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
+				Tama&ntilde;o: 
+				<?php foreach($this->config['file_characteristics']['image']['size'] as $range => $size): ?>
+					<?php echo $range." ".$size ; ?>
+				<?php endforeach; ?>
+			</p>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('shipping_cost')->setLabel($this->config['component']['shipping_cost'][1])); ?>
+		<div class="col-sm-3">
+			<div class="input-group">
+				<span class="input-group-addon">$</span>
+				<?php echo $this->formInput($form->get('shipping_cost')); ?>
+				<span class="input-group-addon">.00</span>
+			</div>
+			<?php echo $this->formElementErrors($form->get('shipping_cost'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('additional_shipping')->setLabel($this->config['component']['additional_shipping'][1])); ?>
+		<div class="col-sm-3">
+			<div class="input-group">
+				<span class="input-group-addon">$</span>
+				<?php echo $this->formInput($form->get('additional_shipping')); ?>
+				<span class="input-group-addon">.00</span>
+			</div>
+			<?php echo $this->formElementErrors($form->get('additional_shipping'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
+		<div class="col-sm-6">
+			<?php echo $this->formTextarea($form->get('description')); ?>
+			<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<?php echo $this->formLabel($form->get('serial_name')->setLabel($this->config['component']['serial_name'][0])); ?>
+		<div class="col-sm-6">
+			<?php echo $this->formSelect($form->get('serial_name')); ?>
+			<?php echo $this->formElementErrors($form->get('serial_name'), array("class" => "error")); ?>
+		</div>
+	</div>
 
-<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+	<h4 class="page-header"><?php echo $this->config['component']['specification'][0]; ?></h4>
+	<ul id="sortable">
+		<?php foreach($specificationChecked as $specificationCheckedId => $specificationCheckedValue): ?>
+			<li>
+				<a href="#" class="list-group-item">
+					<i class="<?php echo $this->config['action']['move']['icon'] ; ?>"></i>
+					&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' id='specification<?php echo $specificationCheckedId; ?>' checked='checked'>
+					&nbsp;<?php echo $specificationCheckedValue; ?>
+					<div class="pull-right">
+						<?php if($specificationNameCheck[$specificationCheckedId] == 1): ?> 
+							<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name' checked='checked'>
+						<?php else:?>
+							<input name='name[]' type='checkbox' value='<?php echo $specificationCheckedId; ?>' class='specifications_name'>
+						<?php endif; ?>
+					</div>
+				</a>
+			</li>
+		<?php endforeach; ?>
+		<?php foreach($specificationUnchecked as $specificationUncheckedId => $specificationUncheckedValue): ?>
+			<li class="list-group-item">
+				<i class="<?php echo $this->config['action']['move']['icon'] ; ?>"></i>
+				&nbsp;<input name='specification[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' id='specification<?php echo $specificationUncheckedId; ?>'>
+				&nbsp;<?php echo $specificationUncheckedValue; ?>
+				<div class="pull-right"><input name='name[]' type='checkbox' value='<?php echo $specificationUncheckedId; ?>' class='specifications_name'>
+				</div>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+</ul>
+<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['update']['text'])); ?>
 &nbsp;
-<a href="<?php echo $this->url('admin/category'); ?>"><?php echo $this->config['action']['return'] ; ?> </a>
+<a href="<?php echo $this->url('admin/category'); ?>">
+	<label class="<?php echo $this->config['action']['return']['class']; ?>">
+		<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
+		<?php echo $this->config['action']['return']['text']; ?>
+	</label>
+</a>
 <?php echo $this->form()->closeTag(); ?>
 <?php echo $this->modalHelper()->image(); ?>

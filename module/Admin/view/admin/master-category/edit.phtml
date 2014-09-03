@@ -1,6 +1,6 @@
 <?php
 $title = $this->config['component']['master_category'][0];
-$action = $this->config['action']['edit'];
+$action = $this->config['action']['update']['text'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/master_category'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
@@ -56,8 +56,11 @@ echo $this->layoutHelper()->header(array(
 			</div>
 		</div>
 		<div class="well well-sm">
-			<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-			&nbsp;<a href="<?php echo $this->url('admin/master_category');?>"><?php echo $this->config['action']['return'] ; ?></a>
+			<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['update']['text'])); ?>
+			&nbsp;<a href="<?php echo $this->url('admin/master_category');?>"><label class="<?php echo $this->config['action']['return']['class']; ?>">
+<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
+<?php echo $this->config['action']['return']['text']; ?>
+</label></a>
 			<?php echo $this->form()->closeTag(); ?>
 		</div>
 		<?php echo $this->modalHelper()->image(); ?>

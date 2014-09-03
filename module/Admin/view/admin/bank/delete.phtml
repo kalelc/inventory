@@ -1,6 +1,6 @@
 <?php
 $title = $this->config['component']['bank'][0];
-$action = $this->config['action']['remove'];
+$action = $this->config['action']['delete']['text'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/bank'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
@@ -11,7 +11,10 @@ echo $this->layoutHelper()->header(array(
 			<h4>¡Vaya! Se ha producido un error.</h4>
 			<p>No se puede borrar el registro de <?php echo $title; ?> ya que este se encuentra vinculado a otro registro.</p>
 			<p>
-				<a href="<?php echo $this->url('admin/bank');?>"><?php echo $this->config['action']['return'] ; ?> </a>
+				<a href="<?php echo $this->url('admin/bank');?>"><label class="<?php echo $this->config['action']['return']['class']; ?>">
+<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
+<?php echo $this->config['action']['return']['text']; ?>
+</label> </a>
 			</p>
 		</div>
 	<?php else: ?>
@@ -27,8 +30,8 @@ echo $this->layoutHelper()->header(array(
 			<form action="<?php echo $url; ?>" method="post">
 				<div class="well well-sm">
 					<input type="hidden" name="id" value="<?php echo (int) $bank->getId(); ?>" />
-					<?php echo $this->config['action']['delete_yes']; ?>
-					<?php echo $this->config['action']['delete_no']; ?>
+					<input type="submit" name="del" value="<?php echo $this->config['action']['delete']['text']; ?>" class="btn btn-danger btn-sm"/>
+					<input type="submit" name="del" value="<?php echo $this->config['action']['return']['text']; ?>" class="btn btn-danger btn-sm"/>
 				</div>
 			</form>
 		<?php endif; ?>

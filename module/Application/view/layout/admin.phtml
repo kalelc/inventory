@@ -11,9 +11,8 @@
 	<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
 	->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
 	->prependStylesheet($this->basePath() . 'http://fonts.googleapis.com/css?family=Average+Sans')
-	->prependStylesheet($this->basePath() . '/css/fonts.css')
 	->prependStylesheet($this->basePath() . '/css/style.css')
-	->prependStylesheet($this->basePath() . 'http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css')
+	->prependStylesheet($this->basePath() . '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css')
 	->prependStylesheet($this->basePath() . '/css/datatable.css')
 	->prependStylesheet($this->basePath() . '/css/datepicker.css')
 	->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
@@ -39,7 +38,11 @@
 		<div class="row">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class='pull-right'><a href="javascript:void(0);" onclick="showModalNote()"><span class="glyphicon glyphicon-tasks"></span></a></div>
+					<div class='pull-right'><a href="javascript:void(0);" onclick="showModalNote()">
+						<label class="btn btn-primary btn-xs">
+							<i class="fa fa-list-alt"></i>&nbsp;Notas
+						</label>
+					</div>
 					<?php echo $this->modalHelper()->notes(); ?>
 					<div class="col-md-12"><?php echo $this->content; ?></div>
 				</div>

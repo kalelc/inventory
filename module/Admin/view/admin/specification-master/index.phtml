@@ -1,12 +1,12 @@
 <?php
 $title = $this->config['component']['specification_master'][0];
-$action = $this->config['action']['new'];
+$action = $this->config['action']['create']['text'];
 echo $this->layoutHelper()->header(array(
     'module' => array('url' => $this->url('admin/specification_master'),'value' => $title),
     ));
     ?>
     <p>
-        <a href="<?php echo $this->url('admin/specification_master', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
+        <a href="<?php echo $this->url('admin/specification_master', array('action'=>'add'));?>"><label class="<?php echo $this->config['action']['create']['class']; ?>"><i class="<?php echo $this->config['action']['create']['icon']; ?>"></i><?php echo $action ?></label></a>
     </p>
 
 
@@ -31,9 +31,13 @@ echo $this->layoutHelper()->header(array(
                 </td>
                 <td class='column-button'>
                     <a href="<?php echo $this->url('admin/specification_master',
-                        array('action'=>'edit', 'id' => $specificationMaster->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+                        array('action'=>'edit', 'id' => $specificationMaster->getId())); ?>"><label class="<?php echo $this->config['action']['update']['class']; ?>">
+                                <i class="<?php echo $this->config['action']['update']['icon'] ; ?>"></i>
+                            </label></a>
 <a href="<?php echo $this->url('admin/specification_master',
-    array('action'=>'delete', 'id' => $specificationMaster->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
+    array('action'=>'delete', 'id' => $specificationMaster->getId())); ?>"><label class="<?php echo $this->config['action']['delete']['class']; ?>">
+                                <i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
+                            </label></a>
 </td>
 </tr>
 <?php endforeach; ?>

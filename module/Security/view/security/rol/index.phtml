@@ -1,28 +1,37 @@
 <?php
 $title = $this->config['component']['rol'][0];
-$action = $this->config['action']['new'];
+$action = $this->config['action']['create']['text'];
 echo $this->layoutHelper()->header(array(
     'module' => array('url' => $this->url('security/rol'),'value' => $title),
     ));
     ?>
-<p>
-    <a href="<?php echo $this->url('security/rol', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
-</p>
-
-<table class="table table-striped table-bordered table-hover">
-    <tr>
-        <th><?php echo $this->config['component']['name'][1] ;?></th>
-        <th><?php echo $this->config['component']['description'][1] ;?></th>
-        <th>&nbsp;</th>
-    </tr>
-    <?php foreach ($roles as $rol) : ?>
+    <p>
+        <a href="<?php echo $this->url('security/rol', array('action'=>'add'));?>">
+            <label class="<?php echo $this->config['action']['create']['class']; ?>"><i class="<?php echo $this->config['action']['create']['icon']; ?>"></i><?php echo $action; ?></label>
+        </a>
+    </p>
+    <table class="table table-striped table-bordered table-hover">
         <tr>
-            <td><?php echo $this->escapeHtml($rol->getName());?></td>
-            <td><?php echo $this->escapeHtml($rol->getDescription());?></td>
-            <td class='column-button'>
-                <a href="<?php echo $this->url('security/rol', array('action'=>'edit', 'id' => $rol->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
-                <a href="<?php echo $this->url('security/rol', array('action'=>'delete', 'id' => $rol->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
-            </td>
+            <th><?php echo $this->config['component']['name'][1] ;?></th>
+            <th><?php echo $this->config['component']['description'][1] ;?></th>
+            <th>&nbsp;</th>
         </tr>
-    <?php endforeach; ?>
+        <?php foreach ($roles as $rol) : ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($rol->getName());?></td>
+                <td><?php echo $this->escapeHtml($rol->getDescription());?></td>
+                <td class='column-button'>
+                    <a href="<?php echo $this->url('security/rol', array('action'=>'edit', 'id' => $rol->getId())); ?>">
+                        <label class="<?php echo $this->config['action']['update']['class']; ?>">
+                           <i class="<?php echo $this->config['action']['update']['icon'] ; ?>"></i>
+                       </label>
+                   </a>
+                   <a href="<?php echo $this->url('security/rol', array('action'=>'delete', 'id' => $rol->getId())); ?>">
+                    <label class="<?php echo $this->config['action']['delete']['class']; ?>">
+                     <i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
+                 </label>
+             </a>
+         </td>
+     </tr>
+ <?php endforeach; ?>
 </table>

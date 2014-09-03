@@ -6,7 +6,13 @@
 				<h4 class="modal-title">Notas</h4>
 			</div>
 			<div class="modal-body" id="modalBody">
-				<div class='pull-right'><a href='javascript:void(0)' id='add_note'><?php echo $config['action']['icons']['add']; ?></a></div>
+				<div class='pull-right'>
+					<a href='javascript:void(0)' id='add_note'>
+						<label class="<?php echo $this->config['action']['add']['class']; ?>">
+							<i class="<?php echo $this->config['action']['add']['icon']; ?>"></i><?php echo $this->config['action']['add']['text']; ?>
+						</label>
+					</a>
+				</div>
 
 				<?php $form = $this->form; ?>
 				<div id='layout_add_note'>
@@ -29,7 +35,9 @@
 							<?php echo $this->formElementErrors($form->get('content'), array("class" => "error")); ?>
 						</div>
 					</div>
-					<a href='javascript:void(0)' id='save_note'><?php echo $this->config['action']['add']; ?></a>
+					<a href='javascript:void(0)' id='save_note'>
+						<label class="<?php echo $this->config['action']['create']['class']; ?>"><i class="<?php echo $this->config['action']['create']['icon']; ?>"></i><?php echo $this->config['action']['create']['text']; ?></label>
+					</a>
 					<?php echo $this->form()->closeTag(); ?>
 				</div>
 				<div class='clearfix'></div><br>

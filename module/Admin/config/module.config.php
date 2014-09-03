@@ -19,6 +19,7 @@ return array(
 			'Admin\Controller\UserType'				=> 'Admin\Controller\UserTypeController',
 			'Admin\Controller\Classification'		=> 'Admin\Controller\ClassificationController',
 			'Admin\Controller\Note'					=> 'Admin\Controller\NoteController',
+			'Admin\Controller\Dashboard'			=> 'Admin\Controller\DashboardController',
 			),
 ),
 'router' => array(
@@ -28,7 +29,8 @@ return array(
 			'options' => array(
 				'route' => '/admin',
 				'defaults' => array(
-					'controller' => 'Security\Controller\Session',
+					//'controller' => 'Security\Controller\Session',
+					'controller' => 'Admin\Controller\Dashboard',
 					'action' => 'index'
 					)
 				),

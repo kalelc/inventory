@@ -1,12 +1,12 @@
 <?php
 $title = $this->config['component']['list_price'][0];
-$action = $this->config['action']['new'];
+$action = $this->config['action']['create']['text'];
 echo $this->layoutHelper()->header(array(
     'module' => array('url' => $this->url('admin/list_price'),'value' => $title),
     ));
     ?>
     <p>
-        <a href="<?php echo $this->url('admin/list_price', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
+        <a href="<?php echo $this->url('admin/list_price', array('action'=>'add'));?>"><label class="<?php echo $this->config['action']['create']['class']; ?>"><i class="<?php echo $this->config['action']['create']['icon']; ?>"></i><?php echo $action ?></label></a>
     </p>
 
 
@@ -27,9 +27,13 @@ echo $this->layoutHelper()->header(array(
                     <td><?php echo $listPrice->getPrincipal()==1 ? "Activa" : "Inactiva";?></td>
                     <td class='column-button'>
                         <a href="<?php echo $this->url('admin/list_price',
-                            array('action'=>'edit', 'id' => $listPrice->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
+                            array('action'=>'edit', 'id' => $listPrice->getId())); ?>"><label class="<?php echo $this->config['action']['update']['class']; ?>">
+                                <i class="<?php echo $this->config['action']['update']['icon'] ; ?>"></i>
+                            </label></a>
 <a href="<?php echo $this->url('admin/list_price',
-    array('action'=>'delete', 'id' => $listPrice->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
+    array('action'=>'delete', 'id' => $listPrice->getId())); ?>"><label class="<?php echo $this->config['action']['delete']['class']; ?>">
+                                <i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
+                            </label></a>
 </td>
 </tr>
 <?php endforeach; ?>

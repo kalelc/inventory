@@ -1,25 +1,25 @@
 <?php
 $title = $this->config['component']['user'][0];
-$action = $this->config['action']['remove'];
+$action = $this->config['action']['delete']['text'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('security/user'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
 	));
 	?>
-<div class="alert alert-danger">
-	<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($user->getFirstName()." ".$user->getLastName()); ?>'?</p>
-</div>
-<?php
-$url = $this->url('security/user', array(
-	'action' => 'delete',
-	'id'=> $this->id,
-	));
-	?>
-	<form action="<?php echo $url; ?>" method="post">
-		<div>
-			<input type="hidden" name="id" value="<?php echo (int) $user->getId(); ?>" />
-			<?php echo $this->config['action']['delete_yes']; ?>
-			<?php echo $this->config['action']['delete_no']; ?>
-		</div>
-	</form>
+	<div class="alert alert-danger">
+		<p>Esta seguro que quiere borrar '<?php echo $this->escapeHtml($user->getFirstName()." ".$user->getLastName()); ?>'?</p>
+	</div>
+	<?php
+	$url = $this->url('security/user', array(
+		'action' => 'delete',
+		'id'=> $this->id,
+		));
+		?>
+		<form action="<?php echo $url; ?>" method="post">
+			<div>
+				<input type="hidden" name="id" value="<?php echo (int) $user->getId(); ?>" />
+				<input type="submit" name="del" value="<?php echo $this->config['action']['delete']['text']; ?>" class="btn btn-danger btn-sm"/>
+				<input type="submit" name="del" value="<?php echo $this->config['action']['return']['text']; ?>" class="btn btn-default btn-sm"/>
+			</div>
+		</form>
 

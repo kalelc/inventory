@@ -1,6 +1,6 @@
 <?php
 $title = $this->config['component']['bank'][0];
-$action = $this->config['action']['new'];
+$action = $this->config['action']['create']['text'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/bank'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
@@ -27,8 +27,11 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	</div>
 	<div class="well well-sm">
-		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create'])); ?>
+		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['create']['text'])); ?>
 		&nbsp;
-		<a href="<?php echo $this->url('admin/bank');?>"><?php echo $this->config['action']['return'] ; ?></a>
+		<a href="<?php echo $this->url('admin/bank');?>"><label class="<?php echo $this->config['action']['return']['class']; ?>">
+<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
+<?php echo $this->config['action']['return']['text']; ?>
+</label></a>
 	</div>
 	<?php echo $this->form()->closeTag(); ?>

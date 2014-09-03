@@ -1,40 +1,45 @@
 <?php
 $title = $this->config['component']['bank'][0];
-$action = $this->config['action']['new'];
+$action = $this->config['action']['create']['text'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('admin/bank'),'value' => $title),
 	'action' => array('url' => '','value' => $action)
 	));	
 	?>
-<?php
-$form = $this->form;
-$form->setAttribute('action', $this->url(
-	'admin/bank',
-	array(
-		'action' => 'edit',
-		'id'     => $this->id,
-		)
-	));
-	$form->prepare();?>
-	<?php echo $this->form()->openTag($form); ?>
-	<?php echo $this->formHidden($form->get('id')); ?>
-	<?php echo $this->formHidden($form->get('csrf'));?>
-	<div class="form-group">
+	<?php
+	$form = $this->form;
+	$form->setAttribute('action', $this->url(
+		'admin/bank',
+		array(
+			'action' => 'edit',
+			'id'     => $this->id,
+			)
+		));
+		$form->prepare();?>
+		<?php echo $this->form()->openTag($form); ?>
+		<?php echo $this->formHidden($form->get('id')); ?>
+		<?php echo $this->formHidden($form->get('csrf'));?>
+		<div class="form-group">
 			<?php echo $this->formLabel($form->get('name')->setLabel($this->config['component']['name'][1])); ?>
-		<div class="col-sm-4">
-			<?php echo $this->formInput($form->get('name')); ?>
-			<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+			<div class="col-sm-4">
+				<?php echo $this->formInput($form->get('name')); ?>
+				<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
+			</div>
 		</div>
-	</div>
-	<div class="form-group">
+		<div class="form-group">
 			<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
-		<div class="col-sm-6">
-			<?php echo $this->formTextarea($form->get('description')); ?>
-			<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+			<div class="col-sm-6">
+				<?php echo $this->formTextarea($form->get('description')); ?>
+				<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
+			</div>
 		</div>
-	</div>
-	<div class="well well-sm">
-		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
-		&nbsp;<a href="<?php echo $this->url('admin/bank'); ?>"><?php echo $this->config['action']['return'] ; ?></a>
-	</div>
-	<?php echo $this->form()->closeTag(); ?>
+		<div class="well well-sm">
+			<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['update']['text'])); ?>
+			<a href="<?php echo $this->url('admin/bank'); ?>">
+				<label class="<?php echo $this->config['action']['return']['class']; ?>">
+					<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
+					<?php echo $this->config['action']['return']['text']; ?>
+				</label>
+			</a>
+		</div>
+		<?php echo $this->form()->closeTag(); ?>

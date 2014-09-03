@@ -1,5 +1,19 @@
 <?php
 return array(
+	'file_characteristics' => array(
+		'image' => array(
+			'size' => array('min' => '1KB', 'max' => '2MB'),
+			'extension' => array('jpg','jpeg','png','gif'),
+			),
+		'video' => array(
+			'size' => array('min' => '1KB', 'max' => '2MB'),
+			'extension' => array('avi','mpg','wmv','mp4'),
+			),
+		'file' => array(
+			'size' => array('min' => '1KB', 'max' => '2MB'),
+			'extension' => array('txt','pdf','xls'),
+			)
+		),
 	'pagination' => array(
 		'itempage' => 25,
 		'pagerange' => 10

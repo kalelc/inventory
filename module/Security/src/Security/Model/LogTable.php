@@ -13,9 +13,9 @@ class LogTable
 		$this->tableGateway = $tableGateway;
 	}
 
-	public function fetchAll()
+	public function fetchAll($user)
 	{
-		$resultSet = $this->tableGateway->select();
+		$resultSet = $this->tableGateway->select(array('user' => $user));
 		return $resultSet;
 	}
 

@@ -38,7 +38,10 @@ $form->setAttribute('action', $this->url('admin/list_price',
 			<?php echo $this->formElementErrors($form->get('description'), array("class" => "error")); ?>
 		</div>
 	</div>
-	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['edit'])); ?>
+	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['update']['text'])); ?>
 	&nbsp;
-	<a href="<?php echo $this->url('admin/list_price');?>"><?php echo $this->config['action']['return'] ; ?> </a>
+	<a href="<?php echo $this->url('admin/list_price');?>"><label class="<?php echo $this->config['action']['return']['class']; ?>">
+<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
+<?php echo $this->config['action']['return']['text']; ?>
+</label> </a>
 	<?php echo $this->form()->closeTag(); ?>

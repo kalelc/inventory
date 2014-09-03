@@ -1,12 +1,12 @@
 <?php
 $title = $this->config['component']['bank'][0];
-$action = $this->config['action']['new'];
+$action = $this->config['action']['create']['text'];
 echo $this->layoutHelper()->header(array(
     'module' => array('url' => $this->url('admin/bank'),'value' => $title),
     ));
     ?>
     <p>
-        <a href="<?php echo $this->url('admin/bank', array('action'=>'add'));?>"><?php echo $this->config['action']['add'] ; ?></a>
+        <a href="<?php echo $this->url('admin/bank', array('action'=>'add'));?>"><?php echo $action ?></a>
     </p>
 
     <table class="table table-striped table-bordered table-hover table-responsive" id='dataTable'>
@@ -24,12 +24,22 @@ echo $this->layoutHelper()->header(array(
                     <td><?php echo $this->escapeHtml($bank->getDescription());?></td>
                     <td class='column-button'>
                         <a href="<?php echo $this->url('admin/bank',
-                            array('action'=>'edit', 'id' => $bank->getId())); ?>"><?php echo $this->config['action']['update'] ; ?></a>
-<a href="<?php echo $this->url('admin/bank',
-    array('action'=>'delete', 'id' => $bank->getId())); ?>"><?php echo $this->config['action']['delete'] ; ?></a>
-</td>
-</tr>
-<?php endforeach; ?>
-<tbody>
-</table>
-<?php echo $this->paginationControl($banks, 'Sliding', 'pagination',array("route" => "admin/bank")); ?>
+                            array('action'=>'edit', 'id' => $bank->getId())); ?>">
+
+                            <label class="<?php echo $this->config['action']['update']['class']; ?>">
+                                <i class="<?php echo $this->config['action']['update']['icon'] ; ?>"></i>
+                            </label>
+                        </a>
+                        <a href="<?php echo $this->url('admin/bank',
+                            array('action'=>'delete', 'id' => $bank->getId())); ?>">
+                            <label class="<?php echo $this->config['action']['delete']['class']; ?>">
+                             <i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
+                         </label>
+                     </a>
+                 </a>
+             </td>
+         </tr>
+     <?php endforeach; ?>
+     <tbody>
+     </table>
+     <?php echo $this->paginationControl($banks, 'Sliding', 'pagination',array("route" => "admin/bank")); ?>
