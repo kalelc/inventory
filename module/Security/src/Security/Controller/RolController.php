@@ -8,6 +8,8 @@ use Security\Form\RolForm;
 use Security\Traits\SecurityTrait;
 use Application\ConfigAwareInterface;
 
+use Zend\Authentication\AuthenticationService;
+
 class RolController extends AbstractActionController
 implements ConfigAwareInterface
 {
@@ -25,6 +27,11 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
+		$authenticationService = new AuthenticationService();
+		
+		if(!$authenticationService->hasIdentity())
+			return $this->redirect()->toRoute('security/login');
+
 		$form = new RolForm();
 		$resources = $this->config['resources'];
 
