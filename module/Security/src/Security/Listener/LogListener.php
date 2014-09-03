@@ -22,12 +22,12 @@ class LogListener implements ListenerAggregateInterface
         //$this->logTable = $logTable;
     }
 
-     
+    
     public function attach(EventManagerInterface $e) 
     {  
         $this->listeners[] = $e->attach('log.save', array($this, 'save'));
     }
-     
+    
     public function detach(EventManagerInterface $e) 
     {
         foreach ($this->listeners as $index => $listener) {
@@ -36,7 +36,7 @@ class LogListener implements ListenerAggregateInterface
             }
         }
     }
-     
+    
     public function save(EventInterface $e) 
     { 
         $log = new Log();
@@ -52,6 +52,9 @@ class LogListener implements ListenerAggregateInterface
 
         $log->setTable($params['table']);
         $log->setOperation($params['operation']);
+
+        if(isset($params['data']))
+            $log->setData($params['data']);
         $log->setUser($user);
 
         $logTable->save($log);

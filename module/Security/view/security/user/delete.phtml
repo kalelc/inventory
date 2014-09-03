@@ -18,8 +18,8 @@ echo $this->layoutHelper()->header(array(
 		<form action="<?php echo $url; ?>" method="post">
 			<div>
 				<input type="hidden" name="id" value="<?php echo (int) $user->getId(); ?>" />
-				<input type="submit" name="del" value="<?php echo $this->config['action']['delete']['text']; ?>" class="btn btn-danger btn-sm"/>
-				<input type="submit" name="del" value="<?php echo $this->config['action']['return']['text']; ?>" class="btn btn-default btn-sm"/>
+				<input type="submit" name="del" value="Si" class="btn btn-danger btn-sm"/>
+				<input type="submit" name="del" value="No" class="btn btn-default btn-sm"/>
 			</div>
 		</form>
 

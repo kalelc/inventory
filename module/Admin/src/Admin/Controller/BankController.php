@@ -97,6 +97,7 @@ class BankController extends AbstractActionController implements ConfigAwareInte
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 			$del = $request->getPost('del', 'No');
+
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 				$result = $this->getBankTable()->delete($id);

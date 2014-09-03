@@ -34,13 +34,17 @@ class BankTable
 
 	public function save(Bank $bank)
 	{	
+
 		$params = array();
 		$params['table'] = $this->tableGateway->getTable();
+		$params['operation'] = 1;
 
 		$data = array(
 			'name' => $bank->getName(),
 			'description' => $bank->getDescription(),
 			);
+
+		$params['data'] = json_encode($data);
 
 		$id = (int)$bank->getId();
 		if ($id == 0) {
@@ -49,7 +53,6 @@ class BankTable
 			
 			if($id) {
 				$params['id'] = $id;
-				$params['operation'] = 1;
 				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 				return true;
 			}
@@ -72,8 +75,8 @@ class BankTable
 	{	
 		$params = array();
 		$params['table'] = $this->tableGateway->getTable();
-
 		$result = $this->tableGateway->delete(array('id' => $id));
+
 		if($result) {
 			$params['id'] = $id;
 			$params['operation'] = 3;

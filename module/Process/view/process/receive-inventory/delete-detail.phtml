@@ -9,7 +9,7 @@ echo $this->layoutHelper()->header(array(
 
 	<?php if(isset($error) && $error): ?>
 		<div class="alert alert-danger fade in">
-			<h4>¡Vaya! Se ha producido un error.</h4>
+			<h4 class='clear-text'>¡Vaya! Se ha producido un error.</h4>
 			<p>No se puede borrar el registro de <?php echo $title; ?> ya que este se encuentra vinculado a otro registro.</p>
 			<p>
 				<a href="<?php echo $this->url('process/receive_inventory/add/details');?>"><?php echo $this->config['action']['return'] ; ?> </a>

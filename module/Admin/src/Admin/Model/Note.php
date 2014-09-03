@@ -12,6 +12,7 @@ class Note implements InputFilterAwareInterface
 	private $user;
 	private $title;
 	private $content;
+	private $registerDate;
 	protected $inputFilter;
 
 	public function exchangeArray($data)
@@ -20,6 +21,7 @@ class Note implements InputFilterAwareInterface
 		if (array_key_exists('user', $data)) $this->setUser($data['user']);
 		if (array_key_exists('title', $data)) $this->setTitle($data['title']);
 		if (array_key_exists('content', $data)) $this->setContent($data['content']);
+		if (array_key_exists('register_date', $data)) $this->setRegisterDate($data['register_date']);
 	}
 
 	public function getArrayCopy()
@@ -145,6 +147,17 @@ class Note implements InputFilterAwareInterface
     {
         $this->user = $user;
 
+        return $this;
+    }
+
+    public function getRegisterDate()
+    {
+        return $this->registerDate;
+    }
+
+    public function setRegisterDate($registerDate)
+    {
+        $this->registerDate = $registerDate;
         return $this;
     }
 }

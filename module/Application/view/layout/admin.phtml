@@ -38,10 +38,12 @@
 		<div class="row">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class='pull-right'><a href="javascript:void(0);" onclick="showModalNote()">
-						<label class="btn btn-primary btn-xs">
-							<i class="fa fa-list-alt"></i>&nbsp;Notas
-						</label>
+					<div class='pull-right'>
+						<a href="javascript:void(0);" onclick="showModalNote()">
+							<label class="btn btn-primary btn-xs">
+								<i class="fa fa-list-alt"></i>&nbsp;Notas
+							</label>
+						</a>
 					</div>
 					<?php echo $this->modalHelper()->notes(); ?>
 					<div class="col-md-12"><?php echo $this->content; ?></div>

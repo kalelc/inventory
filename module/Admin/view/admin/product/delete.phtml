@@ -15,7 +15,7 @@ $url = $this->url('admin/product', array(
 	<form action="<?php echo $url; ?>" method="post">
 		<div class="well well-sm">
 			<input type="hidden" name="id" value="<?php echo (int) $product->getId(); ?>" />
-			<input type="submit" name="del" value="<?php echo $this->config['action']['delete']['text']; ?>" class="btn btn-danger btn-sm"/>
-			<input type="submit" name="del" value="<?php echo $this->config['action']['return']['text']; ?>" class="btn btn-danger btn-sm"/>
+			<input type="submit" name="yes" value="<?php echo $this->config['action']['delete']['text']; ?>" class="btn btn-danger btn-sm"/>
+			<input type="submit" name="del" value="No" class="btn btn-default btn-sm"/>
 		</div>
 	</form>

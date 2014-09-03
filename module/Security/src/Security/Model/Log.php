@@ -12,7 +12,9 @@ class Log implements InputFilterAwareInterface
 	private $table;
     private $tableId;
 	private $operation;
-	private $user;
+    private $user;
+    private $data;
+	private $registerDate;
 	
 	protected $inputFilter;
 
@@ -22,7 +24,9 @@ class Log implements InputFilterAwareInterface
 		if (array_key_exists('table', $data)) $this->setTable($data['table']);
 		if (array_key_exists('table_id', $data)) $this->setTableId($data['table_id']);
 		if (array_key_exists('operation', $data)) $this->setOperation($data['operation']);
-		if (array_key_exists('user', $data)) $this->setUser($data['user']);
+        if (array_key_exists('user', $data)) $this->setUser($data['user']);
+        if (array_key_exists('data', $data)) $this->setData($data['data']);
+		if (array_key_exists('register_date', $data)) $this->setRegisterDate($data['register_date']);
 	}
 
 	public function getArrayCopy()
@@ -96,6 +100,29 @@ class Log implements InputFilterAwareInterface
     public function setUser($user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRegisterDate()
+    {
+        return $this->registerDate;
+    }
+
+    public function setRegisterDate($registerDate)
+    {
+        $this->registerDate = $registerDate;
+        return $this;
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
 
         return $this;
     }

@@ -47,6 +47,16 @@ ul#sortable li {
 
 /*Panels*/
 
+.panel-blue {
+  border-color: #428bca;
+}
+
+.panel-blue .panel-heading {
+  border-color: #428bca;
+  color: #fff;
+  background-color: #428bca;
+}
+
 .panel-yellow {
   border-color: #f0ad4e;
 }
@@ -55,7 +65,22 @@ ul#sortable li {
   color: #fff;
   background-color: #f0ad4e;
 }
+.panel-green {
+  border-color: #5cb85c;
+}
+.panel-green .panel-heading {
+  border-color: #5cb85c;
+  color: #fff;
+  background-color: #5cb85c;
+}
+.panel-red {
+  border-color: #d9534f;
+}
+.panel-red .panel-heading {
+  border-color: #d9534f;
+  color: #fff;
+  background-color: #d9534f;
+}
 
 /*icons*/
-
 .fa {padding-right:1px;}

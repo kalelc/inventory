@@ -38,6 +38,7 @@ class NoteTable
 			'user' => $note->getUser(),
 			'title' => $note->getTitle(),
 			'content' => $note->getContent(),
+			'register_date' => date("Y-m-d H:i:s", time()),
 			);
 
 		error_log(json_encode($data));

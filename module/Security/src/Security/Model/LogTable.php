@@ -37,7 +37,8 @@ class LogTable
 			'table_id' => $log->getTableId(),
 			'operation' => $log->getOperation(),
 			'user' => $log->getUser(),
-			'timestamp' => date("Y-m-d H:i:s", time()),
+			'data' => $log->getData(),
+			'register_date' => date("Y-m-d H:i:s", time()),
 		);
 
 		$id = (int)$log->getId();

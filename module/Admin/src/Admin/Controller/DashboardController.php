@@ -21,7 +21,7 @@ implements ConfigAwareInterface
 	{	
 		$authenticationService = new AuthenticationService();
 		$user = $authenticationService->getStorage()->read();
-		
+
 		$notes = $this->getNoteTable()->fetchAll($user->id);
 		$logs = $this->getLogTable()->fetchAll($user->id);
 		return new ViewModel(array(
