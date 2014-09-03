@@ -23,15 +23,8 @@ echo $this->layoutHelper()->header(array(
 		<div class="col-sm-4">
 			<?php foreach($resources as $module => $resource): ?>
 				<h4><?php echo $this->config['component'][$module][0]; ?></h4>
-				<?php foreach($resource as $resourceIndex => $resourceValue): ?>
-					<div class='tabulate'><h5><?php echo $this->config['component'][$resourceIndex][0]; ?></h5></div>
-					<!--<div class="well well-sm">-->
-						<?php //foreach($resourceValue as $permissionIndex => $permission): ?>
-							<!--<label class="checkbox-inline">
-								<input type="checkbox" name="permissions[<?php //echo $resourceIndex; ?>][]" value="<?php //echo $permission; ?>"><?php //echo $this->config['action'][$permission]; ?>
-							</label>-->
-						<?php //endforeach; ?>
-					<!--</div>-->
+				<?php foreach($resource as $resourceValue): ?>
+					<div class='tabulate'><input type='checkbox' value='<?php echo $this->config['component'][$resourceValue][0]; ?>' name='resources[]'>&nbsp;<?php echo $this->config['component'][$resourceValue][0]; ?></div>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
 			<?php echo $this->formElementErrors($form->get('permissions'), array("class" => "error")); ?>
