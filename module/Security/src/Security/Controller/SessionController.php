@@ -40,7 +40,7 @@ implements ConfigAwareInterface
 		$authenticationService = new AuthenticationService();
 
 		if($authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('admin/bank');
+			return $this->redirect()->toRoute('dashboard');
 
 		$form = new LoginForm();
 
@@ -66,7 +66,7 @@ implements ConfigAwareInterface
 
 				$authSessionAdapter = $this->getAuthSessionAdapter();
 				if($authSessionAdapter->authenticate($username,$password)) {
-					return $this->redirect()->toRoute('admin/bank');
+					return $this->redirect()->toRoute('dashboard');
 				}
 				else {
 					$form->get('username')->setValue("");

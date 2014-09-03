@@ -24,12 +24,21 @@ return array(
 ),
 'router' => array(
 	'routes' => array(
+		'dashboard' => array(
+			'type' => 'literal',
+			'options' => array(
+				'route' => '/dashboard',
+				'defaults' => array(
+					'controller' => 'Admin\Controller\Dashboard',
+					'action' => 'index'
+					)
+				),
+			),
 		'admin' => array(
 			'type' => 'literal',
 			'options' => array(
 				'route' => '/admin',
 				'defaults' => array(
-					//'controller' => 'Security\Controller\Session',
 					'controller' => 'Admin\Controller\Dashboard',
 					'action' => 'index'
 					)
