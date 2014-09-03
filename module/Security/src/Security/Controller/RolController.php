@@ -19,6 +19,11 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
+		$authenticationService = new AuthenticationService();
+		
+		if(!$authenticationService->hasIdentity())
+			return $this->redirect()->toRoute('security/login');
+		
 		return new ViewModel(array(
 			'roles' => $this->getRolTable()->fetchAll(),
 			'config' => $this->config,
