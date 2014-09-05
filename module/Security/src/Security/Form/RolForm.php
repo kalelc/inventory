@@ -33,7 +33,7 @@ class RolForm extends Form
 				),
 			));
 		$this->add(array(
-			'name' => 'permissions',
+			'name' => 'resources',
 			'attributes' => array(
 				'type'  => 'text',
 				),

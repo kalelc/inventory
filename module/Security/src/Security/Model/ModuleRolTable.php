@@ -13,10 +13,9 @@ class ModuleRolTable
 		$this->tableGateway = $tableGateway;
 	}
 
-	public function fetchAll()
+	public function fetchAll($rol)
 	{
-		$resultSet = $this->tableGateway->select();
-		$resultSet->buffer();
+		$resultSet = $this->tableGateway->select(array("rol" => $rol));
 		return $resultSet;
 
 	}
@@ -32,18 +31,11 @@ class ModuleRolTable
 		return $row;
 	}
 
-	public function save($rol,$permissions)
+	public function save($rol,$resources)
 	{	
-		
-		foreach($permissions as $key => $permission) {
-			$this->tableGateway->insert(
-				array(
-				"module" => ,$key,
-				"permissions" => implode(",",$permission)
-				);
+		foreach($resources as  $resource) {
+			$this->tableGateway->insert(array("rol" => $rol,"module" => $resource));
 		}
-
-		dumpx("fin");
 	}
 
 	public function delete()

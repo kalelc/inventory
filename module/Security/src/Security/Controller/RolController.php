@@ -45,19 +45,19 @@ implements ConfigAwareInterface
 			$rol = new Rol();
 			$form->setInputFilter($rol->getInputFilter());
 
-			$permissions = $request->getPost('permissions');
+			$resources = $request->getPost('resources');
 			$form->setData($request->getPost());
 
-			if ($form->isValid() && count($permissions)) {
+			if ($form->isValid() && count($resources)) {
 				$rol->exchangeArray($form->getData());
 				$rolId = $this->getRolTable()->save($rol);
 
-				$this->getModuleRolTable()->save($rolId,$permissions);
+				$this->getModuleRolTable()->save($rolId,$resources);
 				
 				return $this->redirect()->toRoute('security/rol');
 			}
 			else {
-				$form->get("permissions")->setMessages(array('permissions' => "para crear un rol debe asignar permisos"));
+				$form->get("resources")->setMessages(array('resources' => "para crear un rol debe asignar permisos"));
 			}
 
 		}
@@ -71,13 +71,21 @@ implements ConfigAwareInterface
 
 	public function editAction()
 	{
+		$authenticationService = new AuthenticationService();
+		
+		if(!$authenticationService->hasIdentity())
+			return $this->redirect()->toRoute('security/login');
+
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('security/rol', array(
 				'action' => 'add'
 				));
 		}
+		
 		$rol = $this->getRolTable()->get($id);
+		$modulesRoles = $this->getModuleRolTable()->fetchAll($id);
+		$resources = $this->config['resources'];
 
 		$form  = new RolForm();
 		$form->bind($rol);
@@ -97,11 +105,18 @@ implements ConfigAwareInterface
 			'id' => $id,
 			'form' => $form,
 			'config' => $this->config,
+			'resources' => $resources,
+			'modulesRoles' => $modulesRoles,
 			);
 	}
 
 	public function deleteAction()
 	{
+		$authenticationService = new AuthenticationService();
+		
+		if(!$authenticationService->hasIdentity())
+			return $this->redirect()->toRoute('security/login');
+		
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
 			return $this->redirect()->toRoute('security/rol');

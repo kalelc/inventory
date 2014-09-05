@@ -28,21 +28,11 @@ echo $this->layoutHelper()->header(array(
                     <td>
                         <?php 
                         switch($customer->getIdentificationType()):
-                        case 1 : 
-                        echo "Cedula de Ciudadania"; 
-                        break; 
-                        case 2 : 
-                        echo "Nit"; 
-                        break ;
-                        case 3 : 
-                        echo "Cedula de Extranjeria"; 
-                        break ;
-                        case 4 : 
-                        echo "Pasaporte"; 
-                        break ;
-                        case 5 : 
-                        echo "Otro"; 
-                        break ;
+                        case 1 : echo "Cedula de Ciudadania"; break; 
+                        case 2 : echo "Nit"; break ;
+                        case 3 : echo "Cedula de Extranjeria"; break ;
+                        case 4 : echo "Pasaporte"; break ;
+                        case 5 : echo "Otro"; break ;
                         endswitch;
                         ?>
                     </td>
@@ -73,16 +63,16 @@ echo $this->layoutHelper()->header(array(
                                 <td class='column-button'>
                                     <a href="<?php echo $this->url('admin/customer',
                                         array('action'=>'edit', 'id' => $customer->getId())); ?>"><label class="<?php echo $this->config['action']['update']['class']; ?>">
-                                <i class="<?php echo $this->config['action']['update']['icon'] ; ?>"></i>
-                            </label></a>
-<a href="<?php echo $this->url('admin/customer',
-    array('action'=>'delete', 'id' => $customer->getId())); ?>"><label class="<?php echo $this->config['action']['delete']['class']; ?>">
-                                <i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
-                            </label></a>
-</td>
-</tr>
-<?php endforeach; ?>
-</tbody>
-</table>
-<?php echo $this->modalHelper()->listContent(); ?>
-<?php echo $this->paginationControl($customers, 'Sliding', 'pagination',array("route" => "admin/customer")); ?>
+                                        <i class="<?php echo $this->config['action']['update']['icon'] ; ?>"></i>
+                                    </label></a>
+                                    <a href="<?php echo $this->url('admin/customer',
+                                        array('action'=>'delete', 'id' => $customer->getId())); ?>"><label class="<?php echo $this->config['action']['delete']['class']; ?>">
+                                        <i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
+                                    </label></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php echo $this->modalHelper()->listContent(); ?>
+                <?php echo $this->paginationControl($customers, 'Sliding', 'pagination',array("route" => "admin/customer")); ?>

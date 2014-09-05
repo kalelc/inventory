@@ -25,6 +25,20 @@ $form->setAttribute('action', $this->url(
 			<?php echo $this->formElementErrors($form->get('name'), array("class" => "error")); ?>
 		</div>
 	</div>
+	<div class='form-group'>
+		<div class="col-sm-4">
+			<?php foreach($resources as $module => $resource): ?>
+				<h4><?php echo $this->config['component'][$module][0]; ?></h4>
+				<?php foreach($resource as $resourceValue): ?>
+					<?php dump($modulesRoles); ?>
+					<?php dumpx($resourceValue); ?>
+					<div class='tabulate'><input type='checkbox' value='<?php echo $resourceValue; ?>' name='resources[]'>&nbsp;<?php echo $this->config['component'][$resourceValue][0]; ?>
+					</div>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
+			<?php echo $this->formElementErrors($form->get('resources'), array("class" => "error")); ?>
+		</div>
+	</div>
 	<div class="form-group">
 		<?php echo $this->formLabel($form->get('description')->setLabel($this->config['component']['description'][1])); ?>
 		<div class="col-sm-4">

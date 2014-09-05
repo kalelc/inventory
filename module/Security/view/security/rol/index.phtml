@@ -23,15 +23,15 @@ echo $this->layoutHelper()->header(array(
                 <td class='column-button'>
                     <a href="<?php echo $this->url('security/rol', array('action'=>'edit', 'id' => $rol->getId())); ?>">
                         <label class="<?php echo $this->config['action']['update']['class']; ?>">
-                           <i class="<?php echo $this->config['action']['update']['icon'] ; ?>"></i>
-                       </label>
-                   </a>
-                   <a href="<?php echo $this->url('security/rol', array('action'=>'delete', 'id' => $rol->getId())); ?>">
+                         <i class="<?php echo $this->config['action']['update']['icon'] ; ?>"></i>
+                     </label>
+                 </a>
+                 <a href="<?php echo $this->url('security/rol', array('action'=>'delete', 'id' => $rol->getId())); ?>">
                     <label class="<?php echo $this->config['action']['delete']['class']; ?>">
-                     <i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
-                 </label>
-             </a>
-         </td>
-     </tr>
- <?php endforeach; ?>
+                       <i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
+                   </label>
+               </a>
+           </td>
+       </tr>
+   <?php endforeach; ?>
 </table>
