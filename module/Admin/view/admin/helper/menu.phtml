@@ -15,7 +15,11 @@
 						<a href="<?php echo $this->url('application'); ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $components[$module][0]; ?> <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<?php foreach($resource as $resourceValue): ?>
-								<li><a href="<?php echo $this->url($module."/".$resourceValue); ?>" class='capitalize-text'><?php echo $components[$resourceValue][0] ; ?></a></li>
+								<?php if(array_search($resourceValue,$resourceAllowed)!==FALSE): ?>
+									<li>
+										<a href="<?php echo $this->url($module."/".$resourceValue); ?>" class='capitalize-text'><?php echo $components[$resourceValue][0] ; ?></a>
+									</li>
+								<?php endif; ?>
 							<?php endforeach; ?>
 						</ul>
 					</li>

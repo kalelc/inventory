@@ -35,6 +35,6 @@ return array(
 		-3 => 'contraseña invalida',   
 		-4 => 'error desconocido',
 		-5 => 'El usuario con el que intenta acceder se encuentra inactivo',       
-		-6 => 'La dirección de correo electrónico o la contraseña que introducido no es correcta.',       
+		-6 => 'El usuario o la contraseña que ha introducido no es correcta.',       
 		)
 	);

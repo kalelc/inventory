@@ -31,15 +31,19 @@ implements ConfigAwareInterface
 		$components = $this->config->get('config')['component'];
 
 		$authenticationService = new AuthenticationService();
-		$authenticationService->getStorage()->read();
+		$userObject = $authenticationService->getStorage()->read();
+		$acl = unserialize($userObject->acl);
+
 		$identity = $authenticationService->getIdentity();
+		$resourceAllowed = $acl->getResources();
 
 		$viewModel = new ViewModel();
 		$viewModel->setTemplate('admin/helper/menu');
 		$viewModel->setVariables(array(
 			'resources' => $resources,
+			'identity' => $identity,
 			'components' => $components,
-			'identity' => $identity
+			'resourceAllowed' => $resourceAllowed,
 			));
 		
 		return $this->getView()->render($viewModel);

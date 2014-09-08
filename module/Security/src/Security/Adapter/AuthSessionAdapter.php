@@ -42,8 +42,6 @@ class AuthSessionAdapter
 				return false;
 			}
 			else {
-				//get rol name
-				//get list modules and resources
 				return true;
 			}
 		}

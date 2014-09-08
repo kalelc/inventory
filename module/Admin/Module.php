@@ -64,10 +64,10 @@ use Admin\Form\ClassificationForm;
 
 use Admin\Service\FileService;
 use Zend\ModuleManager\ModuleManager;
-
 use Application\ConfigAwareInterface;
-
 use Zend\Authentication\AuthenticationService;
+
+use Zend\Permissions\Acl\Acl;
 
 class Module
 {
@@ -86,7 +86,7 @@ class Module
 				),
 			);
 	}
-	//revisar con el AbstractActionController
+
 	public function init(ModuleManager $moduleManager)
 	{
 		$sharedEvents = $moduleManager->getEventManager()->getSharedManager();
@@ -99,6 +99,18 @@ class Module
 			if(!$authenticationService->hasIdentity()){
 				$controller->plugin('redirect')->toRoute('security/login');
 			}
+			else {
+				$resources = preg_replace('/(?<!^)([A-Z])/', '-\\1',explode("Controller",$controller->getClassName()));
+				$resource = strtolower(str_replace("-","_", $resources[0]));
+
+				$userObject = $authenticationService->getStorage()->read();
+				$acl = unserialize($userObject->acl);
+
+				if(!$acl->hasResource($resource)) {
+					$controller->plugin('redirect')->toRoute('security/login');
+				}
+			}
+
 		}, 100);
 	}
 
@@ -114,8 +126,8 @@ class Module
 					$serviceLocator = $serviceManager->getServiceLocator();
 					return new \Admin\View\Helper\AuthenticationHelper($serviceLocator);
 				}
-			),
-		);
+				),
+			);
 	}
 
 	public function getServiceConfig()

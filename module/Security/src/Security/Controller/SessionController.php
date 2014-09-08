@@ -66,6 +66,24 @@ implements ConfigAwareInterface
 
 				$authSessionAdapter = $this->getAuthSessionAdapter();
 				if($authSessionAdapter->authenticate($username,$password)) {
+
+					$userObject = $authenticationService->getStorage()->read();
+					$rol = $userObject->rol;
+					if($rol==1) {
+						dumpx($rol,"rol es igual a uno");	
+					}
+					$acl = new Acl();
+					$acl->addRole(new Role($rol));
+					
+					$modules = $this->getModuleRolTable()->fetchAll($rol);
+
+					$acl->addResource(new Resource("dashboard"));
+					foreach($modules as $module) {
+						$acl->addResource(new Resource($module));
+					}
+
+					$userObject->acl = serialize($acl);
+
 					return $this->redirect()->toRoute('dashboard');
 				}
 				else {
@@ -91,24 +109,6 @@ implements ConfigAwareInterface
 		$authenticationService = new AuthenticationService();
 		$authenticationService->clearIdentity();
 		return $this->redirect()->toRoute('security/login');
-	}
-
-	public function aclAction()
-	{
-		$acl = new Acl();
-		$rol = "admin usuario";
-		$acl->addRole(new Role($rol));
-		$acl->addResource(new Resource('product'));
-		$acl->addResource(new Resource('bank'));
-		$acl->allow($rol, 'product');
-		$acl->allow($rol, 'bank');
-
-//dump($acl->getResources(),"getResources()");
-//dump($acl->getRoles(),"getRoles()");
-		dump($acl->hasResource("product"));
-		dump($acl->isAllowed("admin usuario","product"));
-		dumpx($acl);
-
 	}
 
 	public function setConfig($config)

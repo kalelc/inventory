@@ -17,6 +17,7 @@ class ModuleRolTable
 	{
 		$modules = array();
 		$resultSet = $this->tableGateway->select(array("rol" => $rol));
+
 		foreach($resultSet as $row){
 			$modules[] = $row->getModule();
 		}
