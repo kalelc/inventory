@@ -7,13 +7,7 @@ echo $this->layoutHelper()->header(array(
 	));	
 
 $form = $this->form;
-$form->setAttribute('action', $this->url(
-	'security/rol',
-	array(
-		'action' => 'security/edit',
-		'id'     => $this->id,
-		)
-	));
+$form->setAttribute('action', $this->url('security/rol',array('action' => 'edit','id' => $this->id)));
 	$form->prepare();?>
 	<?php echo $this->form()->openTag($form); ?>
 	<?php echo $this->formHidden($form->get('id')); ?>
@@ -30,9 +24,12 @@ $form->setAttribute('action', $this->url(
 			<?php foreach($resources as $module => $resource): ?>
 				<h4><?php echo $this->config['component'][$module][0]; ?></h4>
 				<?php foreach($resource as $resourceValue): ?>
-					<?php dump($modulesRoles); ?>
-					<?php dumpx($resourceValue); ?>
-					<div class='tabulate'><input type='checkbox' value='<?php echo $resourceValue; ?>' name='resources[]'>&nbsp;<?php echo $this->config['component'][$resourceValue][0]; ?>
+					<div class='tabulate'>
+						<?php if(in_array($resourceValue,$modulesRoles)): ?> 
+							<input type='checkbox' checked='checked' value='<?php echo $resourceValue; ?>' name='resources[]'>&nbsp;<?php echo $this->config['component'][$resourceValue][0]; ?>
+						<?php else: ?>
+							<input type='checkbox' value='<?php echo $resourceValue; ?>' name='resources[]'>&nbsp;<?php echo $this->config['component'][$resourceValue][0]; ?>
+						<?php endif; ?>
 					</div>
 				<?php endforeach; ?>
 			<?php endforeach; ?>

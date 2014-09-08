@@ -15,9 +15,12 @@ class ModuleRolTable
 
 	public function fetchAll($rol)
 	{
+		$modules = array();
 		$resultSet = $this->tableGateway->select(array("rol" => $rol));
-		return $resultSet;
-
+		foreach($resultSet as $row){
+			$modules[] = $row->getModule();
+		}
+		return $modules;
 	}
 
 	public function get($id)
@@ -38,8 +41,8 @@ class ModuleRolTable
 		}
 	}
 
-	public function delete()
+	public function delete($rol)
 	{	
-		$result = $this->tableGateway->delete();
+		$result = $this->tableGateway->delete(array("rol" => $rol));
 	}
 }

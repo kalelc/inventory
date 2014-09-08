@@ -59,7 +59,6 @@ implements ConfigAwareInterface
 			else {
 				$form->get("resources")->setMessages(array('resources' => "para crear un rol debe asignar permisos"));
 			}
-
 		}
 		return array(
 			'form' => $form,
@@ -92,13 +91,23 @@ implements ConfigAwareInterface
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
+
 			$form->setInputFilter($rol->getInputFilter());
 			$form->setData($request->getPost());
 
-			if ($form->isValid()) {
-				$this->getRolTable()->save($form->getData());
+			$resources = $request->getPost('resources');
+
+			if ($form->isValid() && count($resources)) {
+				$data = $form->getData();
+				
+				$rolId = $this->getRolTable()->save($form->getData());
+				$this->getModuleRolTable()->delete($rolId);
+				$this->getModuleRolTable()->save($rolId,$resources);
 
 				return $this->redirect()->toRoute('security/rol');
+			}
+			else {
+				$form->get("resources")->setMessages(array('resources' => "para crear un rol debe asignar permisos"));
 			}
 		}
 		return array(
@@ -127,6 +136,7 @@ implements ConfigAwareInterface
 			if ($del == 'Si') {
 				$id = (int) $request->getPost('id');
 
+				$this->getModuleRolTable()->delete($id);
 				$result = $this->getRolTable()->delete($id);
 				if(isset($result) && $result) {
 					return $this->redirect()->toRoute('security/rol');
