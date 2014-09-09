@@ -70,7 +70,9 @@ implements ConfigAwareInterface
 					$userObject = $authenticationService->getStorage()->read();
 					$rol = $userObject->rol;
 					$acl = new Acl();
+					
 					$acl->addResource(new Resource("dashboard"));
+					$acl->addResource(new Resource("note"));
 
 					if($rol==1) {
 						$resources = $this->config['resources'];

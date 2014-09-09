@@ -23,7 +23,18 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-		return false;
+		$page = $this->params()->fromRoute('page') ? (int) $this->params()->fromRoute('page') : 1;
+
+		$userType = $this->getNoteTable()->fetchAll();
+		$paginator = new Paginator(new PaginatorIterator($userType));
+		$paginator->setCurrentPageNumber($page)
+		->setItemCountPerPage($this->config['pagination']['itempage'])
+		->setPageRange($this->config['pagination']['pagerange']);
+
+		return new ViewModel(array(
+			'notes' => $paginator,
+			'config' => $this->config,
+			));
 	}
 
 	public function addAction()
@@ -62,7 +73,7 @@ implements ConfigAwareInterface
 		$id = (int) $this->params()->fromPost('id');
 		
 		if($id>0) {
-		$result = $this->getNoteTable()->delete($id);
+			$result = $this->getNoteTable()->delete($id);
 		}
 		else
 			$result = false;

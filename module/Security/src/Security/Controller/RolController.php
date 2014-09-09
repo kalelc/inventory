@@ -6,23 +6,19 @@ use Zend\View\Model\ViewModel;
 use Security\Model\Rol;
 use Security\Form\RolForm;
 use Security\Traits\SecurityTrait;
+use Security\Traits\AuthenticationTrait;
 use Application\ConfigAwareInterface;
-
 use Zend\Authentication\AuthenticationService;
 
 class RolController extends AbstractActionController
 implements ConfigAwareInterface
 {
-	use SecurityTrait;
-	
+	use SecurityTrait,AuthenticationTrait;
 	private $config;
 
 	public function indexAction()
 	{
-		$authenticationService = new AuthenticationService();
-		
-		if(!$authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('security/login');
+		$this->getAuthenticateValidate();
 		
 		return new ViewModel(array(
 			'roles' => $this->getRolTable()->fetchAll(),
@@ -32,10 +28,7 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		$authenticationService = new AuthenticationService();
-		
-		if(!$authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('security/login');
+		$this->getAuthenticateValidate();
 
 		$form = new RolForm();
 		$resources = $this->config['resources'];
@@ -70,10 +63,7 @@ implements ConfigAwareInterface
 
 	public function editAction()
 	{
-		$authenticationService = new AuthenticationService();
-		
-		if(!$authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('security/login');
+		$this->getAuthenticateValidate();
 
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
@@ -121,10 +111,7 @@ implements ConfigAwareInterface
 
 	public function deleteAction()
 	{
-		$authenticationService = new AuthenticationService();
-		
-		if(!$authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('security/login');
+		$this->getAuthenticateValidate();
 		
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {

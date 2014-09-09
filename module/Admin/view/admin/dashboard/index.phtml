@@ -107,8 +107,11 @@
                                 <div class="timeline-panel">
                                     <div class="timeline-heading">
                                         <h4 class="timeline-title clear-text"><?php echo $note->getTitle(); ?></h4>
-                                        <p><small class="text-muted"><i class="fa fa-clock-o"></i><?php echo $note->getRegisterDate(); ?></small>
-                                        </p>
+                                        <div class='pull-right'>
+                                            <p>
+                                                <small class="text-muted"><i class="fa fa-clock-o"></i><?php echo $note->getRegisterDate(); ?></small>
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="timeline-body">
                                         <p><?php echo $note->getContent(); ?></p>

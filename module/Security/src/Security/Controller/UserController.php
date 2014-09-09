@@ -6,25 +6,22 @@ use Zend\View\Model\ViewModel;
 use Security\Model\User;
 use Security\Form\UserForm;
 use Security\Traits\SecurityTrait;
+use Security\Traits\AuthenticationTrait;
 use Application\ConfigAwareInterface;
 
 use Zend\Validator\File\Extension as FileExtension;
 use Zend\Validator\File\Size as FileSize;
 
-use Zend\Authentication\AuthenticationService;
-
 class UserController extends AbstractActionController
 implements ConfigAwareInterface
 {
-	use SecurityTrait;
+	use SecurityTrait,AuthenticationTrait;
 	private $config;
 
 	public function indexAction()
 	{	
-		$authenticationService = new AuthenticationService();
-		if(!$authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('security/login');
-
+		$this->getAuthenticateValidate();
+		
 		return new ViewModel(array(
 			'users' => $this->getUserTable()->fetchAll(),
 			'config' => $this->config,
@@ -33,10 +30,7 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		$authenticationService = new AuthenticationService();
-		
-		if(!$authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('security/login');
+		$this->getAuthenticateValidate();
 
 		$form = $this->getServiceLocator()->get("Security\Form\UserForm");
 
@@ -79,9 +73,7 @@ implements ConfigAwareInterface
 
 	public function editAction()
 	{
-		$authenticationService = new AuthenticationService();
-		if(!$authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('security/login');
+		$this->getAuthenticateValidate();
 
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
@@ -161,9 +153,7 @@ implements ConfigAwareInterface
 
 	public function deleteAction()
 	{	
-		$authenticationService = new AuthenticationService();
-		if(!$authenticationService->hasIdentity())
-			return $this->redirect()->toRoute('security/login');
+		$this->getAuthenticateValidate();
 
 		$id = (int) $this->params()->fromRoute('id', 0);
 		if (!$id) {
