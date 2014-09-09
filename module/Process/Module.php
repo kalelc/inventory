@@ -44,14 +44,21 @@ class Module
 			$controller->layout('layout/admin');
 
 			$authenticationService = new AuthenticationService();
-			if($authenticationService->hasIdentity()){
-				$authenticationService->getStorage()->read();
-				$identity = $authenticationService->getIdentity();
-				$controller->layout()->setVariable("identity",$identity);
-			}
-			else {
+			if(!$authenticationService->hasIdentity()){
 				$controller->plugin('redirect')->toRoute('security/login');
 			}
+			else {
+				$resources = preg_replace('/(?<!^)([A-Z])/', '-\\1',explode("Controller",$controller->getClassName()));
+				$resource = strtolower(str_replace("-","_", $resources[0]));
+
+				$userObject = $authenticationService->getStorage()->read();
+				$acl = unserialize($userObject->acl);
+
+				if(!$acl->hasResource($resource)) {
+					$controller->plugin('redirect')->toRoute('security/login');
+				}
+			}
+
 		}, 100);
 	}
 
@@ -66,8 +73,8 @@ class Module
 						$instance->setConfig($config);
 					}
 				}
-			)
-		);
+				)
+			);
 	}
 
 	public function onBootstrap(MvcEvent $e)
@@ -170,7 +177,7 @@ class Module
 
 					return new TableGateway('details_receive_inventory', $dbAdapter,null, $resultSetPrototype, null);
 				},
-			),
-		);
-	}
+				),
+);
+}
 }

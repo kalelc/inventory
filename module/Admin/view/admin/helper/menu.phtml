@@ -10,16 +10,20 @@
 		</div>
 		<div class="navbar-collapse collapse " id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
+				<?php $moduleName = ""; ?>
 				<?php foreach($resources as $module => $resource): ?>
-					<li class="dropdown">
-						<a href="<?php echo $this->url('application'); ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $components[$module][0]; ?> <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<?php foreach($resource as $resourceValue): ?>
-								<?php if(array_search($resourceValue,$resourceAllowed)!==FALSE): ?>
+					<?php foreach($resource as $resourceValue): ?>
+						<?php if(array_search($resourceValue,$resourceAllowed)!==FALSE): ?>
+							<?php if($moduleName!==$module): ?>
+								<li class="dropdown">
+									<a href="<?php echo $this->url('application'); ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $components[$module][0]; ?> <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+									<?php endif; ?>
 									<li>
 										<a href="<?php echo $this->url($module."/".$resourceValue); ?>" class='capitalize-text'><?php echo $components[$resourceValue][0] ; ?></a>
 									</li>
 								<?php endif; ?>
+								<?php $moduleName = $module; ?>
 							<?php endforeach; ?>
 						</ul>
 					</li>

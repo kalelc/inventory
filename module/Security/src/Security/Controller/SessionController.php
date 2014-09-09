@@ -69,21 +69,29 @@ implements ConfigAwareInterface
 
 					$userObject = $authenticationService->getStorage()->read();
 					$rol = $userObject->rol;
-					if($rol==1) {
-						dumpx($rol,"rol es igual a uno");	
-					}
 					$acl = new Acl();
-					$acl->addRole(new Role($rol));
-					
-					$modules = $this->getModuleRolTable()->fetchAll($rol);
-
 					$acl->addResource(new Resource("dashboard"));
-					foreach($modules as $module) {
-						$acl->addResource(new Resource($module));
+
+					if($rol==1) {
+						$resources = $this->config['resources'];
+
+						foreach($resources as $module => $resource) {
+							foreach($resource as $resourceValue) {
+								$acl->addResource(new Resource($resourceValue));
+							}
+						}
 					}
+					else {
+						$acl->addRole(new Role($rol));
 
+						$modules = $this->getModuleRolTable()->fetchAll($rol);
+
+						foreach($modules as $module) {
+							$acl->addResource(new Resource($module));
+						}
+
+					}
 					$userObject->acl = serialize($acl);
-
 					return $this->redirect()->toRoute('dashboard');
 				}
 				else {
