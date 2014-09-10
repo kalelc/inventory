@@ -33,6 +33,8 @@ implements ConfigAwareInterface
 		$authenticationService = new AuthenticationService();
 		$userObject = $authenticationService->getStorage()->read();
 		
+		$viewModel = new ViewModel();
+		
 		if(is_object($userObject)) {
 			$acl = unserialize($userObject->acl);
 			$identity = $authenticationService->getIdentity();
@@ -40,7 +42,6 @@ implements ConfigAwareInterface
 			$viewModel->setVariable('resourceAllowed',$resourceAllowed);
 		}
 
-		$viewModel = new ViewModel();
 		$viewModel->setTemplate('admin/helper/menu');
 		$viewModel->setVariables(array(
 			'resources' => $resources,
