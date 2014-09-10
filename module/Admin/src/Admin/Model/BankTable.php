@@ -34,19 +34,18 @@ class BankTable
 
 	public function save(Bank $bank)
 	{	
-
-		$params = array();
-		$params['table'] = $this->tableGateway->getTable();
-		$params['operation'] = 1;
-
 		$data = array(
 			'name' => $bank->getName(),
 			'description' => $bank->getDescription(),
 			);
 
-		$params['data'] = json_encode($data);
-
 		$id = (int)$bank->getId();
+
+		$params = array();
+		$params['table'] = $this->tableGateway->getTableName();
+		$params['operation'] = 1;
+		$params['data'] = json_encode($data);
+		
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
 			$id = $this->tableGateway->getLastInsertValue();
@@ -74,7 +73,7 @@ class BankTable
 	public function delete($id)
 	{	
 		$params = array();
-		$params['table'] = $this->tableGateway->getTable();
+		$params['table'] = $this->tableGateway->getTableName();
 		$result = $this->tableGateway->delete(array('id' => $id));
 
 		if($result) {

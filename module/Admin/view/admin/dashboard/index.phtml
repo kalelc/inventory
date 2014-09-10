@@ -139,7 +139,7 @@
                                 case '3': echo '<i class="fa fa-trash fa-2x"></i>'; break;
                                 endswitch;
                                 ?> 
-                                <?php echo $log->getTable(); ?>
+                                <?php echo $config['component'][$log->getTable()][0]; ?>
                                 <span class="pull-right text-muted small"><em><?php echo $log->getRegisterDate(); ?>&nbsp;<i class="fa fa-clock-o fa-fw"></i></em>
                                 </span>
                             </a>

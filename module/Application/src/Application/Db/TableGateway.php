@@ -17,6 +17,7 @@ class TableGateway extends ZendTableGateway implements EventFeatureCacheAwareInt
 {
 
     protected $eventFeature;
+    protected $tableName;
 
     public function __construct($table, AdapterInterface $adapter, $features = null, ResultSetInterface $resultSetPrototype = null)
     {
@@ -31,7 +32,7 @@ class TableGateway extends ZendTableGateway implements EventFeatureCacheAwareInt
             if ($features instanceof AbstractFeature) {
                 $features = array(
                     $features
-                );
+                    );
             }
             if (is_array($features)) {
                 $this->featureSet = new FeatureSet($features);
@@ -43,6 +44,8 @@ class TableGateway extends ZendTableGateway implements EventFeatureCacheAwareInt
         } else {
             $this->featureSet = new FeatureSet();
         }
+        $resources = preg_replace('/(?<!^)([A-Z])/', '-\\1',explode("\\",get_class($resultSetPrototype->getArrayObjectPrototype()))[2]);
+        $this->tableName = strtolower(str_replace("-","_", $resources));
 
         $this->resultSetPrototype = ($resultSetPrototype) ?  : new ResultSet();
         $this->initialize();
@@ -56,7 +59,7 @@ class TableGateway extends ZendTableGateway implements EventFeatureCacheAwareInt
             if ($eventFeature instanceof AbstractFeature) {
                 $eventFeature = array(
                     $eventFeature
-                );
+                    );
             }
             if (is_array($eventFeature)) {
                 $this->featureSet = new FeatureSet($eventFeature);
@@ -67,6 +70,10 @@ class TableGateway extends ZendTableGateway implements EventFeatureCacheAwareInt
             }
         }
         $this->eventFeature = $eventFeature;
+    }
+    
+    public function getTableName(){
+        return $this->tableName;
     }
 
 }

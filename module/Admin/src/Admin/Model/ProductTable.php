@@ -124,23 +124,50 @@ class ProductTable
 			);
 
 		$id = (int)$product->getId();
+		
+		$params = array();
+		$params['table'] = $this->tableGateway->getTableName();
+		$params['operation'] = 1;
+		$params['data'] = json_encode($data);
+		
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
 			$id = $this->tableGateway->getLastInsertValue();
+			
+			if($id) {
+				$params['id'] = $id;
+				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
+				return $id;
+			}
+			else
+				return false;
+			
 		} else {
 			if ($this->get($id)) {
-				unset($data['category']);
-				unset($data['register_date']);
+				$params['id'] = $id;
+				$params['operation'] = 2;
+				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 				$this->tableGateway->update($data, array('id' => $id));
+				return $id;
 			} else {
-				$id = false;
+				return false;
 			}
 		}
-		return $id;
 	}
 
 	public function delete($id)
-	{
-		$this->tableGateway->delete(array('id' => $id));
+	{	
+		$params = array();
+		$params['table'] = $this->tableGateway->getTableName();
+		$result = $this->tableGateway->delete(array('id' => $id));
+
+		if($result) {
+			$params['id'] = $id;
+			$params['operation'] = 3;
+			$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
+			return true;
+		}
+		else
+			return false;
 	}
 }

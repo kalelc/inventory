@@ -6,7 +6,7 @@ use Zend\Db\Sql\Select;
 
 class AppTable
 {
-		protected $tableGateway;
+	protected $tableGateway;
 	protected $featureSet;
 
 	public function __construct(TableGateway $tableGateway)
@@ -41,27 +41,52 @@ class AppTable
 			'image' => $app->getImage(),
 			'description' => $app->getDescription(),
 			);
-
+		
 		$id = (int)$app->getId();
+
+		$params = array();
+		$params['table'] = $this->tableGateway->getTableName();
+		$params['operation'] = 1;
+		$params['data'] = json_encode($data);
+		
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
+			$id = $this->tableGateway->getLastInsertValue();
+			
+			if($id) {
+				$params['id'] = $id;
+				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
+				return $id;
+			}
+			else
+				return false;
+			
 		} else {
 			if ($this->get($id)) {
+				$params['id'] = $id;
+				$params['operation'] = 2;
+				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 				$this->tableGateway->update($data, array('id' => $id));
+				return $id;
 			} else {
-				throw new \Exception('Form id does not exist');
+				return false;
 			}
 		}
 	}
 
 	public function delete($id)
 	{	
-		try {
-			$result = $this->tableGateway->delete(array('id' => $id));
+		$params = array();
+		$params['table'] = $this->tableGateway->getTableName();
+		$result = $this->tableGateway->delete(array('id' => $id));
+
+		if($result) {
+			$params['id'] = $id;
+			$params['operation'] = 3;
+			$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
+			return true;
 		}
-		catch(\Exception $e) {
-			$result = false;
-		}
-		return $result;
+		else
+			return false;
 	}
 }
