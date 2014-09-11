@@ -3,6 +3,7 @@ return array(
 	'controllers' => array(
 		'invokables' => array(
 			'Process\Controller\ReceiveInventory' 		=> 'Process\Controller\ReceiveInventoryController',
+			'Process\Controller\OutputInventory' 		=> 'Process\Controller\OutputInventoryController',
 			),
 		),
 	'router' => array(
@@ -81,6 +82,71 @@ return array(
 								),
 							),
 						),
+
+					'output_inventory' => array(
+						'type'    => 'literal',
+						'options' => array(
+							'route'    => '/output-inventory',
+							'defaults' => array(
+								'controller' => 'Process\Controller\OutputInventory',
+								'action'     => 'add',
+								),
+							),
+						'may_terminate' => true,
+						'child_routes' => array(
+							'add' => array(
+								'type'    => 'literal',
+								'options' => array(
+									'route'    => '/add',
+									'defaults' => array(
+										'controller' => 'Process\Controller\OutputInventory',
+										'action'     => 'add',
+										),
+									),
+								'may_terminate' => true,
+								'child_routes' => array(
+									'details' => array(
+										'type'    => 'literal',
+										'options' => array(
+											'route'    => '/details',
+											'defaults' => array(
+												'controller' => 'Process\Controller\OutputInventory',
+												'action'     => 'details',
+												),
+											),
+										'may_terminate' => true,
+										'child_routes' => array(
+											'delete' => array(
+												'type'    => 'segment',
+												'options' => array(
+													'route'    => '/delete[/:id]',
+													'constraints' => array(
+													'id'     => '[0-9]+',
+													),
+													'defaults' => array(
+														'controller' => 'Process\Controller\OutputInventory',
+														'action'     => 'deleteDetail',
+														),
+													),
+												),
+											),
+										),
+									),
+								),
+							'finish' => array(
+								'type'    => 'literal',
+								'options' => array(
+									'route'    => '/finish',
+									'defaults' => array(
+										'controller' => 'Process\Controller\OutputInventory',
+										'action'     => 'finish',
+										),
+									),
+								
+								),
+							),
+						),
+					
 					),
 				),
 			),

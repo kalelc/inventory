@@ -1,7 +1,7 @@
 <?php $this->headTitle($values['module']['value']); ?>
 <h2 class="page-header"><?php echo $values['module']['value']; ?></h2>
 <ul class="breadcrumb">
-	<li class="#>">dashboard</li>
+	<li class=""><a href='<?php echo $this->url('dashboard'); ?>'>dashboard</a></li>
 	<?php if(!empty($values['module']['value'])): ?>
 		<li class=""><a href="<?php echo $values['module']['url']; ?>"><?php echo $values['module']['value']; ?></a></li>
 	<?php endif; ?>

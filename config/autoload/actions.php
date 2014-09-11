@@ -24,7 +24,7 @@ return array(
 		'image' => array(
 			'text'=> 'Buscar', 
 			'class' => 'btn btn-primary btn-sm',
-			'icon' => 'fa fa-file-image fa-1x'
+			'icon' => 'fa fa-file-image-o fa-1x'
 			),
 		'return' => array(
 			'text'=> 'regresar', 

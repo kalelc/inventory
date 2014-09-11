@@ -33,7 +33,7 @@ echo $this->layoutHelper()->header(array(
                     <td>
                         <?php if($product->getImage1()): ?>
                             <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/product/<?php echo $product->getImage1() ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-                                <span class="glyphicon glyphicon-search"></span></a>
+                                <i class="<?php echo $this->config['action']['image']['icon'] ; ?>"></i></a>
                             <?php endif; ?>
                         </td>
                         <td>

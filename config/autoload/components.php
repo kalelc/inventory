@@ -52,6 +52,7 @@ return array(
 		'note' 							=> array('notas','nota'),
 		'number' 						=> array('numeros','numero'),
 		'observation' 					=> array('observaciones','observación'),
+		'output_inventory'				=> array('salidas','salida'),
 		'part_no' 						=> array('no partes','no parte'),
 		'password' 						=> array('contraseñas','contraseña'),
 		'payment_method' 				=> array('metodos pago','metodo pago'),

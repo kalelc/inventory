@@ -23,15 +23,7 @@ implements ConfigAwareInterface
 
 	public function indexAction()
 	{
-		$config = $this->config;
-		$routes = $config['router']['routes'];
-
-		foreach($routes['process']['child_routes'] as $key => $route) {
-			echo $key;
-			echo "<br>" ;
-		}
-		dumpx($this->getRequest()->getRequestUri(),"current uri");
-		exit();
+		return $this->redirect()->toRoute('security/login');
 	}
 
 	public function loginAction()

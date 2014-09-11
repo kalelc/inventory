@@ -1,5 +1,6 @@
 <?php
 $title = $this->config['component']['customer'][0];
+$action = $this->config['action']['create']['text'];
 echo $this->layoutHelper()->header(array(
     'module' => array('url' => $this->url('admin/customer'),'value' => $title),
     ));

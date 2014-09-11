@@ -33,13 +33,14 @@ echo $this->layoutHelper()->header(array(
 			<div class="col-sm-4">
 				<?php if($image): ?>
 					<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/master-category/<?php echo $image; ?>','<?php echo $this->config['component']['image'][1] ; ?>')">
-						<span class="glyphicon glyphicon-search"></span>
+						<i class="<?php echo $this->config['action']['image']['icon'] ; ?>"></i>
 					</a>
 				<?php endif; ?>
 				<div class='pull-left'>
 					<?php echo $this->formInput($form->get('image')); ?>
 					<?php echo $this->formElementErrors($form->get('image'), array("class" => "error")); ?>
 				</div>
+				<div class='clearfix'></div>
 				<p class="help-block">
 					Extensiones Permitidas: <?php echo implode($this->config['file_characteristics']['image']['extension'],',') ;?><br>
 					Tama&ntilde;o: 
@@ -58,9 +59,9 @@ echo $this->layoutHelper()->header(array(
 		<div class="well well-sm">
 			<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['update']['text'])); ?>
 			&nbsp;<a href="<?php echo $this->url('admin/master_category');?>"><label class="<?php echo $this->config['action']['return']['class']; ?>">
-<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
-<?php echo $this->config['action']['return']['text']; ?>
-</label></a>
-			<?php echo $this->form()->closeTag(); ?>
-		</div>
-		<?php echo $this->modalHelper()->image(); ?>
+			<i class="<?php echo $this->config['action']['return']['icon'] ; ?>"></i>
+			<?php echo $this->config['action']['return']['text']; ?>
+		</label></a>
+		<?php echo $this->form()->closeTag(); ?>
+	</div>
+	<?php echo $this->modalHelper()->image(); ?>

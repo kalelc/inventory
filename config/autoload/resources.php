@@ -25,7 +25,7 @@ return array(
 			),
 		"process" => array(
 			"receive_inventory",
-			//"out_inventory" => array( "create")
+			"output_inventory"
 			)
 		)
 );

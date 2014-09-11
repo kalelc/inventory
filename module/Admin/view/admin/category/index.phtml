@@ -29,7 +29,7 @@ echo $this->layoutHelper()->header(array(
                     <td><?php echo $this->escapeHtml($category->getPluralName());?></td>
                     <td>
                         <?php if($category->getImage()): ?>
-                            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/category/<?php echo $category->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><span class="glyphicon glyphicon-search"></span></a>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="showModalImage('/images/category/<?php echo $category->getImage() ?>','<?php echo $this->config['component']['image'][1] ; ?>')"><i class="<?php echo $this->config['action']['image']['icon'] ; ?>"></i></a>
                         <?php endif; ?>
                     </td>
                     <td><?php echo "$ ".number_format($category->getShippingCost());?></td>
