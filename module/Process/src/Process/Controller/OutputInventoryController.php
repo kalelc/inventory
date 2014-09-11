@@ -30,7 +30,6 @@ implements ConfigAwareInterface
 
 	public function addAction()
 	{
-		dumpx("agregar");
 		$viewModel = new ViewModel();
 
 		$form = $this->getServiceLocator()->get("Process\Form\OutputInventoryForm");

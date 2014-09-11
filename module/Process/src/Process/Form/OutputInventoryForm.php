@@ -114,35 +114,6 @@ class OutputInventoryForm extends Form
 			));
 
 		$this->add(array(
-			'name' => 'invoice',
-			'attributes' => array(
-				'type'  => 'text',
-				'class' => 'form-control',
-				),
-			'options' => array(
-				'label' => 'name',
-				'label_attributes' => array(
-					'class'  => 'col-sm-2 control-label'
-					),
-
-				),
-			));
-
-
-		$this->add(array(
-			'name' => 'invoice_file',
-			'attributes' => array(
-				'type'  => 'file',
-				),
-			'options' => array(
-				'label' => 'invoice_file',
-				'label_attributes' => array(
-					'class'  => 'col-sm-2 control-label'
-					),
-				),
-			)); 
-
-		$this->add(array(
 			'name' => 'observation',
 			'attributes' => array(
 				'type'  => 'textarea',

@@ -8,9 +8,12 @@ use Zend\Db\ResultSet\ResultSet;
 use Application\Db\TableGateway;
 use Zend\EventManager\EventInterface;
 use Process\Form\ReceiveInventoryForm;
-use Process\Form\DetailsReceiveInventoryForm;
 use Process\Model\ReceiveInventory;
 use Process\Model\ReceiveInventoryTable;
+use Process\Form\OutputInventoryForm;
+use Process\Model\OutputInventory;
+use Process\Model\OutputInventoryTable;
+use Process\Form\DetailsReceiveInventoryForm;
 use Process\Model\DetailsReceiveInventory;
 use Process\Model\DetailsReceiveInventoryTable;
 use Zend\ModuleManager\ModuleManager;
@@ -140,12 +143,7 @@ class Module
 				'Process\Model\ReceiveInventoryTable' => function ($sm)
 				{
 					$tableGateway = $sm->get('ReceiveInventoryTableGateway');
-					$cache = $sm->get('Cache\Adapter\Memcached');
-					$eventManager = $sm->get("Zend\EventManager\EventManager");
-
 					$table = new ReceiveInventoryTable($tableGateway);
-					$table->setCache($cache);
-					$table->setEventManager($eventManager);
 					return $table;
 				},
 				'ReceiveInventoryTableGateway' => function ($sm)
@@ -159,14 +157,10 @@ class Module
 				'Process\Model\DetailsReceiveInventoryTable' => function ($sm)
 				{
 					$tableGateway = $sm->get('DetailsReceiveInventoryTableGateway');
-					$cache = $sm->get('Cache\Adapter\Memcached');
 					$productTable = $sm->get('Admin\Model\ProductTable');
-					$eventManager = $sm->get("Zend\EventManager\EventManager");
 
 					$table = new DetailsReceiveInventoryTable($tableGateway);
 					$table->setProductTable($productTable);
-					$table->setCache($cache);
-					$table->setEventManager($eventManager);
 					return $table;
 				},
 				'DetailsReceiveInventoryTableGateway' => function ($sm)
@@ -177,7 +171,39 @@ class Module
 
 					return new TableGateway('details_receive_inventory', $dbAdapter,null, $resultSetPrototype, null);
 				},
-				),
-);
-}
+				'Process\Form\OutputInventoryForm' =>  function($sm) {
+
+
+					$client = $sm->get('config')['customers']['client'];
+					$transporter = $sm->get('config')['customers']['transporter'];
+
+					$customerTable = $sm->get("Admin/Model/CustomerTable");
+					$customers = $customerTable->fetchAll($client);
+					$customersList = array();
+
+					foreach($customers as $customer){
+						$customersList[$customer->getId()] = $customer->getLastName()." ".$customer->getLastName();
+					}
+
+					$paymentMethodTable = $sm->get("Admin/Model/PaymentMethodTable");
+					$paymentMethods= $paymentMethodTable->fetchAll();
+					$paymentMethodList = array();
+
+					foreach($paymentMethods as $paymentMethod){
+						$paymentMethodList[$paymentMethod->getId()] = $paymentMethod->getName();
+					}
+
+					$shipments = $customerTable->fetchAll($transporter);
+					$shipmentList = array();
+
+					foreach($shipments as $shipment){
+						$shipmentList[$shipment->getId()] = $shipment->getCompany() == false ? $shipment->getCompany() : $shipment->getFirstName()." ".$shipment->getLastName();
+					}
+
+					$form = new OutputInventoryForm($customersList,$paymentMethodList,$shipmentList);
+					return $form;
+				},
+			),
+		);
+	}
 }

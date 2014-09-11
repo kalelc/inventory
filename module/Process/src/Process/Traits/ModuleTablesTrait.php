@@ -12,7 +12,16 @@ Trait ModuleTablesTrait
 		return $receiveInventoryTable;
 	}
 
-		public function getDetailsReceiveInventoryTable()
+	public function getOutputInventoryTable()
+	{
+		$outputInventoryTable = "";
+		if (!$outputInventoryTable) {
+			$outputInventoryTable = $this->getServiceLocator()->get('Process\Model\OutputInventoryTable');
+		}
+		return $outputInventoryTable;
+	}
+
+	public function getDetailsReceiveInventoryTable()
 	{
 		$detailsReceiveInventoryTable = "";
 		if (!$detailsReceiveInventoryTable) {

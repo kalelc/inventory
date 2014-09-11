@@ -4,7 +4,7 @@ namespace Process\Model;
 use Application\Db\TableGateway;
 use Zend\Db\Sql\Select;
 
-class ReceiveInventoryTable
+class OutputInventoryTable
 {
 	protected $tableGateway;
 	protected $eventManager;
@@ -41,7 +41,7 @@ class ReceiveInventoryTable
 		return $row;
 	}
 
-	public function save(ReceiveInventory $receiveInventory)
+	public function save(OutputInventory $receiveInventory)
 	{
 		
 		$data = array(
