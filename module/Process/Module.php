@@ -173,18 +173,27 @@ class Module
 				},
 				'Process\Form\OutputInventoryForm' =>  function($sm) {
 
-
+					//client
 					$client = $sm->get('config')['customers']['client'];
 					$transporter = $sm->get('config')['customers']['transporter'];
 
 					$customerTable = $sm->get("Admin/Model/CustomerTable");
-					$customers = $customerTable->fetchAll($client);
-					$customersList = array();
+					$clients = $customerTable->fetchAll($client);
+					$clientsList = array();
 
-					foreach($customers as $customer){
-						$customersList[$customer->getId()] = $customer->getLastName()." ".$customer->getLastName();
+					foreach($clients as $client){
+						$clientsList[$client->getId()] = $client->getLastName()." ".$client->getLastName();
 					}
 
+					//seller
+					$sellers = $customerTable->fetchAll($transporter);
+					$selllerList = array();
+
+					foreach($sellers as $selller){
+						$selllerList[$selller->getId()] = $selller->getCompany() == false ? $selller->getCompany() : $selller->getFirstName()." ".$selller->getLastName();
+					}
+
+					//payment method
 					$paymentMethodTable = $sm->get("Admin/Model/PaymentMethodTable");
 					$paymentMethods= $paymentMethodTable->fetchAll();
 					$paymentMethodList = array();
@@ -193,15 +202,22 @@ class Module
 						$paymentMethodList[$paymentMethod->getId()] = $paymentMethod->getName();
 					}
 
-					$shipments = $customerTable->fetchAll($transporter);
-					$shipmentList = array();
-
-					foreach($shipments as $shipment){
-						$shipmentList[$shipment->getId()] = $shipment->getCompany() == false ? $shipment->getCompany() : $shipment->getFirstName()." ".$shipment->getLastName();
-					}
-
-					$form = new OutputInventoryForm($customersList,$paymentMethodList,$shipmentList);
+					$form = new OutputInventoryForm($clientsList,$paymentMethodList,$selllerList);
 					return $form;
+				},
+				'Process\Model\OutputInventoryTable' => function ($sm)
+				{
+					$tableGateway = $sm->get('OutputInventoryTableGateway');
+					$table = new OutputInventoryTable($tableGateway);
+					return $table;
+				},
+				'OutputInventoryTableGateway' => function ($sm)
+				{
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new OutputInventory());
+
+					return new TableGateway('output_inventory', $dbAdapter,null, $resultSetPrototype, null);
 				},
 			),
 		);

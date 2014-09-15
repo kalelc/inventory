@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Process\Model\OutputInventory;
 use Process\Model\OutputInventoryTable;
 use Process\Model\DetailsOutputInventory;
+use Process\Form\DetailsOutputInventoryForm;
 use Zend\Validator\File\Size;
 use Zend\Validator\File\Extension;
 use Process\Form\OutputInventoryForm;
@@ -39,8 +40,8 @@ implements ConfigAwareInterface
 
 		if ($request->isPost()) {
 
-			$receiveInventory = new OutputInventory();
-			$form->setInputFilter($receiveInventory->getInputFilter());
+			$outputInventory = new OutputInventory();
+			$form->setInputFilter($outputInventory->getInputFilter());
 
 			$data = $request->getPost()->toArray();
 
@@ -48,30 +49,19 @@ implements ConfigAwareInterface
 
 			if ($form->isValid()) {
 
-				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
-
-				$fileService->setDestination($this->config['component']['receive_inventory']['file_path']);
-				$fileService->setSize($this->config['file_characteristics']['file']['size']);
-				$fileService->setExtension($this->config['file_characteristics']['file']['extension']);
-
-				$invoiceFile = $fileService->copy($this->params()->fromFiles('invoice_file'));
-
-				$data['invoice_file'] = $invoiceFile ? $invoiceFile : "" ;
-
 				$authenticationService = new AuthenticationService();
 				$user = $authenticationService->getStorage()->read()->id;
 
-				$receiveInventory->setUser($user);
-				$receiveInventory->exchangeArray($data);
+				$outputInventory->setUser($user);
+				$outputInventory->exchangeArray($data);
 
-				$receiveInventoryId = $this->getOutputInventoryTable()->save($receiveInventory);
+				$outputInventoryId = $this->getOutputInventoryTable()->save($outputInventory);
 
-				$container = new Container('receive_inventory');
-				$container->id = $receiveInventoryId;
+				$container = new Container('output_inventory');
+				$container->id = $outputInventoryId;
 				$container->user = $user;
 
-
-				return $this->redirect()->toRoute('process/receive_inventory/add/details');
+				return $this->redirect()->toRoute('process/output_inventory/add/details');
 			}
 		}
 		$viewModel->setVariable('config', $this->config);
@@ -81,18 +71,18 @@ implements ConfigAwareInterface
 
 	public function detailsAction() 
 	{
-		$container = new Container('receive_inventory');
+		$container = new Container('output_inventory');
 		$viewModel = new ViewModel();
 
 		if(!$container->id) {
-			return $this->redirect()->toRoute('process/receive_inventory');
+			return $this->redirect()->toRoute('process/output_inventory');
 		}
 
-		$receiveInventoryId = $container->id ;
+		$outputInventoryId = $container->id ;
 		$user = $container->user ;
 
-		$receiveInventory = $this->getOutputInventoryTable()->get($receiveInventoryId,$user);
-		$form = $this->getServiceLocator()->get('Process\Form\DetailsOutputInventoryForm');
+		$outputInventory = $this->getOutputInventoryTable()->get($outputInventoryId,$user);
+		$form = new DetailsOutputInventoryForm();
 
 		$detailsOutputInventory = new DetailsOutputInventory();
 		$form->setInputFilter($detailsOutputInventory->getInputFilter());
@@ -124,21 +114,21 @@ implements ConfigAwareInterface
 
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 
-				$fileService->setDestination($this->config['component']['detail_receive_inventory']['file_path']);
+				$fileService->setDestination($this->config['component']['detail_output_inventory']['file_path']);
 				$fileService->setSize($this->config['file_characteristics']['file']['size']);
 				$fileService->setExtension($this->config['file_characteristics']['file']['extension']);
 
 				$manifestFile = $fileService->copy($this->params()->fromFiles('manifest_file'));
 
 				$data['cost'] = str_replace('.','',$data['cost']);
-				$data['receive_inventory'] = $container->id ;
+				$data['output_inventory'] = $container->id ;
 				$data['serials'] = json_encode($serials);
 				$data['manifest_file'] = $manifestFile ? $manifestFile : "" ;
 
 				$detailsOutputInventory->exchangeArray($data);
-				$receiveInventoryId = $this->getDetailsOutputInventoryTable()->save($detailsOutputInventory);
+				$outputInventoryId = $this->getDetailsOutputInventoryTable()->save($detailsOutputInventory);
 
-				return $this->redirect()->toRoute('process/receive_inventory/add/details');
+				return $this->redirect()->toRoute('process/output_inventory/add/details');
 
 
 			}
@@ -150,68 +140,31 @@ implements ConfigAwareInterface
 			}
 		}
 
-		$detailsOutputInventory = $this->getDetailsOutputInventoryTable()->get($container->id);
+		//$detailsOutputInventory = $this->getDetailsOutputInventoryTable()->get($container->id);
 
 		$viewModel->setVariable('form',$form);
-		$viewModel->setVariable('receiveInventory', $receiveInventory);
+		$viewModel->setVariable('outputInventory', $outputInventory);
 		$viewModel->setVariable('config', $this->config);
-		$viewModel->setVariable('detailsOutputInventory', $detailsOutputInventory);
+		//$viewModel->setVariable('detailsOutputInventory', $detailsOutputInventory);
 
-		$viewModel->setTemplate("process/receive-inventory/details");
+		$viewModel->setTemplate("process/output-inventory/details");
 
 		return $viewModel;
+
+
 
 	}
 
 	public function finishAction()
 	{
-		$container = new Container('receive_inventory');
-		$container->getManager()->getStorage()->clear('receive_inventory');
+		$container = new Container('output_inventory');
+		$container->getManager()->getStorage()->clear('output_inventory');
 		
-		return $this->redirect()->toRoute('process/receive_inventory/add');
+		return $this->redirect()->toRoute('process/output_inventory/add');
 	}
 
 	public function deleteDetailAction()
-	{
-		$viewModel = new ViewModel();
-		$container = new Container('receive_inventory');
-		$receiveInventoryId = (int) $container->id;
-
-		$id = (int) $this->params()->fromRoute('id', 0);
-		if (!$id || !$receiveInventoryId) {
-			return $this->redirect()->toRoute('process/receive_inventory/add/details');
-		}
-
-		//$this->getDetailsOutputInventoryTable()->geList($container->id);
-
-		$request = $this->getRequest();
-		if ($request->isPost()) {
-			$del = $request->getPost('del', 'No');
-			if ($del == 'Si') {
-				$id = (int) $request->getPost('id');
-				@unlink($this->config['component']['detail_receive_inventory']['file_path']."/".$this->getDetailsOutputInventoryTable()->get($receiveInventoryId,$id)->getManifestFile());
-
-				$result = $this->getDetailsOutputInventoryTable()->delete($id);
-
-				if(isset($result) && $result) {
-					return $this->redirect()->toRoute('process/receive_inventory/add/details');
-				}
-				else {
-					$viewModel->setVariable("error",true);
-				}
-			}
-			else
-				return $this->redirect()->toRoute('process/receive_inventory/add/details');
-		}
-
-		$viewModel->setVariables(array(
-			'id'=> $id,
-			'detailOutputInventory' => $this->getDetailsOutputInventoryTable()->get($receiveInventoryId,$id),
-			'config' => $this->config,
-			));
-
-		return $viewModel;
-	}
+	{}
 
 
 	public function setConfig($config)

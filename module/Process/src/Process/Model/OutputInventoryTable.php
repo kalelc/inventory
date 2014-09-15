@@ -27,11 +27,11 @@ class OutputInventoryTable
 	public function get($id,$user)
 	{	
 		$select = new Select($this->tableGateway->getTable());
-		$select->columns(array("id","register_date","guide","invoice","invoice_file","observations"));
-		$select->join('customers', "customers.id = ".$this->tableGateway->getTable().".customer", array('customer_first_name' => 'first_name','customer_last_name' => 'first_name'), 'inner');
-		$select->join(array('shipments' => 'customers'), "shipments.id = ".$this->tableGateway->getTable().".shipment", array('shipment_first_name' => 'first_name',
-			'shipment_last_name' => 'last_name',
-			'shipment_company' => 'company'), 
+		$select->columns(array("id","register_date","guide","observations"));
+		$select->join('customers', "customers.id = ".$this->tableGateway->getTable().".client", array('client_first_name' => 'first_name','client_last_name' => 'first_name'), 'inner');
+		$select->join(array('sellers' => 'customers'), "sellers.id = ".$this->tableGateway->getTable().".seller", array('seller_first_name' => 'first_name',
+			'seller_last_name' => 'last_name',
+			'seller_company' => 'company'), 
 		'inner');
 		$select->join('payments_methods', "payments_methods.id = ".$this->tableGateway->getTable().".payment_method", array('payment_method_name' => 'name'), 'inner');
 		$select->where(array($this->tableGateway->getTable().".id" => $id,$this->tableGateway->getTable().".user" => $user));
@@ -41,22 +41,21 @@ class OutputInventoryTable
 		return $row;
 	}
 
-	public function save(OutputInventory $receiveInventory)
+	public function save(OutputInventory $outputInventory)
 	{
 		
 		$data = array(
+			'user' => $outputInventory->getUser(),
+			'client' => $outputInventory->getClient(),
+			'seller' => $outputInventory->getSeller(),
+			'payment_method' => $outputInventory->getPaymentMethod(),
+			'guide' => $outputInventory->getGuideNumber(),
+			'observations' => $outputInventory->getObservation(),
 			'register_date' => date("Y-m-d H:i:s", time()),
-			'user' => $receiveInventory->getUser(),
-			'customer' => $receiveInventory->getCustomer(),
-			'payment_method' => $receiveInventory->getPaymentMethod(),
-			'shipment' => $receiveInventory->getShipment(),
-			'guide' => $receiveInventory->getGuideNumber(),
-			'invoice' => $receiveInventory->getInvoice(),
-			'invoice_file' => $receiveInventory->getInvoiceFile(),
-			'observations' => $receiveInventory->getObservation(),
+			'update_date' => date("Y-m-d H:i:s", time()),
 			);
 
-		$id = (int)$receiveInventory->getId();
+		$id = (int)$outputInventory->getId();
 		
 		$params = array();
 		$params['table'] = $this->tableGateway->getTableName();
@@ -66,7 +65,7 @@ class OutputInventoryTable
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
 			$id = $this->tableGateway->getLastInsertValue();
-			
+
 			if($id) {
 				$params['id'] = $id;
 				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);

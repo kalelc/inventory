@@ -20,10 +20,10 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	</div>
 	<div class="form-group">
-		<?php echo $this->formLabel($form->get('customer')->setLabel($this->config['component']['customer'][1])); ?>
+		<?php echo $this->formLabel($form->get('client')->setLabel($this->config['component']['client'][1])); ?>
 		<div class="col-sm-4">
-			<?php echo $this->formSelect($form->get('customer')); ?>
-			<?php echo $this->formElementErrors($form->get('customer'), array("class" => "error")); ?>
+			<?php echo $this->formSelect($form->get('client')); ?>
+			<?php echo $this->formElementErrors($form->get('client'), array("class" => "error")); ?>
 		</div>
 </div>
 <div class="form-group">
@@ -34,10 +34,10 @@ echo $this->layoutHelper()->header(array(
 	</div>
 </div>
 <div class="form-group">
-	<?php echo $this->formLabel($form->get('shipment')->setLabel($this->config['component']['shipment'][1])); ?>
+	<?php echo $this->formLabel($form->get('seller')->setLabel($this->config['component']['seller'][1])); ?>
 	<div class="col-sm-4">
-		<?php echo $this->formSelect($form->get('shipment')); ?>
-		<?php echo $this->formElementErrors($form->get('shipment'), array("class" => "error")); ?>
+		<?php echo $this->formSelect($form->get('seller')); ?>
+		<?php echo $this->formElementErrors($form->get('seller'), array("class" => "error")); ?>
 	</div>
 </div>
 <div class="form-group">

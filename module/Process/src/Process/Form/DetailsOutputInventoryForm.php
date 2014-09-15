@@ -4,105 +4,25 @@ namespace Process\Form;
 use Zend\Form\Form;
 use Zend\Form\Element;
 
-class OutputInventoryForm extends Form
+class DetailsOutputInventoryForm extends Form
 {
-	private $clients;
-	private $paymentMethods;
-	private $sellers;
-
-	public function __construct($clients,$paymentMethods,$sellers)
+	private $products;
+	
+	public function __construct()
 	{
-		parent::__construct('output_inventory');
+		parent::__construct('details_output_inventory');
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('class', 'form-horizontal');
 		$this->setAttribute('enctype','multipart/form-data');
 
-		$this->clients = $clients;
-		$this->paymentMethods = $paymentMethods;
-		$this->sellers = $sellers;
 
 		$this->add(array(
-			'name' => 'id',
+			'name' => 'qty',
 			'attributes' => array(
-				'type'  => 'hidden',
-				),
-			));
-
-		$this->add(array(
-			'name' => 'register_date',
-			'attributes' => array(
+				'id'	=> 'qty',
 				'type'  => 'text',
 				'class' => 'form-control',
-				'readonly' => 'readonly',
-				'value' => date('d-m-Y')
-				),
-			'options' => array(
-				'label' => 'register_date',
-				'label_attributes' => array(
-					'class'  => 'col-sm-2 control-label'
-					),
-
-				),
-			));
-
-		$this->add(array(
-			'type' => 'select',
-			'name' => 'client',
-			'options' => array(
-				'label' => 'client',
-				'label_attributes' => array(
-					'class'  => 'col-sm-2 control-label'
-					),
-				'value_options' => $this->clients,
-				'empty_option' => 'seleccione una opción',
-				'disable_inarray_validator' => true,
-				),
-			'attributes' => array(
-				'class' => 'form-control',
-				'data-live-search' => 'true'
-				)
-			));
-
-
-		$this->add(array(
-			'type' => 'select',
-			'name' => 'payment_method',
-			'options' => array(
-				'label' => 'payment_method',
-				'label_attributes' => array(
-					'class'  => 'col-sm-2 control-label'
-					),
-				'value_options' => $this->paymentMethods,
-				'empty_option' => 'seleccione una opción',
-				'disable_inarray_validator' => true,
-				),
-			'attributes' => array(
-				'class' => 'form-control',
-				)
-			));
-
-		$this->add(array(
-			'type' => 'select',
-			'name' => 'seller',
-			'options' => array(
-				'label' => 'seller',
-				'label_attributes' => array(
-					'class'  => 'col-sm-2 control-label'
-					),
-				'value_options' => $this->sellers,
-				'empty_option' => 'seleccione una opción',
-				'disable_inarray_validator' => true,
-				),
-			'attributes' => array(
-				'class' => 'form-control',
-				)
-			));
-
-		$this->add(array(
-			'name' => 'guide_number',
-			'attributes' => array(
-				'type'  => 'text',
-				'class' => 'form-control',
+				'maxlength'=>'2'
 				),
 			'options' => array(
 				'label' => 'name',
@@ -114,19 +34,90 @@ class OutputInventoryForm extends Form
 			));
 
 		$this->add(array(
-			'name' => 'observation',
+			'name' => 'product_search',
 			'attributes' => array(
-				'type'  => 'textarea',
+				'id'	=> 'product_search',
+				'type'  => 'text',
 				'class' => 'form-control',
+				'placeholder' => 'Ingrese el nombre del producto'
 				),
 			'options' => array(
-				'label' => 'observation',
+				'label' => 'name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+
+				),
+			));
+
+		$this->add(array(
+			'type' => 'select',
+			'name' => 'product',
+			'options' => array(
+				'label' => 'product',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				//'value_options' => $this->products,
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
+				),
+			'attributes' => array(
+				'id' => 'product',
+				'class' => 'form-control',
+				'data-live-search' => 'true'
+				)
+			));
+
+
+
+			$this->add(array(
+			'name' => 'sale_value',
+			'attributes' => array(
+				'id'	=> 'sale_value',
+				'type'  => 'text',
+				'class' => 'form-control number_format',
+				),
+			'options' => array(
+				'label' => 'name',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+
+				),
+			));
+
+			$this->add(array(
+			'type' => 'select',
+			'name' => 'iva',
+			'options' => array(
+				'label' => 'iva',
+				'label_attributes' => array(
+					'class'  => 'col-sm-2 control-label'
+					),
+				'value_options' =>array("1" => "Iva incluido","2" => "Iva excluido","3" => "Excento de iva"),
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
+				),
+			'attributes' => array(
+				'id' => 'iva',
+				'class' => 'form-control',
+				'data-live-search' => 'true'
+				)
+			));
+
+			$this->add(array(
+			'name' => 'manifest_file',
+			'attributes' => array(
+				'type'  => 'file',
+				),
+			'options' => array(
+				'label' => 'Imagen',
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),
 				),
 			));
-		
 
 		$this->add(array(
 			'type' => 'Zend\Form\Element\Csrf',

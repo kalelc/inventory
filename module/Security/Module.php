@@ -148,7 +148,6 @@ class Module
                 },
                 'Security\Listener\LogListener' => function ($sm)
                 {
-                    //dumpx($sm->get("Security\Model\UserTable"));
                     $logListener = new LogListener($sm);
                     return $logListener;
                 },
