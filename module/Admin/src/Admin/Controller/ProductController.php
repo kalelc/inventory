@@ -455,6 +455,26 @@ implements ConfigAwareInterface
 		return $jsonModel;
 	}
 
+	public function productSearchSerialAction()
+	{
+		$product = $this->params()->fromPost('product');
+		error_log("product ".utf8_decode($product));
+		$jsonModel = new JsonModel();
+		$productList = array();
+
+		$products = $this->getProductTable()->getBySerial($product) ;
+
+		foreach($products as $key => $productValue) {
+			//if(stristr($productValue,$product)){
+				$productList[$key] = $productValue;
+			//}
+		}
+
+		$jsonModel->setVariable("products",$productList);
+		return $jsonModel;
+	}
+
+
 	public function setConfig($config)
 	{
 		$this->config = $config;

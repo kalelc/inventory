@@ -61,12 +61,59 @@ class ProductTable
 
 			foreach ($measureRows as $measureRow) {
 
-			if($measureRow->getMeasureTypeAbbreviation()!=false) {
-				$measureValue .= " ".$measureRow->getMeasureValue();
-				$measureValue .= " ".$measureRow->getMeasureTypeAbbreviation();
+				if($measureRow->getMeasureTypeAbbreviation()!=false) {
+					$measureValue .= " ".$measureRow->getMeasureValue();
+					$measureValue .= " ".$measureRow->getMeasureTypeAbbreviation();
+				}
+				else
+					$measureValue .= " ".$measureRow->getMeasureValue();
 			}
-			else
-				$measureValue .= " ".$measureRow->getMeasureValue();
+			$productList[$row->getId()] = $measureValue;
+		}
+
+		return $productList;
+	}
+
+	public function getBySerial($serial)
+	{
+		$select = new Select($this->tableGateway->getTable());
+		$select->columns(array('model','id'));
+		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'));
+		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'));
+		$select->join("details_receive_inventory", "details_receive_inventory.product = ".$this->tableGateway->getTable().".id");
+		$select->where->like("details_receive_inventory.serials","%".$serial."%");
+
+		$rows = $this->tableGateway->selectWith($select);
+
+		error_log($select->getSqlString());
+
+		$productList = array();
+
+		foreach($rows as $row) {
+			$measureValue = "" ;
+			$measureValue .= " ".$row->getCategoryName() ;
+			$measureValue .= " ".$row->getBrandName() ;
+			$measureValue .= " ".$row->getModel() ;
+
+			$selectMeasures = new Select($this->measureTableGateway->getTable());
+			$selectMeasures->columns(array("measure_value" => "measure_value", "image" => "image"));
+			$selectMeasures->join('products_measures','products_measures.measure = measures.id', array(), 'inner');
+			$selectMeasures->join('measures_types','measures_types.id = measures.measure_type', array('mt_name' => 'name','mt_abbreviation' => 'abbreviation'),$selectMeasures::JOIN_LEFT);
+			$selectMeasures->join('specifications', "measures.specification = specifications.id", array('s_name' => 'name'), 'inner');
+			$selectMeasures->join('categories_specifications', "categories_specifications.specification = specifications.id", array(), 'inner');
+			$selectMeasures->order('categories_specifications.order');
+			$selectMeasures->where(array("products_measures.product" => $row->getId(),"categories_specifications.name" => 1));
+
+			$measureRows = $this->measureTableGateway->selectWith($selectMeasures);
+
+			foreach ($measureRows as $measureRow) {
+
+				if($measureRow->getMeasureTypeAbbreviation()!=false) {
+					$measureValue .= " ".$measureRow->getMeasureValue();
+					$measureValue .= " ".$measureRow->getMeasureTypeAbbreviation();
+				}
+				else
+					$measureValue .= " ".$measureRow->getMeasureValue();
 			}
 			$productList[$row->getId()] = $measureValue;
 		}
@@ -94,7 +141,7 @@ class ProductTable
 		
 		return $rows;
 
-	}	
+	}
 
 	public function save(Product $product)
 	{

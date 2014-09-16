@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Process\Model\ReceiveInventory;
 use Process\Model\ReceiveInventoryTable;
 use Process\Model\DetailsReceiveInventory;
+use Zend\View\Model\JsonModel;
 use Zend\File\Transfer\Adapter\Http  as HttpTransfer;
 use Zend\Validator\File\Size;
 use Zend\Validator\File\Extension;
@@ -214,6 +215,23 @@ implements ConfigAwareInterface
 		return $viewModel;
 	}
 
+	public function searchSerialAction()
+	{
+		$serialValue = $this->params()->fromPost('serial');
+		$serials = $this->getDetailsReceiveInventoryTable()->searchSerial($serialValue);
+
+		$serialList = array();
+		
+		foreach($serials as $serial) {
+			$serialList[] = $serial->getSerials();
+		}
+
+		$jsonModel = new JsonModel();
+
+
+		$jsonModel->setVariable("serials",$serialList);
+		return $jsonModel;
+	}
 
 	public function setConfig($config)
 	{

@@ -68,6 +68,17 @@ class DetailsReceiveInventoryTable
 		return $result;
 	}
 
+	public function searchSerial($serial)
+	{
+		$select = new Select($this->tableGateway->getTable());
+		$select->columns(array("serials"));
+		$select->join("products", "products.id = ".$this->tableGateway->getTable().".product", array('id' => 'id'));
+		$select->where->like($this->tableGateway->getTable().".serials","%".$serial."%");
+		
+		$result = $this->tableGateway->selectWith($select);
+		return $result;
+	}
+
 	public function save(DetailsReceiveInventory $detailsReceiveInventory)
 	{
 

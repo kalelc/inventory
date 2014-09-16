@@ -34,12 +34,12 @@ class DetailsOutputInventoryForm extends Form
 			));
 
 		$this->add(array(
-			'name' => 'product_search',
+			'name' => 'product_serial',
 			'attributes' => array(
-				'id'	=> 'product_search',
+				'id'	=> 'product_serial',
 				'type'  => 'text',
 				'class' => 'form-control',
-				'placeholder' => 'Ingrese el nombre del producto'
+				'placeholder' => 'Ingrese el serial del producto'
 				),
 			'options' => array(
 				'label' => 'name',
@@ -51,27 +51,6 @@ class DetailsOutputInventoryForm extends Form
 			));
 
 		$this->add(array(
-			'type' => 'select',
-			'name' => 'product',
-			'options' => array(
-				'label' => 'product',
-				'label_attributes' => array(
-					'class'  => 'col-sm-2 control-label'
-					),
-				//'value_options' => $this->products,
-				'empty_option' => 'seleccione una opción',
-				'disable_inarray_validator' => true,
-				),
-			'attributes' => array(
-				'id' => 'product',
-				'class' => 'form-control',
-				'data-live-search' => 'true'
-				)
-			));
-
-
-
-			$this->add(array(
 			'name' => 'sale_value',
 			'attributes' => array(
 				'id'	=> 'sale_value',
@@ -87,7 +66,7 @@ class DetailsOutputInventoryForm extends Form
 				),
 			));
 
-			$this->add(array(
+		$this->add(array(
 			'type' => 'select',
 			'name' => 'iva',
 			'options' => array(
@@ -106,17 +85,22 @@ class DetailsOutputInventoryForm extends Form
 				)
 			));
 
-			$this->add(array(
-			'name' => 'manifest_file',
-			'attributes' => array(
-				'type'  => 'file',
-				),
+		$this->add(array(
+			'type' => 'select',
+			'name' => 'product',
 			'options' => array(
-				'label' => 'Imagen',
+				'label' => 'product',
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),
+				'empty_option' => 'seleccione una opción',
+				'disable_inarray_validator' => true,
 				),
+			'attributes' => array(
+				'id' => 'product',
+				'class' => 'form-control',
+				'data-live-search' => 'true'
+				)
 			));
 
 		$this->add(array(

@@ -57,105 +57,118 @@ return array(
 												'options' => array(
 													'route'    => '/delete[/:id]',
 													'constraints' => array(
-													'id'     => '[0-9]+',
-													),
+														'id'     => '[0-9]+',
+														),
 													'defaults' => array(
 														'controller' => 'Process\Controller\ReceiveInventory',
 														'action'     => 'deleteDetail',
 														),
 													),
 												),
-											),
-										),
-									),
-								),
-							'finish' => array(
-								'type'    => 'literal',
-								'options' => array(
-									'route'    => '/finish',
-									'defaults' => array(
-										'controller' => 'Process\Controller\ReceiveInventory',
-										'action'     => 'finish',
-										),
-									),
-								
-								),
-							),
-						),
-
-					'output_inventory' => array(
-						'type'    => 'literal',
-						'options' => array(
-							'route'    => '/output-inventory',
-							'defaults' => array(
-								'controller' => 'Process\Controller\OutputInventory',
-								'action'     => 'add',
-								),
-							),
-						'may_terminate' => true,
-						'child_routes' => array(
-							'add' => array(
-								'type'    => 'literal',
-								'options' => array(
-									'route'    => '/add',
-									'defaults' => array(
-										'controller' => 'Process\Controller\OutputInventory',
-										'action'     => 'add',
-										),
-									),
-								'may_terminate' => true,
-								'child_routes' => array(
-									'details' => array(
-										'type'    => 'literal',
-										'options' => array(
-											'route'    => '/details',
-											'defaults' => array(
-												'controller' => 'Process\Controller\OutputInventory',
-												'action'     => 'details',
-												),
-											),
-										'may_terminate' => true,
-										'child_routes' => array(
-											'delete' => array(
+											'search' => array(
 												'type'    => 'segment',
 												'options' => array(
-													'route'    => '/delete[/:id]',
+													'route'    => '/search-serial',
 													'constraints' => array(
-													'id'     => '[0-9]+',
-													),
+														'id'     => '[0-9]+',
+														),
 													'defaults' => array(
-														'controller' => 'Process\Controller\OutputInventory',
-														'action'     => 'deleteDetail',
+														'controller' => 'Process\Controller\ReceiveInventory',
+														'action'     => 'searchSerial',
 														),
 													),
 												),
 											),
 										),
-									),
-								),
-							'finish' => array(
-								'type'    => 'literal',
-								'options' => array(
-									'route'    => '/finish',
-									'defaults' => array(
-										'controller' => 'Process\Controller\OutputInventory',
-										'action'     => 'finish',
-										),
-									),
-								
-								),
-							),
-						),
-					
-					),
-				),
+),
+),
+'finish' => array(
+	'type'    => 'literal',
+	'options' => array(
+		'route'    => '/finish',
+		'defaults' => array(
+			'controller' => 'Process\Controller\ReceiveInventory',
+			'action'     => 'finish',
 			),
 		),
 
-	'view_helpers' => array(),
-	'view_manager' => array(
-		'template_path_stack' => array(
-			'process' => __DIR__ . '/../view',
+	),
+),
+),
+
+'output_inventory' => array(
+	'type'    => 'literal',
+	'options' => array(
+		'route'    => '/output-inventory',
+		'defaults' => array(
+			'controller' => 'Process\Controller\OutputInventory',
+			'action'     => 'add',
 			),
 		),
-	);
+	'may_terminate' => true,
+	'child_routes' => array(
+		'add' => array(
+			'type'    => 'literal',
+			'options' => array(
+				'route'    => '/add',
+				'defaults' => array(
+					'controller' => 'Process\Controller\OutputInventory',
+					'action'     => 'add',
+					),
+				),
+			'may_terminate' => true,
+			'child_routes' => array(
+				'details' => array(
+					'type'    => 'literal',
+					'options' => array(
+						'route'    => '/details',
+						'defaults' => array(
+							'controller' => 'Process\Controller\OutputInventory',
+							'action'     => 'details',
+							),
+						),
+					'may_terminate' => true,
+					'child_routes' => array(
+						'delete' => array(
+							'type'    => 'segment',
+							'options' => array(
+								'route'    => '/delete[/:id]',
+								'constraints' => array(
+									'id'     => '[0-9]+',
+									),
+								'defaults' => array(
+									'controller' => 'Process\Controller\OutputInventory',
+									'action'     => 'deleteDetail',
+									),
+								),
+							),
+						),
+					),
+				),
+			),
+		'finish' => array(
+			'type'    => 'literal',
+			'options' => array(
+				'route'    => '/finish',
+				'defaults' => array(
+					'controller' => 'Process\Controller\OutputInventory',
+					'action'     => 'finish',
+					),
+				),
+
+			),
+		),
+),
+
+),
+),
+),
+),
+
+'view_helpers' => array(),
+'view_manager' => array(
+	'template_path_stack' => array(
+		'process' => __DIR__ . '/../view',
+		),
+	),
+);

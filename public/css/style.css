@@ -84,3 +84,13 @@ ul#sortable li {
 
 /*icons*/
 .fa {padding-right:1px;}
+
+ul.serial-result {
+  max-height: 100px;
+  overflow-y: auto;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  background: #f9f9f9;
+  z-index: 99;
+}

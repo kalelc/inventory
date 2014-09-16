@@ -60,7 +60,6 @@ class DetailsReceiveInventoryForm extends Form
 				'label_attributes' => array(
 					'class'  => 'col-sm-2 control-label'
 					),
-				//'value_options' => $this->products,
 				'empty_option' => 'seleccione una opción',
 				'disable_inarray_validator' => true,
 				),
@@ -73,7 +72,7 @@ class DetailsReceiveInventoryForm extends Form
 
 
 
-			$this->add(array(
+		$this->add(array(
 			'name' => 'cost',
 			'attributes' => array(
 				'id'	=> 'cost',
@@ -89,7 +88,7 @@ class DetailsReceiveInventoryForm extends Form
 				),
 			));
 
-			$this->add(array(
+		$this->add(array(
 			'type' => 'select',
 			'name' => 'iva',
 			'options' => array(
@@ -108,7 +107,7 @@ class DetailsReceiveInventoryForm extends Form
 				)
 			));
 
-			$this->add(array(
+		$this->add(array(
 			'name' => 'manifest_file',
 			'attributes' => array(
 				'type'  => 'file',

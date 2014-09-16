@@ -308,6 +308,18 @@ return array(
 						),
 					),
 
+
+				'productSearchSerial' => array(
+					'type'    => 'literal',
+					'options' => array(
+						'route'    => '/product/search-serial',
+						'defaults' => array(
+							'controller' => 'Admin\Controller\Product',
+							'action'     => 'productSearchSerial',
+							),
+						),
+					),
+
 				'user_type' => array(
 					'type'    => 'segment',
 					'options' => array(

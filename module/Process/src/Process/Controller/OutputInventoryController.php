@@ -150,9 +150,6 @@ implements ConfigAwareInterface
 		$viewModel->setTemplate("process/output-inventory/details");
 
 		return $viewModel;
-
-
-
 	}
 
 	public function finishAction()

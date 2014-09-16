@@ -1,26 +1,76 @@
 $(document).ready(function() {
-	$('#product').blur(function() {
-		$.fn.getSerialList();
+	/*
+	$('#product_serial').blur(function() {
+		var product = $('#product_serial').val();
+		$.fn.searchProductSerial(product);
 	});
-	$('#qty').blur(function() {
-		$.fn.getSerialList();
-	});
-	$('#product_search').blur(function() {
-		var product = $('#product_search').val();
-		$.fn.searchProduct(product);
-	});
+*/
+$('#product_serial').keyup(function() {
+	var serial = $('#product_serial').val();
+	//if(serial.length >= 4) {
+		$.fn.searchSerial(serial);
+	//}
+});
 });
 
-$.fn.getSerialList = function() {}
+function searchProductSerial(serialName) {
+	$.fn.searchProductSerial(serialName);
+	$("#serials").html("");
+}
 
-$.fn.searchProduct = function(product) {
+$.fn.searchSerial = function(serial) {
+	var serial = serial;
 
+	if (serial != "") {
+		$.ajax({
+			type : "POST",
+			url : "/process/receive-inventory/add/details/search-serial",
+			scriptCharset: "utf-8" ,
+			data : {
+				serial : serial,
+			}
+		})
+		.done(
+			function(result) {
+
+				$("#serials").html("<li><a href='javascript:void(0);'>Buscando..</a></li>");
+
+				if (typeof result === 'object') {
+					var productList = Array();
+					$("#serials").html("");
+
+					if(result.serials.length == "") {
+						console.log("es cero");
+					}
+
+					$.each(result.serials, function(key, item) {
+						
+						var serialName = "" ;
+						var serialsArray = $.parseJSON(item);
+						
+						for(var i = 0; i < serialsArray[0].length;i++) {
+							serialName += serialsArray[0][i];
+						}
+						$("#serials").append("<li><a href='javascript:void(0);' onclick='searchProductSerial(\""+serialName+"\")'>"+serialName+"</a></li>");
+					});
+				} else {
+					$("#serials").html("");
+				}
+			}
+			);
+	}
+	else {
+		$("#serials").html("");
+	}
+}
+
+$.fn.searchProductSerial = function(product) {
 	var product = product;
 
 	if (product != "") {
 		$.ajax({
 			type : "POST",
-			url : "/admin/product/search",
+			url : "/admin/product/search-serial",
 			data : {
 				product : product,
 			}
@@ -31,15 +81,12 @@ $.fn.searchProduct = function(product) {
 				$("#product").html("<option value=''>Buscando..</option>")
 
 				if (typeof result === 'object') {
-						var productList = Array();
-						$("#product").html("")
-						$.each(result.products, function(key, item) {
-							$("#product").append("<option value='"+key+"'>"+item+"</option>")
-							productList[key] = item ;
-						});
-							//console.log(productList);
-
-
+					var productList = Array();
+					$("#product").html("")
+					$.each(result.products, function(key, item) {
+						$("#product").append("<option value='"+key+"'>"+item+"</option>")
+						productList[key] = item ;
+					});
 				} else {
 					console.log("debe seleccionar una categoria");
 				}
