@@ -94,58 +94,23 @@ implements ConfigAwareInterface
 
 		if ($request->isPost()) {
 
-			$serials = array();
-
-			$qty = (int) $data['qty'];
-			$serialValuesElementErrors = true;
-
-			for($i = 0; $i < $qty; $i++) {
-				$serialValue = $data['serials'][$i][0];
-				if(isset($serialValue) && !empty($serialValue)) {
-					$serials[$i] = array_filter($data['serials'][$i]);
-				}
-				else {
-					$serialValuesElementErrors = false ;
-					break;
-				}
-			}
-
-			if ($form->isValid() && $serialValuesElementErrors) {
-
-				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
-
-				$fileService->setDestination($this->config['component']['detail_output_inventory']['file_path']);
-				$fileService->setSize($this->config['file_characteristics']['file']['size']);
-				$fileService->setExtension($this->config['file_characteristics']['file']['extension']);
-
-				$manifestFile = $fileService->copy($this->params()->fromFiles('manifest_file'));
-
-				$data['cost'] = str_replace('.','',$data['cost']);
-				$data['output_inventory'] = $container->id ;
-				$data['serials'] = json_encode($serials);
-				$data['manifest_file'] = $manifestFile ? $manifestFile : "" ;
+			if ($form->isValid()) {
 
 				$detailsOutputInventory->exchangeArray($data);
-				$outputInventoryId = $this->getDetailsOutputInventoryTable()->save($detailsOutputInventory);
+				$detailsOutputInventory->setOutputInventory($outputInventoryId);
+
+				$this->getDetailsOutputInventoryTable()->save($detailsOutputInventory);
 
 				return $this->redirect()->toRoute('process/output_inventory/add/details');
-
-
-			}
-			else {
-				if(!$serialValuesElementErrors) {
-					$serialValuesMessageError = "debe ingresar el serial principal para cada producto";
-					$viewModel->setVariable('serialValuesMessageError', $serialValuesMessageError);
-				}
 			}
 		}
 
-		//$detailsOutputInventory = $this->getDetailsOutputInventoryTable()->get($container->id);
+		$detailsOutputInventory = $this->getDetailsOutputInventoryTable()->get($container->id);
 
 		$viewModel->setVariable('form',$form);
 		$viewModel->setVariable('outputInventory', $outputInventory);
 		$viewModel->setVariable('config', $this->config);
-		//$viewModel->setVariable('detailsOutputInventory', $detailsOutputInventory);
+		$viewModel->setVariable('detailsOutputInventory', $detailsOutputInventory);
 
 		$viewModel->setTemplate("process/output-inventory/details");
 

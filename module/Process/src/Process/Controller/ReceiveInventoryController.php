@@ -227,8 +227,6 @@ implements ConfigAwareInterface
 		}
 
 		$jsonModel = new JsonModel();
-
-
 		$jsonModel->setVariable("serials",$serialList);
 		return $jsonModel;
 	}

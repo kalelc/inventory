@@ -50,15 +50,15 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	</div>
 	<div class="form-group">
-		<?php echo $this->formLabel($form->get('sale_value')->setLabel($this->config['component']['sale_value'][1])); ?>
+		<?php echo $this->formLabel($form->get('cost')->setLabel($this->config['component']['cost'][1])); ?>
 		<div class="col-sm-3">
 			<div class="input-group">
 				<span class="input-group-addon">$</span>
-				<?php echo $this->formInput($form->get('sale_value')); ?>
+				<?php echo $this->formInput($form->get('cost')); ?>
 				<span class="input-group-addon">.00</span>
 			</div>
 
-			<?php echo $this->formElementErrors($form->get('sale_value'), array("class" => "error")); ?>
+			<?php echo $this->formElementErrors($form->get('cost'), array("class" => "error")); ?>
 		</div>
 	</div>
 	<div class="form-group">
@@ -81,3 +81,77 @@ echo $this->layoutHelper()->header(array(
 	<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['add']['text'])); ?>
 	<?php echo $this->form()->closeTag(); ?>
 	<br>
+	<?php if(isset($detailsOutputInventory) && count($detailsOutputInventory)>0): ?>
+		<div class="panel panel-default">
+			<div class="panel-heading"><h5><?php echo $title2; ?></h5></div>
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th><?php echo $config['component']['cost'][1]; ?></th>
+						<th><?php echo $config['component']['iva'][1]; ?></th>
+						<th><?php echo $config['component']['product'][1]; ?></th>
+						<th><?php echo $config['component']['serial_name'][1]; ?></th>
+						<th><?php echo $config['component']['qty'][1]; ?></th>
+						<th><?php echo $config['component']['total'][1]; ?></th>
+						<th></th>
+					</tr>
+				</thead>
+				<?php 
+				$totalQty = 0 ; 
+				$totalIva = 0 ;
+				$totalCost = 0 ;
+
+				foreach($detailsOutputInventory as $detailOutputInventory): ?>
+				<?php dumpx($detailOutputInventory); ?>
+				<?php $subTotalCost = 0 ?>
+				<tbody>
+					<tr>
+						<td>$ <?php echo number_format($detailOutputInventory->getCost()); ?></td>
+						<td>$ 
+							<?php 
+							$totalIva = $totalIva + $detailOutputInventory->getIvaAccumulated();
+							echo number_format($detailOutputInventory->getIvaAccumulated()); 
+							?>
+						</td>
+						<td>
+							<a href="javascript:void(0);" class="tooltip_preview" data-original-title="<?php echo $detailOutputInventory->getProduct(); ?>"><?php echo substr($detailOutputInventory->getProduct(),0,30); ?>...</a>
+						</td>
+						<td>serial</td>
+						<td>
+							<?php 
+							$totalQty = $totalQty +	$detailOutputInventory->getQty(); 
+							echo $detailOutputInventory->getQty();
+							?>
+						</td>
+						<td>$ 
+							<?php 
+							$subTotalCost = $detailOutputInventory->getQty() * $detailOutputInventory->getCost() ;
+							echo number_format($subTotalCost); 
+							$totalCost = $totalCost + $subTotalCost;
+							?>
+						</td>
+						<td>
+							<a href="<?php echo $this->url('process/receive_inventory/add/details/delete', array('id' => $detailOutputInventory->getId())); ?>">
+								<label class="<?php echo $this->config['action']['delete']['class']; ?>">
+									<i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
+								</label>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+				<?php $totalCost = $totalCost + $detailOutputInventory->getCost(); ?>
+			<?php endforeach; ?>
+			<tfoot>
+				<tr class="success">
+					<td></td>
+					<td>$ <?php echo number_format($totalIva) ; ?></td>
+					<td></td>
+					<td></td>
+					<td><?php echo $totalQty ; ?></td>
+					<td>$ <?php echo number_format($totalCost); ?></td>
+					<td>$ <?php echo number_format($totalIva + $totalCost) ; ?></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+<?php endif; ?>

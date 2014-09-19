@@ -1,16 +1,9 @@
 $(document).ready(function() {
-	/*
-	$('#product_serial').blur(function() {
-		var product = $('#product_serial').val();
-		$.fn.searchProductSerial(product);
-	});
-*/
-$('#product_serial').keyup(function() {
-	var serial = $('#product_serial').val();
-	//if(serial.length >= 4) {
+
+	$('#product_serial').keyup(function() {
+		var serial = $('#product_serial').val();
 		$.fn.searchSerial(serial);
-	//}
-});
+	});
 });
 
 function searchProductSerial(serialName) {

@@ -51,9 +51,9 @@ class DetailsOutputInventoryForm extends Form
 			));
 
 		$this->add(array(
-			'name' => 'sale_value',
+			'name' => 'cost',
 			'attributes' => array(
-				'id'	=> 'sale_value',
+				'id'	=> 'cost',
 				'type'  => 'text',
 				'class' => 'form-control number_format',
 				),

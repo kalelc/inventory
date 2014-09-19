@@ -4,7 +4,7 @@ namespace Process\Model;
 use Application\Db\TableGateway;
 use Zend\Db\Sql\Select;
 
-class DetailsReceiveInventoryTable
+class DetailsOutputInventoryTable
 {
 	protected $tableGateway;
 	protected $eventManager;
@@ -26,11 +26,11 @@ class DetailsReceiveInventoryTable
 
 	}
 
-	public function get($receiveInventoryId,$id = false)
+	public function get($outputInventoryId,$id = false)
 	{
 		$select = new Select($this->tableGateway->getTable());
-		$select->join('receive_inventory', "receive_inventory.id = ".$this->tableGateway->getTable().".receive_inventory", array(), 'inner');
-		$select->where(array($this->tableGateway->getTable().".receive_inventory" => $receiveInventoryId));
+		$select->join('output_inventory', "output_inventory.id = ".$this->tableGateway->getTable().".output_inventory", array(), 'inner');
+		$select->where(array($this->tableGateway->getTable().".output_inventory" => $outputInventoryId));
 
 		if($id) {
 			$select->where(array($this->tableGateway->getTable().".id" => $id));
@@ -68,33 +68,19 @@ class DetailsReceiveInventoryTable
 		return $result;
 	}
 
-	public function searchSerial($serial)
+	public function save(DetailsOutputInventory $detailsOutputInventory)
 	{
-		$select = new Select($this->tableGateway->getTable());
-		$select->columns(array("serials"));
-		$select->join("products", "products.id = ".$this->tableGateway->getTable().".product", array('id' => 'id'));
-		$select->where->like($this->tableGateway->getTable().".serials","%".$serial."%");
-		
-		$result = $this->tableGateway->selectWith($select);
-		return $result;
-	}
-
-	public function save(DetailsReceiveInventory $detailsReceiveInventory)
-	{
-
 		$data = array(
-			'receive_inventory' => $detailsReceiveInventory->getReceiveInventory(),
-			'cost' => $detailsReceiveInventory->getCost(),
-			'iva' => $detailsReceiveInventory->getIva(),
-			'product' => $detailsReceiveInventory->getProduct(),
-			'qty' => $detailsReceiveInventory->getQty(),
-			'serials' => $detailsReceiveInventory->getSerials(),
-			'manifest_file' => $detailsReceiveInventory->getManifestFile(),
+			'output_inventory' => $detailsOutputInventory->getOutputInventory(),
+			'cost' => $detailsOutputInventory->getCost(),
+			'iva' => $detailsOutputInventory->getIva(),
+			'product' => $detailsOutputInventory->getProduct(),
+			'qty' => $detailsOutputInventory->getQty(),
 			'register_date'			=> date("Y-m-d H:i:s", time()),
 			'update_date' 			=> date("Y-m-d H:i:s", time()),
 			);
 
-		$id = (int)$detailsReceiveInventory->getId();
+		$id = (int)$detailsOutputInventory->getId();
 		
 		$params = array();
 		$params['table'] = $this->tableGateway->getTableName();

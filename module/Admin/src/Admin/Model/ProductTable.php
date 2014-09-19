@@ -80,12 +80,10 @@ class ProductTable
 		$select->columns(array('model','id'));
 		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'));
 		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'));
-		$select->join("details_receive_inventory", "details_receive_inventory.product = ".$this->tableGateway->getTable().".id");
+		$select->join("details_receive_inventory", "details_receive_inventory.product = ".$this->tableGateway->getTable().".id", array());
 		$select->where->like("details_receive_inventory.serials","%".$serial."%");
 
 		$rows = $this->tableGateway->selectWith($select);
-
-		error_log($select->getSqlString());
 
 		$productList = array();
 

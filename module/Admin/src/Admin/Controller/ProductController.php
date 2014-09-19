@@ -458,7 +458,6 @@ implements ConfigAwareInterface
 	public function productSearchSerialAction()
 	{
 		$product = $this->params()->fromPost('product');
-		error_log("product ".utf8_decode($product));
 		$jsonModel = new JsonModel();
 		$productList = array();
 
