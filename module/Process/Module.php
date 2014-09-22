@@ -18,6 +18,8 @@ use Process\Model\DetailsReceiveInventory;
 use Process\Model\DetailsReceiveInventoryTable;
 use Process\Model\DetailsOutputInventory;
 use Process\Model\DetailsOutputInventoryTable;
+use Process\Model\ProductsReceiveInventory;
+use Process\Model\ProductsReceiveInventoryTable;
 use Zend\ModuleManager\ModuleManager;
 use Application\ConfigAwareInterface;
 use Zend\Authentication\AuthenticationService;
@@ -237,6 +239,20 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new DetailsOutputInventory());
 
 					return new TableGateway('details_output_inventory', $dbAdapter,null, $resultSetPrototype, null);
+				},
+				'Process\Model\ProductsReceiveInventoryTable' => function ($sm)
+				{
+					$tableGateway = $sm->get('ProductsReceiveInventoryTableGateway');
+					$table = new ProductsReceiveInventoryTable($tableGateway);
+					return $table;
+				},
+				'ProductsReceiveInventoryTableGateway' => function ($sm)
+				{
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new ProductsReceiveInventory());
+
+					return new TableGateway('products_receive_inventory', $dbAdapter,null, $resultSetPrototype, null);
 				},
 			),
 		);

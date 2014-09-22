@@ -87,8 +87,6 @@ class DetailsReceiveInventoryTable
 			'cost' => $detailsReceiveInventory->getCost(),
 			'iva' => $detailsReceiveInventory->getIva(),
 			'product' => $detailsReceiveInventory->getProduct(),
-			'qty' => $detailsReceiveInventory->getQty(),
-			'serials' => $detailsReceiveInventory->getSerials(),
 			'manifest_file' => $detailsReceiveInventory->getManifestFile(),
 			'register_date'			=> date("Y-m-d H:i:s", time()),
 			'update_date' 			=> date("Y-m-d H:i:s", time()),

@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Process\Model\ReceiveInventory;
 use Process\Model\ReceiveInventoryTable;
 use Process\Model\DetailsReceiveInventory;
+use Process\Model\ProductsReceiveInventory;
 use Zend\View\Model\JsonModel;
 use Zend\File\Transfer\Adapter\Http  as HttpTransfer;
 use Zend\Validator\File\Size;
@@ -126,7 +127,7 @@ implements ConfigAwareInterface
 
 				$fileService = $this->getServiceLocator()->get('Admin\Service\FileService');
 
-				$fileService->setDestination($this->config['component']['detail_receive_inventory']['file_path']);
+				$fileService->setDestination($this->config['component']['details_receive_inventory']['file_path']);
 				$fileService->setSize($this->config['file_characteristics']['file']['size']);
 				$fileService->setExtension($this->config['file_characteristics']['file']['extension']);
 
@@ -138,11 +139,15 @@ implements ConfigAwareInterface
 				$data['manifest_file'] = $manifestFile ? $manifestFile : "" ;
 
 				$detailsReceiveInventory->exchangeArray($data);
-				$receiveInventoryId = $this->getDetailsReceiveInventoryTable()->save($detailsReceiveInventory);
+				$detailsReceiveInventoryId = $this->getDetailsReceiveInventoryTable()->save($detailsReceiveInventory);
+
+				$productsReceiveInventory = new ProductsReceiveInventory();
+				$productsReceiveInventory->setDetailsReceiveInventory($detailsReceiveInventoryId);
+				$productsReceiveInventory->setSerial($serials);
+
+				$this->getProductsReceiveInventoryTable()->save($productsReceiveInventory);
 
 				return $this->redirect()->toRoute('process/receive_inventory/add/details');
-
-
 			}
 			else {
 				if(!$serialValuesElementErrors) {
@@ -153,11 +158,29 @@ implements ConfigAwareInterface
 		}
 
 		$detailsReceiveInventory = $this->getDetailsReceiveInventoryTable()->get($container->id);
+		$detailReceiveInventoryList = array();
 
+		foreach($detailsReceiveInventory as $detailReceiveInventory) {
+
+			$productsReceiveInventory = $this->getProductsReceiveInventoryTable()->getSerialList($detailReceiveInventory->getId());
+			
+			$serials = array();	
+
+			foreach($productsReceiveInventory as $productReceiveInventory) {
+				$serials[] = $productReceiveInventory->getSerial();
+				$detailReceiveInventory->setQty($productReceiveInventory->getNumber());
+			}
+			$detailReceiveInventory->setSerials($serials);
+			$detailReceiveInventoryList[] = $detailReceiveInventory;
+
+		}
+
+		//dumpx($detailReceiveInventoryList);
+		
 		$viewModel->setVariable('form',$form);
 		$viewModel->setVariable('receiveInventory', $receiveInventory);
 		$viewModel->setVariable('config', $this->config);
-		$viewModel->setVariable('detailsReceiveInventory', $detailsReceiveInventory);
+		$viewModel->setVariable('detailReceiveInventoryList', $detailReceiveInventoryList);
 
 		$viewModel->setTemplate("process/receive-inventory/details");
 
@@ -184,7 +207,6 @@ implements ConfigAwareInterface
 			return $this->redirect()->toRoute('process/receive_inventory/add/details');
 		}
 
-		//$this->getDetailsReceiveInventoryTable()->geList($container->id);
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -193,6 +215,7 @@ implements ConfigAwareInterface
 				$id = (int) $request->getPost('id');
 				@unlink($this->config['component']['detail_receive_inventory']['file_path']."/".$this->getDetailsReceiveInventoryTable()->get($receiveInventoryId,$id)->getManifestFile());
 
+				$result = $this->getProductsReceiveInventoryTable()->delete($id);
 				$result = $this->getDetailsReceiveInventoryTable()->delete($id);
 
 				if(isset($result) && $result) {

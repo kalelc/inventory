@@ -2,7 +2,7 @@
 $this->headScript()->prependFile('/js/details-receive-inventory.js', 'text/javascript');
 
 $title1 = $this->config['component']['receive_inventory'][0];
-$title2 = $this->config['component']['detail_receive_inventory'][0];
+$title2 = $this->config['component']['details_receive_inventory'][0];
 $action = $this->config['action']['detail']['text'];
 echo $this->layoutHelper()->header(array(
 	'module' => array('url' => $this->url('process/receive_inventory/add'),'value' => $title1),
@@ -110,7 +110,7 @@ echo $this->layoutHelper()->header(array(
 		<?php echo $this->formSubmit($form->get('submit')->setValue($this->config['action']['add']['text'])); ?>
 		<?php echo $this->form()->closeTag(); ?>
 		<br>
-		<?php if(isset($detailsReceiveInventory) && count($detailsReceiveInventory)>0): ?>
+		<?php if(isset($detailReceiveInventoryList) && count($detailReceiveInventoryList)>0): ?>
 			<div class="panel panel-default">
 				<div class="panel-heading"><h5><?php echo $title2; ?></h5></div>
 				<table class="table table-bordered table-hover">
@@ -131,7 +131,8 @@ echo $this->layoutHelper()->header(array(
 					$totalIva = 0 ;
 					$totalCost = 0 ;
 
-					foreach($detailsReceiveInventory as $detailReceiveInventory): ?>
+					foreach($detailReceiveInventoryList as $detailReceiveInventory): ?>
+					<?php //dumpx($detailReceiveInventory); ?>
 					<?php $subTotalCost = 0 ?>
 					<tbody>
 						<tr>
@@ -159,6 +160,7 @@ echo $this->layoutHelper()->header(array(
 								?>
 							</td>
 							<td>
+							<?php echo json_encode($detailReceiveInventory->getSerials()); ?>
 								<a href="javascript:void(0)" class="btn btn-primary se-xs" onclick='showModalList("<?php echo addslashes($detailReceiveInventory->getSerials()); ?>","<?php echo $this->config['component']['serial_name'][0] ?>");'>
 									<span class="glyphicon glyphicon-th-list"></span></a>
 								</td>

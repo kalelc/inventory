@@ -16,6 +16,7 @@ class DetailsReceiveInventory implements InputFilterAwareInterface
     protected $product;
     protected $qty;
     protected $manifestFile;
+
     protected $serials;
 
 

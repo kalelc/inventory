@@ -1,9 +1,12 @@
 <?php
-$title = $this->config['component']['detail_receive_inventory'][0];
+$title = $this->config['component']['details_receive_inventory'][0];
+$title1 = $this->config['component']['receive_inventory'][0];
+$title2 = $this->config['component']['details_receive_inventory'][0];
 $action = $this->config['action']['remove'];
+
 echo $this->layoutHelper()->header(array(
-	'module' => array('url' => $this->url('process/receive_inventory/add/details/delete'),'value' => $title),
-	'action' => array('url' => '','value' => $action)
+	'module' => array('url' => $this->url('process/receive_inventory/add'),'value' => $title1),
+	'action' => array('url' => $this->url('process/receive_inventory/add/details'),'value' => $title2)
 	));
 	?>
 
@@ -17,19 +20,19 @@ echo $this->layoutHelper()->header(array(
 		</div>
 	<?php else: ?>
 
-			<div class="alert alert-danger">
-				<p>Esta seguro que quiere borrar el producto '<?php echo $detailReceiveInventory->getProduct(); ?>'?</p>
-			</div>
-			<?php
-			$url = $this->url('process/receive_inventory/add/details/delete', array(
-				'id'=> $this->id,
-				));
-				?>
-				<form action="<?php echo $url; ?>" method="post">
-					<div class="well well-sm">
-						<input type="hidden" name="id" value="<?php echo (int) $detailReceiveInventory->getId(); ?>" />
-						<?php echo $this->config['action']['delete_yes']; ?>
-						<?php echo $this->config['action']['delete_no']; ?>
-					</div>
-				</form>
-	<?php endif; ?>
+		<div class="alert alert-danger">
+			<p>Esta seguro que quiere borrar el producto '<?php echo $detailReceiveInventory->getProduct(); ?>'?</p>
+		</div>
+		<?php
+		$url = $this->url('process/receive_inventory/add/details/delete', array(
+			'id'=> $this->id,
+			));
+			?>
+			<form action="<?php echo $url; ?>" method="post">
+				<div class="well well-sm">
+					<input type="hidden" name="id" value="<?php echo (int) $detailReceiveInventory->getId(); ?>" />
+					<input type="submit" name="del" value="Si" class="btn btn-danger btn-sm"/>
+					<input type="submit" name="del" value="No" class="btn btn-default btn-sm"/>
+				</div>
+			</form>
+		<?php endif; ?>

@@ -39,5 +39,14 @@ Trait ModuleTablesTrait
 		}
 		return $detailsOutputInventoryTable;
 	}
+
+	public function getProductsReceiveInventoryTable()
+	{
+		$productsReceiveInventoryTable = "";
+		if (!$productsReceiveInventoryTable) {
+			$productsReceiveInventoryTable = $this->getServiceLocator()->get('Process\Model\ProductsReceiveInventoryTable');
+		}
+		return $productsReceiveInventoryTable;
+	}
 }
 ?>
