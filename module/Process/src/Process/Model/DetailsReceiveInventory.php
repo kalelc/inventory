@@ -30,7 +30,7 @@ class DetailsReceiveInventory implements InputFilterAwareInterface
         if (array_key_exists('iva', $data)) $this->setIva($data['iva']);
         if (array_key_exists('product', $data)) $this->setProduct($data['product']);
         if (array_key_exists('qty', $data)) $this->setQty($data['qty']);
-        if (array_key_exists('serials', $data)) $this->setSerials($data['serials']);
+        if (array_key_exists('serial', $data)) $this->setSerials($data['serial']);
         if (array_key_exists('manifest_file', $data)) $this->setManifestFile($data['manifest_file']);
 	}
 

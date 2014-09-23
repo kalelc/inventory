@@ -102,7 +102,6 @@ echo $this->layoutHelper()->header(array(
 				$totalCost = 0 ;
 
 				foreach($detailsOutputInventory as $detailOutputInventory): ?>
-				<?php dumpx($detailOutputInventory); ?>
 				<?php $subTotalCost = 0 ?>
 				<tbody>
 					<tr>
@@ -116,7 +115,7 @@ echo $this->layoutHelper()->header(array(
 						<td>
 							<a href="javascript:void(0);" class="tooltip_preview" data-original-title="<?php echo $detailOutputInventory->getProduct(); ?>"><?php echo substr($detailOutputInventory->getProduct(),0,30); ?>...</a>
 						</td>
-						<td>serial</td>
+						<td><?php echo $detailOutputInventory->getSerial(); ?></td>
 						<td>
 							<?php 
 							$totalQty = $totalQty +	$detailOutputInventory->getQty(); 

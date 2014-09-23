@@ -25,7 +25,6 @@ $.fn.searchSerial = function(serial) {
 		})
 		.done(
 			function(result) {
-
 				$("#serials").html("<li><a href='javascript:void(0);'>Buscando..</a></li>");
 
 				if (typeof result === 'object') {
@@ -37,14 +36,7 @@ $.fn.searchSerial = function(serial) {
 					}
 
 					$.each(result.serials, function(key, item) {
-						
-						var serialName = "" ;
-						var serialsArray = $.parseJSON(item);
-						
-						for(var i = 0; i < serialsArray[0].length;i++) {
-							serialName += serialsArray[0][i];
-						}
-						$("#serials").append("<li><a href='javascript:void(0);' onclick='searchProductSerial(\""+serialName+"\")'>"+serialName+"</a></li>");
+						$("#serials").append("<li><a href='javascript:void(0);' onclick='searchProductSerial(\""+item+"\")'>"+item+"</a></li>");
 					});
 				} else {
 					$("#serials").html("");
@@ -76,6 +68,8 @@ $.fn.searchProductSerial = function(product) {
 				if (typeof result === 'object') {
 					var productList = Array();
 					$("#product").html("")
+
+					console.log(result.products);
 					$.each(result.products, function(key, item) {
 						$("#product").append("<option value='"+key+"'>"+item+"</option>")
 						productList[key] = item ;

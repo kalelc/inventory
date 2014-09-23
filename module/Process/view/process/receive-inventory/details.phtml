@@ -148,21 +148,23 @@ echo $this->layoutHelper()->header(array(
 							</td>
 							<td>
 								<?php 
-								$totalQty = $totalQty +	$detailReceiveInventory->getQty(); 
-								echo $detailReceiveInventory->getQty();
+								$qty = $detailReceiveInventory->getQty();
+								$totalQty = $totalQty +	$qty; 
+								echo $qty;
 								?>
 							</td>
 							<td>$ 
 								<?php 
-								$subTotalCost = $detailReceiveInventory->getQty() * $detailReceiveInventory->getCost() ;
+								$subTotalCost = $qty * $detailReceiveInventory->getCost() ;
 								echo number_format($subTotalCost); 
 								$totalCost = $totalCost + $subTotalCost;
 								?>
 							</td>
 							<td>
 							<?php echo json_encode($detailReceiveInventory->getSerials()); ?>
-								<a href="javascript:void(0)" class="btn btn-primary se-xs" onclick='showModalList("<?php echo addslashes($detailReceiveInventory->getSerials()); ?>","<?php echo $this->config['component']['serial_name'][0] ?>");'>
-									<span class="glyphicon glyphicon-th-list"></span></a>
+							<!--
+								<a href="javascript:void(0)" class="btn btn-primary se-xs" onclick='showModalList("<?php //echo addslashes($detailReceiveInventory->getSerials()); ?>","<?php //echo $this->config['component']['serial_name'][0] ?>");'>
+									<span class="glyphicon glyphicon-th-list"></span></a>-->
 								</td>
 								<td>
 									<?php if($detailReceiveInventory->getManifestFile()): ?>
@@ -179,7 +181,7 @@ echo $this->layoutHelper()->header(array(
 									</td>
 								</tr>
 							</tbody>
-							<?php $totalCost = $totalCost + $detailReceiveInventory->getCost(); ?>
+							<?php //$totalCost = $totalCost + $detailReceiveInventory->getCost(); ?>
 						<?php endforeach; ?>
 						<tfoot>
 							<tr class="success">

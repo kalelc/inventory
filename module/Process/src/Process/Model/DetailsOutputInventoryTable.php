@@ -23,7 +23,6 @@ class DetailsOutputInventoryTable
 		$resultSet = $this->tableGateway->select();
 		$resultSet->buffer();
 		return $resultSet;
-
 	}
 
 	public function get($outputInventoryId,$id = false)
@@ -40,7 +39,6 @@ class DetailsOutputInventoryTable
 			$result->setProduct(implode($product));
 		}
 		else {
-
 			$resultSet = $this->tableGateway->selectWith($select);
 
 			$result = array();
@@ -61,7 +59,6 @@ class DetailsOutputInventoryTable
 					$rows->setIvaAccumulated(0);
 					break ;
 				}
-
 				$result[] = $rows;
 			}
 		}
@@ -72,10 +69,11 @@ class DetailsOutputInventoryTable
 	{
 		$data = array(
 			'output_inventory' => $detailsOutputInventory->getOutputInventory(),
-			'cost' => $detailsOutputInventory->getCost(),
-			'iva' => $detailsOutputInventory->getIva(),
 			'product' => $detailsOutputInventory->getProduct(),
 			'qty' => $detailsOutputInventory->getQty(),
+			'cost' => $detailsOutputInventory->getCost(),
+			'iva' => $detailsOutputInventory->getIva(),
+			'serial' => $detailsOutputInventory->getSerial(),
 			'register_date'			=> date("Y-m-d H:i:s", time()),
 			'update_date' 			=> date("Y-m-d H:i:s", time()),
 			);

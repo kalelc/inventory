@@ -91,13 +91,26 @@ implements ConfigAwareInterface
 		$data = $request->getPost()->toArray();
 		$form->setData($data);
 
-
 		if ($request->isPost()) {
 
 			if ($form->isValid()) {
 
+				$data['output_inventory'] = $outputInventoryId;
+				$data['serial'] = $data['product'];
+
+				dumpx($data);
+
+				$productsReceiveInventory = $this->getProductsReceiveInventoryTable()->getBySerial($data['serial']);
+
+				$detailsReceiveInventory = $productsReceiveInventory->getDetailsReceiveInventory();
+				$number = $productsReceiveInventory->getNumber();
+				$product = $productsReceiveInventory->getProduct();
+
+				$data['product'] = $product;
+
+				$this->getProductsReceiveInventoryTable()->update($detailsReceiveInventory,$number);
+
 				$detailsOutputInventory->exchangeArray($data);
-				$detailsOutputInventory->setOutputInventory($outputInventoryId);
 
 				$this->getDetailsOutputInventoryTable()->save($detailsOutputInventory);
 

@@ -189,11 +189,24 @@ implements ConfigAwareInterface
 	}
 
 	public function finishAction()
-	{
-		$container = new Container('receive_inventory');
-		$container->getManager()->getStorage()->clear('receive_inventory');
-		
-		return $this->redirect()->toRoute('process/receive_inventory/add');
+	{	
+		$viewModel = new ViewModel();
+		$viewModel->setTemplate("process/receive-inventory/finish-detail");
+		$viewModel->setVariable('config',$this->config);
+
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$del = $request->getPost('del', 'No');
+			if ($del == 'Si') {
+				$container = new Container('receive_inventory');
+				$container->getManager()->getStorage()->clear('receive_inventory');
+				return $this->redirect()->toRoute('process/receive_inventory/add');
+			}
+			else {
+				return $this->redirect()->toRoute('process/receive_inventory/add/details');
+			}
+		}
+		return $viewModel;
 	}
 
 	public function deleteDetailAction()
@@ -206,7 +219,6 @@ implements ConfigAwareInterface
 		if (!$id || !$receiveInventoryId) {
 			return $this->redirect()->toRoute('process/receive_inventory/add/details');
 		}
-
 
 		$request = $this->getRequest();
 		if ($request->isPost()) {
@@ -241,17 +253,21 @@ implements ConfigAwareInterface
 	public function searchSerialAction()
 	{
 		$serialValue = $this->params()->fromPost('serial');
-		$serials = $this->getDetailsReceiveInventoryTable()->searchSerial($serialValue);
 
-		$serialList = array();
-		
-		foreach($serials as $serial) {
-			$serialList[] = $serial->getSerials();
+		if(isset($serialValue) && !empty($serialValue)) {
+
+			$serials = $this->getDetailsReceiveInventoryTable()->searchSerial($serialValue);
+
+			$serialList = array();
+			
+			foreach($serials as $serial) {
+				$serialList[] = $serial->getSerials();
+			}
+
+			$jsonModel = new JsonModel();
+			$jsonModel->setVariable("serials",$serialList);
+			return $jsonModel;
 		}
-
-		$jsonModel = new JsonModel();
-		$jsonModel->setVariable("serials",$serialList);
-		return $jsonModel;
 	}
 
 	public function setConfig($config)

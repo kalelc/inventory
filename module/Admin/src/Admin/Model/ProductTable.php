@@ -81,7 +81,8 @@ class ProductTable
 		$select->join('categories', "categories.id = ".$this->tableGateway->getTable().".category", array('category_name' => 'singular_name'));
 		$select->join('brands', "brands.id = ".$this->tableGateway->getTable().".brand", array('brand_name' => 'name'));
 		$select->join("details_receive_inventory", "details_receive_inventory.product = ".$this->tableGateway->getTable().".id", array());
-		$select->where->like("details_receive_inventory.serials","%".$serial."%");
+		$select->join("products_receive_inventory", "products_receive_inventory.details_receive_inventory = details_receive_inventory.id", array('serial' => 'serial'));
+		$select->where->like("products_receive_inventory.serial","%".$serial."%");
 
 		$rows = $this->tableGateway->selectWith($select);
 
@@ -113,7 +114,7 @@ class ProductTable
 				else
 					$measureValue .= " ".$measureRow->getMeasureValue();
 			}
-			$productList[$row->getId()] = $measureValue;
+			$productList[$row->getSerial()] = $measureValue;
 		}
 
 		return $productList;

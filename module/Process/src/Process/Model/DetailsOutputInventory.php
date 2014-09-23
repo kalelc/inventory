@@ -14,6 +14,7 @@ class DetailsOutputInventory implements InputFilterAwareInterface
     protected $cost;
     protected $iva;
     protected $product;
+    protected $serial;
     protected $ivaAccumulated;
     protected $inputFilter;
 
@@ -25,6 +26,7 @@ class DetailsOutputInventory implements InputFilterAwareInterface
         if (array_key_exists('cost', $data)) $this->setCost($data['cost']);
         if (array_key_exists('iva', $data)) $this->setIva($data['iva']);
         if (array_key_exists('product', $data)) $this->setProduct($data['product']);
+        if (array_key_exists('serial', $data)) $this->setSerial($data['serial']);
     }
 
     public function getArrayCopy()
@@ -287,5 +289,29 @@ class DetailsOutputInventory implements InputFilterAwareInterface
     public function getIvaAccumulated()
     {
         return $this->ivaAccumulated;
+    }
+
+    /**
+     * Gets the value of serial.
+     *
+     * @return mixed
+     */
+    public function getSerial()
+    {
+        return $this->serial;
+    }
+    
+    /**
+     * Sets the value of serial.
+     *
+     * @param mixed $serial the serial 
+     *
+     * @return self
+     */
+    public function setSerial($serial)
+    {
+        $this->serial = $serial;
+
+        return $this;
     }
 }

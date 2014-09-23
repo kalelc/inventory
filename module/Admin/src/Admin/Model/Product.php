@@ -33,6 +33,7 @@ class Product implements InputFilterAwareInterface
     protected $categoryName;
     protected $brandName;
     protected $singularName;
+    protected $serial;
 
 	protected $inputFilter;
 
@@ -60,7 +61,8 @@ class Product implements InputFilterAwareInterface
 		if (array_key_exists('video', $data)) $this->setVideo($data['video']);
         if (array_key_exists('status', $data)) $this->setStatus($data['status']);
         if (array_key_exists('category_name', $data)) $this->setCategoryName($data['category_name']);
-		if (array_key_exists('brand_name', $data)) $this->setBrandName($data['brand_name']);
+        if (array_key_exists('brand_name', $data)) $this->setBrandName($data['brand_name']);
+		if (array_key_exists('serial', $data)) $this->setSerial($data['serial']);
 	}
 
 	public function getArrayCopy()
@@ -572,6 +574,17 @@ class Product implements InputFilterAwareInterface
     public function setSingularName($singularName)
     {
         $this->singularName = $singularName;
+        return $this;
+    }
+
+    public function getSerial()
+    {
+        return $this->serial;
+    }
+
+    public function setSerial($serial)
+    {
+        $this->serial = $serial;
         return $this;
     }
 }

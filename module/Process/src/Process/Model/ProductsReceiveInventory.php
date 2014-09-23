@@ -10,6 +10,7 @@ class ProductsReceiveInventory implements InputFilterAwareInterface
 {
 	protected $detailsReceiveInventory;
     protected $number;
+    protected $product;
     protected $serial;
 	protected $status;
 
@@ -19,6 +20,7 @@ class ProductsReceiveInventory implements InputFilterAwareInterface
 	{
         if (array_key_exists('details_receive_inventory', $data)) $this->setDetailsReceiveInventory($data['details_receive_inventory']);
 		if (array_key_exists('number', $data)) $this->setNumber($data['number']);
+        if (array_key_exists('product', $data)) $this->setProduct($data['product']);
         if (array_key_exists('serial', $data)) $this->setSerial($data['serial']);
 		if (array_key_exists('status', $data)) $this->setStatus($data['status']);
 	}
@@ -64,7 +66,7 @@ class ProductsReceiveInventory implements InputFilterAwareInterface
         return $this->number;
     }
 
-    protected function setNumber($number)
+    public function setNumber($number)
     {
         $this->number = $number;
         return $this;
@@ -75,9 +77,21 @@ class ProductsReceiveInventory implements InputFilterAwareInterface
         return $this->status;
     }
 
-    protected function setStatus($status)
+    public function setStatus($status)
     {
         $this->status = $status;
+        return $this;
+    }
+
+    public function getProduct()
+    {
+        return $this->product;
+    }
+    
+    public function setProduct($product)
+    {
+        $this->product = $product;
+
         return $this;
     }
 }

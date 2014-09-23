@@ -21,6 +21,20 @@ class ProductsReceiveInventoryTable
 		$resultSet = $this->tableGateway->select();
 		$resultSet->buffer();
 		return $resultSet;
+	}
+
+	public function getBySerial($serial)
+	{
+		$select = new Select($this->tableGateway->getTable());
+		$select->join('details_receive_inventory', "details_receive_inventory.id = ".$this->tableGateway->getTable().".details_receive_inventory", array("product"), 'inner');
+		$select->where(array($this->tableGateway->getTable().".serial" => $serial));
+
+		$rowset = $this->tableGateway->selectWith($select);
+		$row = $rowset->current();
+		if (!$row) {
+			return false;
+		}
+		return $row;
 
 	}
 
@@ -46,6 +60,19 @@ class ProductsReceiveInventoryTable
 		return $row;
 	}
 
+	public function update($detailsReceiveInventory,$number) 
+	{
+		$result = $this->tableGateway->update(array('status' => 1), array(
+			'details_receive_inventory' => $detailsReceiveInventory,
+			'number' => $number
+			));
+
+		if($result) {
+			return $result;
+		}
+		else
+			return false;
+	}
 
 	public function save(ProductsReceiveInventory $productsReceiveInventory)
 	{

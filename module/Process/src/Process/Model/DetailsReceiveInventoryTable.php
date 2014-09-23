@@ -71,10 +71,14 @@ class DetailsReceiveInventoryTable
 	public function searchSerial($serial)
 	{
 		$select = new Select($this->tableGateway->getTable());
-		$select->columns(array("serials"));
+		$select->columns(array());
 		$select->join("products", "products.id = ".$this->tableGateway->getTable().".product", array('id' => 'id'));
-		$select->where->like($this->tableGateway->getTable().".serials","%".$serial."%");
-		
+		$select->join("products_receive_inventory", "products_receive_inventory.details_receive_inventory = ".$this->tableGateway->getTable().".id", array('serial' => 'serial'));
+		$select->where(array("products_receive_inventory.status" => 0));
+		$select->where->like("products_receive_inventory.serial","%".$serial."%");
+
+		error_log($select->getSqlString());
+
 		$result = $this->tableGateway->selectWith($select);
 		return $result;
 	}

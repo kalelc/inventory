@@ -461,16 +461,19 @@ implements ConfigAwareInterface
 		$jsonModel = new JsonModel();
 		$productList = array();
 
-		$products = $this->getProductTable()->getBySerial($product) ;
+		if(isset($product) && !empty($product)){
 
-		foreach($products as $key => $productValue) {
+			$products = $this->getProductTable()->getBySerial($product) ;
+
+			foreach($products as $key => $productValue) {
 			//if(stristr($productValue,$product)){
 				$productList[$key] = $productValue;
 			//}
-		}
+			}
 
-		$jsonModel->setVariable("products",$productList);
-		return $jsonModel;
+			$jsonModel->setVariable("products",$productList);
+			return $jsonModel;
+		}
 	}
 
 
