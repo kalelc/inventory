@@ -17,23 +17,6 @@ class DetailsOutputInventoryForm extends Form
 
 
 		$this->add(array(
-			'name' => 'qty',
-			'attributes' => array(
-				'id'	=> 'qty',
-				'type'  => 'text',
-				'class' => 'form-control',
-				'maxlength'=>'2'
-				),
-			'options' => array(
-				'label' => 'name',
-				'label_attributes' => array(
-					'class'  => 'col-sm-2 control-label'
-					),
-
-				),
-			));
-
-		$this->add(array(
 			'name' => 'product_serial',
 			'attributes' => array(
 				'id'	=> 'product_serial',

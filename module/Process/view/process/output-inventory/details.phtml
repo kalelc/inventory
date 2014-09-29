@@ -43,13 +43,6 @@ echo $this->layoutHelper()->header(array(
 	<?php echo $this->form()->openTag($form); ?>
 	<?php echo $this->formHidden($form->get('csrf')); ?>
 	<div class="form-group">
-		<?php echo $this->formLabel($form->get('qty')->setLabel($this->config['component']['qty'][1])); ?>
-		<div class="col-sm-2">
-			<?php echo $this->formInput($form->get('qty')); ?>
-			<?php echo $this->formElementErrors($form->get('qty'), array("class" => "error")); ?>
-		</div>
-	</div>
-	<div class="form-group">
 		<?php echo $this->formLabel($form->get('cost')->setLabel($this->config['component']['cost'][1])); ?>
 		<div class="col-sm-3">
 			<div class="input-group">
@@ -91,7 +84,6 @@ echo $this->layoutHelper()->header(array(
 						<th><?php echo $config['component']['iva'][1]; ?></th>
 						<th><?php echo $config['component']['product'][1]; ?></th>
 						<th><?php echo $config['component']['serial_name'][1]; ?></th>
-						<th><?php echo $config['component']['qty'][1]; ?></th>
 						<th><?php echo $config['component']['total'][1]; ?></th>
 						<th></th>
 					</tr>

@@ -70,7 +70,6 @@ class DetailsOutputInventoryTable
 		$data = array(
 			'output_inventory' => $detailsOutputInventory->getOutputInventory(),
 			'product' => $detailsOutputInventory->getProduct(),
-			'qty' => $detailsOutputInventory->getQty(),
 			'cost' => $detailsOutputInventory->getCost(),
 			'iva' => $detailsOutputInventory->getIva(),
 			'serial' => $detailsOutputInventory->getSerial(),

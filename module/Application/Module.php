@@ -51,7 +51,7 @@ class Module
             'invokables' => array(
                 'formElementErrors' => 'Application\Form\View\Helper\FormElementErrors'
                 ),
-            );
+            );  
     }
     public function getAutoloaderConfig()
     {

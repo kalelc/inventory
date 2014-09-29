@@ -10,7 +10,6 @@ class DetailsOutputInventory implements InputFilterAwareInterface
 {
     protected $id;
     protected $outputInventory;
-    protected $qty;
     protected $cost;
     protected $iva;
     protected $product;
@@ -22,7 +21,6 @@ class DetailsOutputInventory implements InputFilterAwareInterface
     {
         if (array_key_exists('id', $data)) $this->setId($data['id']);
         if (array_key_exists('output_inventory', $data)) $this->setOutputInventory($data['output_inventory']);
-        if (array_key_exists('qty', $data)) $this->setQty($data['qty']);
         if (array_key_exists('cost', $data)) $this->setCost($data['cost']);
         if (array_key_exists('iva', $data)) $this->setIva($data['iva']);
         if (array_key_exists('product', $data)) $this->setProduct($data['product']);
@@ -80,26 +78,6 @@ class DetailsOutputInventory implements InputFilterAwareInterface
                         'options' => array(
                             'messages' => array(
                                 \Zend\Validator\NotEmpty::IS_EMPTY => 'seleccione el iva'
-                                ),
-                            ),
-                        ),
-                    ),
-                )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'qty',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                    ),
-                'validators' => array(
-
-                    array(
-                        'name'    => 'NotEmpty',
-                        'options' => array(
-                            'messages' => array(
-                                \Zend\Validator\NotEmpty::IS_EMPTY => 'ingrese cantidad'
                                 ),
                             ),
                         ),
@@ -178,30 +156,6 @@ class DetailsOutputInventory implements InputFilterAwareInterface
     public function setOutputInventory($outputInventory)
     {
         $this->outputInventory = $outputInventory;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of qty.
-     *
-     * @return mixed
-     */
-    public function getQty()
-    {
-        return $this->qty;
-    }
-    
-    /**
-     * Sets the value of qty.
-     *
-     * @param mixed $qty the qty 
-     *
-     * @return self
-     */
-    public function setQty($qty)
-    {
-        $this->qty = $qty;
 
         return $this;
     }
