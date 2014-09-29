@@ -7,8 +7,6 @@ use Zend\Db\Sql\Select;
 class DetailsReceiveInventoryTable
 {
 	protected $tableGateway;
-	protected $eventManager;
-	protected $cache;
 	protected $productTable;
 	protected $featureSet;
 
@@ -97,19 +95,12 @@ class DetailsReceiveInventoryTable
 			);
 
 		$id = (int)$detailsReceiveInventory->getId();
-		
-		$params = array();
-		$params['table'] = $this->tableGateway->getTableName();
-		$params['operation'] = 1;
-		$params['data'] = json_encode($data);
-		
+
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
 			$id = $this->tableGateway->getLastInsertValue();
 			
 			if($id) {
-				$params['id'] = $id;
-				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 				return $id;
 			}
 			else
@@ -117,9 +108,6 @@ class DetailsReceiveInventoryTable
 			
 		} else {
 			if ($this->get($id)) {
-				$params['id'] = $id;
-				$params['operation'] = 2;
-				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 				$this->tableGateway->update($data, array('id' => $id));
 				return $id;
 			} else {
@@ -130,40 +118,13 @@ class DetailsReceiveInventoryTable
 
 	public function delete($id)
 	{	
-		$params = array();
-		$params['table'] = $this->tableGateway->getTableName();
 		$result = $this->tableGateway->delete(array('id' => $id));
 
 		if($result) {
-			$params['id'] = $id;
-			$params['operation'] = 3;
-			$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 			return true;
 		}
 		else
 			return false;
-	}
-
-	public function getEventManager()
-	{
-		return $this->eventManager;
-	}
-
-	public function setEventManager($eventManager)
-	{
-		$this->eventManager = $eventManager;
-		return $this;
-	}
-
-	public function getCache()
-	{
-		return $this->cache;
-	}
-
-	public function setCache($cache)
-	{
-		$this->cache = $cache;
-		return $this;
 	}
 
 	public function getProductTable()

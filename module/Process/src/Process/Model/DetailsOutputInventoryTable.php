@@ -8,7 +8,6 @@ class DetailsOutputInventoryTable
 {
 	protected $tableGateway;
 	protected $eventManager;
-	protected $cache;
 	protected $productTable;
 	protected $featureSet;
 
@@ -23,6 +22,18 @@ class DetailsOutputInventoryTable
 		$resultSet = $this->tableGateway->select();
 		$resultSet->buffer();
 		return $resultSet;
+	}
+
+
+	public function getById($id)
+	{	
+		$id  = (int) $id;
+		$rowset = $this->tableGateway->select(array('id' => $id));
+		$row = $rowset->current();
+		if (!$row) {
+			return false;
+		}
+		return $row;
 	}
 
 	public function get($outputInventoryId,$id = false)
@@ -79,18 +90,11 @@ class DetailsOutputInventoryTable
 
 		$id = (int)$detailsOutputInventory->getId();
 		
-		$params = array();
-		$params['table'] = $this->tableGateway->getTableName();
-		$params['operation'] = 1;
-		$params['data'] = json_encode($data);
-		
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
 			$id = $this->tableGateway->getLastInsertValue();
 			
 			if($id) {
-				$params['id'] = $id;
-				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 				return $id;
 			}
 			else
@@ -98,9 +102,6 @@ class DetailsOutputInventoryTable
 			
 		} else {
 			if ($this->get($id)) {
-				$params['id'] = $id;
-				$params['operation'] = 2;
-				$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 				$this->tableGateway->update($data, array('id' => $id));
 				return $id;
 			} else {
@@ -111,14 +112,9 @@ class DetailsOutputInventoryTable
 
 	public function delete($id)
 	{	
-		$params = array();
-		$params['table'] = $this->tableGateway->getTableName();
 		$result = $this->tableGateway->delete(array('id' => $id));
 
 		if($result) {
-			$params['id'] = $id;
-			$params['operation'] = 3;
-			$this->featureSet->getEventManager()->trigger("log.save", $this,$params);
 			return true;
 		}
 		else
@@ -133,17 +129,6 @@ class DetailsOutputInventoryTable
 	public function setEventManager($eventManager)
 	{
 		$this->eventManager = $eventManager;
-		return $this;
-	}
-
-	public function getCache()
-	{
-		return $this->cache;
-	}
-
-	public function setCache($cache)
-	{
-		$this->cache = $cache;
 		return $this;
 	}
 

@@ -89,7 +89,6 @@ echo $this->layoutHelper()->header(array(
 					</tr>
 				</thead>
 				<?php 
-				$totalQty = 0 ; 
 				$totalIva = 0 ;
 				$totalCost = 0 ;
 
@@ -108,21 +107,11 @@ echo $this->layoutHelper()->header(array(
 							<a href="javascript:void(0);" class="tooltip_preview" data-original-title="<?php echo $detailOutputInventory->getProduct(); ?>"><?php echo substr($detailOutputInventory->getProduct(),0,30); ?>...</a>
 						</td>
 						<td><?php echo $detailOutputInventory->getSerial(); ?></td>
+						<?php $subTotalCost = $detailOutputInventory->getCost() ; ?>
+						<td>$ <?php echo number_format($subTotalCost); ?></td>
+						<?php //$totalCost = $totalCost + $subTotalCost; ?>
 						<td>
-							<?php 
-							$totalQty = $totalQty +	$detailOutputInventory->getQty(); 
-							echo $detailOutputInventory->getQty();
-							?>
-						</td>
-						<td>$ 
-							<?php 
-							$subTotalCost = $detailOutputInventory->getQty() * $detailOutputInventory->getCost() ;
-							echo number_format($subTotalCost); 
-							$totalCost = $totalCost + $subTotalCost;
-							?>
-						</td>
-						<td>
-							<a href="<?php echo $this->url('process/receive_inventory/add/details/delete', array('id' => $detailOutputInventory->getId())); ?>">
+							<a href="<?php echo $this->url('process/output_inventory/add/details/delete', array('id' => $detailOutputInventory->getId())); ?>">
 								<label class="<?php echo $this->config['action']['delete']['class']; ?>">
 									<i class="<?php echo $this->config['action']['delete']['icon'] ; ?>"></i>
 								</label>
@@ -138,11 +127,18 @@ echo $this->layoutHelper()->header(array(
 					<td>$ <?php echo number_format($totalIva) ; ?></td>
 					<td></td>
 					<td></td>
-					<td><?php echo $totalQty ; ?></td>
 					<td>$ <?php echo number_format($totalCost); ?></td>
-					<td>$ <?php echo number_format($totalIva + $totalCost) ; ?></td>
+					<td></td>
 				</tr>
 			</tfoot>
 		</table>
+	</div>
+	<div class="well well-sm">
+	<a href="<?php echo $this->url('process/output_inventory/finish'); ?>">
+			<label class="<?php echo $this->config['action']['finish']['class']; ?>">
+				<i class="<?php echo $this->config['action']['finish']['icon'] ; ?>"></i>
+				<?php echo $this->config['action']['finish']['text'] ; ?>
+			</label>
+		</a>
 	</div>
 <?php endif; ?>

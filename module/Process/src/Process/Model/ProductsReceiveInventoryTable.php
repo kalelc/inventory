@@ -42,6 +42,7 @@ class ProductsReceiveInventoryTable
 	{	
 		$id  = (int) $id;
 		$rowset = $this->tableGateway->select(array('details_receive_inventory' => $id));
+		dumpx($rowset);
 		$row = $rowset->current();
 		if (!$row) {
 			return false;
@@ -60,9 +61,9 @@ class ProductsReceiveInventoryTable
 		return $row;
 	}
 
-	public function update($detailsReceiveInventory,$number) 
+	public function update($detailsReceiveInventory,$number,$status = 1) 
 	{
-		$result = $this->tableGateway->update(array('status' => 1), array(
+		$result = $this->tableGateway->update(array('status' => $status), array(
 			'details_receive_inventory' => $detailsReceiveInventory,
 			'number' => $number
 			));

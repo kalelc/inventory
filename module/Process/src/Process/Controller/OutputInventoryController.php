@@ -97,8 +97,7 @@ implements ConfigAwareInterface
 
 				$data['output_inventory'] = $outputInventoryId;
 				$data['serial'] = $data['product'];
-
-				dumpx($data);
+				$data['cost'] = str_replace('.','',$data['cost']);
 
 				$productsReceiveInventory = $this->getProductsReceiveInventoryTable()->getBySerial($data['serial']);
 
@@ -109,7 +108,6 @@ implements ConfigAwareInterface
 				$data['product'] = $product;
 
 				$this->getProductsReceiveInventoryTable()->update($detailsReceiveInventory,$number);
-
 				$detailsOutputInventory->exchangeArray($data);
 
 				$this->getDetailsOutputInventoryTable()->save($detailsOutputInventory);
@@ -131,15 +129,71 @@ implements ConfigAwareInterface
 	}
 
 	public function finishAction()
-	{
-		$container = new Container('output_inventory');
-		$container->getManager()->getStorage()->clear('output_inventory');
-		
-		return $this->redirect()->toRoute('process/output_inventory/add');
+	{	
+		$viewModel = new ViewModel();
+		$viewModel->setTemplate("process/output-inventory/finish-detail");
+		$viewModel->setVariable('config',$this->config);
+
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$del = $request->getPost('del', 'No');
+			if ($del == 'Si') {
+				$container = new Container('output_inventory');
+				$container->getManager()->getStorage()->clear('output_inventory');
+				return $this->redirect()->toRoute('process/output_inventory/add');
+			}
+			else {
+				return $this->redirect()->toRoute('process/output_inventory/add/details');
+			}
+		}
+		return $viewModel;
 	}
 
 	public function deleteDetailAction()
-	{}
+	{
+		$viewModel = new ViewModel();
+		$container = new Container('output_inventory');
+		$outputInventoryId = (int) $container->id;
+
+		$id = (int) $this->params()->fromRoute('id', 0);
+		if (!$id || !$outputInventoryId) {
+			return $this->redirect()->toRoute('process/output_inventory/add/details');
+		}
+
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$del = $request->getPost('del', 'No');
+			if ($del == 'Si') {
+
+				$id = (int) $request->getPost('id');
+
+				$detailsReceiveInventory = $this->getDetailsOutputInventoryTable()->getById($id);
+				$productsReceiveInventory = $this->getProductsReceiveInventoryTable()->getBySerial($detailsReceiveInventory->getSerial());
+				$number = $productsReceiveInventory->getNumber();
+				$detailsReceiveInventory = $productsReceiveInventory->getDetailsReceiveInventory();
+				$this->getProductsReceiveInventoryTable()->update($detailsReceiveInventory,$number,0);
+
+				$result = $this->getProductsReceiveInventoryTable()->update($id);
+				$result = $this->getDetailsOutputInventoryTable()->delete($id);
+
+				if(isset($result) && $result) {
+					return $this->redirect()->toRoute('process/output_inventory/add/details');
+				}
+				else {
+					$viewModel->setVariable("error",true);
+				}
+			}
+			else
+				return $this->redirect()->toRoute('process/output_inventory/add/details');
+		}
+
+		$viewModel->setVariables(array(
+			'detailOutputInventory' => $this->getDetailsOutputInventoryTable()->get($outputInventoryId,$id),
+			'config' => $this->config,
+			'id'=> $id,
+			));
+		return $viewModel;
+	}
 
 
 	public function setConfig($config)
